@@ -1,4 +1,4 @@
-package me.paulbares.spring;
+package io.squashql.spring;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

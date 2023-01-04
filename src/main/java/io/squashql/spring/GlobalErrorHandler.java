@@ -1,4 +1,4 @@
-package me.paulbares.spring;
+package io.squashql.spring;
 
 
 import org.springframework.http.ResponseEntity;

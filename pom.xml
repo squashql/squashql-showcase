@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.paulbares</groupId>
-    <artifactId>aitm-sandbox</artifactId>
+    <groupId>io.squashql</groupId>
+    <artifactId>squashql-sandbox</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -15,7 +15,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <aitm.version>0.1-SNAPSHOT</aitm.version>
+        <squashql.version>0.1-SNAPSHOT</squashql.version>
         <spring-boot.version>2.6.1</spring-boot.version>
         <junit.version>5.9.1</junit.version>
         <junit-platform.version>1.9.1</junit-platform.version>
@@ -23,14 +23,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>me.paulbares</groupId>
-            <artifactId>aitm-server</artifactId>
-            <version>${aitm.version}</version>
+            <groupId>io.squashql</groupId>
+            <artifactId>squashql-server</artifactId>
+            <version>${squashql.version}</version>
         </dependency>
         <dependency>
-            <groupId>me.paulbares</groupId>
-            <artifactId>aitm-spark</artifactId>
-            <version>${aitm.version}</version>
+            <groupId>io.squashql</groupId>
+            <artifactId>squashql-spark</artifactId>
+            <version>${squashql.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>slf4j-log4j12</artifactId>
@@ -113,7 +113,7 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <version>${spring-boot.version}</version>
                         <configuration>
-                            <mainClass>me.paulbares.AitmSandboxApplication</mainClass>
+                            <mainClass>io.squashql.SandboxApplication</mainClass>
                             <jvmArguments>
                                 --add-opens=java.base/sun.nio.ch=ALL-UNNAMED
                             </jvmArguments>

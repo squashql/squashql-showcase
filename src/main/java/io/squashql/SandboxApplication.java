@@ -1,13 +1,12 @@
-package me.paulbares;
+package io.squashql;
 
-import me.paulbares.jackson.JacksonUtil;
-import me.paulbares.query.database.QueryEngine;
-import me.paulbares.query.database.SparkQueryEngine;
+import io.squashql.jackson.JacksonUtil;
+import io.squashql.query.database.QueryEngine;
+import io.squashql.query.database.SparkQueryEngine;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -16,10 +15,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.net.URISyntaxException;
 
 @SpringBootApplication
-public class AitmSandboxApplication {
+public class SandboxApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(AitmSandboxApplication.class, args);
+    SpringApplication.run(SandboxApplication.class, args);
   }
 
   @Bean
