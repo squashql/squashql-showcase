@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
+import _isNil from "lodash/isNil";
 import { mergeMaps, sortItemsMap } from "../components/Filters/utils";
 import { FormattedMetaData, fetchAllFilters } from "../network";
 
 type FiltersByColumn = Map<string, Set<string>>;
 
 const useFiltersFromColumns = (columns: FormattedMetaData["filters"]) => {
-  const [filtersByColumn, setFiltersByColumn] = useState<FiltersByColumn>(
-    new Map()
-  );
+  const [filtersByColumn, setFiltersByColumn] = useState<FiltersByColumn>(new Map());
   const [isLoadingFilters, setLoadingFilters] = useState<boolean>(false);
 
-  const loadFilters = async (
-    columnsToLoad: FormattedMetaData["filters"],
-    isComponentMounted: boolean
-  ) => {
+  const loadFilters = async (columnsToLoad: FormattedMetaData["filters"], isComponentMounted: boolean) => {
     try {
       setLoadingFilters(true);
       const fetchedFilters = await fetchAllFilters(columnsToLoad);
@@ -34,7 +30,9 @@ const useFiltersFromColumns = (columns: FormattedMetaData["filters"]) => {
   useEffect(() => {
     let isComponentMounted = true;
 
-    if (columns.length !== 0) {
+    const noEmptyFilters = columns.filter((column) => column.values.filter((value) => !_isNil(value)).length > 0);
+
+    if (noEmptyFilters.length !== 0) {
       loadFilters(columns, isComponentMounted);
     }
 
