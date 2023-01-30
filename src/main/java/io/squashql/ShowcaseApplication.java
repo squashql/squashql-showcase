@@ -15,10 +15,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.net.URISyntaxException;
 
 @SpringBootApplication
-public class SandboxApplication {
+public class ShowcaseApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(SandboxApplication.class, args);
+    SpringApplication.run(ShowcaseApplication.class, args);
   }
 
   @Bean
@@ -47,7 +47,7 @@ public class SandboxApplication {
     String property = System.getProperty("dataset.path");
     Dataset<Row> dataFrame;
     try {
-      String path = property != null ? property : Thread.currentThread().getContextClassLoader().getResource("data/saas.csv").toURI().getPath();
+      String path = property != null ? property : Thread.currentThread().getContextClassLoader().getResource("personal_budget.csv").toURI().getPath();
       dataFrame = datastore.spark.read()
               .option("delimiter", ",")
               .option("header", true)
@@ -58,7 +58,7 @@ public class SandboxApplication {
     }
 
     datastore.spark.conf().set("spark.sql.caseSensitive", String.valueOf(true)); // without it, table names are lowercase.
-    dataFrame.createOrReplaceTempView("saas");
+    dataFrame.createOrReplaceTempView("budget");
     return datastore;
   }
 }

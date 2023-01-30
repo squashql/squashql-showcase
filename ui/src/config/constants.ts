@@ -2,7 +2,7 @@
 export const ROOT_URL = "http://localhost:8080/";
 
 // Scenario info
-export const SCENARII_TABLE = "saas";
+export const SCENARII_TABLE = "budget";
 export const SCENARIO_COLUMN = "Scenario";
 
 // Other columns
