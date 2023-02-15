@@ -3,8 +3,10 @@ package io.squashql;
 import io.squashql.jackson.JacksonUtil;
 import io.squashql.query.database.QueryEngine;
 import io.squashql.query.database.SparkQueryEngine;
+import org.apache.spark.sql.Column;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.functions;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -47,12 +49,21 @@ public class ShowcaseApplication {
     String property = System.getProperty("dataset.path");
     Dataset<Row> dataFrame;
     try {
-      String path = property != null ? property : Thread.currentThread().getContextClassLoader().getResource("personal_budget.csv").toURI().getPath();
+      String fileName = "personal budget - Sheet2.csv";
+//      String fileName = "personal_budget.csv";
+      String path = property != null ? property : Thread.currentThread().getContextClassLoader().getResource(fileName).toURI().getPath();
       dataFrame = datastore.spark.read()
               .option("delimiter", ",")
               .option("header", true)
               .option("inferSchema", true)
               .csv(path);
+
+      Column withouthQuotes = functions.regexp_replace(dataFrame.col("Scenarios"), "\"", "");
+      Column scenarios = functions.split(withouthQuotes, ",");
+      dataFrame = dataFrame
+              .withColumn("Scenario", functions.explode(scenarios))
+              .drop("Scenarios");
+      dataFrame.show();
     } catch (URISyntaxException e) {
       throw new RuntimeException(e);
     }
