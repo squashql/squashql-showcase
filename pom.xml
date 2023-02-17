@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.squashql</groupId>
-  <artifactId>squashql-sandbox</artifactId>
+  <artifactId>squashql-showcase</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 

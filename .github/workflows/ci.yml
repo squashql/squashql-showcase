@@ -1,4 +1,4 @@
-name: squashql-sandbox ci
+name: squashql-showcase ci
 
 on:
   schedule:
