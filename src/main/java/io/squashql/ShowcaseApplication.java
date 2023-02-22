@@ -49,8 +49,7 @@ public class ShowcaseApplication {
     String property = System.getProperty("dataset.path");
     Dataset<Row> dataFrame;
     try {
-      String fileName = "personal budget - Sheet2.csv";
-//      String fileName = "personal_budget.csv";
+      String fileName = "personal_budget_v3.csv";
       String path = property != null ? property : Thread.currentThread().getContextClassLoader().getResource(fileName).toURI().getPath();
       dataFrame = datastore.spark.read()
               .option("delimiter", ",")
@@ -58,8 +57,8 @@ public class ShowcaseApplication {
               .option("inferSchema", true)
               .csv(path);
 
-      Column withouthQuotes = functions.regexp_replace(dataFrame.col("Scenarios"), "\"", "");
-      Column scenarios = functions.split(withouthQuotes, ",");
+      Column withoutQuotes = functions.regexp_replace(dataFrame.col("Scenarios"), "\"", "");
+      Column scenarios = functions.split(withoutQuotes, ",");
       dataFrame = dataFrame
               .withColumn("Scenario", functions.explode(scenarios))
               .drop("Scenarios");
