@@ -24,7 +24,7 @@ public class ShowcaseApplication {
   }
 
   @Bean
-  public QueryEngine queryEngine() {
+  public QueryEngine<?> queryEngine() {
     return new SparkQueryEngine(createTestDatastoreWithData());
   }
 
