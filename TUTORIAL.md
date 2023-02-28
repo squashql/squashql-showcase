@@ -1,5 +1,5 @@
-This tutorial is based on a simulated [personal budget spreadsheet](src/main/resources/personal_budget_v3.csv) to help analyzing our finances. It contains 
-data only for the first 3 months of 2022 and 2023 to work with a small dataset. If you open it, 
+This tutorial is based on a simulated [personal budget spreadsheet](src/main/resources/personal_budget_v3.csv) to help analyzing our
+hypothetical finances. It contains data only for the first 3 months of 2022 and 2023 to work with a small dataset. If you open it, 
 you'll see a column "Scenarios" to illustrate the What-If simulation concept in section 3.
 
 ## Basic queries and calculations  
@@ -209,9 +209,12 @@ This result shows us we have spent more money in 2023 than in 2022.
 
 To illustrate the concept of What-If simulations, the column named "Scenarios" contains for each 
 row a list of scenario codes.
-The Base scenario (code `b`) represents the current situation. Other scenarios represent 
+The Base scenario (code `b`) represents the current situation from which scenarios are derived. For instance,
+the scenario with code `ss` means we stop all activities related to the category **Stop Sport & Game & misc**. 
+The "Scenarios" column is used to create the final rowset by exploding the initial rowset where each item in the 
+list is placed into its own row.
 
-| Code | Full name                                                                      |
+| Code | Full name / Category                                                           |
 |------|--------------------------------------------------------------------------------|
 | b    | Base                                                                           |
 | ss   | Stop Sport & Game & misc                                                       |
@@ -221,3 +224,200 @@ The Base scenario (code `b`) represents the current situation. Other scenarios r
 | sco  | Stop Outing Lifestyle & Cigarettes & Alcohol                                   |
 | smc  | Stop Media & Clothes & Food Delivery & Cigarettes & Alcohol                    |
 | smco | Stop Media & Clothes & Food Delivery & Cigarettes & Alcohol & Outing Lifestyle |
+
+Execute the following query: 
+```typescript
+const query = from("budget")
+        .select(["Scenario", "Year"], [], [netIncome])
+        .build()
+```
+
+It shows the Net Income for each scenario and for each year. Apply a filter on 2023 to focus on the current year. We can
+remove "Year" from the query. You should have something like this:
+
+<details><summary>Code</summary>
+
+```typescript
+const query = from("budget")
+        .where(criterion("Year", eq(2023)))
+        .select(["Scenario"], [], [netIncome])
+        .build()
+```
+</details>
+
+<details><summary>Result</summary>
+
+```
++----------+------------+
+| Scenario | Net income |
++----------+------------+
+|        b |       86.5 |
+|       sc |      260.5 |
+|      sco |      808.5 |
+|       sm |      506.5 |
+|      smc |      680.5 |
+|     smco |     1228.5 |
+|       so |      634.5 |
+|       ss |      473.5 |
++----------+------------+
+```
+</details>
+
+Let's create groups of scenarios. Each group determines which scenarios will be compared to. 
+
+```typescript
+const groups = new Map(Object.entries({
+  "group1": ["b", "sc", "sco"],
+  "group2": ["b", "sm", "smc", "smco"],
+  "group3": ["b", "so", "sco", "smco"],
+  "group4": ["b", "ss"],
+}))
+```
+
+The groups are simply map. The keys are group name and values are the list of scenario names. A scenario 
+can be in multiple groups. We use this map to create a [ColumnSet](https://github.com/squashql/squashql/blob/main/QUERY.md#dynamic-comparison---what-if---columnset).
+
+```typescript
+const columnSet = new BucketColumnSet("group", "Scenario", groups)
+```
+
+Execute the following query containing the previously defined column set. Adding it to the query will make a new column and new rows appear
+
+<details><summary>Code</summary>
+
+```typescript
+const query = from("budget")
+  .where(criterion("Year", eq(2023)))
+  .select([], [columnSet], [netIncome])
+  .build()
+```
+
+</details>
+<details><summary>Result</summary>
+
+```
++--------+----------+------------+
+|  group | Scenario | Net income |
++--------+----------+------------+
+| group1 |        b |       86.5 |
+| group1 |       sc |      260.5 |
+| group1 |      sco |      808.5 |
+| group2 |        b |       86.5 |
+| group2 |       sm |      506.5 |
+| group2 |      smc |      680.5 |
+| group2 |     smco |     1228.5 |
+| group3 |        b |       86.5 |
+| group3 |       so |      634.5 |
+| group3 |      sco |      808.5 |
+| group3 |     smco |     1228.5 |
+| group4 |        b |       86.5 |
+| group4 |       ss |      473.5 |
++--------+----------+------------+
+```
+</details>
+
+Among a given group, we need to compare the value of Net Income growth (prev. year) with the value of the previous scenario.
+There's a built-in measure to perform such calculation and the definition of "previous scenario" is similar to the one 
+used to express "previous year" we saw earlier.
+
+<details><summary>Hint</summary>
+<p>
+Use the `comparisonMeasureWithBucket` to create the comparison measure.
+</p>
+</details>
+<details><summary>Code</summary>
+
+```typescript
+const netIncomeComp = comparisonMeasureWithBucket(
+        "Net Income comp. with prev. scenario",
+        ComparisonMethod.ABSOLUTE_DIFFERENCE,
+        netIncome,
+        new Map(Object.entries({["Scenario"]: "s-1"})))
+```
+</details>
+
+Add to the previous query this new measure.
+
+<details><summary>Result</summary>
+
+```typescript      
+const query = from("budget")
+        .where(criterion("Year", eq(2023)))
+        .select([], [columnSet], [netIncome, netIncomeComp])
+        .build()
+```
+
+```
++--------+----------+------------+--------------------------------------+
+|  group | Scenario | Net income | Net Income comp. with prev. scenario |
++--------+----------+------------+--------------------------------------+
+| group1 |        b |       86.5 |                                  0.0 |
+| group1 |       sc |      260.5 |                                174.0 |
+| group1 |      sco |      808.5 |                                548.0 |
+| group2 |        b |       86.5 |                                  0.0 |
+| group2 |       sm |      506.5 |                                420.0 |
+| group2 |      smc |      680.5 |                                174.0 |
+| group2 |     smco |     1228.5 |                                548.0 |
+| group3 |        b |       86.5 |                                  0.0 |
+| group3 |       so |      634.5 |                                548.0 |
+| group3 |      sco |      808.5 |                                174.0 |
+| group3 |     smco |     1228.5 |                                420.0 |
+| group4 |        b |       86.5 |                                  0.0 |
+| group4 |       ss |      473.5 |                                387.0 |
++--------+----------+------------+--------------------------------------+
+```
+</details>
+
+To save the most money, the scenario *smco* is unsurprisingly (because we cut a lot of costs) the most interesting. 
+However, the saved amount is not be the only criteria to decide which scenario is the best: we have to use the *happiness score*
+(see the data) to help us decide. The *happiness score* is a rating of 1 through 5 that we arbitrary set to assess how much 
+an expenditure affect (in a positive way) our well-being. 
+
+Create a measure that aggregates Happiness score values with the sum function and use it to create a comparison measure 
+in the same way *Net Income comp. with prev. scenario* has been done.
+
+<details><summary>Code</summary>
+
+```typescript
+const happiness = sum("Happiness score sum", "Happiness score");
+const happinessComp = comparisonMeasureWithBucket(
+        "Happiness score sum comp. with prev. scenario",
+        ComparisonMethod.ABSOLUTE_DIFFERENCE,
+        happiness,
+        new Map(Object.entries({["Scenario"]: "s-1"})))
+```
+</details>
+
+Add them to the previous query.
+
+<details><summary>Result</summary>
+
+```typescript      
+const query = from("budget")
+        .where(criterion("Year", eq(2023)))
+        .select(["Year"], [columnSet], [netIncome, happiness,  netIncomeComp, happinessComp])
+        .build()
+```
+
+```
++--------+----------+------+------------+---------------------+--------------------------------------+-----------------------------------------------+
+|  group | Scenario | Year | Net income | Happiness score sum | Net Income comp. with prev. scenario | Happiness score sum comp. with prev. scenario |
++--------+----------+------+------------+---------------------+--------------------------------------+-----------------------------------------------+
+| group1 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                             0 |
+| group1 |       sc | 2023 |      260.5 |                 108 |                                174.0 |                                           -24 |
+| group1 |      sco | 2023 |      808.5 |                  95 |                                548.0 |                                           -13 |
+| group2 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                             0 |
+| group2 |       sm | 2023 |      506.5 |                  70 |                                420.0 |                                           -62 |
+| group2 |      smc | 2023 |      680.5 |                  46 |                                174.0 |                                           -24 |
+| group2 |     smco | 2023 |     1228.5 |                  33 |                                548.0 |                                           -13 |
+| group3 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                             0 |
+| group3 |       so | 2023 |      634.5 |                 119 |                                548.0 |                                           -13 |
+| group3 |      sco | 2023 |      808.5 |                  95 |                                174.0 |                                           -24 |
+| group3 |     smco | 2023 |     1228.5 |                  33 |                                420.0 |                                           -62 |
+| group4 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                             0 |
+| group4 |       ss | 2023 |      473.5 |                  99 |                                387.0 |                                           -33 |
++--------+----------+------+------------+---------------------+--------------------------------------+-----------------------------------------------+
+```
+</details>
+
+Notice how stopping Media & Clothes & Food Delivery affects the happiness score: -62 for a saving of 420. Is it worth it?
