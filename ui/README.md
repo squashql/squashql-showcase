@@ -26,7 +26,7 @@ In the project directory, you can run:
 
 #### Constants
 
-Go to `config/constants.ts` to define:
+Go to [config/constants.ts](./src/config/constants.ts) to define:
 
 - `ROOT_URL`: SquashQL server URL
 - `SCENARII_TABLE`: table name where the scenarii are.
@@ -42,7 +42,8 @@ Then, export all measures of each table.
 
 Example:
 
-1. Declare measures in `config/measures/scenariiTableMeasures.ts`. Put in "comparisonMeasures", the measures with scenario comparison to make them appear nicely as delta in the scenario grouping UI.
+1. Declare measures in `config/measures/budgetMeasures.ts`. Put in "comparisonMeasures", the measures with scenario 
+comparison to make them appear nicely as delta in the scenario grouping UI.
 
 ```
 import {
@@ -85,13 +86,13 @@ export const scenariiMeasures: MeasuresDescription = {
 };
 ```
 
-2. Create another file of measures, for example `config/measures/otherTableMeasures.ts`.
+2. Create another file of measures if needed, for example `config/measures/otherTableMeasures.ts`.
 
 3. Then, export all measures of each table from `config/measures/index.ts`.
 
 ```
 export * from "./scenariiTableMeasures";
-export * from "./otherTableMeasures";
+export * from "./budgetMeasures";
 ```
 
 #### Filters
@@ -100,8 +101,8 @@ Go to `config/filters.ts` to define filters.
 Set the alias to display in the UI and choose the list order. For example:
 
 ```
-export const filters = [
-  {id: "store_country", alias: "Country"},
-  {id: "product_category_name", alias: "Category"}
-];
+export const filters: Filter[] = [
+  { id: CATEGORY_COLUMN, alias: "Category" },
+  { id: SUBCATEGORY_COLUMN, alias: "Sub-category" },
+]
 ```
