@@ -4,6 +4,16 @@ This is a web app for combining and comparing scenarios, based on [SquashQL](htt
 The goal is to provide a user-friendly UI to create scenarios and compare them through different indicators, to make the right decision. 
 These indicators can be compared in different types of visualizations: tree graph, reporting table and PDF export.
 
+Here's an overview of what can be achieved.
+
+<p align="center">
+  <img width="478" src="./doc/assets/treegraph.png">
+</p>
+
+<p align="center">
+  <img height="800" src="./doc/assets/reporting.png">
+</p>
+
 # Getting Started
 
 ### Prerequisites
