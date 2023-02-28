@@ -45,47 +45,6 @@ Example:
 1. Declare measures in `config/measures/budgetMeasures.ts`. Put in "comparisonMeasures", the measures with scenario 
 comparison to make them appear nicely as delta in the scenario grouping UI.
 
-```
-import {
-  sum,
-  sumIf,
-  eq,
-  comparisonMeasureWithPeriod,
-  ComparisonMethod,
-  ColumnSetKey,
-  from,
-} from "@squashql/squashql-js";
-import { SCENARII_TABLE, YEAR_COLUMN } from "../constants";
-import { MeasuresDescription } from "./types";
-
-const amount = sum("amount_sum", "Amount");
-const sales = sumIf("sales", "Amount", "IncomeExpense", eq("Revenue"));
-
-const lastYear = { [YEAR_COLUMN]: "y-1" };
-const refScenario = { [SCENARIO_COLUMN]: "s-1", [GROUP_COLUMN]: "g" };
-
-const growth = comparisonMeasureWithPeriod(
-  "Growth",
-  ComparisonMethod.RELATIVE_DIFFERENCE,
-  sales,
-  new Map(Object.entries(lastYear)),
-  new Year(YEAR_COLUMN)
-);
-
-const growthComp = comparisonMeasureWithBucket(
-  "Growth comp. with prev. scenario",
-  ComparisonMethod.ABSOLUTE_DIFFERENCE,
-  growth,
-  new Map(Object.entries(refScenario))
-);
-
-export const scenariiMeasures: MeasuresDescription = {
-  from: SCENARII_TABLE,
-  measures: [amount, sales, growth],
-  comparisonMeasures: [growthComp],
-};
-```
-
 2. Create another file of measures if needed, for example `config/measures/otherTableMeasures.ts`.
 
 3. Then, export all measures of each table from `config/measures/index.ts`.

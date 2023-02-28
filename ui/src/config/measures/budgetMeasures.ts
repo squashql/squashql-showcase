@@ -5,7 +5,7 @@ import {
   criterion,
   eq,
   minus,
-  neq,
+  neq, sum,
   sumIf,
   Year,
 } from "@squashql/squashql-js";
@@ -18,49 +18,47 @@ import {
   SCENARIO_COLUMN,
   YEAR_COLUMN,
 } from "../constants";
-import { MeasuresDescription } from "./types";
+import {MeasuresDescription} from "./types"
 
 const income = sumIf(
-  "Income",
-  AMOUNT,
-  criterion(INCOME_EXPENDITURE, eq(INCOME))
-);
+        "Income",
+        AMOUNT,
+        criterion(INCOME_EXPENDITURE, eq(INCOME))
+)
 
 const expenditure = sumIf(
-  "Expenditure",
-  AMOUNT,
-  criterion(INCOME_EXPENDITURE, neq(INCOME))
-);
+        "Expenditure",
+        AMOUNT,
+        criterion(INCOME_EXPENDITURE, neq(INCOME))
+)
 
-const remaining = minus("Remaining money", income, expenditure);
+const netIncome = minus("Net income", income, expenditure)
+const lastYear = {[YEAR_COLUMN]: "y-1"}
+const netIncomeGrowth = comparisonMeasureWithPeriod(
+        "Net Income growth (prev. year)",
+        ComparisonMethod.RELATIVE_DIFFERENCE,
+        netIncome,
+        new Map(Object.entries(lastYear)),
+        new Year(YEAR_COLUMN)
+)
 
-const lastYear = { [YEAR_COLUMN]: "y-1" };
-const refScenario = { [SCENARIO_COLUMN]: "s-1", [GROUP_COLUMN]: "g" };
+const refScenario = {[SCENARIO_COLUMN]: "s-1", [GROUP_COLUMN]: "g"}
+const netIncomeComp = comparisonMeasureWithBucket(
+        "Net Income comp. with prev. scenario",
+        ComparisonMethod.ABSOLUTE_DIFFERENCE,
+        netIncome,
+        new Map(Object.entries(refScenario))
+)
 
-const remainingComp = comparisonMeasureWithBucket(
-  "Remaining comp. with prev. scenario",
-  ComparisonMethod.ABSOLUTE_DIFFERENCE,
-  remaining,
-  new Map(Object.entries(refScenario))
-);
-
-const expenditureGrowth = comparisonMeasureWithBucket(
-  "Expenditure growth",
-  ComparisonMethod.ABSOLUTE_DIFFERENCE,
-  expenditure,
-  new Map(Object.entries(refScenario))
-);
-
-const incomeGrowth = comparisonMeasureWithPeriod(
-  "Income growth vs. prev. year",
-  ComparisonMethod.RELATIVE_DIFFERENCE,
-  income,
-  new Map(Object.entries(lastYear)),
-  new Year(YEAR_COLUMN)
-);
+const happiness = sum("Happiness score sum", "Happiness score");
+const happinessComp = comparisonMeasureWithBucket(
+        "Happiness score sum comp. with prev. scenario",
+        ComparisonMethod.ABSOLUTE_DIFFERENCE,
+        happiness,
+        new Map(Object.entries(refScenario)))
 
 export const scenariiMeasures: MeasuresDescription = {
   from: SCENARII_TABLE,
-  measures: [income, expenditure, remaining],
-  comparisonMeasures: [incomeGrowth, expenditureGrowth, remainingComp],
-};
+  measures: [income, expenditure, netIncome],
+  comparisonMeasures: [netIncomeGrowth, netIncomeComp, happinessComp],
+}
