@@ -12,7 +12,12 @@ Read [TUTORIAL.md](./TUTORIAL.md) to try SquashQL with a hands-on training.
 
 ## Single-page application in React
 
+> **Note**
+> This React app project is not compatible with Codespaces like the Typescript tutorial. You'll have to 
+> launch it locally.
+ 
 Read [README.md](./ui/README.md) to see what can be built with SquashQL.
+
 
 ## Prerequisites
 
