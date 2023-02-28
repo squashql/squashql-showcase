@@ -16,7 +16,7 @@
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "java -version && node --version",
+  "postCreateCommand": "java -version && node --version && npm --prefix ts/ install",
   // Configure tool-specific properties.
   "customizations": {
     // Configure properties specific to VS Code.

@@ -2,13 +2,53 @@ This tutorial is based on a simulated [personal budget spreadsheet](src/main/res
 hypothetical finances. It contains data only for the first 3 months of 2022 and 2023 to work with a small dataset. If you open it, 
 you'll see a column "Scenarios" to illustrate the What-If simulation concept in section 3.
 
+You'll have to write some code using the [Typescript library](https://www.npmjs.com/package/@squashql/squashql-js).
+Write the code in the file index.ts (Full path = `ts/src/index.ts`). You'll be asked to execute queries. Here's code snippet
+showing you how to execute a query and print the result in the console once the server is up. 
+
+```typescript
+import {
+  Querier,
+} from "@squashql/squashql-js"
+
+const querier = new Querier("http://localhost:8080")
+const query = undefined // TO BE DEFINED
+querier.execute0(query)
+        .then(r => console.log(r));
+```
+
+## Setup the project
+
+### Locally
+
+You can either start the server locally if you have setup a development environment. See the README.md at the root of this project to install 
+all the prerequisites. 
+
+### Codespaces
+
+Alternatively you can use Codespaces, a service provided by GitHub to setup a development environment hosted in the cloud, it's free you only need a GitHub account.
+Click on [this link](https://github.com/codespaces/new?machine=basicLinux32gb&repo=580807210&ref=showcase-ts&location=WestEurope&devcontainer_path=.devcontainer%2Fdevcontainer.json) to start
+using Codespaces. Then click on *Create codespace*. It will take a few minutes to set everything up.
+
+In the terminal:
+```bash
+mvn spring-boot:run
+```
+It will download all dependencies and launch the server. If everything works as expected, you should see this in the console Output
+```
+2023-02-28 10:44:01.807  INFO 2678 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-02-28 10:44:01.822  INFO 2678 --- [main] io.squashql.ShowcaseApplication          : Started ShowcaseApplication in 10.332 seconds (JVM running for 11.514)
+```
+
+Open the file `ts/src/index.ts` and start editing it by following the instructions below. To run the file index.ts, open a new terminal 
+and execute `npm --prefix ts/ start`.
+
 ## Basic queries and calculations  
 Create a measure that computes the income.
 
 <details><summary>Hint</summary>
-<p>
-Use the sumIf aggregation function with a criterion on Income / Expenditure column.
-</p>
+
+Use the `sumIf` aggregation function with a criterion on Income / Expenditure column.
 </details>
 <details><summary>Code</summary>
 
@@ -20,9 +60,8 @@ const income = sumIf("Income", "Amount", criterion("Income / Expenditure", eq("I
 Create a measure that computes the expenditure.
 
 <details><summary>Hint</summary>
-<p>
-Use the sumIf aggregation function with a criterion on Income / Expenditure column.
-</p>
+
+Use the `sumIf` aggregation function with a criterion on Income / Expenditure column.
 </details>
 <details><summary>Code</summary>
 
