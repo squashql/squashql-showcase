@@ -6,11 +6,11 @@ These indicators can be compared in different types of visualizations: tree grap
 
 Here's an overview of what can be achieved.
 
-<p align="center">
+<p style="text-align: center;">
   <img width="478" src="./doc/assets/treegraph.png">
 </p>
 
-<p align="center">
+<p style="text-align: center;">
   <img height="800" src="./doc/assets/reporting.png">
 </p>
 

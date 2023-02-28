@@ -17,6 +17,8 @@ querier.execute0(query)
         .then(r => console.log(r));
 ```
 
+Please refer as mush as possible to the [Typescript library documentation](https://github.com/squashql/squashql/blob/main/QUERY.md).
+
 ## Setup the project
 
 ### Locally
@@ -137,9 +139,9 @@ Create a measure that computes the net income i.e. the difference between income
 to show the net income for each month of the year. Keeps on filtering on the scenario named "base".
 
 <details><summary>Hint</summary>
-<p>
+
 Use the `minus` operator to compute the difference.
-</p>
+
 </details>
 <details><summary>Code</summary>
 
@@ -206,9 +208,8 @@ with (Year = 2022, Month = 3), (Year = 2023, Month = 2) with (Year = 2022, Month
 A comparison can use different type of comparison method. In our case, we can use `ComparisonMethod.RELATIVE_DIFFERENCE`.
 
 <details><summary>Hint</summary>
-<p>
+
 Use the `comparisonMeasureWithPeriod` to create the comparison measure.
-</p>
 </details>
 <details><summary>Code</summary>
 
@@ -365,9 +366,8 @@ There's a built-in measure to perform such calculation and the definition of "pr
 used to express "previous year" we saw earlier.
 
 <details><summary>Hint</summary>
-<p>
+
 Use the `comparisonMeasureWithBucket` to create the comparison measure.
-</p>
 </details>
 <details><summary>Code</summary>
 
