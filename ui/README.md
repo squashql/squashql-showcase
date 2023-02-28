@@ -1,7 +1,8 @@
 # Context
 
-This is a web app for combining and comparing scenarios, based on [AITM\* project](https://github.com/paulbares/aitm).
-The goal is to provide a user-friendly UI to create scenarios and compare them through different indicators, to make the right decision. These indicators can be compared in different types of visualizations: tree graph, reporting table and PDF export.
+This is a web app for combining and comparing scenarios, based on [SquashQL](https://github.com/squashql/squashql).
+The goal is to provide a user-friendly UI to create scenarios and compare them through different indicators, to make the right decision. 
+These indicators can be compared in different types of visualizations: tree graph, reporting table and PDF export.
 
 # Getting Started
 
@@ -10,7 +11,7 @@ The goal is to provide a user-friendly UI to create scenarios and compare them t
 To run this project you'll need:
 
 - [yarn](https://classic.yarnpkg.com/en/docs/install#windows-stable)
-- [AITM](https://github.com/paulbares/aitm)
+- [SquashQL](https://github.com/squashql/squashql)
 
 ### Installation
 
@@ -27,14 +28,14 @@ In the project directory, you can run:
 
 Go to `config/constants.ts` to define:
 
-- `ROOT_URL`: AITM server URL
+- `ROOT_URL`: SquashQL server URL
 - `SCENARII_TABLE`: table name where the scenarii are.
 - `SCENARIO_COLUMN`: column name of the scenarii in this table.
 - `PERIODS`: array of periods columns (if the project has time related data)
 
 #### Measures implementation
 
-Go to `config/measures/` to define measures using `aitm-js-query` library from [AITM](https://github.com/paulbares/aitm).
+Go to `config/measures/` to define measures using `@squashql/squashql-js` library from [SquashQL](https://github.com/squashql/squashql).
 
 Create one file per table, to declare the related measures in this folder.
 Then, export all measures of each table.
@@ -52,7 +53,7 @@ import {
   ComparisonMethod,
   ColumnSetKey,
   from,
-} from "aitm-js-query";
+} from "@squashql/squashql-js";
 import { SCENARII_TABLE, YEAR_COLUMN } from "../constants";
 import { MeasuresDescription } from "./types";
 
@@ -104,7 +105,3 @@ export const filters = [
   {id: "product_category_name", alias: "Category"}
 ];
 ```
-
-# License
-
-(TODO)

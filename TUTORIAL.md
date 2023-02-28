@@ -46,6 +46,8 @@ and execute
 npm --prefix ts/ start
 ```
 
+Note: Once you finish the tutorial, don't forget to stop your Codespace.
+
 ## Basic queries and calculations  
 Create a measure that computes the income.
 

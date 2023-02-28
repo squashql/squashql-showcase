@@ -9,7 +9,7 @@ export interface SavedQuery {
   period?: Required<PeriodField>;
 }
 
-export const QUERIES_LOCAL_STORAGE_KEY = "aitm-saved-queries";
+export const QUERIES_LOCAL_STORAGE_KEY = "squashql-saved-queries";
 
 export const getSavedQueriesFromLocalStorage = (): Record<
   string,

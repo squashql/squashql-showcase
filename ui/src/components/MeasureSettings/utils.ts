@@ -2,7 +2,7 @@
 
 import { FormattingData } from "../../types";
 
-const LOCAL_STORAGE_KEY = "aitm-measures-settings";
+const LOCAL_STORAGE_KEY = "squashql-measures-settings";
 
 export const getAllMeasuresSettingsFromLocalStorage = (): Record<
   string,
