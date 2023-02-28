@@ -34,14 +34,17 @@ In the terminal:
 ```bash
 mvn spring-boot:run
 ```
-It will download all dependencies and launch the server. If everything works as expected, you should see this in the console Output
+It will download all dependencies and launch the server. If everything works as expected, you should see this in the console output
 ```
 2023-02-28 10:44:01.807  INFO 2678 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
 2023-02-28 10:44:01.822  INFO 2678 --- [main] io.squashql.ShowcaseApplication          : Started ShowcaseApplication in 10.332 seconds (JVM running for 11.514)
 ```
 
 Open the file `ts/src/index.ts` and start editing it by following the instructions below. To run the file index.ts, open a new terminal 
-and execute `npm --prefix ts/ start`.
+and execute
+```bash
+npm --prefix ts/ start
+```
 
 ## Basic queries and calculations  
 Create a measure that computes the income.
