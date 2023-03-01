@@ -49,7 +49,7 @@ public class ShowcaseApplication {
     String property = System.getProperty("dataset.path");
     Dataset<Row> dataFrame;
     try {
-      String fileName = "personal_budget_v3.csv";
+      String fileName = "personal_budget.csv";
       String path = property != null ? property : Thread.currentThread().getContextClassLoader().getResource(fileName).toURI().getPath();
       dataFrame = datastore.spark.read()
               .option("delimiter", ",")
