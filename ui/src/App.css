@@ -1,0 +1,208 @@
+/*___________________________________ GLOBAL ___________________________________*/
+
+body {
+  --shadow: 2px 2px 5px rgba(0, 0, 0, 0.08);
+  --spacing: 10px;
+  --double-spacing: calc(var(--spacing) * 2);
+  --scrollbar-size: 5px;
+}
+
+body,
+#root,
+.App {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #f5f6f7;
+}
+
+.App {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: var(--double-spacing);
+}
+
+body b,
+body strong {
+  font-weight: 500;
+}
+
+::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: var(--scrollbar-size);
+  background-color: hsl(0, 0%, 95%);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: var(--scrollbar-size);
+  background-color: hsl(0, 0%, 76%);
+}
+
+/*______________________________ MEASURES SELECTOR & MEASURES LIST ______________________________*/
+
+.measures-selector,
+.measures-list,
+.dashboards-list {
+  box-shadow: var(--shadow);
+  padding: var(--double-spacing);
+  background-color: white;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.measures-selector h5.ant-typography {
+  margin-bottom: var(--double-spacing);
+}
+
+.measures-list .ant-list-vertical .ant-list-item-extra {
+  margin-left: 10px;
+}
+
+.measures-list .ant-list-item-meta-description .measure-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  font-weight: 500;
+}
+
+.measures-list .ant-list-item-meta-description .measure-expression {
+  word-wrap: break-word;
+}
+
+/*_________________________________ TREE GRAPH _________________________________*/
+
+.scenarii-grouping-pane {
+  display: grid;
+  background-color: #fff;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "period"
+    "graph";
+}
+
+.period-selector,
+.period-selector-alert {
+  grid-area: period;
+}
+
+.on-boarding-and-graph {
+  grid-area: graph;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.on-boarding {
+  flex: 0;
+}
+
+.graph {
+  flex: 1;
+}
+
+/*_________________________________ SCENARII LIST _________________________________*/
+
+.scenarii-list .ant-list-header {
+  padding: 10px 20px;
+}
+
+.scenarii-list.ant-list-sm .ant-list-item {
+  padding: var(--spacing) 0;
+}
+
+.list-scenario:hover {
+  cursor: grab;
+}
+
+/*____________________________________ TABS ____________________________________*/
+
+.ant-tabs {
+  overflow-y: hidden;
+  padding-right: var(--spacing) !important;
+}
+
+.ant-tabs.main-view {
+  margin-top: var(--spacing);
+  height: calc(100% - var(--spacing));
+}
+
+.ant-tabs.sider-menu .anticon {
+  margin: 0;
+}
+
+.ant-tabs.sider-menu .ant-menu-vertical {
+  border-right: 0;
+}
+
+.ant-tabs.sider-menu.ant-tabs-left > .ant-tabs-nav .ant-tabs-tab {
+  padding: var(--spacing) var(--double-spacing);
+}
+
+.ant-form-item {
+  margin-bottom: 8px !important;
+}
+
+.ant-tabs-top > .ant-tabs-nav {
+  margin-bottom: 0 !important;
+}
+
+.ant-tabs-content {
+  height: calc(100% - var(--spacing));
+  overflow-y: auto;
+}
+
+.ant-tabs-tabpane {
+  padding: var(--spacing);
+}
+
+/*_________________________________ REPORT PAGE _________________________________*/
+
+.report-tab-pane .ant-table-small table {
+  background-color: #fff;
+  box-shadow: var(--shadow);
+}
+
+.report-tab-pane .ant-table-small,
+.report-tab-pane .ant-table-small .ant-table-thead > tr > th {
+  background-color: transparent;
+}
+
+.report-tab-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  grid-gap: var(--spacing);
+}
+
+.report-tab-content-main {
+  flex: 1;
+  overflow: auto;
+}
+
+.report-tab-content-bottom {
+  height: auto;
+}
+
+/*_________________________________ INVESTIGATION PAGE _________________________________*/
+
+.investigation-tab-pane .ant-table-row.ant-table-row-level-0 {
+  font-weight: 500;
+}
+
+.expand-select {
+  flex: 1 !important;
+}
+
+.expand-values-select {
+  flex: 2 !important;
+}
+
+.investigation-table .ant-table-tbody > tr.ant-table-row:hover > td:hover,
+.investigation-table .ant-table-tbody > tr > td.ant-table-cell-row-hover:hover {
+  cursor: zoom-in;
+  box-shadow: 1px 1px inset #1890ff, -1px -1px inset #1890ff;
+}

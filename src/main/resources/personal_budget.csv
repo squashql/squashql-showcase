@@ -1,0 +1,1525 @@
+﻿Scenario,Income / Expenditure,Category,Subcategory,Year,Month,Day,Date,Description,Amount
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,1,01/01/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Income,Current Income,Salary,2022,1,1,01/01/2022,Salary,1930
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Housing,2022,1,1,01/01/2022,House rent (with charges),691.16
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,1,1,01/01/2022,Energy supply bill,58.60
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,1,01/01/2022,Car loan,48.37
+Base Scenario with Extra-hours,Income,Potential additional income,Extra hour salary,2022,1,1,01/01/2022,Salary (+8 hours),100
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,2,02/01/2022,Food delivery,15.81
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2022,1,2,02/01/2022,Public transport subscription,32.55
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2022,1,3,03/01/2022,Car gas,46.51
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,3,03/01/2022,ATM withdrawal,40
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,1,4,04/01/2022,Credit card monthly fee,6.97
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,5,05/01/2022,Savings Account,50
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,1,6,06/01/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Internet subscription,30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Telephone subscription,15
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Museum ticket,13.95
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Restaurant,43.72
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,6,06/01/2022,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,8,08/01/2022,Video streaming platform subscription,9
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,9,09/01/2022,Music streaming platform subscription,9.30
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Personal spending,2022,1,10,10/01/2022,Fitness subscription,36.27
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2022,1,11,11/01/2022,Health insurance,42
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Healthcare,2022,1,12,12/01/2022,Pharmacy,7
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2022,1,12,12/01/2022,Car insurance,50
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,1,12,12/01/2022,Sports betting,10
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,13,13/01/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,1,13,13/01/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Movie theater,12.09
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Restaurant,43.72
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Miscellaneous,2022,1,13,13/01/2022,Taxi,27.90
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,17,17/01/2022,Food delivery,15.81
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,1,18,18/01/2022,Afterwork bar,17.67
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,1,19,19/01/2022,Clothes shop,50.23
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,20,20/01/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,1,20,20/01/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Other essential budget,2022,1,20,20/01/2022,Pet shop,46.51
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2022,1,20,20/01/2022,Liability insurance,12
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,24,24/01/2022,ATM withdrawal,27.90
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,25,25/01/2022,Book shop,9.30
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,26,26/01/2022,Newspaper subscription,9.30
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,27,27/01/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,1,27,27/01/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,28,28/01/2022,Savings for unexpected expenditure,50
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,1,01/02/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Income,Current Income,Salary,2022,2,1,01/02/2022,Salary,1930
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Housing,2022,2,1,01/02/2022,House rent (with charges),691.16
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,2,1,01/02/2022,Energy supply bill,58.60
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,1,01/02/2022,Car loan,52
+Base Scenario with Extra-hours,Income,Potential additional income,Extra hour salary,2022,2,1,01/02/2022,Salary (+8 hours),100
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,2,02/02/2022,Food delivery,21.39
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2022,2,2,02/02/2022,Public transport subscription,32.55
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2022,2,3,03/02/2022,Car gas,46.51
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,3,03/02/2022,ATM withdrawal,30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,2,4,04/02/2022,Credit card monthly fee,6.97
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,5,05/02/2022,Savings Account,50
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,2,6,06/02/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Internet subscription,30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Telephone subscription,15
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Museum ticket,11.16
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Restaurant,50.23
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,6,06/02/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,8,08/02/2022,Video streaming platform subscription,9
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,9,09/02/2022,Music streaming platform subscription,10
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Personal spending,2022,2,10,10/02/2022,Fitness subscription,36.27
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2022,2,11,11/02/2022,Health insurance,42
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Healthcare,2022,2,12,12/02/2022,Pharmacy,9.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2022,2,12,12/02/2022,Car insurance,50
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,2,12,12/02/2022,Sports betting,25
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,13,13/02/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,2,13,13/02/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Movie theater,12.09
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Restaurant,52.09
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Miscellaneous,2022,2,13,13/02/2022,Taxi,24.18
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,17,17/02/2022,Food delivery,13.0
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,2,18,18/02/2022,Afterwork bar,21.39
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,2,19,19/02/2022,Clothes shop,139.53
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,20,20/02/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,2,20,20/02/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Other essential budget,2022,2,20,20/02/2022,Pet shop,46.51
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2022,2,20,20/02/2022,Liability insurance,12
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,24,24/02/2022,ATM withdrawal,20
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,26,26/02/2022,Newspaper subscription,9.30
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,27,27/02/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,2,27,27/02/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,28,28/02/2022,Savings for unexpected expenditure,50
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,1,01/03/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Income,Current Income,Salary,2022,3,1,01/03/2022,Salary,1930
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Housing,2022,3,1,01/03/2022,House rent (with charges),691.16
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,3,1,01/03/2022,Energy supply bill,58.60
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,1,01/03/2022,Car loan,48.37
+Base Scenario with Extra-hours,Income,Potential additional income,Extra hour salary,2022,3,1,01/03/2022,Salary (+8 hours),100
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,2,02/03/2022,Food delivery,15.81
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2022,3,2,02/03/2022,Public transport subscription,32.55
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2022,3,3,03/03/2022,Car gas,46.51
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,3,03/03/2022,ATM withdrawal,30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,3,4,04/03/2022,Credit card monthly fee,6.97
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,5,05/03/2022,Savings Account,50
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,3,6,06/03/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Internet subscription,30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Telephone subscription,15
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,6,06/03/2022,Restaurant,38.13
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,6,06/03/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,8,08/03/2022,Video streaming platform subscription,9
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,9,09/03/2022,Music streaming platform subscription,10
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Personal spending,2022,3,10,10/03/2022,Fitness subscription,36.27
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2022,3,11,11/03/2022,Health insurance,42
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Healthcare,2022,3,12,12/03/2022,Pharmacy,9.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2022,3,12,12/03/2022,Car insurance,50
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,3,12,12/03/2022,Sports betting,15
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,13,13/03/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,3,13,13/03/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Concert ticket,41.86
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Restaurant,36.27
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Miscellaneous,2022,3,13,13/03/2022,Taxi,37.20
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,17,17/03/2022,Food delivery,12.09
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,3,18,18/03/2022,Cafe,11.16
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Personal spending,2022,3,19,19/03/2022,Travel tickets,65.11
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,20,20/03/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,3,20,20/03/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Other essential budget,2022,3,20,20/03/2022,Pet shop,46.51
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2022,3,20,20/03/2022,Liability insurance,11.16
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,24,24/03/2022,ATM withdrawal,40
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,25,25/03/2022,Book shop,16.74
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,26,26/03/2022,Newspaper subscription,9.30
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,27,27/03/2022,Cigarettes,9.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2022,3,27,27/03/2022,Supermarket,49.30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,28,28/03/2022,Savings for unexpected expenditure,50
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,1,01/01/2023,Cigarettes,10
+Base Scenario with Extra-hours,Income,Current Income,Salary,2023,1,1,01/01/2023,Salary,2010
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Housing,2023,1,1,01/01/2023,House rent (with charges),743
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,1,1,01/01/2023,Energy supply bill,63
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,1,01/01/2023,Car loan,52
+Base Scenario with Extra-hours,Income,Potential additional income,Extra hour salary,2023,1,1,01/01/2023,Salary (+8 hours),120
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,2,02/01/2023,Food delivery,17
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2023,1,2,02/01/2023,Public transport subscription,35
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2023,1,3,03/01/2023,Car gas,50
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,3,03/01/2023,ATM withdrawal,40
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,1,4,04/01/2023,Credit card monthly fee,7.5
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,5,05/01/2023,Savings Account,50
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,1,6,06/01/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Internet subscription,30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Telephone subscription,15
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Museum ticket,15
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Restaurant,47
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,6,06/01/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,8,08/01/2023,Video streaming platform subscription,9
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,9,09/01/2023,Music streaming platform subscription,10
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Personal spending,2023,1,10,10/01/2023,Fitness subscription,39
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2023,1,11,11/01/2023,Health insurance,42
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Healthcare,2023,1,12,12/01/2023,Pharmacy,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2023,1,12,12/01/2023,Car insurance,50
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,1,12,12/01/2023,Sports betting,10
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,13,13/01/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,1,13,13/01/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Movie theater,13
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Restaurant,47
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Miscellaneous,2023,1,13,13/01/2023,Taxi,30
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,17,17/01/2023,Food delivery,17
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,1,18,18/01/2023,Afterwork bar,19
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,1,19,19/01/2023,Clothes shop,54
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,20,20/01/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,1,20,20/01/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Other essential budget,2023,1,20,20/01/2023,Pet shop,50
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2023,1,20,20/01/2023,Liability insurance,12
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,24,24/01/2023,ATM withdrawal,30
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,25,25/01/2023,Book shop,10
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,26,26/01/2023,Newspaper subscription,10
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,27,27/01/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,1,27,27/01/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,28,28/01/2023,Savings for unexpected expenditure,50
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,1,01/02/2023,Cigarettes,10
+Base Scenario with Extra-hours,Income,Current Income,Salary,2023,2,1,01/02/2023,Salary,2010
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Housing,2023,2,1,01/02/2023,House rent (with charges),743
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,2,1,01/02/2023,Energy supply bill,63
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,1,01/02/2023,Car loan,52
+Base Scenario with Extra-hours,Income,Potential additional income,Extra hour salary,2023,2,1,01/02/2023,Salary (+8 hours),120
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,2,02/02/2023,Food delivery,23
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2023,2,2,02/02/2023,Public transport subscription,35
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2023,2,3,03/02/2023,Car gas,50
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,3,03/02/2023,ATM withdrawal,30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,2,4,04/02/2023,Credit card monthly fee,7.5
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,5,05/02/2023,Savings Account,50
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,2,6,06/02/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Internet subscription,30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Telephone subscription,15
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Museum ticket,12
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Restaurant,54
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,6,06/02/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,8,08/02/2023,Video streaming platform subscription,9
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,9,09/02/2023,Music streaming platform subscription,10
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Personal spending,2023,2,10,10/02/2023,Fitness subscription,39
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2023,2,11,11/02/2023,Health insurance,42
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Healthcare,2023,2,12,12/02/2023,Pharmacy,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2023,2,12,12/02/2023,Car insurance,50
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,2,12,12/02/2023,Sports betting,25
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,13,13/02/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,2,13,13/02/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Movie theater,13
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Restaurant,56
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Miscellaneous,2023,2,13,13/02/2023,Taxi,26
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,17,17/02/2023,Food delivery,14
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,2,18,18/02/2023,Afterwork bar,23
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,2,19,19/02/2023,Clothes shop,150
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,20,20/02/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,2,20,20/02/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Other essential budget,2023,2,20,20/02/2023,Pet shop,50
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2023,2,20,20/02/2023,Liability insurance,12
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,24,24/02/2023,ATM withdrawal,20
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,26,26/02/2023,Newspaper subscription,10
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,27,27/02/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,2,27,27/02/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,28,28/02/2023,Savings for unexpected expenditure,50
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,1,01/03/2023,Cigarettes,10
+Base Scenario with Extra-hours,Income,Current Income,Salary,2023,3,1,01/03/2023,Salary,2010
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Housing,2023,3,1,01/03/2023,House rent (with charges),743
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,3,1,01/03/2023,Energy supply bill,63
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,1,01/03/2023,Car loan,52
+Base Scenario with Extra-hours,Income,Potential additional income,Extra hour salary,2023,3,1,01/03/2023,Salary (+8 hours),120
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,2,02/03/2023,Food delivery,17
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2023,3,2,02/03/2023,Public transport subscription,35
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Transportation,2023,3,3,03/03/2023,Car gas,50
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,3,03/03/2023,ATM withdrawal,30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,3,4,04/03/2023,Credit card monthly fee,7.5
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,5,05/03/2023,Savings Account,50
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,3,6,06/03/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Internet subscription,30
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Telephone subscription,15
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,6,06/03/2023,Restaurant,41
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,6,06/03/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,8,08/03/2023,Video streaming platform subscription,9
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,9,09/03/2023,Music streaming platform subscription,10
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Personal spending,2023,3,10,10/03/2023,Fitness subscription,39
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2023,3,11,11/03/2023,Health insurance,42
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Healthcare,2023,3,12,12/03/2023,Pharmacy,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2023,3,12,12/03/2023,Car insurance,50
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,3,12,12/03/2023,Sports betting,15
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,13,13/03/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,3,13,13/03/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Concert ticket,45
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Restaurant,39
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Miscellaneous,2023,3,13,13/03/2023,Taxi,40
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,17,17/03/2023,Food delivery,13
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,3,18,18/03/2023,Cafe,12
+Base Scenario with Extra-hours,Expenditure,Outing Lifestyle,Personal spending,2023,3,19,19/03/2023,Travel tickets,70
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,20,20/03/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,3,20,20/03/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Other essential budget,2023,3,20,20/03/2023,Pet shop,50
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Insurance,2023,3,20,20/03/2023,Liability insurance,12
+Base Scenario with Extra-hours,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,24,24/03/2023,ATM withdrawal,40
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,25,25/03/2023,Book shop,18
+Base Scenario with Extra-hours,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,26,26/03/2023,Newspaper subscription,10
+Base Scenario with Extra-hours,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,27,27/03/2023,Cigarettes,10
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Food,2023,3,27,27/03/2023,Supermarket,53
+Base Scenario with Extra-hours,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,28,28/03/2023,Savings for unexpected expenditure,50
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,1,01/01/2022,Cigarettes,9.30
+Base Scenario,Income,Current Income,Salary,2022,1,1,01/01/2022,Salary,1930
+Base Scenario,Expenditure,Minimum expenditure,Housing,2022,1,1,01/01/2022,House rent (with charges),691.16
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,1,1,01/01/2022,Energy supply bill,58.60
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,1,01/01/2022,Car loan,48.37
+Base Scenario,Income,Potential additional income,Extra hour salary,2022,1,1,01/01/2022,Salary (+8 hours),0
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,2,02/01/2022,Food delivery,15.81
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2022,1,2,02/01/2022,Public transport subscription,32.55
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2022,1,3,03/01/2022,Car gas,46.51
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,3,03/01/2022,ATM withdrawal,40
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,1,4,04/01/2022,Credit card monthly fee,6.97
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,5,05/01/2022,Savings Account,50
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,1,6,06/01/2022,Supermarket,49.30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Internet subscription,30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Telephone subscription,15
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Museum ticket,13.95
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Restaurant,43.72
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,6,06/01/2022,Cigarettes,10
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,8,08/01/2022,Video streaming platform subscription,9
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,9,09/01/2022,Music streaming platform subscription,9.30
+Base Scenario,Expenditure,Sport & Game & misc,Personal spending,2022,1,10,10/01/2022,Fitness subscription,36.27
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2022,1,11,11/01/2022,Health insurance,42
+Base Scenario,Expenditure,Minimum expenditure,Healthcare,2022,1,12,12/01/2022,Pharmacy,7
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2022,1,12,12/01/2022,Car insurance,50
+Base Scenario,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,1,12,12/01/2022,Sports betting,10
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,13,13/01/2022,Cigarettes,9.30
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,1,13,13/01/2022,Supermarket,49.30
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Movie theater,12.09
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Restaurant,43.72
+Base Scenario,Expenditure,Outing Lifestyle,Miscellaneous,2022,1,13,13/01/2022,Taxi,27.90
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,17,17/01/2022,Food delivery,15.81
+Base Scenario,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,1,18,18/01/2022,Afterwork bar,17.67
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,1,19,19/01/2022,Clothes shop,50.23
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,20,20/01/2022,Cigarettes,9.30
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,1,20,20/01/2022,Supermarket,49.30
+Base Scenario,Expenditure,Minimum expenditure,Other essential budget,2022,1,20,20/01/2022,Pet shop,46.51
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2022,1,20,20/01/2022,Liability insurance,12
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,24,24/01/2022,ATM withdrawal,27.90
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,25,25/01/2022,Book shop,9.30
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,26,26/01/2022,Newspaper subscription,9.30
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,27,27/01/2022,Cigarettes,9.30
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,1,27,27/01/2022,Supermarket,49.30
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,28,28/01/2022,Savings for unexpected expenditure,50
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,1,01/02/2022,Cigarettes,9.30
+Base Scenario,Income,Current Income,Salary,2022,2,1,01/02/2022,Salary,1930
+Base Scenario,Expenditure,Minimum expenditure,Housing,2022,2,1,01/02/2022,House rent (with charges),691.16
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,2,1,01/02/2022,Energy supply bill,58.60
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,1,01/02/2022,Car loan,52
+Base Scenario,Income,Potential additional income,Extra hour salary,2022,2,1,01/02/2022,Salary (+8 hours),0
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,2,02/02/2022,Food delivery,21.39
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2022,2,2,02/02/2022,Public transport subscription,32.55
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2022,2,3,03/02/2022,Car gas,46.51
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,3,03/02/2022,ATM withdrawal,30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,2,4,04/02/2022,Credit card monthly fee,6.97
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,5,05/02/2022,Savings Account,50
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,2,6,06/02/2022,Supermarket,49.30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Internet subscription,30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Telephone subscription,15
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Museum ticket,11.16
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Restaurant,50.23
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,6,06/02/2022,Cigarettes,9.30
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,8,08/02/2022,Video streaming platform subscription,9
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,9,09/02/2022,Music streaming platform subscription,10
+Base Scenario,Expenditure,Sport & Game & misc,Personal spending,2022,2,10,10/02/2022,Fitness subscription,36.27
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2022,2,11,11/02/2022,Health insurance,42
+Base Scenario,Expenditure,Minimum expenditure,Healthcare,2022,2,12,12/02/2022,Pharmacy,9.30
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2022,2,12,12/02/2022,Car insurance,50
+Base Scenario,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,2,12,12/02/2022,Sports betting,25
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,13,13/02/2022,Cigarettes,9.30
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,2,13,13/02/2022,Supermarket,49.30
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Movie theater,12.09
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Restaurant,52.09
+Base Scenario,Expenditure,Outing Lifestyle,Miscellaneous,2022,2,13,13/02/2022,Taxi,24.18
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,17,17/02/2022,Food delivery,13.0
+Base Scenario,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,2,18,18/02/2022,Afterwork bar,21.39
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,2,19,19/02/2022,Clothes shop,139.53
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,20,20/02/2022,Cigarettes,9.30
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,2,20,20/02/2022,Supermarket,49.30
+Base Scenario,Expenditure,Minimum expenditure,Other essential budget,2022,2,20,20/02/2022,Pet shop,46.51
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2022,2,20,20/02/2022,Liability insurance,12
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,24,24/02/2022,ATM withdrawal,20
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,26,26/02/2022,Newspaper subscription,9.30
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,27,27/02/2022,Cigarettes,9.30
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,2,27,27/02/2022,Supermarket,49.30
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,28,28/02/2022,Savings for unexpected expenditure,50
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,1,01/03/2022,Cigarettes,9.30
+Base Scenario,Income,Current Income,Salary,2022,3,1,01/03/2022,Salary,1930
+Base Scenario,Expenditure,Minimum expenditure,Housing,2022,3,1,01/03/2022,House rent (with charges),691.16
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,3,1,01/03/2022,Energy supply bill,58.60
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,1,01/03/2022,Car loan,48.37
+Base Scenario,Income,Potential additional income,Extra hour salary,2022,3,1,01/03/2022,Salary (+8 hours),0
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,2,02/03/2022,Food delivery,15.81
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2022,3,2,02/03/2022,Public transport subscription,32.55
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2022,3,3,03/03/2022,Car gas,46.51
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,3,03/03/2022,ATM withdrawal,30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,3,4,04/03/2022,Credit card monthly fee,6.97
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,5,05/03/2022,Savings Account,50
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,3,6,06/03/2022,Supermarket,49.30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Internet subscription,30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Telephone subscription,15
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,6,06/03/2022,Restaurant,38.13
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,6,06/03/2022,Cigarettes,9.30
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,8,08/03/2022,Video streaming platform subscription,9
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,9,09/03/2022,Music streaming platform subscription,10
+Base Scenario,Expenditure,Sport & Game & misc,Personal spending,2022,3,10,10/03/2022,Fitness subscription,36.27
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2022,3,11,11/03/2022,Health insurance,42
+Base Scenario,Expenditure,Minimum expenditure,Healthcare,2022,3,12,12/03/2022,Pharmacy,9.30
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2022,3,12,12/03/2022,Car insurance,50
+Base Scenario,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,3,12,12/03/2022,Sports betting,15
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,13,13/03/2022,Cigarettes,9.30
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,3,13,13/03/2022,Supermarket,49.30
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Concert ticket,41.86
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Restaurant,36.27
+Base Scenario,Expenditure,Outing Lifestyle,Miscellaneous,2022,3,13,13/03/2022,Taxi,37.20
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,17,17/03/2022,Food delivery,12.09
+Base Scenario,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,3,18,18/03/2022,Cafe,11.16
+Base Scenario,Expenditure,Outing Lifestyle,Personal spending,2022,3,19,19/03/2022,Travel tickets,65.11
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,20,20/03/2022,Cigarettes,9.30
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,3,20,20/03/2022,Supermarket,49.30
+Base Scenario,Expenditure,Minimum expenditure,Other essential budget,2022,3,20,20/03/2022,Pet shop,46.51
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2022,3,20,20/03/2022,Liability insurance,11.16
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,24,24/03/2022,ATM withdrawal,40
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,25,25/03/2022,Book shop,16.74
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,26,26/03/2022,Newspaper subscription,9.30
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,27,27/03/2022,Cigarettes,9.30
+Base Scenario,Expenditure,Minimum expenditure,Food,2022,3,27,27/03/2022,Supermarket,49.30
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,28,28/03/2022,Savings for unexpected expenditure,50
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,1,01/01/2023,Cigarettes,10
+Base Scenario,Income,Current Income,Salary,2023,1,1,01/01/2023,Salary,2010
+Base Scenario,Expenditure,Minimum expenditure,Housing,2023,1,1,01/01/2023,House rent (with charges),743
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,1,1,01/01/2023,Energy supply bill,63
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,1,01/01/2023,Car loan,52
+Base Scenario,Income,Potential additional income,Extra hour salary,2023,1,1,01/01/2023,Salary (+8 hours),0
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,2,02/01/2023,Food delivery,17
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2023,1,2,02/01/2023,Public transport subscription,35
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2023,1,3,03/01/2023,Car gas,50
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,3,03/01/2023,ATM withdrawal,40
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,1,4,04/01/2023,Credit card monthly fee,7.5
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,5,05/01/2023,Savings Account,50
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,1,6,06/01/2023,Supermarket,53
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Internet subscription,30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Telephone subscription,15
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Museum ticket,15
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Restaurant,47
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,6,06/01/2023,Cigarettes,10
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,8,08/01/2023,Video streaming platform subscription,9
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,9,09/01/2023,Music streaming platform subscription,10
+Base Scenario,Expenditure,Sport & Game & misc,Personal spending,2023,1,10,10/01/2023,Fitness subscription,39
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2023,1,11,11/01/2023,Health insurance,42
+Base Scenario,Expenditure,Minimum expenditure,Healthcare,2023,1,12,12/01/2023,Pharmacy,10
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2023,1,12,12/01/2023,Car insurance,50
+Base Scenario,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,1,12,12/01/2023,Sports betting,10
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,13,13/01/2023,Cigarettes,10
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,1,13,13/01/2023,Supermarket,53
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Movie theater,13
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Restaurant,47
+Base Scenario,Expenditure,Outing Lifestyle,Miscellaneous,2023,1,13,13/01/2023,Taxi,30
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,17,17/01/2023,Food delivery,17
+Base Scenario,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,1,18,18/01/2023,Afterwork bar,19
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,1,19,19/01/2023,Clothes shop,54
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,20,20/01/2023,Cigarettes,10
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,1,20,20/01/2023,Supermarket,53
+Base Scenario,Expenditure,Minimum expenditure,Other essential budget,2023,1,20,20/01/2023,Pet shop,50
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2023,1,20,20/01/2023,Liability insurance,12
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,24,24/01/2023,ATM withdrawal,30
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,25,25/01/2023,Book shop,10
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,26,26/01/2023,Newspaper subscription,10
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,27,27/01/2023,Cigarettes,10
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,1,27,27/01/2023,Supermarket,53
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,28,28/01/2023,Savings for unexpected expenditure,50
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,1,01/02/2023,Cigarettes,10
+Base Scenario,Income,Current Income,Salary,2023,2,1,01/02/2023,Salary,2010
+Base Scenario,Expenditure,Minimum expenditure,Housing,2023,2,1,01/02/2023,House rent (with charges),743
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,2,1,01/02/2023,Energy supply bill,63
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,1,01/02/2023,Car loan,52
+Base Scenario,Income,Potential additional income,Extra hour salary,2023,2,1,01/02/2023,Salary (+8 hours),0
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,2,02/02/2023,Food delivery,23
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2023,2,2,02/02/2023,Public transport subscription,35
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2023,2,3,03/02/2023,Car gas,50
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,3,03/02/2023,ATM withdrawal,30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,2,4,04/02/2023,Credit card monthly fee,7.5
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,5,05/02/2023,Savings Account,50
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,2,6,06/02/2023,Supermarket,53
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Internet subscription,30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Telephone subscription,15
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Museum ticket,12
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Restaurant,54
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,6,06/02/2023,Cigarettes,10
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,8,08/02/2023,Video streaming platform subscription,9
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,9,09/02/2023,Music streaming platform subscription,10
+Base Scenario,Expenditure,Sport & Game & misc,Personal spending,2023,2,10,10/02/2023,Fitness subscription,39
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2023,2,11,11/02/2023,Health insurance,42
+Base Scenario,Expenditure,Minimum expenditure,Healthcare,2023,2,12,12/02/2023,Pharmacy,10
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2023,2,12,12/02/2023,Car insurance,50
+Base Scenario,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,2,12,12/02/2023,Sports betting,25
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,13,13/02/2023,Cigarettes,10
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,2,13,13/02/2023,Supermarket,53
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Movie theater,13
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Restaurant,56
+Base Scenario,Expenditure,Outing Lifestyle,Miscellaneous,2023,2,13,13/02/2023,Taxi,26
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,17,17/02/2023,Food delivery,14
+Base Scenario,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,2,18,18/02/2023,Afterwork bar,23
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,2,19,19/02/2023,Clothes shop,150
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,20,20/02/2023,Cigarettes,10
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,2,20,20/02/2023,Supermarket,53
+Base Scenario,Expenditure,Minimum expenditure,Other essential budget,2023,2,20,20/02/2023,Pet shop,50
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2023,2,20,20/02/2023,Liability insurance,12
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,24,24/02/2023,ATM withdrawal,20
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,26,26/02/2023,Newspaper subscription,10
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,27,27/02/2023,Cigarettes,10
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,2,27,27/02/2023,Supermarket,53
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,28,28/02/2023,Savings for unexpected expenditure,50
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,1,01/03/2023,Cigarettes,10
+Base Scenario,Income,Current Income,Salary,2023,3,1,01/03/2023,Salary,2010
+Base Scenario,Expenditure,Minimum expenditure,Housing,2023,3,1,01/03/2023,House rent (with charges),743
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,3,1,01/03/2023,Energy supply bill,63
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,1,01/03/2023,Car loan,52
+Base Scenario,Income,Potential additional income,Extra hour salary,2023,3,1,01/03/2023,Salary (+8 hours),0
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,2,02/03/2023,Food delivery,17
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2023,3,2,02/03/2023,Public transport subscription,35
+Base Scenario,Expenditure,Minimum expenditure,Transportation,2023,3,3,03/03/2023,Car gas,50
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,3,03/03/2023,ATM withdrawal,30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,3,4,04/03/2023,Credit card monthly fee,7.5
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,5,05/03/2023,Savings Account,50
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,3,6,06/03/2023,Supermarket,53
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Internet subscription,30
+Base Scenario,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Telephone subscription,15
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,6,06/03/2023,Restaurant,41
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,6,06/03/2023,Cigarettes,10
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,8,08/03/2023,Video streaming platform subscription,9
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,9,09/03/2023,Music streaming platform subscription,10
+Base Scenario,Expenditure,Sport & Game & misc,Personal spending,2023,3,10,10/03/2023,Fitness subscription,39
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2023,3,11,11/03/2023,Health insurance,42
+Base Scenario,Expenditure,Minimum expenditure,Healthcare,2023,3,12,12/03/2023,Pharmacy,10
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2023,3,12,12/03/2023,Car insurance,50
+Base Scenario,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,3,12,12/03/2023,Sports betting,15
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,13,13/03/2023,Cigarettes,10
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,3,13,13/03/2023,Supermarket,53
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Concert ticket,45
+Base Scenario,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Restaurant,39
+Base Scenario,Expenditure,Outing Lifestyle,Miscellaneous,2023,3,13,13/03/2023,Taxi,40
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,17,17/03/2023,Food delivery,13
+Base Scenario,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,3,18,18/03/2023,Cafe,12
+Base Scenario,Expenditure,Outing Lifestyle,Personal spending,2023,3,19,19/03/2023,Travel tickets,70
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,20,20/03/2023,Cigarettes,10
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,3,20,20/03/2023,Supermarket,53
+Base Scenario,Expenditure,Minimum expenditure,Other essential budget,2023,3,20,20/03/2023,Pet shop,50
+Base Scenario,Expenditure,Minimum expenditure,Insurance,2023,3,20,20/03/2023,Liability insurance,12
+Base Scenario,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,24,24/03/2023,ATM withdrawal,40
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,25,25/03/2023,Book shop,18
+Base Scenario,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,26,26/03/2023,Newspaper subscription,10
+Base Scenario,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,27,27/03/2023,Cigarettes,10
+Base Scenario,Expenditure,Minimum expenditure,Food,2023,3,27,27/03/2023,Supermarket,53
+Base Scenario,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,28,28/03/2023,Savings for unexpected expenditure,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,1,01/01/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Current Income,Salary,2022,1,1,01/01/2022,Salary,1930
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Housing,2022,1,1,01/01/2022,House rent (with charges),691.16
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,1,1,01/01/2022,Energy supply bill,58.60
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,1,01/01/2022,Car loan,48.37
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Potential additional income,Extra hour salary,2022,1,1,01/01/2022,Salary (+8 hours),100
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,2,02/01/2022,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2022,1,2,02/01/2022,Public transport subscription,32.55
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2022,1,3,03/01/2022,Car gas,46.51
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,3,03/01/2022,ATM withdrawal,40
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,1,4,04/01/2022,Credit card monthly fee,6.97
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,5,05/01/2022,Savings Account,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,1,6,06/01/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Internet subscription,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Telephone subscription,15
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Museum ticket,13.95
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Restaurant,43.72
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,6,06/01/2022,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,8,08/01/2022,Video streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,9,09/01/2022,Music streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Personal spending,2022,1,10,10/01/2022,Fitness subscription,36.27
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2022,1,11,11/01/2022,Health insurance,42
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Healthcare,2022,1,12,12/01/2022,Pharmacy,7
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2022,1,12,12/01/2022,Car insurance,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,1,12,12/01/2022,Sports betting,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,13,13/01/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,1,13,13/01/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Movie theater,12.09
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Restaurant,43.72
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Miscellaneous,2022,1,13,13/01/2022,Taxi,27.90
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,17,17/01/2022,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,1,18,18/01/2022,Afterwork bar,17.67
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,1,19,19/01/2022,Clothes shop,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,20,20/01/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,1,20,20/01/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Other essential budget,2022,1,20,20/01/2022,Pet shop,46.51
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2022,1,20,20/01/2022,Liability insurance,12
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,24,24/01/2022,ATM withdrawal,27.90
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,25,25/01/2022,Book shop,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,26,26/01/2022,Newspaper subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,27,27/01/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,1,27,27/01/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,28,28/01/2022,Savings for unexpected expenditure,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,1,01/02/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Current Income,Salary,2022,2,1,01/02/2022,Salary,1930
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Housing,2022,2,1,01/02/2022,House rent (with charges),691.16
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,2,1,01/02/2022,Energy supply bill,58.60
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,1,01/02/2022,Car loan,52
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Potential additional income,Extra hour salary,2022,2,1,01/02/2022,Salary (+8 hours),100
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,2,02/02/2022,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2022,2,2,02/02/2022,Public transport subscription,32.55
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2022,2,3,03/02/2022,Car gas,46.51
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,3,03/02/2022,ATM withdrawal,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,2,4,04/02/2022,Credit card monthly fee,6.97
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,5,05/02/2022,Savings Account,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,2,6,06/02/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Internet subscription,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Telephone subscription,15
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Museum ticket,11.16
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Restaurant,50.23
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,6,06/02/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,8,08/02/2022,Video streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,9,09/02/2022,Music streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Personal spending,2022,2,10,10/02/2022,Fitness subscription,36.27
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2022,2,11,11/02/2022,Health insurance,42
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Healthcare,2022,2,12,12/02/2022,Pharmacy,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2022,2,12,12/02/2022,Car insurance,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,2,12,12/02/2022,Sports betting,25
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,13,13/02/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,2,13,13/02/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Movie theater,12.09
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Restaurant,52.09
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Miscellaneous,2022,2,13,13/02/2022,Taxi,24.18
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,17,17/02/2022,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,2,18,18/02/2022,Afterwork bar,21.39
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,2,19,19/02/2022,Clothes shop,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,20,20/02/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,2,20,20/02/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Other essential budget,2022,2,20,20/02/2022,Pet shop,46.51
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2022,2,20,20/02/2022,Liability insurance,12
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,24,24/02/2022,ATM withdrawal,20
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,26,26/02/2022,Newspaper subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,27,27/02/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,2,27,27/02/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,28,28/02/2022,Savings for unexpected expenditure,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,1,01/03/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Current Income,Salary,2022,3,1,01/03/2022,Salary,1930
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Housing,2022,3,1,01/03/2022,House rent (with charges),691.16
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,3,1,01/03/2022,Energy supply bill,58.60
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,1,01/03/2022,Car loan,48.37
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Potential additional income,Extra hour salary,2022,3,1,01/03/2022,Salary (+8 hours),100
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,2,02/03/2022,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2022,3,2,02/03/2022,Public transport subscription,32.55
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2022,3,3,03/03/2022,Car gas,46.51
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,3,03/03/2022,ATM withdrawal,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,3,4,04/03/2022,Credit card monthly fee,6.97
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,5,05/03/2022,Savings Account,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,3,6,06/03/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Internet subscription,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Telephone subscription,15
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,6,06/03/2022,Restaurant,38.13
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,6,06/03/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,8,08/03/2022,Video streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,9,09/03/2022,Music streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Personal spending,2022,3,10,10/03/2022,Fitness subscription,36.27
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2022,3,11,11/03/2022,Health insurance,42
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Healthcare,2022,3,12,12/03/2022,Pharmacy,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2022,3,12,12/03/2022,Car insurance,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,3,12,12/03/2022,Sports betting,15
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,13,13/03/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,3,13,13/03/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Concert ticket,41.86
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Restaurant,36.27
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Miscellaneous,2022,3,13,13/03/2022,Taxi,37.20
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,17,17/03/2022,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,3,18,18/03/2022,Cafe,11.16
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Personal spending,2022,3,19,19/03/2022,Travel tickets,65.11
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,20,20/03/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,3,20,20/03/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Other essential budget,2022,3,20,20/03/2022,Pet shop,46.51
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2022,3,20,20/03/2022,Liability insurance,11.16
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,24,24/03/2022,ATM withdrawal,40
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,25,25/03/2022,Book shop,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,26,26/03/2022,Newspaper subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,27,27/03/2022,Cigarettes,9.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2022,3,27,27/03/2022,Supermarket,49.30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,28,28/03/2022,Savings for unexpected expenditure,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,1,01/01/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Current Income,Salary,2023,1,1,01/01/2023,Salary,2010
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Housing,2023,1,1,01/01/2023,House rent (with charges),743
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,1,1,01/01/2023,Energy supply bill,63
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,1,01/01/2023,Car loan,52
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Potential additional income,Extra hour salary,2023,1,1,01/01/2023,Salary (+8 hours),120
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,2,02/01/2023,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2023,1,2,02/01/2023,Public transport subscription,35
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2023,1,3,03/01/2023,Car gas,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,3,03/01/2023,ATM withdrawal,40
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,1,4,04/01/2023,Credit card monthly fee,7.5
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,5,05/01/2023,Savings Account,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,1,6,06/01/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Internet subscription,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Telephone subscription,15
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Museum ticket,15
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Restaurant,47
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,6,06/01/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,8,08/01/2023,Video streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,9,09/01/2023,Music streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Personal spending,2023,1,10,10/01/2023,Fitness subscription,39
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2023,1,11,11/01/2023,Health insurance,42
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Healthcare,2023,1,12,12/01/2023,Pharmacy,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2023,1,12,12/01/2023,Car insurance,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,1,12,12/01/2023,Sports betting,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,13,13/01/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,1,13,13/01/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Movie theater,13
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Restaurant,47
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Miscellaneous,2023,1,13,13/01/2023,Taxi,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,17,17/01/2023,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,1,18,18/01/2023,Afterwork bar,19
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,1,19,19/01/2023,Clothes shop,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,20,20/01/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,1,20,20/01/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Other essential budget,2023,1,20,20/01/2023,Pet shop,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2023,1,20,20/01/2023,Liability insurance,12
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,24,24/01/2023,ATM withdrawal,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,25,25/01/2023,Book shop,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,26,26/01/2023,Newspaper subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,27,27/01/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,1,27,27/01/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,28,28/01/2023,Savings for unexpected expenditure,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,1,01/02/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Current Income,Salary,2023,2,1,01/02/2023,Salary,2010
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Housing,2023,2,1,01/02/2023,House rent (with charges),743
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,2,1,01/02/2023,Energy supply bill,63
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,1,01/02/2023,Car loan,52
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Potential additional income,Extra hour salary,2023,2,1,01/02/2023,Salary (+8 hours),120
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,2,02/02/2023,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2023,2,2,02/02/2023,Public transport subscription,35
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2023,2,3,03/02/2023,Car gas,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,3,03/02/2023,ATM withdrawal,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,2,4,04/02/2023,Credit card monthly fee,7.5
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,5,05/02/2023,Savings Account,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,2,6,06/02/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Internet subscription,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Telephone subscription,15
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Museum ticket,12
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Restaurant,54
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,6,06/02/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,8,08/02/2023,Video streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,9,09/02/2023,Music streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Personal spending,2023,2,10,10/02/2023,Fitness subscription,39
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2023,2,11,11/02/2023,Health insurance,42
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Healthcare,2023,2,12,12/02/2023,Pharmacy,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2023,2,12,12/02/2023,Car insurance,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,2,12,12/02/2023,Sports betting,25
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,13,13/02/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,2,13,13/02/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Movie theater,13
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Restaurant,56
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Miscellaneous,2023,2,13,13/02/2023,Taxi,26
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,17,17/02/2023,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,2,18,18/02/2023,Afterwork bar,23
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,2,19,19/02/2023,Clothes shop,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,20,20/02/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,2,20,20/02/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Other essential budget,2023,2,20,20/02/2023,Pet shop,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2023,2,20,20/02/2023,Liability insurance,12
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,24,24/02/2023,ATM withdrawal,20
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,26,26/02/2023,Newspaper subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,27,27/02/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,2,27,27/02/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,28,28/02/2023,Savings for unexpected expenditure,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,1,01/03/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Current Income,Salary,2023,3,1,01/03/2023,Salary,2010
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Housing,2023,3,1,01/03/2023,House rent (with charges),743
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,3,1,01/03/2023,Energy supply bill,63
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,1,01/03/2023,Car loan,52
+Scenario 1 - Stop Media & Clothes & Food Delivery,Income,Potential additional income,Extra hour salary,2023,3,1,01/03/2023,Salary (+8 hours),120
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,2,02/03/2023,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2023,3,2,02/03/2023,Public transport subscription,35
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Transportation,2023,3,3,03/03/2023,Car gas,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,3,03/03/2023,ATM withdrawal,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,3,4,04/03/2023,Credit card monthly fee,7.5
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,5,05/03/2023,Savings Account,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,3,6,06/03/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Internet subscription,30
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Telephone subscription,15
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,6,06/03/2023,Restaurant,41
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,6,06/03/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,8,08/03/2023,Video streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,9,09/03/2023,Music streaming platform subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Personal spending,2023,3,10,10/03/2023,Fitness subscription,39
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2023,3,11,11/03/2023,Health insurance,42
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Healthcare,2023,3,12,12/03/2023,Pharmacy,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2023,3,12,12/03/2023,Car insurance,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,3,12,12/03/2023,Sports betting,15
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,13,13/03/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,3,13,13/03/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Concert ticket,45
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Restaurant,39
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Miscellaneous,2023,3,13,13/03/2023,Taxi,40
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,17,17/03/2023,Food delivery,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,3,18,18/03/2023,Cafe,12
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Outing Lifestyle,Personal spending,2023,3,19,19/03/2023,Travel tickets,70
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,20,20/03/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,3,20,20/03/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Other essential budget,2023,3,20,20/03/2023,Pet shop,50
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Insurance,2023,3,20,20/03/2023,Liability insurance,12
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,24,24/03/2023,ATM withdrawal,40
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,25,25/03/2023,Book shop,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,26,26/03/2023,Newspaper subscription,0
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,27,27/03/2023,Cigarettes,10
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Food,2023,3,27,27/03/2023,Supermarket,53
+Scenario 1 - Stop Media & Clothes & Food Delivery,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,28,28/03/2023,Savings for unexpected expenditure,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,1,01/01/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Income,Current Income,Salary,2022,1,1,01/01/2022,Salary,1930
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Housing,2022,1,1,01/01/2022,House rent (with charges),691.16
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,1,1,01/01/2022,Energy supply bill,58.60
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,1,01/01/2022,Car loan,48.37
+Scenario 2 - Stop Outing Lifestyle,Income,Potential additional income,Extra hour salary,2022,1,1,01/01/2022,Salary (+8 hours),100
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,2,02/01/2022,Food delivery,15.81
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2022,1,2,02/01/2022,Public transport subscription,32.55
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2022,1,3,03/01/2022,Car gas,46.51
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,3,03/01/2022,ATM withdrawal,40
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,1,4,04/01/2022,Credit card monthly fee,6.97
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,5,05/01/2022,Savings Account,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,1,6,06/01/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Internet subscription,30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Telephone subscription,15
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Museum ticket,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,6,06/01/2022,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,8,08/01/2022,Video streaming platform subscription,9
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,9,09/01/2022,Music streaming platform subscription,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Personal spending,2022,1,10,10/01/2022,Fitness subscription,36.27
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2022,1,11,11/01/2022,Health insurance,42
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Healthcare,2022,1,12,12/01/2022,Pharmacy,7
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2022,1,12,12/01/2022,Car insurance,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,1,12,12/01/2022,Sports betting,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,13,13/01/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,1,13,13/01/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Movie theater,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Miscellaneous,2022,1,13,13/01/2022,Taxi,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,17,17/01/2022,Food delivery,15.81
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,1,18,18/01/2022,Afterwork bar,17.67
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,1,19,19/01/2022,Clothes shop,50.23
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,20,20/01/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,1,20,20/01/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Other essential budget,2022,1,20,20/01/2022,Pet shop,46.51
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2022,1,20,20/01/2022,Liability insurance,12
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,24,24/01/2022,ATM withdrawal,27.90
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,25,25/01/2022,Book shop,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,26,26/01/2022,Newspaper subscription,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,27,27/01/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,1,27,27/01/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,28,28/01/2022,Savings for unexpected expenditure,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,1,01/02/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Income,Current Income,Salary,2022,2,1,01/02/2022,Salary,1930
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Housing,2022,2,1,01/02/2022,House rent (with charges),691.16
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,2,1,01/02/2022,Energy supply bill,58.60
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,1,01/02/2022,Car loan,52
+Scenario 2 - Stop Outing Lifestyle,Income,Potential additional income,Extra hour salary,2022,2,1,01/02/2022,Salary (+8 hours),100
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,2,02/02/2022,Food delivery,21.39
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2022,2,2,02/02/2022,Public transport subscription,32.55
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2022,2,3,03/02/2022,Car gas,46.51
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,3,03/02/2022,ATM withdrawal,30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,2,4,04/02/2022,Credit card monthly fee,6.97
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,5,05/02/2022,Savings Account,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,2,6,06/02/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Internet subscription,30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Telephone subscription,15
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Museum ticket,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,6,06/02/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,8,08/02/2022,Video streaming platform subscription,9
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,9,09/02/2022,Music streaming platform subscription,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Personal spending,2022,2,10,10/02/2022,Fitness subscription,36.27
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2022,2,11,11/02/2022,Health insurance,42
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Healthcare,2022,2,12,12/02/2022,Pharmacy,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2022,2,12,12/02/2022,Car insurance,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,2,12,12/02/2022,Sports betting,25
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,13,13/02/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,2,13,13/02/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Movie theater,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Miscellaneous,2022,2,13,13/02/2022,Taxi,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,17,17/02/2022,Food delivery,13.0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,2,18,18/02/2022,Afterwork bar,21.39
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,2,19,19/02/2022,Clothes shop,139.53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,20,20/02/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,2,20,20/02/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Other essential budget,2022,2,20,20/02/2022,Pet shop,46.51
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2022,2,20,20/02/2022,Liability insurance,12
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,24,24/02/2022,ATM withdrawal,20
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,26,26/02/2022,Newspaper subscription,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,27,27/02/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,2,27,27/02/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,28,28/02/2022,Savings for unexpected expenditure,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,1,01/03/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Income,Current Income,Salary,2022,3,1,01/03/2022,Salary,1930
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Housing,2022,3,1,01/03/2022,House rent (with charges),691.16
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,3,1,01/03/2022,Energy supply bill,58.60
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,1,01/03/2022,Car loan,48.37
+Scenario 2 - Stop Outing Lifestyle,Income,Potential additional income,Extra hour salary,2022,3,1,01/03/2022,Salary (+8 hours),100
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,2,02/03/2022,Food delivery,15.81
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2022,3,2,02/03/2022,Public transport subscription,32.55
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2022,3,3,03/03/2022,Car gas,46.51
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,3,03/03/2022,ATM withdrawal,30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,3,4,04/03/2022,Credit card monthly fee,6.97
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,5,05/03/2022,Savings Account,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,3,6,06/03/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Internet subscription,30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Telephone subscription,15
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,6,06/03/2022,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,6,06/03/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,8,08/03/2022,Video streaming platform subscription,9
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,9,09/03/2022,Music streaming platform subscription,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Personal spending,2022,3,10,10/03/2022,Fitness subscription,36.27
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2022,3,11,11/03/2022,Health insurance,42
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Healthcare,2022,3,12,12/03/2022,Pharmacy,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2022,3,12,12/03/2022,Car insurance,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,3,12,12/03/2022,Sports betting,15
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,13,13/03/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,3,13,13/03/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Concert ticket,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Miscellaneous,2022,3,13,13/03/2022,Taxi,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,17,17/03/2022,Food delivery,12.09
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,3,18,18/03/2022,Cafe,11.16
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Personal spending,2022,3,19,19/03/2022,Travel tickets,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,20,20/03/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,3,20,20/03/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Other essential budget,2022,3,20,20/03/2022,Pet shop,46.51
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2022,3,20,20/03/2022,Liability insurance,11.16
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,24,24/03/2022,ATM withdrawal,40
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,25,25/03/2022,Book shop,16.74
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,26,26/03/2022,Newspaper subscription,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,27,27/03/2022,Cigarettes,9.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2022,3,27,27/03/2022,Supermarket,49.30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,28,28/03/2022,Savings for unexpected expenditure,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,1,01/01/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Income,Current Income,Salary,2023,1,1,01/01/2023,Salary,2010
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Housing,2023,1,1,01/01/2023,House rent (with charges),743
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,1,1,01/01/2023,Energy supply bill,63
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,1,01/01/2023,Car loan,52
+Scenario 2 - Stop Outing Lifestyle,Income,Potential additional income,Extra hour salary,2023,1,1,01/01/2023,Salary (+8 hours),120
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,2,02/01/2023,Food delivery,17
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2023,1,2,02/01/2023,Public transport subscription,35
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2023,1,3,03/01/2023,Car gas,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,3,03/01/2023,ATM withdrawal,40
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,1,4,04/01/2023,Credit card monthly fee,7.5
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,5,05/01/2023,Savings Account,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,1,6,06/01/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Internet subscription,30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Telephone subscription,15
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Museum ticket,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,6,06/01/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,8,08/01/2023,Video streaming platform subscription,9
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,9,09/01/2023,Music streaming platform subscription,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Personal spending,2023,1,10,10/01/2023,Fitness subscription,39
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2023,1,11,11/01/2023,Health insurance,42
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Healthcare,2023,1,12,12/01/2023,Pharmacy,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2023,1,12,12/01/2023,Car insurance,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,1,12,12/01/2023,Sports betting,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,13,13/01/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,1,13,13/01/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Movie theater,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Miscellaneous,2023,1,13,13/01/2023,Taxi,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,17,17/01/2023,Food delivery,17
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,1,18,18/01/2023,Afterwork bar,19
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,1,19,19/01/2023,Clothes shop,54
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,20,20/01/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,1,20,20/01/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Other essential budget,2023,1,20,20/01/2023,Pet shop,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2023,1,20,20/01/2023,Liability insurance,12
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,24,24/01/2023,ATM withdrawal,30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,25,25/01/2023,Book shop,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,26,26/01/2023,Newspaper subscription,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,27,27/01/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,1,27,27/01/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,28,28/01/2023,Savings for unexpected expenditure,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,1,01/02/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Income,Current Income,Salary,2023,2,1,01/02/2023,Salary,2010
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Housing,2023,2,1,01/02/2023,House rent (with charges),743
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,2,1,01/02/2023,Energy supply bill,63
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,1,01/02/2023,Car loan,52
+Scenario 2 - Stop Outing Lifestyle,Income,Potential additional income,Extra hour salary,2023,2,1,01/02/2023,Salary (+8 hours),120
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,2,02/02/2023,Food delivery,23
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2023,2,2,02/02/2023,Public transport subscription,35
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2023,2,3,03/02/2023,Car gas,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,3,03/02/2023,ATM withdrawal,30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,2,4,04/02/2023,Credit card monthly fee,7.5
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,5,05/02/2023,Savings Account,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,2,6,06/02/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Internet subscription,30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Telephone subscription,15
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Museum ticket,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,6,06/02/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,8,08/02/2023,Video streaming platform subscription,9
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,9,09/02/2023,Music streaming platform subscription,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Personal spending,2023,2,10,10/02/2023,Fitness subscription,39
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2023,2,11,11/02/2023,Health insurance,42
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Healthcare,2023,2,12,12/02/2023,Pharmacy,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2023,2,12,12/02/2023,Car insurance,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,2,12,12/02/2023,Sports betting,25
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,13,13/02/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,2,13,13/02/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Movie theater,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Miscellaneous,2023,2,13,13/02/2023,Taxi,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,17,17/02/2023,Food delivery,14
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,2,18,18/02/2023,Afterwork bar,23
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,2,19,19/02/2023,Clothes shop,150
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,20,20/02/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,2,20,20/02/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Other essential budget,2023,2,20,20/02/2023,Pet shop,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2023,2,20,20/02/2023,Liability insurance,12
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,24,24/02/2023,ATM withdrawal,20
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,26,26/02/2023,Newspaper subscription,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,27,27/02/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,2,27,27/02/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,28,28/02/2023,Savings for unexpected expenditure,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,1,01/03/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Income,Current Income,Salary,2023,3,1,01/03/2023,Salary,2010
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Housing,2023,3,1,01/03/2023,House rent (with charges),743
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,3,1,01/03/2023,Energy supply bill,63
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,1,01/03/2023,Car loan,52
+Scenario 2 - Stop Outing Lifestyle,Income,Potential additional income,Extra hour salary,2023,3,1,01/03/2023,Salary (+8 hours),120
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,2,02/03/2023,Food delivery,17
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2023,3,2,02/03/2023,Public transport subscription,35
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Transportation,2023,3,3,03/03/2023,Car gas,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,3,03/03/2023,ATM withdrawal,30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,3,4,04/03/2023,Credit card monthly fee,7.5
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,5,05/03/2023,Savings Account,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,3,6,06/03/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Internet subscription,30
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Telephone subscription,15
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,6,06/03/2023,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,6,06/03/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,8,08/03/2023,Video streaming platform subscription,9
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,9,09/03/2023,Music streaming platform subscription,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Personal spending,2023,3,10,10/03/2023,Fitness subscription,39
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2023,3,11,11/03/2023,Health insurance,42
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Healthcare,2023,3,12,12/03/2023,Pharmacy,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2023,3,12,12/03/2023,Car insurance,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,3,12,12/03/2023,Sports betting,15
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,13,13/03/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,3,13,13/03/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Concert ticket,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Restaurant,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Miscellaneous,2023,3,13,13/03/2023,Taxi,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,17,17/03/2023,Food delivery,13
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,3,18,18/03/2023,Cafe,12
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Outing Lifestyle,Personal spending,2023,3,19,19/03/2023,Travel tickets,0
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,20,20/03/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,3,20,20/03/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Other essential budget,2023,3,20,20/03/2023,Pet shop,50
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Insurance,2023,3,20,20/03/2023,Liability insurance,12
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,24,24/03/2023,ATM withdrawal,40
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,25,25/03/2023,Book shop,18
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,26,26/03/2023,Newspaper subscription,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,27,27/03/2023,Cigarettes,10
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Food,2023,3,27,27/03/2023,Supermarket,53
+Scenario 2 - Stop Outing Lifestyle,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,28,28/03/2023,Savings for unexpected expenditure,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,1,01/01/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Income,Current Income,Salary,2022,1,1,01/01/2022,Salary,1930
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Housing,2022,1,1,01/01/2022,House rent (with charges),691.16
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,1,1,01/01/2022,Energy supply bill,58.60
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,1,01/01/2022,Car loan,48.37
+Scenario 3 - Stop Sport & Game & misc,Income,Potential additional income,Extra hour salary,2022,1,1,01/01/2022,Salary (+8 hours),100
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,2,02/01/2022,Food delivery,15.81
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2022,1,2,02/01/2022,Public transport subscription,32.55
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2022,1,3,03/01/2022,Car gas,46.51
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,3,03/01/2022,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,1,4,04/01/2022,Credit card monthly fee,6.97
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,5,05/01/2022,Savings Account,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,1,6,06/01/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Internet subscription,30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Telephone subscription,15
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Museum ticket,13.95
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Restaurant,43.72
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,6,06/01/2022,Cigarettes,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,8,08/01/2022,Video streaming platform subscription,9
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,9,09/01/2022,Music streaming platform subscription,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Personal spending,2022,1,10,10/01/2022,Fitness subscription,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2022,1,11,11/01/2022,Health insurance,42
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Healthcare,2022,1,12,12/01/2022,Pharmacy,7
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2022,1,12,12/01/2022,Car insurance,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,1,12,12/01/2022,Sports betting,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,13,13/01/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,1,13,13/01/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Movie theater,12.09
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Restaurant,43.72
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Miscellaneous,2022,1,13,13/01/2022,Taxi,27.90
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,17,17/01/2022,Food delivery,15.81
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,1,18,18/01/2022,Afterwork bar,17.67
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,1,19,19/01/2022,Clothes shop,50.23
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,20,20/01/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,1,20,20/01/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Other essential budget,2022,1,20,20/01/2022,Pet shop,46.51
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2022,1,20,20/01/2022,Liability insurance,12
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,24,24/01/2022,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,25,25/01/2022,Book shop,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,26,26/01/2022,Newspaper subscription,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,27,27/01/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,1,27,27/01/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,28,28/01/2022,Savings for unexpected expenditure,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,1,01/02/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Income,Current Income,Salary,2022,2,1,01/02/2022,Salary,1930
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Housing,2022,2,1,01/02/2022,House rent (with charges),691.16
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,2,1,01/02/2022,Energy supply bill,58.60
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,1,01/02/2022,Car loan,52
+Scenario 3 - Stop Sport & Game & misc,Income,Potential additional income,Extra hour salary,2022,2,1,01/02/2022,Salary (+8 hours),100
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,2,02/02/2022,Food delivery,21.39
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2022,2,2,02/02/2022,Public transport subscription,32.55
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2022,2,3,03/02/2022,Car gas,46.51
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,3,03/02/2022,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,2,4,04/02/2022,Credit card monthly fee,6.97
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,5,05/02/2022,Savings Account,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,2,6,06/02/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Internet subscription,30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Telephone subscription,15
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Museum ticket,11.16
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Restaurant,50.23
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,6,06/02/2022,Cigarettes,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,8,08/02/2022,Video streaming platform subscription,9
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,9,09/02/2022,Music streaming platform subscription,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Personal spending,2022,2,10,10/02/2022,Fitness subscription,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2022,2,11,11/02/2022,Health insurance,42
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Healthcare,2022,2,12,12/02/2022,Pharmacy,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2022,2,12,12/02/2022,Car insurance,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,2,12,12/02/2022,Sports betting,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,13,13/02/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,2,13,13/02/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Movie theater,12.09
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Restaurant,52.09
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Miscellaneous,2022,2,13,13/02/2022,Taxi,24.18
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,17,17/02/2022,Food delivery,13.0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,2,18,18/02/2022,Afterwork bar,21.39
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,2,19,19/02/2022,Clothes shop,139.53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,20,20/02/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,2,20,20/02/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Other essential budget,2022,2,20,20/02/2022,Pet shop,46.51
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2022,2,20,20/02/2022,Liability insurance,12
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,24,24/02/2022,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,26,26/02/2022,Newspaper subscription,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,27,27/02/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,2,27,27/02/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,28,28/02/2022,Savings for unexpected expenditure,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,1,01/03/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Income,Current Income,Salary,2022,3,1,01/03/2022,Salary,1930
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Housing,2022,3,1,01/03/2022,House rent (with charges),691.16
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,3,1,01/03/2022,Energy supply bill,58.60
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,1,01/03/2022,Car loan,48.37
+Scenario 3 - Stop Sport & Game & misc,Income,Potential additional income,Extra hour salary,2022,3,1,01/03/2022,Salary (+8 hours),100
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,2,02/03/2022,Food delivery,15.81
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2022,3,2,02/03/2022,Public transport subscription,32.55
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2022,3,3,03/03/2022,Car gas,46.51
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,3,03/03/2022,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,3,4,04/03/2022,Credit card monthly fee,6.97
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,5,05/03/2022,Savings Account,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,3,6,06/03/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Internet subscription,30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Telephone subscription,15
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,6,06/03/2022,Restaurant,38.13
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,6,06/03/2022,Cigarettes,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,8,08/03/2022,Video streaming platform subscription,9
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,9,09/03/2022,Music streaming platform subscription,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Personal spending,2022,3,10,10/03/2022,Fitness subscription,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2022,3,11,11/03/2022,Health insurance,42
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Healthcare,2022,3,12,12/03/2022,Pharmacy,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2022,3,12,12/03/2022,Car insurance,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,3,12,12/03/2022,Sports betting,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,13,13/03/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,3,13,13/03/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Concert ticket,41.86
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Restaurant,36.27
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Miscellaneous,2022,3,13,13/03/2022,Taxi,37.20
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,17,17/03/2022,Food delivery,12.09
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,3,18,18/03/2022,Cafe,11.16
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Personal spending,2022,3,19,19/03/2022,Travel tickets,65.11
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,20,20/03/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,3,20,20/03/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Other essential budget,2022,3,20,20/03/2022,Pet shop,46.51
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2022,3,20,20/03/2022,Liability insurance,11.16
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,24,24/03/2022,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,25,25/03/2022,Book shop,16.74
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,26,26/03/2022,Newspaper subscription,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,27,27/03/2022,Cigarettes,9.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2022,3,27,27/03/2022,Supermarket,49.30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,28,28/03/2022,Savings for unexpected expenditure,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,1,01/01/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Income,Current Income,Salary,2023,1,1,01/01/2023,Salary,2010
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Housing,2023,1,1,01/01/2023,House rent (with charges),743
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,1,1,01/01/2023,Energy supply bill,63
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,1,01/01/2023,Car loan,52
+Scenario 3 - Stop Sport & Game & misc,Income,Potential additional income,Extra hour salary,2023,1,1,01/01/2023,Salary (+8 hours),120
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,2,02/01/2023,Food delivery,17
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2023,1,2,02/01/2023,Public transport subscription,35
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2023,1,3,03/01/2023,Car gas,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,3,03/01/2023,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,1,4,04/01/2023,Credit card monthly fee,7.5
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,5,05/01/2023,Savings Account,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,1,6,06/01/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Internet subscription,30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Telephone subscription,15
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Museum ticket,15
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Restaurant,47
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,6,06/01/2023,Cigarettes,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,8,08/01/2023,Video streaming platform subscription,9
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,9,09/01/2023,Music streaming platform subscription,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Personal spending,2023,1,10,10/01/2023,Fitness subscription,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2023,1,11,11/01/2023,Health insurance,42
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Healthcare,2023,1,12,12/01/2023,Pharmacy,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2023,1,12,12/01/2023,Car insurance,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,1,12,12/01/2023,Sports betting,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,13,13/01/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,1,13,13/01/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Movie theater,13
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Restaurant,47
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Miscellaneous,2023,1,13,13/01/2023,Taxi,30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,17,17/01/2023,Food delivery,17
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,1,18,18/01/2023,Afterwork bar,19
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,1,19,19/01/2023,Clothes shop,54
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,20,20/01/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,1,20,20/01/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Other essential budget,2023,1,20,20/01/2023,Pet shop,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2023,1,20,20/01/2023,Liability insurance,12
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,24,24/01/2023,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,25,25/01/2023,Book shop,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,26,26/01/2023,Newspaper subscription,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,27,27/01/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,1,27,27/01/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,28,28/01/2023,Savings for unexpected expenditure,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,1,01/02/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Income,Current Income,Salary,2023,2,1,01/02/2023,Salary,2010
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Housing,2023,2,1,01/02/2023,House rent (with charges),743
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,2,1,01/02/2023,Energy supply bill,63
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,1,01/02/2023,Car loan,52
+Scenario 3 - Stop Sport & Game & misc,Income,Potential additional income,Extra hour salary,2023,2,1,01/02/2023,Salary (+8 hours),120
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,2,02/02/2023,Food delivery,23
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2023,2,2,02/02/2023,Public transport subscription,35
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2023,2,3,03/02/2023,Car gas,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,3,03/02/2023,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,2,4,04/02/2023,Credit card monthly fee,7.5
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,5,05/02/2023,Savings Account,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,2,6,06/02/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Internet subscription,30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Telephone subscription,15
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Museum ticket,12
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Restaurant,54
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,6,06/02/2023,Cigarettes,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,8,08/02/2023,Video streaming platform subscription,9
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,9,09/02/2023,Music streaming platform subscription,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Personal spending,2023,2,10,10/02/2023,Fitness subscription,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2023,2,11,11/02/2023,Health insurance,42
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Healthcare,2023,2,12,12/02/2023,Pharmacy,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2023,2,12,12/02/2023,Car insurance,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,2,12,12/02/2023,Sports betting,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,13,13/02/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,2,13,13/02/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Movie theater,13
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Restaurant,56
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Miscellaneous,2023,2,13,13/02/2023,Taxi,26
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,17,17/02/2023,Food delivery,14
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,2,18,18/02/2023,Afterwork bar,23
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,2,19,19/02/2023,Clothes shop,150
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,20,20/02/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,2,20,20/02/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Other essential budget,2023,2,20,20/02/2023,Pet shop,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2023,2,20,20/02/2023,Liability insurance,12
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,24,24/02/2023,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,26,26/02/2023,Newspaper subscription,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,27,27/02/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,2,27,27/02/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,28,28/02/2023,Savings for unexpected expenditure,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,1,01/03/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Income,Current Income,Salary,2023,3,1,01/03/2023,Salary,2010
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Housing,2023,3,1,01/03/2023,House rent (with charges),743
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,3,1,01/03/2023,Energy supply bill,63
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,1,01/03/2023,Car loan,52
+Scenario 3 - Stop Sport & Game & misc,Income,Potential additional income,Extra hour salary,2023,3,1,01/03/2023,Salary (+8 hours),120
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,2,02/03/2023,Food delivery,17
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2023,3,2,02/03/2023,Public transport subscription,35
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Transportation,2023,3,3,03/03/2023,Car gas,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,3,03/03/2023,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,3,4,04/03/2023,Credit card monthly fee,7.5
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,5,05/03/2023,Savings Account,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,3,6,06/03/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Internet subscription,30
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Telephone subscription,15
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,6,06/03/2023,Restaurant,41
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,6,06/03/2023,Cigarettes,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,8,08/03/2023,Video streaming platform subscription,9
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,9,09/03/2023,Music streaming platform subscription,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Personal spending,2023,3,10,10/03/2023,Fitness subscription,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2023,3,11,11/03/2023,Health insurance,42
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Healthcare,2023,3,12,12/03/2023,Pharmacy,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2023,3,12,12/03/2023,Car insurance,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,3,12,12/03/2023,Sports betting,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,13,13/03/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,3,13,13/03/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Concert ticket,45
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Restaurant,39
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Miscellaneous,2023,3,13,13/03/2023,Taxi,40
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,17,17/03/2023,Food delivery,13
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,3,18,18/03/2023,Cafe,12
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Outing Lifestyle,Personal spending,2023,3,19,19/03/2023,Travel tickets,70
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,20,20/03/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,3,20,20/03/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Other essential budget,2023,3,20,20/03/2023,Pet shop,50
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Insurance,2023,3,20,20/03/2023,Liability insurance,12
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,24,24/03/2023,ATM withdrawal,0
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,25,25/03/2023,Book shop,18
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,26,26/03/2023,Newspaper subscription,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,27,27/03/2023,Cigarettes,10
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Food,2023,3,27,27/03/2023,Supermarket,53
+Scenario 3 - Stop Sport & Game & misc,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,28,28/03/2023,Savings for unexpected expenditure,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,1,01/01/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Current Income,Salary,2022,1,1,01/01/2022,Salary,1930
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Housing,2022,1,1,01/01/2022,House rent (with charges),691.16
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,1,1,01/01/2022,Energy supply bill,58.60
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,1,01/01/2022,Car loan,48.37
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Potential additional income,Extra hour salary,2022,1,1,01/01/2022,Salary (+8 hours),100
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,2,02/01/2022,Food delivery,15.81
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2022,1,2,02/01/2022,Public transport subscription,32.55
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2022,1,3,03/01/2022,Car gas,46.51
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,3,03/01/2022,ATM withdrawal,40
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,1,4,04/01/2022,Credit card monthly fee,6.97
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,5,05/01/2022,Savings Account,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,1,6,06/01/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Internet subscription,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,1,6,06/01/2022,Telephone subscription,15
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Museum ticket,13.95
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,6,06/01/2022,Restaurant,43.72
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,6,06/01/2022,Cigarettes,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,8,08/01/2022,Video streaming platform subscription,9
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,9,09/01/2022,Music streaming platform subscription,9.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Personal spending,2022,1,10,10/01/2022,Fitness subscription,36.27
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2022,1,11,11/01/2022,Health insurance,42
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Healthcare,2022,1,12,12/01/2022,Pharmacy,7
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2022,1,12,12/01/2022,Car insurance,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,1,12,12/01/2022,Sports betting,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,13,13/01/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,1,13,13/01/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Movie theater,12.09
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,1,13,13/01/2022,Restaurant,43.72
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Miscellaneous,2022,1,13,13/01/2022,Taxi,27.90
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,17,17/01/2022,Food delivery,15.81
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,1,18,18/01/2022,Afterwork bar,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,1,19,19/01/2022,Clothes shop,50.23
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,20,20/01/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,1,20,20/01/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Other essential budget,2022,1,20,20/01/2022,Pet shop,46.51
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2022,1,20,20/01/2022,Liability insurance,12
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2022,1,24,24/01/2022,ATM withdrawal,27.90
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,25,25/01/2022,Book shop,9.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,26,26/01/2022,Newspaper subscription,9.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,27,27/01/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,1,27,27/01/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,28,28/01/2022,Savings for unexpected expenditure,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,1,01/02/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Current Income,Salary,2022,2,1,01/02/2022,Salary,1930
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Housing,2022,2,1,01/02/2022,House rent (with charges),691.16
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,2,1,01/02/2022,Energy supply bill,58.60
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,1,01/02/2022,Car loan,52
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Potential additional income,Extra hour salary,2022,2,1,01/02/2022,Salary (+8 hours),100
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,2,02/02/2022,Food delivery,21.39
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2022,2,2,02/02/2022,Public transport subscription,32.55
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2022,2,3,03/02/2022,Car gas,46.51
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,3,03/02/2022,ATM withdrawal,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,2,4,04/02/2022,Credit card monthly fee,6.97
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,5,05/02/2022,Savings Account,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,2,6,06/02/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Internet subscription,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,2,6,06/02/2022,Telephone subscription,15
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Museum ticket,11.16
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,6,06/02/2022,Restaurant,50.23
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,6,06/02/2022,Cigarettes,9.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,8,08/02/2022,Video streaming platform subscription,9
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,9,09/02/2022,Music streaming platform subscription,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Personal spending,2022,2,10,10/02/2022,Fitness subscription,36.27
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2022,2,11,11/02/2022,Health insurance,42
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Healthcare,2022,2,12,12/02/2022,Pharmacy,9.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2022,2,12,12/02/2022,Car insurance,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,2,12,12/02/2022,Sports betting,25
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,13,13/02/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,2,13,13/02/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Movie theater,12.09
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,2,13,13/02/2022,Restaurant,52.09
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Miscellaneous,2022,2,13,13/02/2022,Taxi,24.18
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,17,17/02/2022,Food delivery,13.0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,2,18,18/02/2022,Afterwork bar,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Personal spending,2022,2,19,19/02/2022,Clothes shop,139.53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,20,20/02/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,2,20,20/02/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Other essential budget,2022,2,20,20/02/2022,Pet shop,46.51
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2022,2,20,20/02/2022,Liability insurance,12
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2022,2,24,24/02/2022,ATM withdrawal,20
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,2,26,26/02/2022,Newspaper subscription,9.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,2,27,27/02/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,2,27,27/02/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2022,2,28,28/02/2022,Savings for unexpected expenditure,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,1,01/03/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Current Income,Salary,2022,3,1,01/03/2022,Salary,1930
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Housing,2022,3,1,01/03/2022,House rent (with charges),691.16
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,3,1,01/03/2022,Energy supply bill,58.60
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,1,01/03/2022,Car loan,48.37
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Potential additional income,Extra hour salary,2022,3,1,01/03/2022,Salary (+8 hours),100
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,2,02/03/2022,Food delivery,15.81
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2022,3,2,02/03/2022,Public transport subscription,32.55
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2022,3,3,03/03/2022,Car gas,46.51
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,3,03/03/2022,ATM withdrawal,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,3,4,04/03/2022,Credit card monthly fee,6.97
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,5,05/03/2022,Savings Account,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,3,6,06/03/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Internet subscription,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2022,3,6,06/03/2022,Telephone subscription,15
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,6,06/03/2022,Restaurant,38.13
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,6,06/03/2022,Cigarettes,9.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,8,08/03/2022,Video streaming platform subscription,9
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,9,09/03/2022,Music streaming platform subscription,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Personal spending,2022,3,10,10/03/2022,Fitness subscription,36.27
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2022,3,11,11/03/2022,Health insurance,42
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Healthcare,2022,3,12,12/03/2022,Pharmacy,9.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2022,3,12,12/03/2022,Car insurance,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Recreation & Entertainment,2022,3,12,12/03/2022,Sports betting,15
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,13,13/03/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,3,13,13/03/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Concert ticket,41.86
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2022,3,13,13/03/2022,Restaurant,36.27
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Miscellaneous,2022,3,13,13/03/2022,Taxi,37.20
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,17,17/03/2022,Food delivery,12.09
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2022,3,18,18/03/2022,Cafe,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Personal spending,2022,3,19,19/03/2022,Travel tickets,65.11
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,20,20/03/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,3,20,20/03/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Other essential budget,2022,3,20,20/03/2022,Pet shop,46.51
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2022,3,20,20/03/2022,Liability insurance,11.16
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2022,3,24,24/03/2022,ATM withdrawal,40
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,25,25/03/2022,Book shop,16.74
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,3,26,26/03/2022,Newspaper subscription,9.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,3,27,27/03/2022,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2022,3,27,27/03/2022,Supermarket,49.30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2022,3,28,28/03/2022,Savings for unexpected expenditure,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,1,01/01/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Current Income,Salary,2023,1,1,01/01/2023,Salary,2010
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Housing,2023,1,1,01/01/2023,House rent (with charges),743
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,1,1,01/01/2023,Energy supply bill,63
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,1,01/01/2023,Car loan,52
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Potential additional income,Extra hour salary,2023,1,1,01/01/2023,Salary (+8 hours),120
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,2,02/01/2023,Food delivery,17
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2023,1,2,02/01/2023,Public transport subscription,35
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2023,1,3,03/01/2023,Car gas,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,3,03/01/2023,ATM withdrawal,40
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,1,4,04/01/2023,Credit card monthly fee,7.5
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,5,05/01/2023,Savings Account,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,1,6,06/01/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Internet subscription,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,1,6,06/01/2023,Telephone subscription,15
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Museum ticket,15
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,6,06/01/2023,Restaurant,47
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,6,06/01/2023,Cigarettes,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,8,08/01/2023,Video streaming platform subscription,9
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,9,09/01/2023,Music streaming platform subscription,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Personal spending,2023,1,10,10/01/2023,Fitness subscription,39
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2023,1,11,11/01/2023,Health insurance,42
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Healthcare,2023,1,12,12/01/2023,Pharmacy,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2023,1,12,12/01/2023,Car insurance,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,1,12,12/01/2023,Sports betting,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,13,13/01/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,1,13,13/01/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Movie theater,13
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,1,13,13/01/2023,Restaurant,47
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Miscellaneous,2023,1,13,13/01/2023,Taxi,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,17,17/01/2023,Food delivery,17
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,1,18,18/01/2023,Afterwork bar,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,1,19,19/01/2023,Clothes shop,54
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,20,20/01/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,1,20,20/01/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Other essential budget,2023,1,20,20/01/2023,Pet shop,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2023,1,20,20/01/2023,Liability insurance,12
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2023,1,24,24/01/2023,ATM withdrawal,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,25,25/01/2023,Book shop,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,1,26,26/01/2023,Newspaper subscription,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,1,27,27/01/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,1,27,27/01/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2023,1,28,28/01/2023,Savings for unexpected expenditure,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,1,01/02/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Current Income,Salary,2023,2,1,01/02/2023,Salary,2010
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Housing,2023,2,1,01/02/2023,House rent (with charges),743
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,2,1,01/02/2023,Energy supply bill,63
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,1,01/02/2023,Car loan,52
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Potential additional income,Extra hour salary,2023,2,1,01/02/2023,Salary (+8 hours),120
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,2,02/02/2023,Food delivery,23
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2023,2,2,02/02/2023,Public transport subscription,35
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2023,2,3,03/02/2023,Car gas,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,3,03/02/2023,ATM withdrawal,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,2,4,04/02/2023,Credit card monthly fee,7.5
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,5,05/02/2023,Savings Account,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,2,6,06/02/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Internet subscription,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,2,6,06/02/2023,Telephone subscription,15
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Museum ticket,12
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,6,06/02/2023,Restaurant,54
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,6,06/02/2023,Cigarettes,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,8,08/02/2023,Video streaming platform subscription,9
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,9,09/02/2023,Music streaming platform subscription,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Personal spending,2023,2,10,10/02/2023,Fitness subscription,39
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2023,2,11,11/02/2023,Health insurance,42
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Healthcare,2023,2,12,12/02/2023,Pharmacy,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2023,2,12,12/02/2023,Car insurance,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,2,12,12/02/2023,Sports betting,25
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,13,13/02/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,2,13,13/02/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Movie theater,13
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,2,13,13/02/2023,Restaurant,56
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Miscellaneous,2023,2,13,13/02/2023,Taxi,26
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,17,17/02/2023,Food delivery,14
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,2,18,18/02/2023,Afterwork bar,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Personal spending,2023,2,19,19/02/2023,Clothes shop,150
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,20,20/02/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,2,20,20/02/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Other essential budget,2023,2,20,20/02/2023,Pet shop,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2023,2,20,20/02/2023,Liability insurance,12
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2023,2,24,24/02/2023,ATM withdrawal,20
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,2,26,26/02/2023,Newspaper subscription,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,2,27,27/02/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,2,27,27/02/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2023,2,28,28/02/2023,Savings for unexpected expenditure,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,1,01/03/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Current Income,Salary,2023,3,1,01/03/2023,Salary,2010
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Housing,2023,3,1,01/03/2023,House rent (with charges),743
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,3,1,01/03/2023,Energy supply bill,63
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,1,01/03/2023,Car loan,52
+Scenario 4 - Stop Cigarettes & Alcohol,Income,Potential additional income,Extra hour salary,2023,3,1,01/03/2023,Salary (+8 hours),120
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,2,02/03/2023,Food delivery,17
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2023,3,2,02/03/2023,Public transport subscription,35
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Transportation,2023,3,3,03/03/2023,Car gas,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,3,03/03/2023,ATM withdrawal,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,3,4,04/03/2023,Credit card monthly fee,7.5
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,5,05/03/2023,Savings Account,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,3,6,06/03/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Internet subscription,30
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Utilities,2023,3,6,06/03/2023,Telephone subscription,15
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,6,06/03/2023,Restaurant,41
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,6,06/03/2023,Cigarettes,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,8,08/03/2023,Video streaming platform subscription,9
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,9,09/03/2023,Music streaming platform subscription,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Personal spending,2023,3,10,10/03/2023,Fitness subscription,39
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2023,3,11,11/03/2023,Health insurance,42
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Healthcare,2023,3,12,12/03/2023,Pharmacy,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2023,3,12,12/03/2023,Car insurance,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Recreation & Entertainment,2023,3,12,12/03/2023,Sports betting,15
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,13,13/03/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,3,13,13/03/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Concert ticket,45
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Recreation & Entertainment,2023,3,13,13/03/2023,Restaurant,39
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Miscellaneous,2023,3,13,13/03/2023,Taxi,40
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,17,17/03/2023,Food delivery,13
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Recreation & Entertainment,2023,3,18,18/03/2023,Cafe,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Outing Lifestyle,Personal spending,2023,3,19,19/03/2023,Travel tickets,70
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,20,20/03/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,3,20,20/03/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Other essential budget,2023,3,20,20/03/2023,Pet shop,50
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Insurance,2023,3,20,20/03/2023,Liability insurance,12
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Sport & Game & misc,Miscellaneous,2023,3,24,24/03/2023,ATM withdrawal,40
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,25,25/03/2023,Book shop,18
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2023,3,26,26/03/2023,Newspaper subscription,10
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Cigarettes & Alcohol,Miscellaneous,2023,3,27,27/03/2023,Cigarettes,0
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Food,2023,3,27,27/03/2023,Supermarket,53
+Scenario 4 - Stop Cigarettes & Alcohol,Expenditure,Minimum expenditure,Saving & Debt payments,2023,3,28,28/03/2023,Savings for unexpected expenditure,50
