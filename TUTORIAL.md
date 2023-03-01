@@ -1,4 +1,4 @@
-This tutorial is based on a simulated [personal budget spreadsheet](src/main/resources/personal_budget_v3.csv) to help analyzing our
+This tutorial is based on a simulated [personal budget spreadsheet](src/main/resources/personal_budget.csv) to help analyzing our
 hypothetical finances. It contains data only for the first 3 months of 2022 and 2023 to work with a small dataset. If you open it, 
 you'll see a column "Scenarios" to illustrate the What-If simulation concept in section 3.
 
@@ -29,7 +29,7 @@ all the prerequisites.
 ### Codespaces
 
 Alternatively you can use Codespaces, a service provided by GitHub to setup a development environment hosted in the cloud, it's free you only need a GitHub account.
-Click on [this link](https://github.com/codespaces/new?machine=basicLinux32gb&repo=580807210&ref=showcase-ts&location=WestEurope&devcontainer_path=.devcontainer%2Fdevcontainer.json) to start
+Click on [this link](https://github.com/codespaces/new?machine=basicLinux32gb&repo=580807210&ref=main&location=WestEurope&devcontainer_path=.devcontainer%2Fdevcontainer.json) to start
 using Codespaces. Then click on *Create codespace*. It will take a few minutes to set everything up.
 
 In the terminal:
