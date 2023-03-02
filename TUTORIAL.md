@@ -1,18 +1,52 @@
 This tutorial is based on a simulated [personal budget spreadsheet](src/main/resources/personal_budget.csv) to help analyzing our
 hypothetical finances. It contains data only for the first 3 months of 2022 and 2023 to work with a small dataset. If you open it, 
-you'll see a column "Scenarios" to illustrate the What-If simulation concept in section 3.
+you'll see a column "Scenarios" to illustrate the What-If simulation concept. The "Scenarios" column in the csv file is used to create
+the final dataset by exploding the initial dataset where each item in the list is placed into its own row. More details in section 3. 
+
+This is what the final dataset looks like:
+
+```
++--------------------+--------------------+-------------+----+-----+---+----------+--------------------+------+---------------+--------+
+|Income / Expenditure|            Category|  Subcategory|Year|Month|Day|      Date|         Description|Amount|Happiness score|Scenario|
++--------------------+--------------------+-------------+----+-----+---+----------+--------------------+------+---------------+--------+
+|         Expenditure|Cigarettes & Alcohol|Miscellaneous|2022|    1|  1|01/01/2022|          Cigarettes|   9.3|              2|       b|
+|         Expenditure|Cigarettes & Alcohol|Miscellaneous|2022|    1|  1|01/01/2022|          Cigarettes|   9.3|              2|      ss|
+|         Expenditure|Cigarettes & Alcohol|Miscellaneous|2022|    1|  1|01/01/2022|          Cigarettes|   9.3|              2|      sm|
+|         Expenditure|Cigarettes & Alcohol|Miscellaneous|2022|    1|  1|01/01/2022|          Cigarettes|   9.3|              2|      so|
+|              Income|      Current Income|       Salary|2022|    1|  1|01/01/2022|              Salary|1930.0|           null|       b|
+|              Income|      Current Income|       Salary|2022|    1|  1|01/01/2022|              Salary|1930.0|           null|      ss|
+|              Income|      Current Income|       Salary|2022|    1|  1|01/01/2022|              Salary|1930.0|           null|      sc|
+|              Income|      Current Income|       Salary|2022|    1|  1|01/01/2022|              Salary|1930.0|           null|      sm|
+|              Income|      Current Income|       Salary|2022|    1|  1|01/01/2022|              Salary|1930.0|           null|      so|
+|              Income|      Current Income|       Salary|2022|    1|  1|01/01/2022|              Salary|1930.0|           null|     sco|
+|              Income|      Current Income|       Salary|2022|    1|  1|01/01/2022|              Salary|1930.0|           null|     smc|
+|              Income|      Current Income|       Salary|2022|    1|  1|01/01/2022|              Salary|1930.0|           null|    smco|
+|         Expenditure| Minimum expenditure|      Housing|2022|    1|  1|01/01/2022|House rent (with ...|691.16|           null|       b|
+|         Expenditure| Minimum expenditure|      Housing|2022|    1|  1|01/01/2022|House rent (with ...|691.16|           null|      ss|
+|         Expenditure| Minimum expenditure|      Housing|2022|    1|  1|01/01/2022|House rent (with ...|691.16|           null|      sc|
+|         Expenditure| Minimum expenditure|      Housing|2022|    1|  1|01/01/2022|House rent (with ...|691.16|           null|      sm|
+|         Expenditure| Minimum expenditure|      Housing|2022|    1|  1|01/01/2022|House rent (with ...|691.16|           null|      so|
+|         Expenditure| Minimum expenditure|      Housing|2022|    1|  1|01/01/2022|House rent (with ...|691.16|           null|     sco|
+|         Expenditure| Minimum expenditure|      Housing|2022|    1|  1|01/01/2022|House rent (with ...|691.16|           null|     smc|
+|         Expenditure| Minimum expenditure|      Housing|2022|    1|  1|01/01/2022|House rent (with ...|691.16|           null|    smco|
++--------------------+--------------------+-------------+----+-----+---+----------+--------------------+------+---------------+--------+
+```
 
 You'll have to write some code using the [Typescript library](https://www.npmjs.com/package/@squashql/squashql-js).
 Write the code in the file index.ts (Full path = `ts/src/index.ts`). You'll be asked to execute queries. Here's code snippet
 showing you how to execute a query and print the result in the console once the server is up. 
 
+The name of the table is **budget**.
+
 ```typescript
 import {
   Querier,
+  from,
 } from "@squashql/squashql-js"
 
 const querier = new Querier("http://localhost:8080")
-const query = undefined // TO BE DEFINED
+const query = from("bugdet")
+        .// TODO continue to edit the query
 querier.execute0(query)
         .then(r => console.log(r));
 ```
@@ -48,7 +82,7 @@ and execute
 npm --prefix ts/ start
 ```
 
-Note: Once you finish the tutorial, don't forget to stop your Codespace.
+Note: Once you finish the tutorial, don't forget to [stop your Codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/deleting-a-codespace).
 
 ## Basic queries and calculations  
 Create a measure that computes the income.
@@ -77,8 +111,13 @@ const expenditure = sumIf("Expenditure", "Amount", criterion("Income / Expenditu
 ```
 </details>
 
-Create and execute a query that shows by year, month and category with a filter on the scenario named "base" the income and expenditure
+Create and execute a query that shows by year, month and category with a filter on the scenario named "b" the income and expenditure
 values side by side.
+
+<details><summary>Hint</summary>
+
+Filter the table with `criterion("Scenario", eq("b"))`
+</details>
 
 <details><summary>Code</summary>
 
@@ -136,7 +175,7 @@ const query = from("budget")
 </details>
 
 Create a measure that computes the net income i.e. the difference between income and expenditure and then execute a query 
-to show the net income for each month of the year. Keeps on filtering on the scenario named "base".
+to show the net income for each month of the year. Keeps on filtering on the scenario named "b".
 
 <details><summary>Hint</summary>
 
@@ -255,9 +294,7 @@ This result shows us we have spent more money in 2023 than in 2022.
 To illustrate the concept of What-If simulations, the column named "Scenarios" contains for each 
 row a list of scenario codes.
 The Base scenario (code `b`) represents the current situation from which scenarios are derived. For instance,
-the scenario with code `ss` means we stop all activities related to the category **Stop Sport & Game & misc**. 
-The "Scenarios" column is used to create the final rowset by exploding the initial rowset where each item in the 
-list is placed into its own row.
+the scenario with code `ss` means we stop all activities related to the category **Stop Sport & Game & misc**.
 
 | Code | Full name / Category                                                           |
 |------|--------------------------------------------------------------------------------|
@@ -326,9 +363,10 @@ can be in multiple groups. We use this map to create a [ColumnSet](https://githu
 const columnSet = new BucketColumnSet("group", "Scenario", groups)
 ```
 
-Execute the following query containing the previously defined column set. Adding it to the query will make a new column and new rows appear
+Execute the following query containing the previously defined column set. Notice you do not need to add the Scenario column
+to the query, it is added automatically by using `columnSet`. Adding it to the query will make a new column and new rows appear
 
-<details><summary>Code</summary>
+<details open><summary>Code</summary>
 
 ```typescript
 const query = from("budget")
@@ -361,7 +399,7 @@ const query = from("budget")
 ```
 </details>
 
-Among a given group, we need to compare the value of Net Income growth (prev. year) with the value of the previous scenario.
+Among a given group, we need to compare the value of Net Income with the value of the previous scenario.
 There's a built-in measure to perform such calculation and the definition of "previous scenario" is similar to the one 
 used to express "previous year" we saw earlier.
 
