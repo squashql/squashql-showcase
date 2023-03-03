@@ -410,7 +410,7 @@ Use the `comparisonMeasureWithBucket` to create the comparison measure.
 <details><summary>Code</summary>
 
 ```typescript
-const netIncomeComp = comparisonMeasureWithBucket(
+const netIncomeCompPrev = comparisonMeasureWithBucket(
         "Net Income comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         netIncome,
@@ -425,7 +425,7 @@ Add to the previous query this new measure.
 ```typescript      
 const query = from("budget")
         .where(criterion("Year", eq(2023)))
-        .select([], [columnSet], [netIncome, netIncomeComp])
+        .select([], [columnSet], [netIncome, netIncomeCompPrev])
         .build()
 ```
 
@@ -462,7 +462,7 @@ in the same way *Net Income comp. with prev. scenario* has been done.
 
 ```typescript
 const happiness = sum("Happiness score sum", "Happiness score");
-const happinessComp = comparisonMeasureWithBucket(
+const happinessCompPrev = comparisonMeasureWithBucket(
         "Happiness score sum comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         happiness,
@@ -477,7 +477,7 @@ Add them to the previous query.
 ```typescript      
 const query = from("budget")
         .where(criterion("Year", eq(2023)))
-        .select(["Year"], [columnSet], [netIncome, happiness,  netIncomeComp, happinessComp])
+        .select(["Year"], [columnSet], [netIncome, happiness,  netIncomeCompPrev, happinessCompPrev])
         .build()
 ```
 
@@ -499,6 +499,61 @@ const query = from("budget")
 | group4 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                             0 |
 | group4 |       ss | 2023 |      473.5 |                  99 |                                387.0 |                                           -33 |
 +--------+----------+------+------------+---------------------+--------------------------------------+-----------------------------------------------+
+```
+</details>
+
+Create two new comparison measures to compare Net Income and Happiness score values to the first scenario
+of each group instead of the previous scenario.
+
+<details><summary>Hint</summary>
+
+Use the `first` keyword in `{["Scenario"]: "s-1"}` to change the reference position with which a value is compared to. 
+</details>
+<details><summary>Code</summary>
+
+```typescript
+const netIncomeCompFirst = comparisonMeasureWithBucket(
+        "Net Income comp. with first scenario",
+        ComparisonMethod.ABSOLUTE_DIFFERENCE,
+        netIncome,
+        new Map(Object.entries({["Scenario"]: "first"})))
+const happinessCompFirst = comparisonMeasureWithBucket(
+        "Happiness score sum comp. with first scenario",
+        ComparisonMethod.ABSOLUTE_DIFFERENCE,
+        happiness,
+        new Map(Object.entries({["Scenario"]: "first"})))
+```
+</details>
+
+Add them to the previous query.
+
+<details><summary>Result</summary>
+
+```typescript      
+const query = from("budget")
+        .where(criterion("Year", eq(2023)))
+        .select(["Year"], [columnSet], [netIncome, happiness, netIncomeCompPrev, netIncomeCompFirst, happinessCompPrev, happinessCompFirst])
+        .build()
+```
+
+```
++--------+----------+------+------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------------------------+-----------------------------------------------+
+|  group | Scenario | Year | Net income | Happiness score sum | Net Income comp. with prev. scenario | Net Income comp. with first scenario | Happiness score sum comp. with prev. scenario | Happiness score sum comp. with first scenario |
++--------+----------+------+------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------------------------+-----------------------------------------------+
+| group1 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
+| group1 |       sc | 2023 |      260.5 |                 108 |                                174.0 |                                174.0 |                                           -24 |                                           -24 |
+| group1 |      sco | 2023 |      808.5 |                  95 |                                548.0 |                                722.0 |                                           -13 |                                           -37 |
+| group2 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
+| group2 |       sm | 2023 |      506.5 |                  70 |                                420.0 |                                420.0 |                                           -62 |                                           -62 |
+| group2 |      smc | 2023 |      680.5 |                  46 |                                174.0 |                                594.0 |                                           -24 |                                           -86 |
+| group2 |     smco | 2023 |     1228.5 |                  33 |                                548.0 |                               1142.0 |                                           -13 |                                           -99 |
+| group3 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
+| group3 |       so | 2023 |      634.5 |                 119 |                                548.0 |                                548.0 |                                           -13 |                                           -13 |
+| group3 |      sco | 2023 |      808.5 |                  95 |                                174.0 |                                722.0 |                                           -24 |                                           -37 |
+| group3 |     smco | 2023 |     1228.5 |                  33 |                                420.0 |                               1142.0 |                                           -62 |                                           -99 |
+| group4 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
+| group4 |       ss | 2023 |      473.5 |                  99 |                                387.0 |                                387.0 |                                           -33 |                                           -33 |
++--------+----------+------+------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------------------------+-----------------------------------------------+
 ```
 </details>
 
