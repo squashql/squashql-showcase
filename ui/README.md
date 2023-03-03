@@ -4,6 +4,11 @@ This is a web app for combining and comparing scenarios, based on [SquashQL](htt
 The goal is to provide a user-friendly UI to create scenarios and compare them through different indicators, to make the right decision. 
 These indicators can be compared in different types of visualizations: tree graph, reporting table and PDF export.
 
+Start by choosing a year in the drop-down list and select one or several measures. Then, drag and drop the scenarios you 
+want to compare:
+
+![demo](doc/assets/demo.gif)
+
 Here's an overview of what can be achieved.
 
 <p style="text-align: center;">

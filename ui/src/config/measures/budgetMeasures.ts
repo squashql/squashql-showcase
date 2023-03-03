@@ -42,23 +42,33 @@ const netIncomeGrowth = comparisonMeasureWithPeriod(
         new Year(YEAR_COLUMN)
 )
 
-const refScenario = {[SCENARIO_COLUMN]: "s-1", [GROUP_COLUMN]: "g"}
-const netIncomeComp = comparisonMeasureWithBucket(
+const prevRefScenario = {[SCENARIO_COLUMN]: "s-1", [GROUP_COLUMN]: "g"}
+const firstRefScenario = {[SCENARIO_COLUMN]: "first", [GROUP_COLUMN]: "g"}
+const netIncomeCompPrev = comparisonMeasureWithBucket(
         "Net Income comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         netIncome,
-        new Map(Object.entries(refScenario))
-)
+        new Map(Object.entries(prevRefScenario)))
+const netIncomeCompFirst = comparisonMeasureWithBucket(
+        "Net Income comp. with first scenario",
+        ComparisonMethod.ABSOLUTE_DIFFERENCE,
+        netIncome,
+        new Map(Object.entries(firstRefScenario)))
 
 const happiness = sum("Happiness score sum", "Happiness score");
-const happinessComp = comparisonMeasureWithBucket(
+const happinessCompPrev = comparisonMeasureWithBucket(
         "Happiness score sum comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         happiness,
-        new Map(Object.entries(refScenario)))
+        new Map(Object.entries(prevRefScenario)))
+const happinessCompFirst = comparisonMeasureWithBucket(
+        "Happiness score sum comp. with first scenario",
+        ComparisonMethod.ABSOLUTE_DIFFERENCE,
+        happiness,
+        new Map(Object.entries(firstRefScenario)))
 
 export const scenariiMeasures: MeasuresDescription = {
   from: SCENARII_TABLE,
   measures: [income, expenditure, netIncome],
-  comparisonMeasures: [netIncomeGrowth, netIncomeComp, happinessComp],
+  comparisonMeasures: [netIncomeGrowth, netIncomeCompPrev, netIncomeCompFirst, happinessCompPrev, happinessCompFirst],
 }
