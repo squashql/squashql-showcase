@@ -8,6 +8,9 @@ single page application built in React.
 
 ## Typescript tutorial
 
+> **Note**
+> The tutorial can be done with Codespaces. No need to install anything on your computer!
+
 Read [TUTORIAL.md](./TUTORIAL.md) to try SquashQL with a hands-on training.
 
 ## Single-page application in React
