@@ -1,12 +1,11 @@
 package io.squashql;
 
 import io.squashql.jackson.JacksonUtil;
+import io.squashql.jdbc.JdbcUtil;
+import io.squashql.query.QueryExecutor;
+import io.squashql.query.Table;
+import io.squashql.query.database.DuckDBQueryEngine;
 import io.squashql.query.database.QueryEngine;
-import io.squashql.query.database.SparkQueryEngine;
-import org.apache.spark.sql.Column;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.functions;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +13,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.net.URISyntaxException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 @SpringBootApplication
 public class ShowcaseApplication {
@@ -25,7 +26,7 @@ public class ShowcaseApplication {
 
   @Bean
   public QueryEngine<?> queryEngine() {
-    return new SparkQueryEngine(createTestDatastoreWithData());
+    return new DuckDBQueryEngine(createTestDatastoreWithData());
   }
 
   @Bean
@@ -43,32 +44,27 @@ public class ShowcaseApplication {
     };
   }
 
-  public static SparkDatastore createTestDatastoreWithData() {
-    SparkDatastore datastore = new SparkDatastore();
+  public static DuckDBDatastore createTestDatastoreWithData() {
+    DuckDBDatastore datastore = new DuckDBDatastore();
 
-    String property = System.getProperty("dataset.path");
-    Dataset<Row> dataFrame;
     try {
       String fileName = "personal_budget.csv";
-      String path = property != null ? property : Thread.currentThread().getContextClassLoader().getResource(fileName).toURI().getPath();
-      dataFrame = datastore.spark.read()
-              .option("delimiter", ",")
-              .option("header", true)
-              .option("inferSchema", true)
-              .csv(path);
+      String path = Thread.currentThread().getContextClassLoader().getResource(fileName).toURI().getPath();
+      Statement statement = datastore.getConnection().createStatement();
+      statement.execute("CREATE TABLE budget_temp AS SELECT * FROM read_csv_auto('" + path + "');");
 
-      Column withoutQuotes = functions.regexp_replace(dataFrame.col("Scenarios"), "\"", "");
-      Column scenarios = functions.split(withoutQuotes, ",");
-      dataFrame = dataFrame
-              .withColumn("Scenario", functions.explode(scenarios))
-              .drop("Scenarios");
-      dataFrame.show();
-    } catch (URISyntaxException e) {
+      // Print info on the table
+      ResultSet resultSet = statement.executeQuery("DESCRIBE budget_temp;");
+      JdbcUtil.toTable(resultSet).show();
+
+      // Unnest -> one line per scenario
+      statement.execute("CREATE TABLE budget AS select * replace (unnest(string_split(Scenarios, ',')) as Scenarios) from budget_temp");
+      statement.execute("ALTER TABLE budget RENAME Scenarios to Scenario");
+      QueryExecutor queryExecutor = new QueryExecutor(new DuckDBQueryEngine(datastore));
+      queryExecutor.execute("select * from budget").show(100);
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
-
-    datastore.spark.conf().set("spark.sql.caseSensitive", String.valueOf(true)); // without it, table names are lowercase.
-    dataFrame.createOrReplaceTempView("budget");
     return datastore;
   }
 }
