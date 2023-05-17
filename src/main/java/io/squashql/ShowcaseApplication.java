@@ -48,7 +48,7 @@ public class ShowcaseApplication {
     DuckDBDatastore datastore = new DuckDBDatastore();
 
     try {
-      String fileName = "personal_budget2.csv";
+      String fileName = "personal_budget.csv";
       String path = Thread.currentThread().getContextClassLoader().getResource(fileName).toURI().getPath();
       Statement statement = datastore.getConnection().createStatement();
       statement.execute("CREATE TABLE budget_temp AS SELECT * FROM read_csv_auto('" + path + "');");
@@ -59,6 +59,7 @@ public class ShowcaseApplication {
 
       // Unnest -> one line per scenario
       statement.execute("CREATE TABLE budget AS select * replace (unnest(string_split(Scenarios, ',')) as Scenarios) from budget_temp");
+      statement.execute("ALTER TABLE budget RENAME Scenarios to Scenario");
       QueryExecutor queryExecutor = new QueryExecutor(new DuckDBQueryEngine(datastore));
       queryExecutor.execute("select * from budget").show(100);
     } catch (Exception e) {
