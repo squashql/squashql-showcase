@@ -15,8 +15,8 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-    <squashql.version>1.0.0</squashql.version>
-    <spring-boot.version>2.6.1</spring-boot.version>
+    <squashql.version>1.1.1-SNAPSHOT</squashql.version>
+    <spring-boot.version>2.6.14</spring-boot.version>
     <junit.version>5.9.1</junit.version>
     <junit-platform.version>1.9.1</junit-platform.version>
   </properties>
@@ -29,14 +29,8 @@
     </dependency>
     <dependency>
       <groupId>io.squashql</groupId>
-      <artifactId>squashql-spark</artifactId>
+      <artifactId>squashql-duckdb</artifactId>
       <version>${squashql.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-log4j12</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -103,9 +97,6 @@
         <version>${spring-boot.version}</version>
         <configuration>
           <mainClass>io.squashql.ShowcaseApplication</mainClass>
-          <jvmArguments>
-            --add-opens=java.base/sun.nio.ch=ALL-UNNAMED
-          </jvmArguments>
         </configuration>
         <executions>
           <execution>
@@ -117,17 +108,4 @@
       </plugin>
     </plugins>
   </build>
-
-  <repositories>
-    <repository>
-      <id>oss.sonatype.org-snapshot</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 </project>
