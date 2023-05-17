@@ -26,12 +26,6 @@
       <groupId>io.squashql</groupId>
       <artifactId>squashql-server</artifactId>
       <version>${squashql.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>squashql-java-client</artifactId>
-          <groupId>io.squashql</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>io.squashql</groupId>
