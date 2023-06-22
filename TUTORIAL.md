@@ -51,7 +51,7 @@ querier.execute0(query)
         .then(r => console.log(r));
 ```
 
-Please refer as mush as possible to the [Typescript library documentation](https://github.com/squashql/squashql/blob/main/QUERY.md).
+Please refer as mush as possible to the [Typescript library documentation](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md).
 
 ## Setup the project
 
@@ -357,7 +357,7 @@ const groups = new Map(Object.entries({
 ```
 
 The groups are simply map. The keys are group name and values are the list of scenario names. A scenario 
-can be in multiple groups. We use this map to create a [ColumnSet](https://github.com/squashql/squashql/blob/main/QUERY.md#dynamic-comparison---what-if---columnset).
+can be in multiple groups. We use this map to create a [ColumnSet](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md#dynamic-comparison---what-if---columnset).
 
 ```typescript
 const columnSet = new BucketColumnSet("group", "Scenario", groups)
