@@ -3,7 +3,6 @@ package io.squashql;
 import io.squashql.jackson.JacksonUtil;
 import io.squashql.jdbc.JdbcUtil;
 import io.squashql.query.QueryExecutor;
-import io.squashql.query.Table;
 import io.squashql.query.database.DuckDBQueryEngine;
 import io.squashql.query.database.QueryEngine;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 @SpringBootApplication

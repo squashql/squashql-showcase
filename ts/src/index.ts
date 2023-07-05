@@ -1,10 +1,5 @@
-import {
-  Querier,
-} from "@squashql/squashql-js"
-
-console.log('Hello world!')
+import {Querier,} from "@squashql/squashql-js"
 
 const querier = new Querier("http://localhost:8080")
-
-// querier.execute0(query)
+// querier.execute(query, undefined, true)
 //         .then(r => console.log(r));

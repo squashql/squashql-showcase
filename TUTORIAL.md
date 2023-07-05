@@ -47,7 +47,7 @@ import {
 const querier = new Querier("http://localhost:8080")
 const query = from("bugdet")
         .// TODO continue to edit the query
-querier.execute0(query)
+querier.execute(query, undefined, true)
         .then(r => console.log(r));
 ```
 
@@ -558,3 +558,57 @@ const query = from("budget")
 </details>
 
 Notice how stopping Media & Clothes & Food Delivery affects the happiness score: -62 for a saving of 420. Is it worth it?
+
+## Pivot Table
+
+[The documentation is available here](https://github.com/squashql/squashql##pivot-table-query)
+
+A pivot table is a powerful tool to calculate, summarize, and analyze data that lets you see comparisons, patterns, and trends in your data.  
+SquashQL has the capability of providing the necessary information to build pivot table. Let's go back to the first query:
+
+```typescript
+const query = from("budget")
+        .where(criterion("Scenario", eq("b")))
+        .select(["Year", "Month", "Category"], [], [income, expenditure])
+        .build()
+```
+
+The displayed table is hard to analyze. By using the pivot table feature of SquashQL, we can change the layout of the result 
+and display Year and Month on rows and Category on columns:
+
+```typescript
+querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]}, true).then(r => console.log(r));
+```
+
+```
++-------------+-------------+-------------+--------------------+----------------------+----------------------+----------------+----------------+---------------------------------+---------------------------------+---------------------+---------------------+------------------+--------------------+---------------------+---------------------+
+|    Category |    Category | Grand Total |        Grand Total | Cigarettes & Alcohol | Cigarettes & Alcohol | Current Income | Current Income | Media & Clothes & Food Delivery | Media & Clothes & Food Delivery | Minimum expenditure | Minimum expenditure | Outing Lifestyle |   Outing Lifestyle | Sport & Game & misc | Sport & Game & misc |
+|        Year |       Month |      Income |        Expenditure |               Income |          Expenditure |         Income |    Expenditure |                          Income |                     Expenditure |              Income |         Expenditure |           Income |        Expenditure |              Income |         Expenditure |
++-------------+-------------+-------------+--------------------+----------------------+----------------------+----------------+----------------+---------------------------------+---------------------------------+---------------------+---------------------+------------------+--------------------+---------------------+---------------------+
+| Grand Total | Grand Total |     11820.0 | 11543.240000000005 |                 null |   335.82000000000005 |        11820.0 |           null |                            null |                          813.91 |                null |   8573.500000000002 |             null |             1057.7 |                null |              762.31 |
+|        2022 |       Total |      5790.0 |  5599.740000000005 |                 null |   161.82000000000002 |         5790.0 |           null |                            null |              393.90999999999997 |                null |   4159.000000000002 |             null |              509.7 |                null |              375.31 |
+|        2022 |           1 |      1930.0 | 1823.0399999999997 |                 null |   54.870000000000005 |         1930.0 |           null |                            null |                          118.75 |                null |             1383.87 |             null |             141.38 |                null |  124.17000000000002 |
+|        2022 |           2 |      1930.0 | 1920.9299999999996 |                 null |                58.59 |         1930.0 |           null |                            null |              202.22000000000003 |                null |  1389.7999999999997 |             null |             149.75 |                null |              120.57 |
+|        2022 |           3 |      1930.0 | 1855.7699999999995 |                 null |                48.36 |         1930.0 |           null |                            null |                           72.94 |                null |             1385.33 |             null | 218.57000000000005 |                null |              130.57 |
+|        2023 |       Total |      6030.0 |             5943.5 |                 null |                174.0 |         6030.0 |           null |                            null |                           420.0 |                null |              4414.5 |             null |              548.0 |                null |               387.0 |
+|        2023 |           1 |      2010.0 |             1938.5 |                 null |                 59.0 |         2010.0 |           null |                            null |                           127.0 |                null |              1471.5 |             null |              152.0 |                null |               129.0 |
+|        2023 |           2 |      2010.0 |             2035.5 |                 null |                 63.0 |         2010.0 |           null |                            null |                           216.0 |                null |              1471.5 |             null |              161.0 |                null |               124.0 |
+|        2023 |           3 |      2010.0 |             1969.5 |                 null |                 52.0 |         2010.0 |           null |                            null |                            77.0 |                null |              1471.5 |             null |              235.0 |                null |               134.0 |
++-------------+-------------+-------------+--------------------+----------------------+----------------------+----------------+----------------+---------------------------------+---------------------------------+---------------------+---------------------+------------------+--------------------+---------------------+---------------------+
+```
+
+The result can be displayed in the browser. Use the function `showInBrowser` from `./utils.ts`. It uses [S2 library](https://s2.antv.vision/en) created by AntV.
+
+```typescript
+import {showInBrowser} from "./utils"
+
+querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]})
+        .then(r => {
+          showInBrowser(<PivotTableQueryResult>r)
+        })
+```
+
+The output is a link. Click on it open it and display the pivot table.
+```
+http://localhost:8080?data=eyJyb3dzIjpbIlllYXIiLCJNb250aCJdLCJjb2x1bW5zIjpbIkNhdGVnb3J5Il0sInZhbHVlcyI6WyJJbmNvbWUiLCJFeHBlbmRpdHVyZSJdLCJ0YWJsZSI6eyJjb2x1bW5zIjpbIlllYXIiLCJNb250aCIsIkNhdGVnb3J5IiwiSW5jb21lIiwiRXhwZW5kaXR1cmUiXSwicm93cyI6W1siR3JhbmQgVG90YWwiLCJHcmFuZCBUb3RhbCIsIkdyYW5kIFRvdGFsIiwxMTgyMCwxMTU0My4yNDAwMDAwMDAwMDVdLFsiR3JhbmQgVG90YWwiLCJHcmFuZCBUb3RhbCIsIkNpZ2FyZXR0ZXMgJiBBbGNvaG9sIiwiTmFOIiwzMzUuODIwMDAwMDAwMDAwMDVdLFsiR3JhbmQgVG90YWwiLCJHcmFuZCBUb3RhbCIsIkN1cnJlbnQgSW5jb21lIiwxMTgyMCwiTmFOIl0sWyJHcmFuZCBUb3RhbCIsIkdyYW5kIFRvdGFsIiwiTWVkaWEgJiBDbG90aGVzICYgRm9vZCBEZWxpdmVyeSIsIk5hTiIsODEzLjkxXSxbIkdyYW5kIFRvdGFsIiwiR3JhbmQgVG90YWwiLCJNaW5pbXVtIGV4cGVuZGl0dXJlIiwiTmFOIiw4NTczLjUwMDAwMDAwMDAwMl0sWyJHcmFuZCBUb3RhbCIsIkdyYW5kIFRvdGFsIiwiT3V0aW5nIExpZmVzdHlsZSIsIk5hTiIsMTA1Ny43XSxbIkdyYW5kIFRvdGFsIiwiR3JhbmQgVG90YWwiLCJTcG9ydCAmIEdhbWUgJiBtaXNjIiwiTmFOIiw3NjIuMzFdLFsyMDIyLCJUb3RhbCIsIkdyYW5kIFRvdGFsIiw1NzkwLDU1OTkuNzQwMDAwMDAwMDA1XSxbMjAyMiwiVG90YWwiLCJDaWdhcmV0dGVzICYgQWxjb2hvbCIsIk5hTiIsMTYxLjgyMDAwMDAwMDAwMDAyXSxbMjAyMiwiVG90YWwiLCJDdXJyZW50IEluY29tZSIsNTc5MCwiTmFOIl0sWzIwMjIsIlRvdGFsIiwiTWVkaWEgJiBDbG90aGVzICYgRm9vZCBEZWxpdmVyeSIsIk5hTiIsMzkzLjkwOTk5OTk5OTk5OTk3XSxbMjAyMiwiVG90YWwiLCJNaW5pbXVtIGV4cGVuZGl0dXJlIiwiTmFOIiw0MTU5LjAwMDAwMDAwMDAwMl0sWzIwMjIsIlRvdGFsIiwiT3V0aW5nIExpZmVzdHlsZSIsIk5hTiIsNTA5LjddLFsyMDIyLCJUb3RhbCIsIlNwb3J0ICYgR2FtZSAmIG1pc2MiLCJOYU4iLDM3NS4zMV0sWzIwMjIsMSwiR3JhbmQgVG90YWwiLDE5MzAsMTgyMy4wMzk5OTk5OTk5OTk3XSxbMjAyMiwxLCJDaWdhcmV0dGVzICYgQWxjb2hvbCIsIk5hTiIsNTQuODcwMDAwMDAwMDAwMDA1XSxbMjAyMiwxLCJDdXJyZW50IEluY29tZSIsMTkzMCwiTmFOIl0sWzIwMjIsMSwiTWVkaWEgJiBDbG90aGVzICYgRm9vZCBEZWxpdmVyeSIsIk5hTiIsMTE4Ljc1XSxbMjAyMiwxLCJNaW5pbXVtIGV4cGVuZGl0dXJlIiwiTmFOIiwxMzgzLjg3XSxbMjAyMiwxLCJPdXRpbmcgTGlmZXN0eWxlIiwiTmFOIiwxNDEuMzhdLFsyMDIyLDEsIlNwb3J0ICYgR2FtZSAmIG1pc2MiLCJOYU4iLDEyNC4xNzAwMDAwMDAwMDAwMl0sWzIwMjIsMiwiR3JhbmQgVG90YWwiLDE5MzAsMTkyMC45Mjk5OTk5OTk5OTk2XSxbMjAyMiwyLCJDaWdhcmV0dGVzICYgQWxjb2hvbCIsIk5hTiIsNTguNTldLFsyMDIyLDIsIkN1cnJlbnQgSW5jb21lIiwxOTMwLCJOYU4iXSxbMjAyMiwyLCJNZWRpYSAmIENsb3RoZXMgJiBGb29kIERlbGl2ZXJ5IiwiTmFOIiwyMDIuMjIwMDAwMDAwMDAwMDNdLFsyMDIyLDIsIk1pbmltdW0gZXhwZW5kaXR1cmUiLCJOYU4iLDEzODkuNzk5OTk5OTk5OTk5N10sWzIwMjIsMiwiT3V0aW5nIExpZmVzdHlsZSIsIk5hTiIsMTQ5Ljc1XSxbMjAyMiwyLCJTcG9ydCAmIEdhbWUgJiBtaXNjIiwiTmFOIiwxMjAuNTddLFsyMDIyLDMsIkdyYW5kIFRvdGFsIiwxOTMwLDE4NTUuNzY5OTk5OTk5OTk5NV0sWzIwMjIsMywiQ2lnYXJldHRlcyAmIEFsY29ob2wiLCJOYU4iLDQ4LjM2XSxbMjAyMiwzLCJDdXJyZW50IEluY29tZSIsMTkzMCwiTmFOIl0sWzIwMjIsMywiTWVkaWEgJiBDbG90aGVzICYgRm9vZCBEZWxpdmVyeSIsIk5hTiIsNzIuOTRdLFsyMDIyLDMsIk1pbmltdW0gZXhwZW5kaXR1cmUiLCJOYU4iLDEzODUuMzNdLFsyMDIyLDMsIk91dGluZyBMaWZlc3R5bGUiLCJOYU4iLDIxOC41NzAwMDAwMDAwMDAwNV0sWzIwMjIsMywiU3BvcnQgJiBHYW1lICYgbWlzYyIsIk5hTiIsMTMwLjU3XSxbMjAyMywiVG90YWwiLCJHcmFuZCBUb3RhbCIsNjAzMCw1OTQzLjVdLFsyMDIzLCJUb3RhbCIsIkNpZ2FyZXR0ZXMgJiBBbGNvaG9sIiwiTmFOIiwxNzRdLFsyMDIzLCJUb3RhbCIsIkN1cnJlbnQgSW5jb21lIiw2MDMwLCJOYU4iXSxbMjAyMywiVG90YWwiLCJNZWRpYSAmIENsb3RoZXMgJiBGb29kIERlbGl2ZXJ5IiwiTmFOIiw0MjBdLFsyMDIzLCJUb3RhbCIsIk1pbmltdW0gZXhwZW5kaXR1cmUiLCJOYU4iLDQ0MTQuNV0sWzIwMjMsIlRvdGFsIiwiT3V0aW5nIExpZmVzdHlsZSIsIk5hTiIsNTQ4XSxbMjAyMywiVG90YWwiLCJTcG9ydCAmIEdhbWUgJiBtaXNjIiwiTmFOIiwzODddLFsyMDIzLDEsIkdyYW5kIFRvdGFsIiwyMDEwLDE5MzguNV0sWzIwMjMsMSwiQ2lnYXJldHRlcyAmIEFsY29ob2wiLCJOYU4iLDU5XSxbMjAyMywxLCJDdXJyZW50IEluY29tZSIsMjAxMCwiTmFOIl0sWzIwMjMsMSwiTWVkaWEgJiBDbG90aGVzICYgRm9vZCBEZWxpdmVyeSIsIk5hTiIsMTI3XSxbMjAyMywxLCJNaW5pbXVtIGV4cGVuZGl0dXJlIiwiTmFOIiwxNDcxLjVdLFsyMDIzLDEsIk91dGluZyBMaWZlc3R5bGUiLCJOYU4iLDE1Ml0sWzIwMjMsMSwiU3BvcnQgJiBHYW1lICYgbWlzYyIsIk5hTiIsMTI5XSxbMjAyMywyLCJHcmFuZCBUb3RhbCIsMjAxMCwyMDM1LjVdLFsyMDIzLDIsIkNpZ2FyZXR0ZXMgJiBBbGNvaG9sIiwiTmFOIiw2M10sWzIwMjMsMiwiQ3VycmVudCBJbmNvbWUiLDIwMTAsIk5hTiJdLFsyMDIzLDIsIk1lZGlhICYgQ2xvdGhlcyAmIEZvb2QgRGVsaXZlcnkiLCJOYU4iLDIxNl0sWzIwMjMsMiwiTWluaW11bSBleHBlbmRpdHVyZSIsIk5hTiIsMTQ3MS41XSxbMjAyMywyLCJPdXRpbmcgTGlmZXN0eWxlIiwiTmFOIiwxNjFdLFsyMDIzLDIsIlNwb3J0ICYgR2FtZSAmIG1pc2MiLCJOYU4iLDEyNF0sWzIwMjMsMywiR3JhbmQgVG90YWwiLDIwMTAsMTk2OS41XSxbMjAyMywzLCJDaWdhcmV0dGVzICYgQWxjb2hvbCIsIk5hTiIsNTJdLFsyMDIzLDMsIkN1cnJlbnQgSW5jb21lIiwyMDEwLCJOYU4iXSxbMjAyMywzLCJNZWRpYSAmIENsb3RoZXMgJiBGb29kIERlbGl2ZXJ5IiwiTmFOIiw3N10sWzIwMjMsMywiTWluaW11bSBleHBlbmRpdHVyZSIsIk5hTiIsMTQ3MS41XSxbMjAyMywzLCJPdXRpbmcgTGlmZXN0eWxlIiwiTmFOIiwyMzVdLFsyMDIzLDMsIlNwb3J0ICYgR2FtZSAmIG1pc2MiLCJOYU4iLDEzNF1dfX0=
+```
