@@ -1,6 +1,6 @@
 # Context
 
-This project shows you how to setup a SquashQL server with Spark as database and how to use and build client applications
+This project shows you how to setup a SquashQL server with DuckDB as database and how to use and build client applications
 in Typescript with the [SquashQL TypeScript SQL-like query builder](https://www.npmjs.com/package/@squashql/squashql-js). 
 
 It is recommended to start with the Typescript tutorial to get your hands dirty before using the 
