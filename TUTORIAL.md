@@ -580,6 +580,9 @@ and display Year and Month on rows and Category on columns:
 querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]}, true).then(r => console.log(r));
 ```
 
+Note: if you use VSCode, line in Terminal are wrapped leading to printing an unreadable pivot table. To fix it, right click
+in the Terminal and click on "Toggle Size to Content Width". Table should look like this.
+
 ```
 +-------------+-------------+-------------+--------------------+----------------------+----------------------+----------------+----------------+---------------------------------+---------------------------------+---------------------+---------------------+------------------+--------------------+---------------------+---------------------+
 |    Category |    Category | Grand Total |        Grand Total | Cigarettes & Alcohol | Cigarettes & Alcohol | Current Income | Current Income | Media & Clothes & Food Delivery | Media & Clothes & Food Delivery | Minimum expenditure | Minimum expenditure | Outing Lifestyle |   Outing Lifestyle | Sport & Game & misc | Sport & Game & misc |
