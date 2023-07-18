@@ -615,3 +615,33 @@ The output is a clickable link. Click on it to open a web page that displays the
 ```
 http://localhost:8080
 ```
+
+<details><summary>Full code</summary>
+
+```typescript
+import {
+  PivotTableQueryResult,
+  Querier, criterion, eq, from, neq, sumIf,
+} from "@squashql/squashql-js"
+import { showInBrowser } from "./utils"
+
+const querier = new Querier("http://localhost:8080")
+
+const expenditure = sumIf("Expenditure", "Amount", criterion("Income / Expenditure", neq("Income")))
+const query = from("budget")
+        .where(criterion("Scenario", eq("b")))
+        .select(["Year", "Month", "Category"], [], [expenditure])
+        .build()
+querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]}, true).then(r => console.log(r));
+
+querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]})
+        .then(r => {
+          showInBrowser(<PivotTableQueryResult>r)
+        })
+```
+</details>
+
+
+You should see the following table:
+<img width="1254" alt="Screenshot 2023-07-18 at 5 41 05 PM" src="https://github.com/squashql/squashql-showcase/assets/5783183/dd576a38-2f3c-4e75-9831-0b5885dd1f7d">
+
