@@ -47,7 +47,7 @@ import {
 const querier = new Querier("http://localhost:8080")
 const query = from("bugdet")
         .// TODO continue to edit the query
-querier.execute0(query)
+querier.execute(query, undefined, true)
         .then(r => console.log(r));
 ```
 
@@ -558,3 +558,90 @@ const query = from("budget")
 </details>
 
 Notice how stopping Media & Clothes & Food Delivery affects the happiness score: -62 for a saving of 420. Is it worth it?
+
+## Pivot Table
+
+[The documentation is available here](https://github.com/squashql/squashql##pivot-table-query)
+
+A pivot table is a powerful tool to calculate, summarize, and analyze data that lets you see comparisons, patterns, and trends in your data.  
+SquashQL has the capability of providing the necessary information to build pivot table. Let's go back to the first query:
+
+```typescript
+const query = from("budget")
+        .where(criterion("Scenario", eq("b")))
+        .select(["Year", "Month", "Category"], [], [expenditure])
+        .build()
+```
+
+The displayed table is hard to analyze. By using the pivot table feature of SquashQL, we can change the layout of the result 
+and display Year and Month on rows and Category on columns:
+
+```typescript
+querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]}, true).then(r => console.log(r));
+```
+
+Note: if you use VSCode, line in Terminal are wrapped leading to printing an unreadable pivot table. To fix it, right click
+in the Terminal and click on "Toggle Size to Content Width". Table should look like this.
+
+```
++-------------+-------------+--------------------+----------------------+----------------+---------------------------------+---------------------+--------------------+---------------------+
+|    Category |    Category |        Grand Total | Cigarettes & Alcohol | Current Income | Media & Clothes & Food Delivery | Minimum expenditure |   Outing Lifestyle | Sport & Game & misc |
+|        Year |       Month |        Expenditure |          Expenditure |    Expenditure |                     Expenditure |         Expenditure |        Expenditure |         Expenditure |
++-------------+-------------+--------------------+----------------------+----------------+---------------------------------+---------------------+--------------------+---------------------+
+| Grand Total | Grand Total | 11543.240000000005 |   335.82000000000005 |            NaN |                          813.91 |   8573.500000000002 |             1057.7 |              762.31 |
+|        2022 |       Total |  5599.740000000005 |   161.82000000000002 |            NaN |              393.90999999999997 |   4159.000000000002 |              509.7 |              375.31 |
+|        2022 |           1 | 1823.0399999999997 |   54.870000000000005 |            NaN |                          118.75 |             1383.87 |             141.38 |  124.17000000000002 |
+|        2022 |           2 | 1920.9299999999996 |                58.59 |            NaN |              202.22000000000003 |  1389.7999999999997 |             149.75 |              120.57 |
+|        2022 |           3 | 1855.7699999999995 |                48.36 |            NaN |                           72.94 |             1385.33 | 218.57000000000005 |              130.57 |
+|        2023 |       Total |             5943.5 |                174.0 |            NaN |                           420.0 |              4414.5 |              548.0 |               387.0 |
+|        2023 |           1 |             1938.5 |                 59.0 |            NaN |                           127.0 |              1471.5 |              152.0 |               129.0 |
+|        2023 |           2 |             2035.5 |                 63.0 |            NaN |                           216.0 |              1471.5 |              161.0 |               124.0 |
+|        2023 |           3 |             1969.5 |                 52.0 |            NaN |                            77.0 |              1471.5 |              235.0 |               134.0 |
++-------------+-------------+--------------------+----------------------+----------------+---------------------------------+---------------------+--------------------+---------------------+
+```
+
+The result can be displayed in the browser. Use the function `showInBrowser` from `./utils.ts`. It uses [S2 library](https://s2.antv.vision/en) created by AntV.
+
+```typescript
+import {showInBrowser} from "./utils"
+
+querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]})
+        .then(r => {
+          showInBrowser(<PivotTableQueryResult>r)
+        })
+```
+
+The output is a clickable link. Click on it to open a web page that displays the pivot table.
+```
+http://localhost:8080
+```
+
+<details><summary>Full code</summary>
+
+```typescript
+import {
+  PivotTableQueryResult,
+  Querier, criterion, eq, from, neq, sumIf,
+} from "@squashql/squashql-js"
+import { showInBrowser } from "./utils"
+
+const querier = new Querier("http://localhost:8080")
+
+const expenditure = sumIf("Expenditure", "Amount", criterion("Income / Expenditure", neq("Income")))
+const query = from("budget")
+        .where(criterion("Scenario", eq("b")))
+        .select(["Year", "Month", "Category"], [], [expenditure])
+        .build()
+querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]}, true).then(r => console.log(r));
+
+querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]})
+        .then(r => {
+          showInBrowser(<PivotTableQueryResult>r)
+        })
+```
+</details>
+
+
+You should see the following table:
+<img width="1254" alt="Screenshot 2023-07-18 at 5 41 05 PM" src="https://github.com/squashql/squashql-showcase/assets/5783183/dd576a38-2f3c-4e75-9831-0b5885dd1f7d">
+
