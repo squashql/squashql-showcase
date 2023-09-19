@@ -260,7 +260,7 @@ const netIncomeGrowth = comparisonMeasureWithPeriod(
 ```
 </details>
 
-Execute a query that shows the Net Income Growth for each month.
+Execute a query that shows the Net Income Growth for each year.
 
 <details><summary>Result</summary>
 
