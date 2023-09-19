@@ -294,7 +294,7 @@ This result shows us we have spent more money in 2023 than in 2022.
 To illustrate the concept of What-If simulations, the column named "Scenarios" contains for each 
 row a list of scenario codes.
 The Base scenario (code `b`) represents the current situation from which scenarios are derived. For instance,
-the scenario with code `ss` means we stop all activities related to the category **Stop Sport & Game & misc**.
+the scenario with code `ss` means we stop all activities related to the category **Sport & Game & misc**.
 
 | Code | Full name / Category                                                           |
 |------|--------------------------------------------------------------------------------|
