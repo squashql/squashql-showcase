@@ -240,10 +240,7 @@ const query = from("budget")
 
 ## Time-series comparison
 
-Create a measure that computes the Net Income growth. This measure compares the Net Income values for each month with 
-values of the same month but the previous year i.e. the measure should compare the values of Net Income for (Year = 2023, Month = 3) 
-with (Year = 2022, Month = 3), (Year = 2023, Month = 2) with (Year = 2022, Month = 2), ...
-
+Create a measure that computes the Net Income growth. The calculation is a given year's net income minus the prior year's net income, divided by the prior year's net income.
 A comparison can use different type of comparison method. In our case, we can use `ComparisonMethod.RELATIVE_DIFFERENCE`.
 
 <details><summary>Hint</summary>
@@ -270,21 +267,17 @@ Execute a query that shows the Net Income Growth for each month.
 ```typescript      
 const query = from("budget")
         .where(criterion("Scenario", eq("b")))
-        .select(["Year", "Month"], [], [netIncome, netIncomeGrowth])
+        .select(["Year"], [], [netIncome, netIncomeGrowth])
         .build()
 ```
 
 ```
-+------+-------+--------------------+--------------------------------+
-| Year | Month |         Net income | Net Income growth (prev. year) |
-+------+-------+--------------------+--------------------------------+
-| 2022 |     1 | 106.96000000000026 |                           null |
-| 2022 |     2 |  9.070000000000391 |                           null |
-| 2022 |     3 |  74.23000000000047 |                           null |
-| 2023 |     1 |               71.5 |            -0.3315258040388947 |
-| 2023 |     2 |              -25.5 |              -3.81146637265699 |
-| 2023 |     3 |               40.5 |           -0.45439849117607783 |
-+------+-------+--------------------+--------------------------------+
++------+--------------------+--------------------------------+
+| Year |         Net Income | Net Income growth (prev. year) |
++------+--------------------+--------------------------------+
+| 2022 | 190.25999999999476 |                           null |
+| 2023 |               86.5 |            -0.5453589824450626 |
++------+--------------------+--------------------------------+
 ```
 This result shows us we have spent more money in 2023 than in 2022.
 </details>
