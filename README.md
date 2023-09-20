@@ -13,15 +13,6 @@ single page application built in React.
 
 Read [TUTORIAL.md](./TUTORIAL.md) to try SquashQL with a hands-on training.
 
-## Single-page application in React
-
-> **Note**
-> This React app project is not compatible with Codespaces like the Typescript tutorial. You'll have to 
-> launch it locally and install all [required tools](#prerequisites).
- 
-Read [README.md](./ui/README.md) to see what can be built with SquashQL.
-
-
 ## Prerequisites
 
 In order to build the server, you will need:
@@ -38,6 +29,5 @@ In order to build the server, you will need:
 ```bash
 mvn spring-boot:run
 ```
-If you want to use your own file you can change the path to the file like this: `-Ddataset.path=/Users/me/my-file.csv`
 
 Server address is: `http://localhost:8080`
