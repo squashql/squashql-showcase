@@ -282,6 +282,103 @@ const query = from("budget")
 This result shows us we have spent more money in 2023 than in 2022.
 </details>
 
+## Dynamic bucketing
+
+Dynamic bucketing refers to a technique used to group or categorize aggregate values into discrete bins or buckets based 
+on the characteristics of the values themselves, rather than predefined static bin boundaries. This approach is particularly
+useful when dealing with numerical or continuous data that may have a wide range of values and varied distributions.
+
+Once you determine the boundaries of your buckets, you then apply these dynamically computed bins to the data, assigning 
+each value to the appropriate bucket. This can be done with SquashQL by using a [virtual table](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md#joining-on-virtual-created-on-the-fly-at-query-time)
+that can be joined to another table, the one containing your data. The fields of this virtual table can then be used are 
+regular fields in the query on which group by clause can be applied. 
+
+Let's illustrate this concept with a simple example. The *happiness score* is a rating of 1 through 5 that we arbitrary 
+set to assess how much an expenditure affect (in a positive way) our well-being. Try to execute the following query
+
+```typescript
+const expenditure = sumIf("Expenditure", "Amount", criterion("Income / Expenditure", neq("Income")))
+const query = from("budget")
+        .where(
+                all([
+                  criterion("Scenario", eq("b")),
+                  criterion("Year", eq(2023)),
+                ]))
+        .select(["Year", "Happiness score"], [], [expenditure])
+        .build()
+```
+
+<details><summary>Result</summary>
+
+```
++------+-----------------+-------------+
+| Year | Happiness score | Expenditure |
++------+-----------------+-------------+
+| 2023 |               0 |      4984.5 |
+| 2023 |               1 |       176.0 |
+| 2023 |               2 |       177.0 |
+| 2023 |               3 |        81.0 |
+| 2023 |               4 |       525.0 |
++------+-----------------+-------------+
+```
+This result shows for the year 2023 the distribution of the expenses. Notice how filters have been combined by using `all`.  
+</details>
+
+Instead of using Happiness score, we can classify each expense into buckets that define satisfaction levels as follows:
+
+| satisfaction level | lower bound | upper bound |
+|--------------------|-------------|-------------|
+| neutral            | 0           | 2           |
+| happy              | 2           | 4           |
+| very happy         | 4           | 5           |
+
+And use this column, satisfaction level, for our analysis. 
+
+Let's first define the virtual table in Typescript:
+```typescript
+const records = [
+  ["neutral", 0, 2],
+  ["happy", 2, 4],
+  ["very happy", 4, 5],
+];
+const satisfactionLevels = new VirtualTable("satisfactionLevels", ["satisfaction_level", "lower_bound", "upper_bound"], records)
+```
+
+that can be joined to the table with a criteria (non-equi join) to associate a bucket to a given row based on the Happiness
+score value. The table is not materialized anywhere and exists only during the execution time of the query. Due to the 
+condition types used here, the lower bound is inclusive and the upper bound is exclusive.
+
+```typescript
+const query = from("budget")
+        .joinVirtual(satisfactionLevels, JoinType.INNER)
+        .on(all([
+          criterion_("Happiness score", "satisfactionLevels.lower_bound", ConditionType.GE),
+          criterion_("Happiness score", "satisfactionLevels.upper_bound", ConditionType.LT)
+        ]))
+        .where(
+                all([
+                  criterion("Scenario", eq("b")),
+                  criterion("Year", eq(2023)),
+                ]))
+        .select(["Year", "satisfaction_level"], [], [expenditure])
+        .build()
+```
+
+<details><summary>Result</summary>
+
+```
++------+--------------------+-------------+
+| Year | satisfaction_level | Expenditure |
++------+--------------------+-------------+
+| 2023 |              happy |       258.0 |
+| 2023 |            neutral |      5160.5 |
+| 2023 |         very happy |       525.0 |
++------+--------------------+-------------+
+```
+</details>
+
+Try to change the boundaries or add new levels.
+
 ## What-if comparison
 
 To illustrate the concept of What-If simulations, the column named "Scenarios" contains for each 
