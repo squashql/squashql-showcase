@@ -5,6 +5,7 @@ import io.squashql.jdbc.JdbcUtil;
 import io.squashql.query.QueryExecutor;
 import io.squashql.query.database.DuckDBQueryEngine;
 import io.squashql.query.database.QueryEngine;
+import java.nio.file.Paths;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -47,7 +48,7 @@ public class ShowcaseApplication {
 
     try {
       String fileName = "personal_budget.csv";
-      String path = Thread.currentThread().getContextClassLoader().getResource(fileName).toURI().getPath();
+      String path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(fileName).toURI()).toString();
       Statement statement = datastore.getConnection().createStatement();
       statement.execute("CREATE TABLE budget_temp AS SELECT * FROM read_csv_auto('" + path + "');");
 
