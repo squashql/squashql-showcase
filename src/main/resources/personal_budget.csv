@@ -3,8 +3,8 @@ Expenditure,Cigarettes & Alcohol,Miscellaneous,2022,1,1,01/01/22,Cigarettes,9.3,
 Income,Current Income,Salary,2022,1,1,01/01/22,Salary,1930,0,"b,ss,sc,sm,so,sco,smc,smco"
 Expenditure,Minimum expenditure,Housing,2022,1,1,01/01/22,House rent (with charges),691.16,0,"b,ss,sc,sm,so,sco,smc,smco"
 Expenditure,Minimum expenditure,Utilities,2022,1,1,01/01/22,Energy supply bill,58.6,0,"b,ss,sc,sm,so,sco,smc,smco"
-Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,1,01/01/22,Car loan,48.37,0,"b,ss,sc,sm,so,sco,smc,smco"
-Income,Potential additional income,Extra hour salary,2022,1,1,01/01/22,Salary (+8 hours),0,null,
+Expenditure,Minimum expenditure,Saving & Debt payments,2022,1,1,01/01/22,Car loan,48.37,,"b,ss,sc,sm,so,sco,smc,smco"
+Income,Potential additional income,Extra hour salary,2022,1,1,01/01/22,Salary (+8 hours),0,"",
 Expenditure,Media & Clothes & Food Delivery,Recreation & Entertainment,2022,1,2,01/02/22,Food delivery,15.81,4,"b,ss,sc,so,sco"
 Expenditure,Minimum expenditure,Transportation,2022,1,2,01/02/22,Public transport subscription,32.55,0,"b,ss,sc,sm,so,sco,smc,smco"
 Expenditure,Minimum expenditure,Transportation,2022,1,3,01/03/22,Car gas,46.51,0,"b,ss,sc,sm,so,sco,smc,smco"

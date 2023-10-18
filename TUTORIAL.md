@@ -36,24 +36,23 @@ You'll have to write some code using the [Typescript library](https://www.npmjs.
 Write the code in the file index.ts (Full path = `ts/src/index.ts`). You'll be asked to execute queries. Here's code snippet
 showing you how to execute a query and print the result in the console once the server is up. 
 
-The name of the table is **budget**.
+The name of the table is **budget**. The file `tables.ts` contains a class `Budget` with [type definitions](https://github.com/squashql/squashql-codegen) that represents
+tables and fields of the budget table.
 
 ```typescript
-import {
-  Querier,
-  from,
-} from "@squashql/squashql-js"
+import {from, Querier,} from "@squashql/squashql-js"
+import {budget} from "./tables"
 
 const querier = new Querier("http://localhost:8080")
-const query = from("bugdet")
-        .// TODO continue to edit the query
+const query = from(budget._name)// TODO continue to edit the query
+
 querier.execute(query, undefined, true)
         .then(r => console.log(r));
 ```
 
 Please refer as mush as possible to the [Typescript library documentation](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md).
 
-## Setup the project
+## Set up the project
 
 ### Locally
 
@@ -94,7 +93,7 @@ Use the `sumIf` aggregation function with a criterion on Income / Expenditure co
 <details><summary>Code</summary>
 
 ```typescript
-const income = sumIf("Income", "Amount", criterion("Income / Expenditure", eq("Income")))
+const income = sumIf("Income", budget.amount, criterion(budget.incomeOrExpenditure, eq("Income")))
 ```
 </details>
 
@@ -107,7 +106,7 @@ Use the `sumIf` aggregation function with a criterion on Income / Expenditure co
 <details><summary>Code</summary>
 
 ```typescript
-const expenditure = sumIf("Expenditure", "Amount", criterion("Income / Expenditure", neq("Income")))
+const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeOrExpenditure, neq("Income")))
 ```
 </details>
 
@@ -116,15 +115,15 @@ values side by side.
 
 <details><summary>Hint</summary>
 
-Filter the table with `criterion("Scenario", eq("b"))`
+Filter the table with `criterion(budget.scenario, eq("b"))`
 </details>
 
 <details><summary>Code</summary>
 
 ```typescript
 const query = from("budget")
-        .where(criterion("Scenario", eq("b")))
-        .select(["Year", "Month", "Category"], [], [income, expenditure])
+        .where(criterion(budget.scenario, eq("b")))
+        .select([budget.year, budget.month, budget.category], [], [income, expenditure])
         .build()
 ```
 </details>
@@ -187,8 +186,8 @@ Use the `minus` operator to compute the difference.
 ```typescript
 const netIncome = minus("Net income", income, expenditure)
 const query = from("budget")
-        .where(criterion("Scenario", eq("b")))
-        .select(["Year", "Month"], [], [netIncome])
+        .where(criterion(budget.scenario, eq("b")))
+        .select([budget.year, budget.month], [], [netIncome])
         .build()
 ```
 </details>
@@ -212,10 +211,10 @@ Try to `rollup` on "Year", "Month" to add totals and subtotals to the result. Ro
 <details><summary>Code</summary>
 
 ```typescript
-const query = from("budget")
-        .where(criterion("Scenario", eq("b")))
-        .select(["Year", "Month"], [], [netIncome])
-        .rollup(["Year", "Month"])
+const query = from(budget._name)
+        .where(criterion(budget.scenario, eq("b")))
+        .select([budget.year, budget.month], [], [netIncome])
+        .rollup([budget.year, budget.month])
         .build()
 ```
 </details>
@@ -297,14 +296,14 @@ Let's illustrate this concept with a simple example. The *happiness score* is a 
 set to assess how much an expenditure affect (in a positive way) our well-being. Try to execute the following query
 
 ```typescript
-const expenditure = sumIf("Expenditure", "Amount", criterion("Income / Expenditure", neq("Income")))
-const query = from("budget")
+const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeOrExpenditure, neq("Income")))
+const query = from(budget._name)
         .where(
                 all([
-                  criterion("Scenario", eq("b")),
-                  criterion("Year", eq(2023)),
+                  criterion(budget.scenario, eq("b")),
+                  criterion(budget.year, eq(2023)),
                 ]))
-        .select(["Year", "Happiness score"], [], [expenditure])
+        .select([budget.year, budget.score], [], [expenditure])
         .build()
 ```
 
@@ -336,12 +335,21 @@ And use this column, satisfaction level, for our analysis.
 
 Let's first define the virtual table in Typescript:
 ```typescript
+import {VirtualTable} from "@squashql/squashql-js/dist/virtualtable";
+import {satisfactionLevels} from "./tables";
+
 const records = [
   ["neutral", 0, 2],
   ["happy", 2, 4],
   ["very happy", 4, 5],
 ];
-const satisfactionLevels = new VirtualTable("satisfactionLevels", ["satisfaction_level", "lower_bound", "upper_bound"], records)
+const satisfactionLevelsVT = new VirtualTable(
+        satisfactionLevels._name,
+        [
+          satisfactionLevels.satisfactionLevel.fieldName,
+          satisfactionLevels.lowerBound.fieldName,
+          satisfactionLevels.upperBound.fieldName
+        ], records)
 ```
 
 that can be joined to the table with a criteria (non-equi join) to associate a bucket to a given row based on the Happiness
@@ -349,18 +357,18 @@ score value. The table is not materialized anywhere and exists only during the e
 condition types used here, the lower bound is inclusive and the upper bound is exclusive.
 
 ```typescript
-const query = from("budget")
-        .joinVirtual(satisfactionLevels, JoinType.INNER)
+const query = from(budget._name)
+        .joinVirtual(satisfactionLevelsVT, JoinType.INNER)
         .on(all([
-          criterion_("Happiness score", "satisfactionLevels.lower_bound", ConditionType.GE),
-          criterion_("Happiness score", "satisfactionLevels.upper_bound", ConditionType.LT)
+          criterion_(budget.score, satisfactionLevels.lowerBound, ConditionType.GE),
+          criterion_(budget.score, satisfactionLevels.upperBound, ConditionType.LT)
         ]))
         .where(
                 all([
-                  criterion("Scenario", eq("b")),
-                  criterion("Year", eq(2023)),
+                  criterion(budget.scenario, eq("b")),
+                  criterion(budget.year, eq(2023)),
                 ]))
-        .select(["Year", "satisfaction_level"], [], [expenditure])
+        .select([budget.year, satisfactionLevels.satisfactionLevel], [], [expenditure])
         .build()
 ```
 
@@ -399,8 +407,8 @@ the scenario with code `ss` means we stop all activities related to the category
 
 Execute the following query: 
 ```typescript
-const query = from("budget")
-        .select(["Scenario", "Year"], [], [netIncome])
+const query = from(budget._name)
+        .select([budget.scenario, budget.year], [], [netIncome])
         .build()
 ```
 
@@ -410,9 +418,9 @@ remove "Year" from the query. You should have something like this:
 <details><summary>Code</summary>
 
 ```typescript
-const query = from("budget")
-        .where(criterion("Year", eq(2023)))
-        .select(["Scenario"], [], [netIncome])
+const query = from(budget._name)
+        .where(criterion(budget.year, eq(2023)))
+        .select([budget.scenario], [], [netIncome])
         .build()
 ```
 </details>
@@ -450,7 +458,9 @@ The groups are simply map. The keys are group name and values are the list of sc
 can be in multiple groups. We use this map to create a [ColumnSet](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md#dynamic-comparison---what-if---columnset).
 
 ```typescript
-const columnSet = new BucketColumnSet("group", "Scenario", groups)
+import {budget} from "./tables";
+
+const columnSet = new BucketColumnSet(new TableField("group"), budget.scenario, groups)
 ```
 
 Execute the following query containing the previously defined column set. Notice you do not need to add the Scenario column
@@ -459,10 +469,12 @@ to the query, it is added automatically by using `columnSet`. Adding it to the q
 <details open><summary>Code</summary>
 
 ```typescript
-const query = from("budget")
-  .where(criterion("Year", eq(2023)))
-  .select([], [columnSet], [netIncome])
-  .build()
+import {budget} from "./tables";
+
+const query = from(budget._name)
+    .where(criterion(budget.year, eq(2023)))
+    .select([], [columnSet], [netIncome])
+    .build()
 ```
 
 </details>
@@ -504,7 +516,7 @@ const netIncomeCompPrev = comparisonMeasureWithBucket(
         "Net Income comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         netIncome,
-        new Map(Object.entries({["Scenario"]: "s-1"})))
+        new Map([[budget.scenario, "s-1"]]))
 ```
 </details>
 
@@ -513,8 +525,8 @@ Add to the previous query this new measure.
 <details><summary>Result</summary>
 
 ```typescript      
-const query = from("budget")
-        .where(criterion("Year", eq(2023)))
+const query = from(budget._name)
+        .where(criterion(budget.year, eq(2023)))
         .select([], [columnSet], [netIncome, netIncomeCompPrev])
         .build()
 ```
@@ -551,12 +563,12 @@ in the same way *Net Income comp. with prev. scenario* has been done.
 <details><summary>Code</summary>
 
 ```typescript
-const happiness = sum("Happiness score sum", "Happiness score");
+const happiness = sum("Happiness score sum", budget.score);
 const happinessCompPrev = comparisonMeasureWithBucket(
         "Happiness score sum comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         happiness,
-        new Map(Object.entries({["Scenario"]: "s-1"})))
+        new Map([[budget.scenario, "s-1"]]))
 ```
 </details>
 
@@ -565,9 +577,9 @@ Add them to the previous query.
 <details><summary>Result</summary>
 
 ```typescript      
-const query = from("budget")
-        .where(criterion("Year", eq(2023)))
-        .select(["Year"], [columnSet], [netIncome, happiness,  netIncomeCompPrev, happinessCompPrev])
+const query = from(budget._name)
+        .where(criterion(budget.year, eq(2023)))
+        .select([budget.year], [columnSet], [netIncome, happiness,  netIncomeCompPrev, happinessCompPrev])
         .build()
 ```
 
@@ -606,12 +618,12 @@ const netIncomeCompFirst = comparisonMeasureWithBucket(
         "Net Income comp. with first scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         netIncome,
-        new Map(Object.entries({["Scenario"]: "first"})))
+        new Map([[budget.scenario, "first"]]))
 const happinessCompFirst = comparisonMeasureWithBucket(
         "Happiness score sum comp. with first scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         happiness,
-        new Map(Object.entries({["Scenario"]: "first"})))
+        new Map([[budget.scenario, "first"]]))
 ```
 </details>
 
@@ -620,9 +632,9 @@ Add them to the previous query.
 <details><summary>Result</summary>
 
 ```typescript      
-const query = from("budget")
-        .where(criterion("Year", eq(2023)))
-        .select(["Year"], [columnSet], [netIncome, happiness, netIncomeCompPrev, netIncomeCompFirst, happinessCompPrev, happinessCompFirst])
+const query = from(budget._name)
+        .where(criterion(budget.year, eq(2023)))
+        .select([budget.year], [columnSet], [netIncome, happiness, netIncomeCompPrev, netIncomeCompFirst, happinessCompPrev, happinessCompFirst])
         .build()
 ```
 
@@ -657,9 +669,9 @@ A pivot table is a powerful tool to calculate, summarize, and analyze data that 
 SquashQL has the capability of providing the necessary information to build pivot table. Let's go back to the first query:
 
 ```typescript
-const query = from("budget")
-        .where(criterion("Scenario", eq("b")))
-        .select(["Year", "Month", "Category"], [], [expenditure])
+const query = from(budget._name)
+        .where(criterion(budget.scenario, eq("b")))
+        .select([budget.year, budget.month, budget.category], [], [expenditure])
         .build()
 ```
 
@@ -667,7 +679,8 @@ The displayed table is hard to analyze. By using the pivot table feature of Squa
 and display Year and Month on rows and Category on columns:
 
 ```typescript
-querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]}, true).then(r => console.log(r));
+const pivotConfig = {rows: [budget.year, budget.month], columns: [budget.category]};
+querier.execute(query, pivotConfig, true).then(r => console.log(r));
 ```
 
 Note: if you use VSCode, line in Terminal are wrapped leading to printing an unreadable pivot table. To fix it, right click
@@ -695,7 +708,7 @@ The result can be displayed in the browser. Use the function `showInBrowser` fro
 ```typescript
 import {showInBrowser} from "./utils"
 
-querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]})
+querier.execute(query, pivotConfig)
         .then(r => {
           showInBrowser(<PivotTableQueryResult>r)
         })
@@ -716,15 +729,17 @@ import {
 import { showInBrowser } from "./utils"
 
 const querier = new Querier("http://localhost:8080")
+const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeOrExpenditure, neq("Income")))
 
-const expenditure = sumIf("Expenditure", "Amount", criterion("Income / Expenditure", neq("Income")))
-const query = from("budget")
-        .where(criterion("Scenario", eq("b")))
-        .select(["Year", "Month", "Category"], [], [expenditure])
+const pivotConfig = {rows: [budget.year, budget.month], columns: [budget.category]};
+const query = from(budget._name)
+        .where(criterion(budget.scenario, eq("b")))
+        .select([budget.year, budget.month, budget.category], [], [expenditure])
         .build()
-querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]}, true).then(r => console.log(r));
 
-querier.execute(query, {rows: ["Year", "Month"], columns: ["Category"]})
+querier.execute(query, pivotConfig, true)
+        .then(r => console.log(r));
+querier.execute(query, pivotConfig)
         .then(r => {
           showInBrowser(<PivotTableQueryResult>r)
         })

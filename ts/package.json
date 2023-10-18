@@ -17,6 +17,6 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@squashql/squashql-js": "1.2.1"
+    "@squashql/squashql-js": "1.3.1"
   }
 }
