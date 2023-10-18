@@ -1,18 +1,16 @@
 package io.squashql;
 
-import io.squashql.jackson.JacksonUtil;
 import io.squashql.jdbc.JdbcUtil;
 import io.squashql.query.QueryExecutor;
 import io.squashql.query.database.DuckDBQueryEngine;
 import io.squashql.query.database.QueryEngine;
-import java.nio.file.Paths;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -26,11 +24,6 @@ public class ShowcaseApplication {
   @Bean
   public QueryEngine<?> queryEngine() {
     return new DuckDBQueryEngine(createTestDatastoreWithData());
-  }
-
-  @Bean
-  public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter() {
-    return new MappingJackson2HttpMessageConverter(JacksonUtil.OBJECT_MAPPER);
   }
 
   @Bean
