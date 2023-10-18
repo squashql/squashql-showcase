@@ -1,5 +1,5 @@
 import {from, Querier,} from "@squashql/squashql-js"
-import {budget} from "./tables";
+import {budget} from "./tables"
 
 const querier = new Querier("http://localhost:8080")
 
