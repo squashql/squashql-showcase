@@ -40,11 +40,8 @@ The name of the table is **budget**. The file `tables.ts` contains a class `Budg
 tables and fields of the budget table.
 
 ```typescript
-import {
-  Querier,
-  from,
-} from "@squashql/squashql-js"
-import {budget} from "./tables";
+import {from, Querier,} from "@squashql/squashql-js"
+import {budget} from "./tables"
 
 const querier = new Querier("http://localhost:8080")
 const query = from(budget._name)
