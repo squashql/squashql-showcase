@@ -748,5 +748,6 @@ querier.execute(query, pivotConfig)
 
 
 You should see the following table:
-<img width="1002" alt="Screenshot 2023-12-06 at 3 56 45 PM" src="https://github.com/squashql/squashql-showcase/assets/5783183/b304b978-ab07-4d04-ad5e-ac5e02b9e98b">
+
+<img width="1000" alt="Screenshot 2023-12-06 at 4 00 45 PM" src="https://github.com/squashql/squashql-showcase/assets/5783183/64607058-7faf-4fd6-8e92-390293aa6217">
 
