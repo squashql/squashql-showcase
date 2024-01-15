@@ -53,7 +53,7 @@ public class ShowcaseApplication {
       statement.execute("CREATE TABLE budget AS select * replace (unnest(string_split(Scenarios, ',')) as Scenarios) from budget_temp");
       statement.execute("ALTER TABLE budget RENAME Scenarios to Scenario");
       QueryExecutor queryExecutor = new QueryExecutor(new DuckDBQueryEngine(datastore));
-      queryExecutor.execute("select * from budget").show(100);
+      queryExecutor.executeRaw("select * from budget").show(100);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
