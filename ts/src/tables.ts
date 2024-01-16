@@ -25,6 +25,18 @@ class SatisfactionLevels {
 const budget = new Budget()
 const satisfactionLevels = new SatisfactionLevels()
 
+// | Ticker | DateScenario | Currency | NbShares |     RiskType |       ScenarioValue |
+
+class Portfolios {
+  readonly _name = "portfolios"
+  readonly ticker: TableField = new TableField("portfolios.Ticker")
+  readonly dateScenario: TableField = new TableField("portfolios.DateScenario")
+  readonly currency: TableField = new TableField("portfolios.Currency")
+  readonly riskType: TableField = new TableField("portfolios.RiskType")
+  readonly scenarioValue: TableField = new TableField("portfolios.ScenarioValue")
+}
+const portfolios = new Portfolios()
+
 export {
-  budget, satisfactionLevels
+  budget, satisfactionLevels, portfolios
 }

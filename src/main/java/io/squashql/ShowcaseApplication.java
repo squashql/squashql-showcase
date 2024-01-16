@@ -40,20 +40,20 @@ public class ShowcaseApplication {
     DuckDBDatastore datastore = new DuckDBDatastore();
 
     try {
-      String fileName = "personal_budget.csv";
-      String path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(fileName).toURI()).toString();
+      String fileName = "/Users/paul/dev/github/squashql-showcase/src/main/resources/portfolios.csv";
+//      String path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(fileName).toURI()).toString();
       Statement statement = datastore.getConnection().createStatement();
-      statement.execute("CREATE TABLE budget_temp AS SELECT * FROM read_csv_auto('" + path + "');");
+      statement.execute("CREATE TABLE portfolios AS SELECT * FROM read_csv_auto('" + fileName + "');");
 
       // Print info on the table
-      ResultSet resultSet = statement.executeQuery("DESCRIBE budget_temp;");
+      ResultSet resultSet = statement.executeQuery("DESCRIBE portfolios;");
       JdbcUtil.toTable(resultSet).show();
 
-      // Unnest -> one line per scenario
-      statement.execute("CREATE TABLE budget AS select * replace (unnest(string_split(Scenarios, ',')) as Scenarios) from budget_temp");
-      statement.execute("ALTER TABLE budget RENAME Scenarios to Scenario");
+//      // Unnest -> one line per scenario
+//      statement.execute("CREATE TABLE budget AS select * replace (unnest(string_split(Scenarios, ',')) as Scenarios) from budget_temp");
+//      statement.execute("ALTER TABLE budget RENAME Scenarios to Scenario");
       QueryExecutor queryExecutor = new QueryExecutor(new DuckDBQueryEngine(datastore));
-      queryExecutor.executeRaw("select * from budget").show(100);
+      queryExecutor.executeRaw("select * from portfolios").show(100);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
