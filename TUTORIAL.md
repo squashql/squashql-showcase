@@ -390,7 +390,7 @@ const query = from(budget._name)
 ```
 </details>
 
-We use `countRows` in the query to know the number of expenses that falls into a given bucket.
+We use `countRows` in the query to know the number of expenses that fall into a given bucket.
 
 Try to change the boundaries or add new levels.
 
@@ -459,7 +459,8 @@ const query = from(budget._name)
 </details>
 
 We notice 40 expenses have a high cost for a neutral level of satisfaction. You can try to dig into the data by using the 
-previous query, filtering on `satisfaction_level = neutral` and `expense_level = low` to see if any of them can be cut. 
+previous query, filtering on `satisfaction_level = neutral` and `expense_level = low` to see if any of them can be cut and
+displaying the category, sub-category and other attributes.
 
 ## What-if comparison
 
