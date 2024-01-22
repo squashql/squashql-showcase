@@ -283,7 +283,7 @@ This result shows us we have spent more money in 2023 than in 2022.
 
 ## Dynamic bucketing
 
-Dynamic bucketing refers to a technique used to group or categorize aggregate values into discrete bins or buckets based 
+Dynamic bucketing refers to a technique used to group or categorize values into discrete bins or buckets based 
 on the characteristics of the values themselves, rather than predefined static bin boundaries. This approach is particularly
 useful when dealing with numerical or continuous data that may have a wide range of values and varied distributions.
 
@@ -296,6 +296,8 @@ Let's illustrate this concept with a simple example. The *happiness score* is a 
 set to assess how much an expenditure affect (in a positive way) our well-being. Try to execute the following query
 
 ```typescript
+import {countRows} from "@squashql/squashql-js";
+
 const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeOrExpenditure, neq("Income")))
 const query = from(budget._name)
         .where(
@@ -310,15 +312,16 @@ const query = from(budget._name)
 <details><summary>Result</summary>
 
 ```
-+------+-----------------+-------------+
-| Year | Happiness score | Expenditure |
-+------+-----------------+-------------+
-| 2023 |               0 |      4984.5 |
-| 2023 |               1 |       176.0 |
-| 2023 |               2 |       177.0 |
-| 2023 |               3 |        81.0 |
-| 2023 |               4 |       525.0 |
-+------+-----------------+-------------+
++-------------+------------------------+-------------+
+| budget.Year | budget.Happiness score | Expenditure |
++-------------+------------------------+-------------+
+|        2023 |                      0 |      4674.5 |
+|        2023 |                      0 |         NaN |
+|        2023 |                      1 |       208.0 |
+|        2023 |                      2 |       461.0 |
+|        2023 |                      3 |       126.0 |
+|        2023 |                      4 |        null |
++-------------+------------------------+-------------+
 ```
 This result shows for the year 2023 the distribution of the expenses. Notice how filters have been combined by using `all`.  
 </details>
@@ -335,8 +338,8 @@ And use this column, satisfaction level, for our analysis.
 
 Let's first define the virtual table in Typescript:
 ```typescript
-import {VirtualTable} from "@squashql/squashql-js/dist/virtualtable";
-import {satisfactionLevels} from "./tables";
+import {VirtualTable} from "@squashql/squashql-js"
+import {satisfactionLevels} from "./tables"
 
 const records = [
   ["neutral", 0, 2],
@@ -357,6 +360,8 @@ score value. The table is not materialized anywhere and exists only during the e
 condition types used here, the lower bound is inclusive and the upper bound is exclusive.
 
 ```typescript
+import {countRows} from "@squashql/squashql-js"
+
 const query = from(budget._name)
         .joinVirtual(satisfactionLevelsVT, JoinType.INNER)
         .on(all([
@@ -368,24 +373,94 @@ const query = from(budget._name)
                   criterion(budget.scenario, eq("b")),
                   criterion(budget.year, eq(2023)),
                 ]))
-        .select([budget.year, satisfactionLevels.satisfactionLevel], [], [expenditure])
+        .select([satisfactionLevels.satisfactionLevel], [], [expenditure, countRows])
         .build()
 ```
 
 <details><summary>Result</summary>
 
 ```
-+------+--------------------+-------------+
-| Year | satisfaction_level | Expenditure |
-+------+--------------------+-------------+
-| 2023 |              happy |       258.0 |
-| 2023 |            neutral |      5160.5 |
-| 2023 |         very happy |       525.0 |
-+------+--------------------+-------------+
++---------------------------------------+-------------+----------------------+
+| satisfaction_level.satisfaction_level | Expenditure | _contributors_count_ |
++---------------------------------------+-------------+----------------------+
+|                                 happy |       587.0 |                   31 |
+|                               neutral |      4882.5 |                   74 |
+|                            very happy |       494.0 |                   16 |
++---------------------------------------+-------------+----------------------+
 ```
 </details>
 
+We use `countRows` in the query to know the number of expenses that fall into a given bucket.
+
 Try to change the boundaries or add new levels.
+
+Now that we know the distribution of the expenses per satisfaction levels, we would like to know if we can save money by, 
+for instance, cutting expenses with a high cost and for which the satisfaction level is neutral. To do that, we can apply 
+a new bucketing on top of the one described above. 
+
+Let's define a new virtual table to classify expenses according to their cost. Expsenses with amount between `[0, 10[` will 
+be classified as low, between `[10, 40[` as medium and between `[40, 500[` as high.
+```typescript
+const expenseLevelsRecords = [
+  ["low", 0, 10],
+  ["medium", 10, 40],
+  ["high", 40, 500],
+];
+const expenseLevelsVT = new VirtualTable(
+        expenseLevels._name,
+        [
+          expenseLevels.expenseLevel.fieldName,
+          expenseLevels.lowerBound.fieldName,
+          expenseLevels.upperBound.fieldName
+        ], expenseLevelsRecords)
+```
+
+To use is, we simply join again on this table:
+```typescript
+const query = from(budget._name)
+        .joinVirtual(satisfactionLevelsVT, JoinType.INNER)
+        .on(all([
+          criterion_(budget.score, satisfactionLevels.lowerBound, ConditionType.GE),
+          criterion_(budget.score, satisfactionLevels.upperBound, ConditionType.LT)
+        ]))
+        .joinVirtual(expenseLevelsVT, JoinType.INNER)
+        .on(all([
+          criterion_(budget.amount, expenseLevels.lowerBound, ConditionType.GE),
+          criterion_(budget.amount, expenseLevels.upperBound, ConditionType.LT)
+        ]))
+        .where(
+                all([
+                  criterion(budget.scenario, eq("b")),
+                  criterion(budget.year, eq(2023)),
+                ]))
+        .select([satisfactionLevels.satisfactionLevel, expenseLevels.expenseLevel], [], [countRows])
+        .orderByFirstElements(expenseLevels.expenseLevel, ["low", "medium", "high"])
+        .orderByFirstElements(satisfactionLevels.satisfactionLevel, ["neutral", "happy", "very happy"])
+        .build()
+```
+
+<details><summary>Result</summary>
+
+```
++---------------------------------------+-----------------------------+----------------------+
+| satisfaction_level.satisfaction_level | expense_level.expense_level | _contributors_count_ |
++---------------------------------------+-----------------------------+----------------------+
+|                               neutral |                         low |                    3 |
+|                               neutral |                      medium |                   28 |
+|                               neutral |                        high |                   40 |
+|                                 happy |                         low |                    3 |
+|                                 happy |                      medium |                   22 |
+|                                 happy |                        high |                    6 |
+|                            very happy |                      medium |                   14 |
+|                            very happy |                        high |                    2 |
++---------------------------------------+-----------------------------+----------------------+
+```
+
+</details>
+
+We notice 40 expenses have a high cost for a neutral level of satisfaction. You can try to dig into the data by using the 
+previous query, filtering on `satisfaction_level = neutral` and `expense_level = low` to see if any of them can be cut and
+displaying the category, sub-category and other attributes.
 
 ## What-if comparison
 
@@ -737,17 +812,56 @@ const query = from(budget._name)
         .select([budget.year, budget.month, budget.category], [], [expenditure])
         .build()
 
-querier.execute(query, pivotConfig, true)
+querier.executePivotQuery(query, pivotConfig, true)
         .then(r => console.log(r));
-querier.execute(query, pivotConfig)
+querier.executePivotQuery(query, pivotConfig)
         .then(r => {
           showInBrowser(<PivotTableQueryResult>r)
         })
 ```
 </details>
 
-
 You should see the following table:
 
 <img width="1000" alt="Screenshot 2023-12-06 at 4 00 45 PM" src="https://github.com/squashql/squashql-showcase/assets/5783183/64607058-7faf-4fd6-8e92-390293aa6217">
 
+Another example with the "double bucketing" saw earlier. As a reminder, the query is the following:
+
+```typescript
+const query = from(budget._name)
+        .joinVirtual(satisfactionLevelsVT, JoinType.INNER)
+        .on(all([
+          criterion_(budget.score, satisfactionLevels.lowerBound, ConditionType.GE),
+          criterion_(budget.score, satisfactionLevels.upperBound, ConditionType.LT)
+        ]))
+        .joinVirtual(expenseLevelsVT, JoinType.INNER)
+        .on(all([
+          criterion_(budget.amount, expenseLevels.lowerBound, ConditionType.GE),
+          criterion_(budget.amount, expenseLevels.upperBound, ConditionType.LT)
+        ]))
+        .where(
+                all([
+                  criterion(budget.scenario, eq("b")),
+                  criterion(budget.year, eq(2023)),
+                ]))
+        .select([satisfactionLevels.satisfactionLevel, expenseLevels.expenseLevel], [], [countRows])
+        .orderByFirstElements(expenseLevels.expenseLevel, ["low", "medium", "high"])
+        .orderByFirstElements(satisfactionLevels.satisfactionLevel, ["neutral", "happy", "very happy"])
+        .build()
+
+let pivotConfig = {rows: [satisfactionLevels.satisfactionLevel], columns: [expenseLevels.expenseLevel]}
+querier.executePivotQuery(query, pivotConfig, true)
+        .then(r => console.log(r))
+```
+
+<details><summary>Result</summary>
++---------------------------------------+----------------------+----------------------+----------------------+----------------------+
+|           expense_level.expense_level |          Grand Total |                  low |               medium |                 high |
+| satisfaction_level.satisfaction_level | _contributors_count_ | _contributors_count_ | _contributors_count_ | _contributors_count_ |
++---------------------------------------+----------------------+----------------------+----------------------+----------------------+
+|                           Grand Total |                  118 |                    6 |                   64 |                   48 |
+|                               neutral |                   71 |                    3 |                   28 |                   40 |
+|                                 happy |                   31 |                    3 |                   22 |                    6 |
+|                            very happy |                   16 |                 null |                   14 |                    2 |
++---------------------------------------+----------------------+----------------------+----------------------+----------------------+
+</details>
