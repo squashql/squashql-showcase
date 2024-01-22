@@ -22,9 +22,17 @@ class SatisfactionLevels {
   readonly upperBound: TableField = new TableField("satisfaction_level.upper_bound")
 }
 
+class ExpenseLevels {
+  readonly _name: string = "expense_level"
+  readonly expenseLevel: TableField = new TableField("expense_level.expense_level")
+  readonly lowerBound: TableField = new TableField("expense_level.lower_bound")
+  readonly upperBound: TableField = new TableField("expense_level.upper_bound")
+}
+
 const budget = new Budget()
 const satisfactionLevels = new SatisfactionLevels()
+const expenseLevels = new ExpenseLevels()
 
 export {
-  budget, satisfactionLevels
+  budget, satisfactionLevels, expenseLevels
 }
