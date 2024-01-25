@@ -738,7 +738,7 @@ Notice how stopping Media & Clothes & Food Delivery affects the happiness score:
 
 ## Pivot Table
 
-[The documentation is available here](https://github.com/squashql/squashql##pivot-table-query)
+[The documentation is available here](https://github.com/squashql/squashql#pivot-table-query)
 
 A pivot table is a powerful tool to calculate, summarize, and analyze data that lets you see comparisons, patterns, and trends in your data.  
 SquashQL has the capability of providing the necessary information to build pivot table. Let's go back to the first query:
