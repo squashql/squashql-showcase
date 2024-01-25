@@ -755,7 +755,7 @@ and display Year and Month on rows and Category on columns:
 
 ```typescript
 const pivotConfig = {rows: [budget.year, budget.month], columns: [budget.category]};
-querier.execute(query, pivotConfig, true).then(r => console.log(r));
+querier.executePivotQuery(query, pivotConfig, true).then(r => console.log(r));
 ```
 
 Note: if you use VSCode, line in Terminal are wrapped leading to printing an unreadable pivot table. To fix it, right click
@@ -783,7 +783,7 @@ The result can be displayed in the browser. Use the function `showInBrowser` fro
 ```typescript
 import {showInBrowser} from "./utils"
 
-querier.execute(query, pivotConfig)
+querier.executePivotQuery(query, pivotConfig)
         .then(r => {
           showInBrowser(<PivotTableQueryResult>r)
         })
