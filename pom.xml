@@ -15,11 +15,20 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-    <squashql.version>1.6.2</squashql.version>
+    <squashql.version>1.7.1-SNAPSHOT</squashql.version>
     <spring-boot.version>3.0.11</spring-boot.version>
     <junit.version>5.9.1</junit.version>
     <junit-platform.version>1.9.1</junit-platform.version>
   </properties>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub OWNER Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/squashql/squashql-showcase</url>
+    </repository>
+  </distributionManagement>
+
 
   <dependencies>
     <dependency>
