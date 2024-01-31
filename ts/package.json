@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/index.js"
+    "start": "npm run build && node build/index.js",
+    "start:dev": "npx nodemon"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +16,8 @@
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.13",
     "rimraf": "^5.0.5",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "nodemon": "^3.0.3"
   },
   "dependencies": {
     "@squashql/squashql-codegen": "1.0.17",
