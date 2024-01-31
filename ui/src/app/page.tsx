@@ -1,9 +1,14 @@
 'use client'
 import {PivotTable} from "@/app/PivotTable";
 import {PivotTableQueryResult} from "@squashql/squashql-js/dist/querier";
+import {useState} from "react";
+import AxisSelector, {AxisType} from "@/app/AxisSelector";
+import {Measure, TableField} from "@squashql/squashql-js";
+import {values} from "@antv/util";
+import {initialSelectElements} from "@/app/queries";
 
 export default function Page() {
-  const squashQLResponse: PivotTableQueryResult = {
+  const testResult: PivotTableQueryResult = {
     "queryResult": {
       "table": {
         "columns": ["product", "region", "month", "sales", "myMeasure"],
@@ -70,10 +75,27 @@ export default function Page() {
     "values": ["sales", "myMeasure"]
   }
 
+  const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
+  const [rows, setRows] = useState<TableField[]>([])
+  const [columns, setColumns] = useState<TableField[]>([])
+  const [selectableElements, setSelectableElements] = useState<TableField[]>(initialSelectElements)
+  const [values, setValues] = useState<Measure[]>([])
+
+  let content;
+  if (pivotQueryResult !== undefined) {
+    content = <PivotTable result={pivotQueryResult}/>
+  } else {
+    content = <div>empty</div>
+  }
+
   return (
           <div>
             <h1>Hello, Next.js!</h1>
-            <PivotTable result={squashQLResponse}/>
+            <AxisSelector type={AxisType.ROWS} elements={rows} selectableElements={selectableElements} elementsDispatcher={setRows} selectableElementsDispatcher={setSelectableElements}/>
+            <AxisSelector type={AxisType.COLUMNS} elements={columns} selectableElements={selectableElements} elementsDispatcher={setColumns} selectableElementsDispatcher={setSelectableElements}/>
+            <AxisSelector type={AxisType.VALUES} elements={values} selectableElements={[]} elementsDispatcher={setRows} selectableElementsDispatcher={setSelectableElements}/>
+            <button onClick={() => console.log("hello")}>Refresh</button>
+            {content}
           </div>
   )
 }

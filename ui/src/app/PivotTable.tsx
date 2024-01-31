@@ -3,7 +3,7 @@ import React from "react"
 import {Data, S2DataConfig} from "@antv/s2";
 import {PivotTableQueryResult} from "@squashql/squashql-js/dist/querier";
 
-type PivotTableProps = {
+interface PivotTableProps {
   result: PivotTableQueryResult
 }
 
@@ -12,11 +12,12 @@ export function PivotTable(props: PivotTableProps) {
     return
   }
 
+  const hierarchyType: 'grid' | 'tree' | 'customTree' = 'grid'
   const options = {
     height: window.innerHeight - 30,
     width: window.innerWidth - 30,
     showDefaultHeaderActionIcon: false,
-    hierarchyType: 'tree',
+    hierarchyType,
     tooltip: {
       showTooltip: true,
       row: {
