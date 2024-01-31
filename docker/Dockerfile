@@ -11,8 +11,6 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 RUN apt install nodejs -y
 
 RUN mkdir /opt/app
-#ARG JAR
-#COPY $JAR /opt/app
 COPY target/squashql-showcase-1.0.0.jar /opt/app
 
 ADD ts /squashql-ts
@@ -21,6 +19,3 @@ COPY docker/config.yaml /root/.config/code-server/
 COPY docker/startup.sh /startup.sh
 
 CMD ["/startup.sh"]
-
-#ENTRYPOINT ["tail", "-f", "/dev/null"]
-
