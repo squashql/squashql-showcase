@@ -1,6 +1,5 @@
 import {ChangeEvent, Dispatch, SetStateAction} from "react";
 import {Measure, TableField} from "@squashql/squashql-js";
-import {PivotTableQueryResult} from "@squashql/squashql-js/dist/querier";
 
 export enum AxisType {
   ROWS,
@@ -82,18 +81,21 @@ function onClickSelectedElement(element: string, props: AxisSelectorProps) {
 export default function AxisSelector(props: AxisSelectorProps) {
   return (
           <div>
-            <b>{getAxisName(props.type)}:</b>
+            {getAxisName(props.type)}:
             <span style={{padding: "5px"}}>
                     {props.elements?.map((element, index) => (
                             <span key={index} style={{cursor: "pointer"}}
                                   onClick={() => onClickSelectedElement(getElementString(element), props)}>{getElementString(element)} / </span>))}
                 </span>
-            <select value={'DEFAULT'}
-                    onChange={event => onChangeSelection(event, props)}>
-              <option value="DEFAULT" disabled>Select option</option>
-              {props.selectableElements.map((element, index) => <option key={index}
-                                                                        value={getElementString(element)}>{getElementString(element)}</option>)}
-            </select>
+            <div className="w-25">
+              <select value={'DEFAULT'}
+                      className="form-select form-select-sm"
+                      onChange={event => onChangeSelection(event, props)}>
+                <option value="DEFAULT" disabled>Select option</option>
+                {props.selectableElements.map((element, index) => <option key={index}
+                                                                          value={getElementString(element)}>{getElementString(element)}</option>)}
+              </select>
+            </div>
           </div>
   )
 }

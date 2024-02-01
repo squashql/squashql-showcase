@@ -5,7 +5,6 @@ import {useState} from "react";
 import AxisSelector, {AxisType, SelectedType} from "@/app/AxisSelector";
 import {countRows, Measure, TableField} from "@squashql/squashql-js";
 import {executePivotQuery, initialSelectElements, measures} from "@/app/queries";
-import {match} from "node:assert";
 
 export default function Page() {
   const testResult: PivotTableQueryResult = {
@@ -85,7 +84,7 @@ export default function Page() {
   if (pivotQueryResult !== undefined) {
     content = <PivotTable result={pivotQueryResult}/>
   } else {
-    content = <div>empty</div>
+    content = undefined
   }
 
   function refresh(newElements: SelectedType[], type: AxisType) {
@@ -115,7 +114,7 @@ export default function Page() {
 
   return (
           <div>
-            <h1>Pivot table</h1>
+            <h1 className="text-3xl font-bold underline">Pivot table</h1>
             <AxisSelector type={AxisType.ROWS}
                           elements={rows}
                           selectableElements={selectableElements}
@@ -134,7 +133,7 @@ export default function Page() {
                           elementsDispatcher={setRows} // FIXME
                           selectableElementsDispatcher={setSelectableElements} // FIXME
                           queryResultDispatcher={refresh}/>
-            <button onClick={refreshFromState}>Refresh</button>
+            <button className="btn btn-ligth" onClick={refreshFromState}>Refresh</button>
             {content}
           </div>
   )
