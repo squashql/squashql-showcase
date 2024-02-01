@@ -25,7 +25,7 @@ function getAxisName(axisType: AxisType): string {
     case AxisType.COLUMNS:
       return "Columns"
     case AxisType.VALUES:
-      return "Values"
+      return "Measures"
   }
 }
 
@@ -41,41 +41,27 @@ function onChangeSelection(event: ChangeEvent<HTMLSelectElement>, props: AxisSel
   const axisType = props.type
   const selectableElements = props.selectableElements
   const selectedElements = props.elements
-  switch (axisType) {
-    case AxisType.COLUMNS:
-    case AxisType.ROWS:
-      const index = selectableElements.map(v => getElementString(v)).indexOf(event.target.value)
-      let nextSelectableElements = selectableElements.slice()
-      selectedElements.push(nextSelectableElements[index])
-      nextSelectableElements.splice(index, 1)
-      props.elementsDispatcher(selectedElements)
-      props.selectableElementsDispatcher(nextSelectableElements)
-      props.queryResultDispatcher(selectedElements, axisType)
-      break
-    case AxisType.VALUES:
-      break
-  }
+  const index = selectableElements.map(v => getElementString(v)).indexOf(event.target.value)
+  const nextSelectableElements = selectableElements.slice()
+  selectedElements.push(nextSelectableElements[index])
+  nextSelectableElements.splice(index, 1)
+  props.elementsDispatcher(selectedElements)
+  props.selectableElementsDispatcher(nextSelectableElements)
+  props.queryResultDispatcher(selectedElements, axisType)
 }
 
 function onClickSelectedElement(element: string, props: AxisSelectorProps) {
   const axisType = props.type
   const selectableElements = props.selectableElements
   const selectedElements = props.elements
-  switch (axisType) {
-    case AxisType.COLUMNS:
-    case AxisType.ROWS:
-      const index = selectedElements.map(v => getElementString(v)).indexOf(element)
-      let nextSelectedElements = selectedElements.slice()
-      let nextSelectableElements = selectableElements.slice()
-      nextSelectableElements.push(nextSelectedElements[index])
-      nextSelectedElements.splice(index, 1)
-      props.elementsDispatcher(nextSelectedElements)
-      props.selectableElementsDispatcher(nextSelectableElements)
-      props.queryResultDispatcher(nextSelectedElements, axisType)
-      break
-    case AxisType.VALUES:
-      break
-  }
+  const index = selectedElements.map(v => getElementString(v)).indexOf(element)
+  const nextSelectedElements = selectedElements.slice()
+  const nextSelectableElements = selectableElements.slice()
+  nextSelectableElements.push(nextSelectedElements[index])
+  nextSelectedElements.splice(index, 1)
+  props.elementsDispatcher(nextSelectedElements)
+  props.selectableElementsDispatcher(nextSelectableElements)
+  props.queryResultDispatcher(nextSelectedElements, axisType)
 }
 
 export default function AxisSelector(props: AxisSelectorProps) {
