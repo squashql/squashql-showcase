@@ -1,43 +1,27 @@
-import {countRows, from, PivotConfig, TableField} from "@squashql/squashql-js";
+import {countRows, from, Measure, PivotConfig, Querier, TableField, PivotTableQueryResult} from "@squashql/squashql-js";
+import {portfolio} from "@/app/tables";
 
-class Portfolios {
-  readonly _name = "portfolios"
-  readonly ticker: TableField = new TableField("portfolios.Ticker")
-  readonly dateScenario: TableField = new TableField("portfolios.DateScenario")
-  readonly currency: TableField = new TableField("portfolios.Currency")
-  readonly riskType: TableField = new TableField("portfolios.RiskType")
-  readonly scenarioValue: TableField = new TableField("portfolios.ScenarioValue")
-}
-
-const portfolios = new Portfolios()
-
-export const initialSelectElements = [portfolios.ticker, portfolios.currency]
 export const measures = [countRows]
+export const initialSelectElements = portfolio._fields
 
+const querier = new Querier("http://localhost:8080")
 
-const query = from(portfolios._name)
-        .select(initialSelectElements, [], measures)
-        .build()
+export async function executePivotQuery(rows: TableField[], columns: TableField[], values: Measure[]) {
+  const select = rows.concat(columns)
+  if (select.length === 0) {
+    return undefined
+  } else {
+    const query = from(portfolio._name)
+            .select(select, [], values)
+            .build();
 
-const pivotConfig: PivotConfig = {
-  rows: [portfolios.ticker],
-  columns: [portfolios.currency],
+    const pivotConfig: PivotConfig = {
+      rows,
+      columns,
+    }
+
+    return querier.executePivotQuery(query, pivotConfig)
+  }
 }
-console.log(query)
 
-// querier
-//         .executePivotQuery(query, pivotConfig)
-//         .then(r => {
-//           const pivotTable: PivotTableQueryResult = r as PivotTableQueryResult
-//           let data = {
-//             rows: pivotTable.rows,
-//             columns: pivotTable.columns,
-//             values: pivotTable.values,
-//             table: pivotTable.queryResult.table,
-//           }
-//           // @ts-ignore
-//           transform(data)
-//           setRawData(data)
-//           console.log("=== data received ===")
-//           console.log(data)
-//         })
+

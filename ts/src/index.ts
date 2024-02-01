@@ -20,8 +20,8 @@ const duckdbQuerier = new DuckDb(url)
 async function main() {
   await duckdbQuerier.showTables().then(r => console.log(r));
   await duckdbQuerier.getTablesInfo().then(r => console.log(r));
-  await duckdbQuerier.createTable("portfolio", "17QFM8B9E0vRPb6v9Ct2zPKobFWWHia53Odfu1LChAY0", "446626508").then(r => console.log(r));
-  await duckdbQuerier.showTables().then(r => console.log(r));
+  // await duckdbQuerier.createTable("portfolio", "17QFM8B9E0vRPb6v9Ct2zPKobFWWHia53Odfu1LChAY0", "446626508").then(r => console.log(r));
+  // await duckdbQuerier.showTables().then(r => console.log(r));
   // await duckdbQuerier.dropTable("table2");
   // await duckdbQuerier.showTables().then(r => console.log(r));
 }

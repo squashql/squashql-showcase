@@ -16,7 +16,7 @@ interface AxisSelectorProps {
   selectableElements: SelectedType[],
   elementsDispatcher: Dispatch<SetStateAction<SelectedType[]>>
   selectableElementsDispatcher: Dispatch<SetStateAction<SelectedType[]>>
-  queryResultDispatcher: Dispatch<SetStateAction<PivotTableQueryResult | undefined>>
+  queryResultDispatcher: (newElements: SelectedType[], type: AxisType) => void
 }
 
 function getAxisName(axisType: AxisType): string {
@@ -31,7 +31,7 @@ function getAxisName(axisType: AxisType): string {
 }
 
 function isTableField(object: any): object is TableField {
-  return 'fullName' in object;
+  return 'fullName' in object
 }
 
 function getElementString(element: SelectedType): string {
@@ -51,6 +51,7 @@ function onChangeSelection(event: ChangeEvent<HTMLSelectElement>, props: AxisSel
       nextSelectableElements.splice(index, 1)
       props.elementsDispatcher(selectedElements)
       props.selectableElementsDispatcher(nextSelectableElements)
+      props.queryResultDispatcher(selectedElements, axisType)
       break
     case AxisType.VALUES:
       break
@@ -71,6 +72,7 @@ function onClickSelectedElement(element: string, props: AxisSelectorProps) {
       nextSelectedElements.splice(index, 1)
       props.elementsDispatcher(nextSelectedElements)
       props.selectableElementsDispatcher(nextSelectableElements)
+      props.queryResultDispatcher(nextSelectedElements, axisType)
       break
     case AxisType.VALUES:
       break
