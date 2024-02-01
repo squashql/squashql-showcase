@@ -1,5 +1,6 @@
 import {ChangeEvent, Dispatch, SetStateAction} from "react";
 import {Measure, TableField} from "@squashql/squashql-js";
+import {PivotTableQueryResult} from "@squashql/squashql-js/dist/querier";
 
 export enum AxisType {
   ROWS,
@@ -7,7 +8,7 @@ export enum AxisType {
   VALUES
 }
 
-type SelectedType = TableField | Measure
+export type SelectedType = TableField | Measure
 
 interface AxisSelectorProps {
   type: AxisType,
@@ -15,6 +16,7 @@ interface AxisSelectorProps {
   selectableElements: SelectedType[],
   elementsDispatcher: Dispatch<SetStateAction<SelectedType[]>>
   selectableElementsDispatcher: Dispatch<SetStateAction<SelectedType[]>>
+  queryResultDispatcher: Dispatch<SetStateAction<PivotTableQueryResult | undefined>>
 }
 
 function getAxisName(axisType: AxisType): string {

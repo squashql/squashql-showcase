@@ -2,9 +2,8 @@
 import {PivotTable} from "@/app/PivotTable";
 import {PivotTableQueryResult} from "@squashql/squashql-js/dist/querier";
 import {useState} from "react";
-import AxisSelector, {AxisType} from "@/app/AxisSelector";
+import AxisSelector, {AxisType, SelectedType} from "@/app/AxisSelector";
 import {Measure, TableField} from "@squashql/squashql-js";
-import {values} from "@antv/util";
 import {initialSelectElements} from "@/app/queries";
 
 export default function Page() {
@@ -76,9 +75,9 @@ export default function Page() {
   }
 
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
-  const [rows, setRows] = useState<TableField[]>([])
-  const [columns, setColumns] = useState<TableField[]>([])
-  const [selectableElements, setSelectableElements] = useState<TableField[]>(initialSelectElements)
+  const [rows, setRows] = useState<SelectedType[]>([])
+  const [columns, setColumns] = useState<SelectedType[]>([])
+  const [selectableElements, setSelectableElements] = useState<SelectedType[]>(initialSelectElements)
   const [values, setValues] = useState<Measure[]>([])
 
   let content;
@@ -90,10 +89,25 @@ export default function Page() {
 
   return (
           <div>
-            <h1>Hello, Next.js!</h1>
-            <AxisSelector type={AxisType.ROWS} elements={rows} selectableElements={selectableElements} elementsDispatcher={setRows} selectableElementsDispatcher={setSelectableElements}/>
-            <AxisSelector type={AxisType.COLUMNS} elements={columns} selectableElements={selectableElements} elementsDispatcher={setColumns} selectableElementsDispatcher={setSelectableElements}/>
-            <AxisSelector type={AxisType.VALUES} elements={values} selectableElements={[]} elementsDispatcher={setRows} selectableElementsDispatcher={setSelectableElements}/>
+            <h1>Pivot table</h1>
+            <AxisSelector type={AxisType.ROWS}
+                          elements={rows}
+                          selectableElements={selectableElements}
+                          elementsDispatcher={setRows}
+                          selectableElementsDispatcher={setSelectableElements}
+                          queryResultDispatcher={setPivotQueryResult}/>
+            <AxisSelector type={AxisType.COLUMNS}
+                          elements={columns}
+                          selectableElements={selectableElements}
+                          elementsDispatcher={setColumns}
+                          selectableElementsDispatcher={setSelectableElements}
+                          queryResultDispatcher={setPivotQueryResult}/>
+            <AxisSelector type={AxisType.VALUES}
+                          elements={values}
+                          selectableElements={[]}
+                          elementsDispatcher={setRows}
+                          selectableElementsDispatcher={setSelectableElements}
+                          queryResultDispatcher={setPivotQueryResult}/>
             <button onClick={() => console.log("hello")}>Refresh</button>
             {content}
           </div>
