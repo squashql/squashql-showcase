@@ -4,7 +4,7 @@ import {PivotTableQueryResult} from "@squashql/squashql-js/dist/querier";
 import {useState} from "react";
 import AxisSelector, {AxisType, SelectedType} from "@/app/AxisSelector";
 import {Measure, TableField} from "@squashql/squashql-js";
-import {executePivotQuery, queryProvider} from "@/app/queries";
+import {queryExecutor, queryProvider} from "@/app/queries";
 
 export default function Page() {
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
@@ -37,7 +37,7 @@ export default function Page() {
   }
 
   function executeAndSetResult(rows: SelectedType[], columns: SelectedType[], values: SelectedType[]) {
-    return executePivotQuery(
+    return queryExecutor.executePivotQuery(
             rows.map(e => e as TableField),
             columns.map(e => e as TableField),
             values.map(e => e as Measure))
