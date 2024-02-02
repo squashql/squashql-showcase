@@ -1,7 +1,7 @@
 import {SheetComponent} from '@antv/s2-react'
 import React from "react"
-import {Data, S2DataConfig} from "@antv/s2";
-import {PivotTableQueryResult} from "@squashql/squashql-js/dist/querier";
+import {Data, S2DataConfig} from "@antv/s2"
+import {PivotTableQueryResult} from "@squashql/squashql-js"
 
 interface PivotTableProps {
   result: PivotTableQueryResult
@@ -87,9 +87,9 @@ function buildData(result: PivotTableQueryResult): S2DataConfig {
   const table = result.queryResult.table
   const data: Data[] = [] // see data.js to see the expected format
   table.rows.forEach((row: Data[]) => {
-    const r: Data = {};
+    const r: Data = {}
     row.forEach((col, colIndex) => {
-      const field = table.columns[colIndex];
+      const field = table.columns[colIndex]
       if (!isSquashQLTotal(col)) {
         // @ts-ignore
         r[field] = col

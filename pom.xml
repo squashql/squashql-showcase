@@ -21,15 +21,6 @@
     <junit-platform.version>1.9.1</junit-platform.version>
   </properties>
 
-  <distributionManagement>
-    <repository>
-      <id>github</id>
-      <name>GitHub OWNER Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/squashql/squashql-showcase</url>
-    </repository>
-  </distributionManagement>
-
-
   <dependencies>
     <dependency>
       <groupId>io.squashql</groupId>

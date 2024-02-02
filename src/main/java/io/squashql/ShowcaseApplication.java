@@ -34,12 +34,6 @@ public class ShowcaseApplication {
                         gid
                     );
             """);
-
-//    createTable(engine, "myTable", "17QFM8B9E0vRPb6v9Ct2zPKobFWWHia53Odfu1LChAY0", "446626508").show();
-//    createTable(engine, "portfolios", "17QFM8B9E0vRPb6v9Ct2zPKobFWWHia53Odfu1LChAY0", "446626508").show();
-//    showTables(engine).show();
-//    dropTable(engine, "portfolios");
-//    showTables(engine).show();
     return datastore;
   }
 

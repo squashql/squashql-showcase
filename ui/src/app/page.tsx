@@ -1,10 +1,9 @@
 'use client'
-import {PivotTable} from "@/app/PivotTable";
-import {PivotTableQueryResult} from "@squashql/squashql-js/dist/querier";
-import {useState} from "react";
-import AxisSelector, {AxisType, SelectedType} from "@/app/AxisSelector";
-import {Measure, TableField} from "@squashql/squashql-js";
-import {queryExecutor, queryProvider} from "@/app/queries";
+import {PivotTable} from "@/app/PivotTable"
+import {useState} from "react"
+import AxisSelector, {AxisType, SelectedType} from "@/app/AxisSelector"
+import {Measure, TableField, PivotTableQueryResult} from "@squashql/squashql-js"
+import {queryExecutor, queryProvider} from "@/app/queries"
 
 export default function Page() {
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
