@@ -68,11 +68,9 @@ export default function AxisSelector(props: AxisSelectorProps) {
   return (
           <div>
             {getAxisName(props.type)}:
-            <span style={{padding: "5px"}}>
-                    {props.elements?.map((element, index) => (
-                            <span key={index} style={{cursor: "pointer"}}
-                                  onClick={() => onClickSelectedElement(getElementString(element), props)}>{getElementString(element)} / </span>))}
-                </span>
+            {props.elements?.map((element, index) => (
+                    <span key={index} className="ms-1 mb-1 badge rounded-pill text-bg-dark" style={{cursor: "pointer"}}
+                          onClick={() => onClickSelectedElement(getElementString(element), props)}>{getElementString(element)}</span>))}
             <div className="w-25">
               <select value={'DEFAULT'}
                       className="form-select form-select-sm"

@@ -14,8 +14,8 @@ export function PivotTable(props: PivotTableProps) {
 
   const hierarchyType: 'grid' | 'tree' | 'customTree' = 'grid'
   const options = {
-    height: window.innerHeight - 15,
-    width: window.innerWidth - 15,
+    height: window.innerHeight - 20,
+    width: window.innerWidth - 20,
     showDefaultHeaderActionIcon: false,
     hierarchyType,
     tooltip: {

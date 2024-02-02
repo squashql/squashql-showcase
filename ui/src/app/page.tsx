@@ -45,8 +45,7 @@ export default function Page() {
   }
 
   return (
-          <div>
-            <h1 className="text-3xl font-bold underline">Pivot table</h1>
+          <div className="ms-1">
             <AxisSelector type={AxisType.ROWS}
                           elements={rows}
                           selectableElements={selectableElements}
