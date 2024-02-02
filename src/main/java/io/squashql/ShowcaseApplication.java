@@ -23,7 +23,7 @@ public class ShowcaseApplication {
 
   @Bean
   public DuckDBDatastore createTestDatastoreWithData() {
-    DuckDBDatastore datastore = new DuckDBDatastore();
+    DuckDBDatastore datastore = new DuckDBDatastore(false);
     DuckDBQueryEngine engine = new DuckDBQueryEngine(datastore);
     engine.executeSql("""
             CREATE OR REPLACE MACRO read_gsheet(id, gid) AS

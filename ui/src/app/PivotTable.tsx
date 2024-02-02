@@ -7,7 +7,7 @@ interface PivotTableProps {
   result: PivotTableQueryResult
 }
 
-export function PivotTable(props: PivotTableProps) {
+export default function PivotTable(props: PivotTableProps) {
   if (!props?.result) {
     return
   }

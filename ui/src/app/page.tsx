@@ -1,9 +1,9 @@
 'use client'
-import {PivotTable} from "@/app/PivotTable"
 import {useState} from "react"
 import AxisSelector, {AxisType, SelectedType} from "@/app/AxisSelector"
 import {Measure, TableField, PivotTableQueryResult} from "@squashql/squashql-js"
 import {queryExecutor, queryProvider} from "@/app/queries"
+import dynamic from "next/dynamic";
 
 export default function Page() {
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
@@ -42,6 +42,9 @@ export default function Page() {
             values.map(e => e as Measure))
             .then(r => setPivotQueryResult(r as PivotTableQueryResult))
   }
+
+  // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
+  const PivotTable = dynamic(() => import("./PivotTable"), { ssr: false });
 
   return (
           <div className="ms-1">
