@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@squashql/squashql-codegen": "1.0.17",
-    "@squashql/squashql-js": "1.7.1",
+    "@squashql/squashql-js": "1.7.3",
     "lodash": "^4.17.21"
   }
 }
