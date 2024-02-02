@@ -12,7 +12,7 @@ export default function PivotTable(props: PivotTableProps) {
     return
   }
 
-  const hierarchyType: 'grid' | 'tree' | 'customTree' = 'grid'
+  const hierarchyType: 'grid' | 'tree' | 'customTree' = 'tree'
   const options = {
     height: window.innerHeight - 20,
     width: window.innerWidth - 20,
