@@ -1,5 +1,5 @@
 'use client'
-import {useState} from "react"
+import {useMemo, useState} from "react"
 import AxisSelector, {AxisType, SelectedType} from "@/app/AxisSelector"
 import {Measure, TableField, PivotTableQueryResult} from "@squashql/squashql-js"
 import {queryExecutor, queryProvider} from "@/app/queries"
@@ -12,6 +12,7 @@ export default function Page() {
   const [selectableElements, setSelectableElements] = useState<SelectedType[]>(queryProvider.selectableFields)
   const [selectableValues, setSelectableValues] = useState<SelectedType[]>(queryProvider.measures)
   const [values, setValues] = useState<SelectedType[]>([])
+  const [minify, setMinify] = useState<boolean>(true)
 
   function refresh(newElements: SelectedType[], type: AxisType) {
     let r = rows
@@ -28,23 +29,30 @@ export default function Page() {
         v = newElements
         break
     }
-    return executeAndSetResult(r, c, v)
+    return executeAndSetResult(r, c, v, minify)
   }
 
   function refreshFromState() {
-    return executeAndSetResult(rows, columns, values)
+    return queryExecutor.executePivotQueryMerge(minify).then(r => setPivotQueryResult(r as PivotTableQueryResult))
+    // return executeAndSetResult(rows, columns, values)
   }
 
-  function executeAndSetResult(rows: SelectedType[], columns: SelectedType[], values: SelectedType[]) {
+  function executeAndSetResult(rows: SelectedType[], columns: SelectedType[], values: SelectedType[], minify: boolean) {
     return queryExecutor.executePivotQuery(
             rows.map(e => e as TableField),
             columns.map(e => e as TableField),
-            values.map(e => e as Measure))
+            values.map(e => e as Measure),
+            minify)
             .then(r => setPivotQueryResult(r as PivotTableQueryResult))
   }
 
+  function toggleMinify() {
+    setMinify(!minify)
+    queryExecutor.executePivotQueryMerge(!minify).then(r => setPivotQueryResult(r as PivotTableQueryResult))
+  }
+
   // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
-  const PivotTable = dynamic(() => import("./PivotTable"), { ssr: false });
+  const PivotTable = dynamic(() => import("./PivotTable"), {ssr: false});
 
   return (
           <div className="ms-1">
@@ -66,7 +74,17 @@ export default function Page() {
                           elementsDispatcher={setValues}
                           selectableElementsDispatcher={setSelectableValues}
                           queryResultDispatcher={refresh}/>
-            <button className="btn btn-ligth" onClick={refreshFromState}>Refresh</button>
+            <div className="row row-cols-auto">
+              <div className="col">
+                <button className="btn btn-ligth" onClick={refreshFromState}>Refresh</button>
+              </div>
+              <div className="col py-2">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked={minify} onChange={toggleMinify}/>
+                <label className="form-check-label px-1" htmlFor="flexCheckChecked">
+                  Minify
+                </label>
+              </div>
+            </div>
             {pivotQueryResult !== undefined ? <PivotTable result={pivotQueryResult}/> : undefined}
           </div>
   )

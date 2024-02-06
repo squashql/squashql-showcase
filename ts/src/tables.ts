@@ -8,19 +8,6 @@ export interface SquashQLTable {
     _name: string
 }
 
-class Portfolio implements SquashQLTable {
-    readonly _name = "portfolio"
-    readonly ticker: TableField = new TableField("portfolio.Ticker")
-    readonly dateScenario: TableField = new TableField("portfolio.DateScenario")
-    readonly currency: TableField = new TableField("portfolio.Currency")
-    readonly nbShares: TableField = new TableField("portfolio.NbShares")
-    readonly riskType: TableField = new TableField("portfolio.RiskType")
-    readonly scenarioValue: TableField = new TableField("portfolio.ScenarioValue")
-    readonly _fields: TableField[] = [this.ticker, this.dateScenario, this.currency, this.nbShares, this.riskType, this.scenarioValue]
-}
-
-const portfolio = new Portfolio()
 
 export {
-    portfolio
-}
+    }

@@ -84,16 +84,23 @@ function isSquashQLTotal(value: any): boolean {
 }
 
 function buildData(result: PivotTableQueryResult): S2DataConfig {
-  const table = result.queryResult.table
+  // const table = result.queryResult.table
   const data: Data[] = [] // see data.js to see the expected format
-  table.rows.forEach((row: Data[]) => {
+  // table.rows.forEach((row: Data[]) => {
+  //   const r: Data = {}
+  //   row.forEach((col, colIndex) => {
+  //     const field = table.columns[colIndex]
+  //     if (!isSquashQLTotal(col)) {
+  //       // @ts-ignore
+  //       r[field] = col
+  //     }
+  //   })
+  //   data.push(r)
+  // })
+  result.cells.forEach((cell: Map<string, any>) => {
     const r: Data = {}
-    row.forEach((col, colIndex) => {
-      const field = table.columns[colIndex]
-      if (!isSquashQLTotal(col)) {
-        // @ts-ignore
-        r[field] = col
-      }
+    Object.entries(cell).forEach(entry => {
+      r[entry[0]] = entry[1]
     })
     data.push(r)
   })
