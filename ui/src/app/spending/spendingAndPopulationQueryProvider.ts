@@ -1,6 +1,6 @@
 import {AliasedField, Field, from, JoinType, Measure, Query, QueryMerge, sum, TableField} from "@squashql/squashql-js"
-import {population, spending} from "@/app/tables"
-import {QueryProvider} from "@/app/queryProvider"
+import {population, spending} from "@/app/lib/tables"
+import {QueryProvider} from "@/app/lib/queryProvider"
 
 const continent = new AliasedField("continent")
 const country = new AliasedField("country")

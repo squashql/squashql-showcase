@@ -1,6 +1,6 @@
 import {Field, from, Measure, Query, QueryMerge, sum, countRows, max} from "@squashql/squashql-js"
-import {portfolio} from "@/app/tables"
-import {QueryProvider} from "@/app/queryProvider"
+import {portfolio} from "@/app/lib/tables"
+import {QueryProvider} from "@/app/lib/queryProvider"
 
 export class PortfolioProvider implements QueryProvider {
 

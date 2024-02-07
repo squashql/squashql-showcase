@@ -79,24 +79,8 @@ export default function PivotTable(props: PivotTableProps) {
   )
 }
 
-function isSquashQLTotal(value: any): boolean {
-  return value === "Grand Total" || value === "Total"
-}
-
 function buildData(result: PivotTableQueryResult): S2DataConfig {
-  // const table = result.queryResult.table
   const data: Data[] = [] // see data.js to see the expected format
-  // table.rows.forEach((row: Data[]) => {
-  //   const r: Data = {}
-  //   row.forEach((col, colIndex) => {
-  //     const field = table.columns[colIndex]
-  //     if (!isSquashQLTotal(col)) {
-  //       // @ts-ignore
-  //       r[field] = col
-  //     }
-  //   })
-  //   data.push(r)
-  // })
   result.cells.forEach((cell: Map<string, any>) => {
     const r: Data = {}
     Object.entries(cell).forEach(entry => {
