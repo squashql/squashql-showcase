@@ -1,8 +1,7 @@
 import {Measure, PivotConfig, Querier, TableField} from "@squashql/squashql-js"
 
-import {QueryProvider} from "@/app/queryProvider";
-import {PortfolioProvider} from "@/app/portfolioProvider";
-import {SpendingAndPopulationQueryProvider} from "@/app/spendingAndPopulationQueryProvider";
+import {QueryProvider} from "@/app/queryProvider"
+import {PortfolioProvider} from "@/app/portfolioProvider"
 
 export class QueryExecutor {
 
