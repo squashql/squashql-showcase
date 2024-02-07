@@ -1,11 +1,12 @@
 'use client'
-import {useMemo, useState} from "react"
+import {useState} from "react"
 import AxisSelector, {AxisType, SelectedType} from "@/app/AxisSelector"
-import {Measure, TableField, PivotTableQueryResult} from "@squashql/squashql-js"
+import {Measure, PivotTableQueryResult, TableField} from "@squashql/squashql-js"
 import {queryExecutor, queryProvider} from "@/app/queries"
 import dynamic from "next/dynamic";
 
 export default function Page() {
+
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
   const [rows, setRows] = useState<SelectedType[]>([])
   const [columns, setColumns] = useState<SelectedType[]>([])
@@ -33,8 +34,12 @@ export default function Page() {
   }
 
   function refreshFromState() {
-    return queryExecutor.executePivotQueryMerge(minify).then(r => setPivotQueryResult(r as PivotTableQueryResult))
-    // return executeAndSetResult(rows, columns, values)
+    return executeAndSetResult(rows, columns, values, minify)
+  }
+
+  function toggleMinify() {
+    setMinify(!minify)
+    executeAndSetResult(rows, columns, values, !minify)
   }
 
   function executeAndSetResult(rows: SelectedType[], columns: SelectedType[], values: SelectedType[], minify: boolean) {
@@ -44,11 +49,6 @@ export default function Page() {
             values.map(e => e as Measure),
             minify)
             .then(r => setPivotQueryResult(r as PivotTableQueryResult))
-  }
-
-  function toggleMinify() {
-    setMinify(!minify)
-    queryExecutor.executePivotQueryMerge(!minify).then(r => setPivotQueryResult(r as PivotTableQueryResult))
   }
 
   // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
@@ -79,7 +79,8 @@ export default function Page() {
                 <button className="btn btn-ligth" onClick={refreshFromState}>Refresh</button>
               </div>
               <div className="col py-2">
-                <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked={minify} onChange={toggleMinify}/>
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked={minify}
+                       onChange={toggleMinify}/>
                 <label className="form-check-label px-1" htmlFor="flexCheckChecked">
                   Minify
                 </label>

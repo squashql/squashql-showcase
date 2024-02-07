@@ -1,6 +1,8 @@
 import {Measure, PivotConfig, Querier, TableField} from "@squashql/squashql-js"
-import {QueryProvider} from "@/app/myQueryProvider"
-import {population, spending} from "@/app/tables";
+
+import {QueryProvider} from "@/app/queryProvider";
+import {PortfolioProvider} from "@/app/portfolioProvider";
+import {SpendingAndPopulationQueryProvider} from "@/app/spendingAndPopulationQueryProvider";
 
 export class QueryExecutor {
 
@@ -19,16 +21,7 @@ export class QueryExecutor {
       return this.querier.executePivotQuery(queryProvider.query(select, values), pivotConfig)
     }
   }
-
-  async executePivotQueryMerge(minify: boolean) {
-    const pivotConfig: PivotConfig = {
-      rows: [population.continent.as("continent"), population.country.as("country")],
-      columns: [spending.spendingCategory],
-      minify
-    }
-    return this.querier.executePivotQuery(queryProvider.queryMerge(), pivotConfig)
-  }
 }
 
-export const queryProvider: QueryProvider = new QueryProvider()
+export const queryProvider: QueryProvider = new PortfolioProvider()
 export const queryExecutor: QueryExecutor = new QueryExecutor()

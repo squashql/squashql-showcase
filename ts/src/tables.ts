@@ -8,6 +8,40 @@ export interface SquashQLTable {
     _name: string
 }
 
+class Spending implements SquashQLTable {
+    readonly _name = "spending"
+    readonly city: TableField = new TableField("spending.city")
+    readonly country: TableField = new TableField("spending.country")
+    readonly continent: TableField = new TableField("spending.continent")
+    readonly spendingCategory: TableField = new TableField("spending.spending category")
+    readonly spendingSubcategory: TableField = new TableField("spending.spending subcategory")
+    readonly amount: TableField = new TableField("spending.amount")
+    readonly _fields: TableField[] = [this.city, this.country, this.continent, this.spendingCategory, this.spendingSubcategory, this.amount]
+}
+
+class Portfolio implements SquashQLTable {
+    readonly _name = "portfolio"
+    readonly ticker: TableField = new TableField("portfolio.Ticker")
+    readonly dateScenario: TableField = new TableField("portfolio.DateScenario")
+    readonly currency: TableField = new TableField("portfolio.Currency")
+    readonly nbShares: TableField = new TableField("portfolio.NbShares")
+    readonly riskType: TableField = new TableField("portfolio.RiskType")
+    readonly scenarioValue: TableField = new TableField("portfolio.ScenarioValue")
+    readonly _fields: TableField[] = [this.ticker, this.dateScenario, this.currency, this.nbShares, this.riskType, this.scenarioValue]
+}
+
+class Population implements SquashQLTable {
+    readonly _name = "population"
+    readonly country: TableField = new TableField("population.country")
+    readonly continent: TableField = new TableField("population.continent")
+    readonly population: TableField = new TableField("population.population")
+    readonly _fields: TableField[] = [this.country, this.continent, this.population]
+}
+
+const spending = new Spending()
+const portfolio = new Portfolio()
+const population = new Population()
 
 export {
-    }
+    spending, portfolio, population
+}

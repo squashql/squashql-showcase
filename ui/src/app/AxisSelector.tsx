@@ -1,5 +1,5 @@
-import {ChangeEvent, Dispatch, SetStateAction} from "react";
-import {Measure, TableField} from "@squashql/squashql-js";
+import {ChangeEvent, Dispatch, SetStateAction} from "react"
+import {Field, Measure, TableField, AliasedField} from "@squashql/squashql-js"
 
 export enum AxisType {
   ROWS,
@@ -7,7 +7,7 @@ export enum AxisType {
   VALUES
 }
 
-export type SelectedType = TableField | Measure
+export type SelectedType = Field | Measure
 
 interface AxisSelectorProps {
   type: AxisType,
@@ -29,12 +29,28 @@ function getAxisName(axisType: AxisType): string {
   }
 }
 
-function isTableField(object: any): object is TableField {
-  return 'fullName' in object
+function isMeasure(element: any): element is Measure {
+  return 'expression' in element
+}
+
+function isTableField(element: any): element is TableField {
+  return element.fullName
+}
+
+function isAliasedField(element: any): element is AliasedField {
+  return element.alias
 }
 
 function getElementString(element: SelectedType): string {
-  return isTableField(element) ? element.fullName : element.alias
+  if(isMeasure(element)){
+    return element.alias
+  } else if(isTableField(element)){
+    return element.fullName
+  } else if(isAliasedField(element)){
+    return element.alias
+  } else {
+    throw new Error("Unexpected type " + element)
+  }
 }
 
 function onChangeSelection(event: ChangeEvent<HTMLSelectElement>, props: AxisSelectorProps) {
