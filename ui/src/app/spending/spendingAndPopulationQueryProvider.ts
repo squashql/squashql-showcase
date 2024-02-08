@@ -1,21 +1,59 @@
-import {AliasedField, Field, from, JoinType, Measure, Query, QueryMerge, sum, TableField} from "@squashql/squashql-js"
+import {
+  AliasedField,
+  comparisonMeasureWithPeriod, ComparisonMethod,
+  Field,
+  from,
+  JoinType,
+  Measure,
+  Query,
+  QueryMerge,
+  sum,
+  TableField, Year
+} from "@squashql/squashql-js"
 import {population, spending} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
 
 const continent = new AliasedField("continent")
 const country = new AliasedField("country")
 
+function createPopulationMeasures(): Measure[] {
+  const pop = sum("population", population.population)
+  return [pop]
+}
+
+function createSpendingMeasures(): Measure[] {
+  const amount = sum("amount", spending.amount)
+  const yoyGrowth = comparisonMeasureWithPeriod(
+          "YoY Growth",
+          ComparisonMethod.ABSOLUTE_DIFFERENCE,
+          amount,
+          new Map([[spending.year, "y-1"]]),
+          new Year(spending.year))
+  return [amount, yoyGrowth]
+}
+
+function createSpendingFields(): Field[] {
+  return [spending.spendingCategory, spending.spendingSubcategory, spending.city, spending.year, continent, country]
+}
+
+function createPopulationFields(): Field[] {
+  return [continent, country]
+}
+
+const spendingFields = createSpendingFields()
+const spendingMeasures = createSpendingMeasures()
+const populationFields = createPopulationFields()
+const populationMeasures = createPopulationMeasures()
+
 export class SpendingAndPopulationQueryProvider implements QueryProvider {
 
-  readonly selectableFields = [spending.spendingCategory, spending.spendingSubcategory, spending.city, continent, country]
-  readonly measures = [sum("amount", spending.amount), sum("population", population.population)]
+  readonly selectableFields = spendingFields.concat(populationFields)
+  readonly measures = spendingMeasures.concat(populationMeasures)
 
   query(select: Field[], values: Measure[]): QueryMerge | Query {
-    const targetMeasurePopulationStore = values.filter((m) => m.alias === "population")
-    const targetMeasureSpendingStore = values.filter((m) => m.alias === "amount")
+    const targetMeasureSpendingStore = values.filter((m) => spendingMeasures.includes(m))
+    const targetMeasurePopulationStore = values.filter((m) => populationMeasures.includes(m))
 
-    const spendingFields: Field[] = [spending.spendingCategory, spending.spendingSubcategory, spending.city, continent, country]
-    const populationFields: Field[] = [continent, country]
     const targetFieldSpendingStore = select.filter((f) => spendingFields.includes(f))
     const targetFieldPopulationStore = select.filter((f) => populationFields.includes(f))
 

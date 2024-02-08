@@ -15,8 +15,9 @@ class Spending implements SquashQLTable {
     readonly continent: TableField = new TableField("spending.continent")
     readonly spendingCategory: TableField = new TableField("spending.spending category")
     readonly spendingSubcategory: TableField = new TableField("spending.spending subcategory")
+    readonly year: TableField = new TableField("spending.year")
     readonly amount: TableField = new TableField("spending.amount")
-    readonly _fields: TableField[] = [this.city, this.country, this.continent, this.spendingCategory, this.spendingSubcategory, this.amount]
+    readonly _fields: TableField[] = [this.city, this.country, this.continent, this.spendingCategory, this.spendingSubcategory, this.year, this.amount]
 }
 
 class Portfolio implements SquashQLTable {
