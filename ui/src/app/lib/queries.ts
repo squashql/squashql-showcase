@@ -16,7 +16,7 @@ export class QueryExecutor {
         columns,
         minify
       }
-      return this.querier.executePivotQuery(queryProvider.query(select, values), pivotConfig)
+      return this.querier.executePivotQuery(queryProvider.query(select, values, pivotConfig), pivotConfig)
     }
   }
 }

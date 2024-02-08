@@ -1,12 +1,12 @@
 'use client'
 import Dashboard from "@/app/components/Dashboard";
-import {SpendingAndPopulationQueryProvider} from "@/app/spending/spendingAndPopulationQueryProvider"
+import {SpendingQueryProvider} from "@/app/spending/spending"
 
-const spendingAndPopulationQueryProvider = new SpendingAndPopulationQueryProvider()
+const spendingQueryProvider = new SpendingQueryProvider()
 
 export default function Page() {
 
   return (
-          <Dashboard title={"Spending and population"} queryProvider={spendingAndPopulationQueryProvider}/>
+          <Dashboard title={"Spending"} queryProvider={spendingQueryProvider}/>
   )
 }

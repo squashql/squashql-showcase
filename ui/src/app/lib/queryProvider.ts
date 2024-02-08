@@ -1,4 +1,4 @@
-import {Field, Measure, Query, QueryMerge} from "@squashql/squashql-js"
+import {Field, Measure, PivotConfig, Query, QueryMerge} from "@squashql/squashql-js"
 
 export interface QueryProvider {
   /**
@@ -13,5 +13,5 @@ export interface QueryProvider {
   /**
    * The query to be executed
    */
-  query(select: Field[], values: Measure[]): QueryMerge | Query
+  query(select: Field[], values: Measure[], pivotConfig: PivotConfig): QueryMerge | Query
 }

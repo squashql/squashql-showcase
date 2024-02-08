@@ -34,6 +34,11 @@ public class ShowcaseApplication {
                         gid
                     );
             """);
+
+    createTable(engine, "portfolio", "17QFM8B9E0vRPb6v9Ct2zPKobFWWHia53Odfu1LChAY0", "446626508");
+    createTable(engine, "spending", "1WujqnAJXrRGvfzSYKF_uyHhacehbpuOiJ2ygcb5-AYQ", "0");
+    createTable(engine, "population", "1WujqnAJXrRGvfzSYKF_uyHhacehbpuOiJ2ygcb5-AYQ", "1150075574");
+    showTables(engine).show();
     return datastore;
   }
 
