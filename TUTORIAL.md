@@ -93,7 +93,7 @@ Use the `sumIf` aggregation function with a criterion on Income / Expenditure co
 <details><summary>Code</summary>
 
 ```typescript
-const income = sumIf("Income", budget.amount, criterion(budget.incomeOrExpenditure, eq("Income")))
+const income = sumIf("Income", budget.amount, criterion(budget.incomeExpenditure, eq("Income")))
 ```
 </details>
 
@@ -106,7 +106,7 @@ Use the `sumIf` aggregation function with a criterion on Income / Expenditure co
 <details><summary>Code</summary>
 
 ```typescript
-const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeOrExpenditure, neq("Income")))
+const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeExpenditure, neq("Income")))
 ```
 </details>
 
@@ -250,12 +250,11 @@ Use the `comparisonMeasureWithPeriod` to create the comparison measure.
 
 ```typescript
 const netIncomeGrowth = comparisonMeasureWithPeriod(
-        "Net Income growth (prev. year)",
+        "YoY Net Income Growth",
         ComparisonMethod.RELATIVE_DIFFERENCE,
         netIncome,
-        new Map(Object.entries({ ["Year"]: "y-1" })),
-        new Year("Year")
-)
+        new Map([[budget.year, "y-1"]]),
+        new Year(budget.year))
 ```
 </details>
 
@@ -298,14 +297,14 @@ set to assess how much an expenditure affect (in a positive way) our well-being.
 ```typescript
 import {countRows} from "@squashql/squashql-js";
 
-const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeOrExpenditure, neq("Income")))
+const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeExpenditure, neq("Income")))
 const query = from(budget._name)
         .where(
                 all([
                   criterion(budget.scenario, eq("b")),
                   criterion(budget.year, eq(2023)),
                 ]))
-        .select([budget.year, budget.score], [], [expenditure])
+        .select([budget.year, budget.happinessScore], [], [expenditure])
         .build()
 ```
 
@@ -345,7 +344,7 @@ const records = [
   ["neutral", 0, 2],
   ["happy", 2, 4],
   ["very happy", 4, 5],
-];
+]
 const satisfactionLevelsVT = new VirtualTable(
         satisfactionLevels._name,
         [
@@ -365,8 +364,8 @@ import {countRows} from "@squashql/squashql-js"
 const query = from(budget._name)
         .joinVirtual(satisfactionLevelsVT, JoinType.INNER)
         .on(all([
-          criterion_(budget.score, satisfactionLevels.lowerBound, ConditionType.GE),
-          criterion_(budget.score, satisfactionLevels.upperBound, ConditionType.LT)
+          criterion_(budget.happinessScore, satisfactionLevels.lowerBound, ConditionType.GE),
+          criterion_(budget.happinessScore, satisfactionLevels.upperBound, ConditionType.LT)
         ]))
         .where(
                 all([
@@ -405,7 +404,7 @@ const expenseLevelsRecords = [
   ["low", 0, 10],
   ["medium", 10, 40],
   ["high", 40, 500],
-];
+]
 const expenseLevelsVT = new VirtualTable(
         expenseLevels._name,
         [
@@ -778,52 +777,21 @@ in the Terminal and click on "Toggle Size to Content Width". Table should look l
 +-------------+-------------+--------------------+----------------------+----------------+---------------------------------+---------------------+--------------------+---------------------+
 ```
 
-The result can be displayed in the browser. Use the function `showInBrowser` from `./utils.ts`. It uses [S2 library](https://s2.antv.vision/en) created by AntV.
+You can also run interactive queries by launching the ui project available in this repository. Navigate to `ui/`, then run the development server:
 
-```typescript
-import {showInBrowser} from "./utils"
-
-querier.executePivotQuery(query, pivotConfig)
-        .then(r => {
-          showInBrowser(<PivotTableQueryResult>r)
-        })
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-The output is a clickable link. Click on it to open a web page that displays the pivot table.
-```
-http://localhost:8080
-```
+Open [http://localhost:3000/tutorial](http://localhost:3000/tutorial) with your browser. 
 
-<details><summary>Full code</summary>
-
-```typescript
-import {
-  PivotTableQueryResult,
-  Querier, criterion, eq, from, neq, sumIf,
-} from "@squashql/squashql-js"
-import { showInBrowser } from "./utils"
-
-const querier = new Querier("http://localhost:8080")
-const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeOrExpenditure, neq("Income")))
-
-const pivotConfig = {rows: [budget.year, budget.month], columns: [budget.category]};
-const query = from(budget._name)
-        .where(criterion(budget.scenario, eq("b")))
-        .select([budget.year, budget.month, budget.category], [], [expenditure])
-        .build()
-
-querier.executePivotQuery(query, pivotConfig, true)
-        .then(r => console.log(r));
-querier.executePivotQuery(query, pivotConfig)
-        .then(r => {
-          showInBrowser(<PivotTableQueryResult>r)
-        })
-```
-</details>
-
-You should see the following table:
-
-<img width="1000" alt="Screenshot 2023-12-06 at 4 00 45 PM" src="https://github.com/squashql/squashql-showcase/assets/5783183/64607058-7faf-4fd6-8e92-390293aa6217">
+<img width="1000" src="doc/assets/pivot-table-1.png">
 
 Another example with the "double bucketing" saw earlier. As a reminder, the query is the following:
 
@@ -865,3 +833,5 @@ querier.executePivotQuery(query, pivotConfig, true)
 |                            very happy |                   16 |                 null |                   14 |                    2 |
 +---------------------------------------+----------------------+----------------------+----------------------+----------------------+
 </details>
+
+<img width="1000" src="doc/assets/pivot-table-2.png">

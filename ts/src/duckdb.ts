@@ -41,12 +41,16 @@ export class DuckDb implements Client {
   }
 }
 
-if (require.main === module) {
+async function createTablesAndGenerateTablesFile() {
   const duckDb = new DuckDb(url)
   // Create 3 new tables from Google Sheets and generate ./tables.ts file that contain their metadata
-  duckDb.createTable("portfolio", "17QFM8B9E0vRPb6v9Ct2zPKobFWWHia53Odfu1LChAY0", "446626508").then(r => console.log(r))
-  duckDb.createTable("spending", "1WujqnAJXrRGvfzSYKF_uyHhacehbpuOiJ2ygcb5-AYQ", "0").then(r => console.log(r))
-  duckDb.createTable("population", "1WujqnAJXrRGvfzSYKF_uyHhacehbpuOiJ2ygcb5-AYQ", "1150075574").then(r => console.log(r))
-  duckDb.showTables().then(r => console.log(r))
-  codeGenerateTablesFile(duckDb)
+  await duckDb.createTable("portfolio", "17QFM8B9E0vRPb6v9Ct2zPKobFWWHia53Odfu1LChAY0", "446626508").then(r => console.log(r))
+  await duckDb.createTable("spending", "1WujqnAJXrRGvfzSYKF_uyHhacehbpuOiJ2ygcb5-AYQ", "0").then(r => console.log(r))
+  await duckDb.createTable("population", "1WujqnAJXrRGvfzSYKF_uyHhacehbpuOiJ2ygcb5-AYQ", "1150075574").then(r => console.log(r))
+  await duckDb.showTables().then(r => console.log(r))
+  return codeGenerateTablesFile(duckDb)
+}
+
+if (require.main === module) {
+  createTablesAndGenerateTablesFile().then(__ => "Done")
 }
