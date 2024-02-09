@@ -23,11 +23,11 @@ export default function Page() {
 
   return (
           <div className="ms-1 mt-1">
-            <Card link={"portfolio"} tables={["portfolio"]}
-                  features={["Group comparison", "basic measures"]}/>
             <Card link={"spending"} tables={["spending"]}
                   features={["Time-series comparison", "hierarchical measures"]}/>
-            <Card link={"spendingandpopulation"} tables={["spending", "portfolio"]}
+            <Card link={"portfolio"} tables={["portfolio"]}
+                  features={["Group comparison", "basic measures"]}/>
+            <Card link={"spendingandpopulation"} tables={["spending", "population"]}
                   features={["Drilling across", "basic aggregation"]}/>
           </div>
   )
