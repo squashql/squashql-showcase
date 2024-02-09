@@ -80,8 +80,8 @@ export default function PivotTable(props: PivotTableProps) {
 }
 
 function buildData(result: PivotTableQueryResult): S2DataConfig {
-  const data: Data[] = [] // see data.js to see the expected format
-  result.cells.forEach((cell: Map<string, any>) => {
+  let data: Data[] = [] // see data.js to see the expected format
+  result.cells.forEach((cell: Record<string, any>) => {
     const r: Data = {}
     Object.entries(cell).forEach(entry => {
       r[entry[0]] = typeof entry[1] === 'number' && entry[1] % 1 != 0 ? (Math.round(entry[1] * 100) / 100).toFixed(2) : entry[1]

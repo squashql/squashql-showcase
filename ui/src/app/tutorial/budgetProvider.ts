@@ -1,23 +1,45 @@
 import {
   all,
   comparisonMeasureWithPeriod,
-  ComparisonMethod, ConditionType,
+  ComparisonMethod,
+  ConditionType,
   countRows,
-  criterion, criterion_,
+  criterion,
+  criterion_,
   eq,
   Field,
-  from, integer, JoinType,
+  from,
+  integer,
+  JoinType,
   Measure,
-  minus, multiply,
+  minus,
+  multiply,
   neq,
   Query,
   QueryMerge,
   sumIf,
+  VirtualTable,
   Year
 } from "@squashql/squashql-js"
 import {budget} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
-import {expenseLevels, expenseLevelsVT, satisfactionLevels, satisfactionLevelsVT} from "@/app/tutorial/virtualTables"
+import {expenseLevels, expenseLevelsVT, satisfactionLevels} from "@/app/tutorial/virtualTables"
+
+export const initialRecords = [
+  ["neutral", 0, 2],
+  ["happy", 2, 4],
+  ["very happy", 4, 5],
+]
+
+function createNewVirtualTable(records: (string | number)[][]): VirtualTable {
+  return new VirtualTable(
+          satisfactionLevels._name,
+          [
+            satisfactionLevels.satisfactionLevel.fieldName,
+            satisfactionLevels.lowerBound.fieldName,
+            satisfactionLevels.upperBound.fieldName
+          ], records)
+}
 
 function createMeasures(): Measure[] {
   const income = sumIf("Income", budget.amount, criterion(budget.incomeExpenditure, eq("Income")))
@@ -38,13 +60,19 @@ export class BudgetProvider implements QueryProvider {
 
   readonly selectableFields = budget._fields.concat([satisfactionLevels.satisfactionLevel, expenseLevels.expenseLevel])
   readonly measures = createMeasures()
+  readonly recordsProvider: () => (string | number)[][]
+
+  constructor(recordsProvider: () => (string | number)[][]) {
+    this.recordsProvider = recordsProvider
+  }
 
   query(select: Field[], values: Measure[]): QueryMerge | Query {
     const table = from(budget._name)
     const orderByFuncs = []
     if (select.includes(satisfactionLevels.satisfactionLevel)) {
       // Need to add a join
-      table.joinVirtual(satisfactionLevelsVT, JoinType.INNER)
+      const records = this.recordsProvider()
+      table.joinVirtual(createNewVirtualTable(records), JoinType.INNER)
               .on(all([
                 criterion_(budget.happinessScore, satisfactionLevels.lowerBound, ConditionType.GE),
                 criterion_(budget.happinessScore, satisfactionLevels.upperBound, ConditionType.LT)
@@ -64,6 +92,6 @@ export class BudgetProvider implements QueryProvider {
             .where(criterion(budget.scenario, eq("b")))
             .select(select, [], values)
     orderByFuncs.map(f => f(canAddRollup))
-    return canAddRollup.build();
+    return canAddRollup.build()
   }
 }

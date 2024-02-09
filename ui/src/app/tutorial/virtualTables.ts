@@ -1,5 +1,5 @@
-import {SquashQLTable} from "@/app/lib/tables";
-import {TableField, VirtualTable} from "@squashql/squashql-js";
+import {SquashQLTable} from "@/app/lib/tables"
+import {TableField, VirtualTable} from "@squashql/squashql-js"
 
 class SatisfactionLevels implements SquashQLTable {
   readonly _name = "satisfactionLevels"
@@ -20,20 +20,6 @@ class ExpenseLevels implements SquashQLTable {
 const satisfactionLevels = new SatisfactionLevels()
 const expenseLevels = new ExpenseLevels()
 
-const records = [
-  ["neutral", 0, 2],
-  ["happy", 2, 4],
-  ["very happy", 4, 5],
-]
-
-const satisfactionLevelsVT = new VirtualTable(
-        satisfactionLevels._name,
-        [
-          satisfactionLevels.satisfactionLevel.fieldName,
-          satisfactionLevels.lowerBound.fieldName,
-          satisfactionLevels.upperBound.fieldName
-        ], records)
-
 const expenseLevelsRecords = [
   ["low", 0, 10],
   ["medium", 10, 40],
@@ -49,5 +35,5 @@ const expenseLevelsVT = new VirtualTable(
         ], expenseLevelsRecords)
 
 export {
-  satisfactionLevels, satisfactionLevelsVT, expenseLevels, expenseLevelsVT
+  satisfactionLevels, expenseLevels, expenseLevelsVT
 }

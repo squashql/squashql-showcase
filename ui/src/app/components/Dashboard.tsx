@@ -1,5 +1,5 @@
 'use client'
-import {useState} from "react"
+import React, {useState} from "react"
 import AxisSelector, {AxisType, SelectedType} from "@/app/components/AxisSelector"
 import {Measure, PivotTableQueryResult, TableField} from "@squashql/squashql-js"
 import {queryExecutor} from "@/app/lib/queries"
@@ -8,7 +8,8 @@ import {QueryProvider} from "@/app/lib/queryProvider"
 
 interface DashboardProps {
   title: string
-  queryProvider: QueryProvider
+  queryProvider: QueryProvider,
+  elements?: React.JSX.Element[]
 }
 
 export default function Dashboard(props: DashboardProps) {
@@ -99,6 +100,7 @@ export default function Dashboard(props: DashboardProps) {
                   Minify
                 </label>
               </div>
+              {props.elements}
             </div>
             {pivotQueryResult !== undefined ? <PivotTable result={pivotQueryResult}/> : undefined}
           </div>

@@ -1,12 +1,51 @@
 'use client'
 import Dashboard from "@/app/components/Dashboard"
-import {BudgetProvider} from "@/app/tutorial/budgetProvider"
+import {BudgetProvider, initialRecords} from "@/app/tutorial/budgetProvider"
+import {ChangeEvent} from "react"
 
-const budgetProvider = new BudgetProvider()
+const records = initialRecords
+
+interface SatisfactionLevelComponentProps {
+  key: string
+  onChange: (event: ChangeEvent<HTMLInputElement>, levelIndex: number, boundIndex: number) => void
+}
+
+function SatisfactionLevelComponent(props: SatisfactionLevelComponentProps) {
+  return (
+          <div className="col py-1">
+            <button className="btn btn-light btn-sm" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              Change satisfaction levels
+            </button>
+            <div className="collapse" id="collapseExample">
+              <div style={{width: "15rem"}}>
+                {["neutral", "happy", "very happy"].map((level, index) => (
+                        <div className="input-group input-group-sm" key={level}>
+                          <span className="input-group-text" style={{width: "6rem"}}>{level}</span>
+                          <input type="number" aria-label="lower" className="form-control"
+                                 defaultValue={initialRecords[index][1]} onChange={e => props.onChange(e, index, 1)}/>
+                          <input type="number" aria-label="upper" className="form-control"
+                                 defaultValue={initialRecords[index][2]} onChange={e => props.onChange(e, index, 2)}/>
+                        </div>
+                ))}
+              </div>
+            </div>
+          </div>
+  )
+}
 
 export default function Page() {
+  const budgetProvider = new BudgetProvider(() => records)
+
+  function onChange(event: ChangeEvent<HTMLInputElement>, levelIndex: number, boundIndex: number) {
+    records[levelIndex][boundIndex] = parseInt(event.target.value)
+  }
 
   return (
-          <Dashboard title={"Tutorial"} queryProvider={budgetProvider}/>
+          <div className="ms-1">
+            <Dashboard title={"Tutorial"}
+                       queryProvider={budgetProvider}
+                       elements={[<SatisfactionLevelComponent key={"sl"} onChange={onChange}/>]}/>
+          </div>
   )
 }
