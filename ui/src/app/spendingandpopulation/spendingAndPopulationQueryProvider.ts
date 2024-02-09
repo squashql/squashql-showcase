@@ -1,30 +1,9 @@
-import {
-  AliasedField,
-  BucketColumnSet,
-  comparisonMeasureWithBucket,
-  comparisonMeasureWithPeriod,
-  ComparisonMethod,
-  Field,
-  from,
-  JoinType,
-  Measure,
-  Query,
-  QueryMerge,
-  sum,
-  TableField,
-  Year
-} from "@squashql/squashql-js"
+import {AliasedField, Field, from, JoinType, Measure, Query, QueryMerge, sum, TableField} from "@squashql/squashql-js"
 import {population, spending} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
 
 const continent = new AliasedField("continent")
 const country = new AliasedField("country")
-const groupOfCountries = new TableField("group of countries")
-const countryGroups = new Map(Object.entries({
-  "comp. with fr": ["france", "usa", "uk"],
-  "comp. with uk": ["uk", "france", "usa"],
-  "comp. with usa": ["usa", "france", "uk"],
-}))
 
 function createPopulationMeasures(): Measure[] {
   const pop = sum("population", population.population)
@@ -33,21 +12,11 @@ function createPopulationMeasures(): Measure[] {
 
 function createSpendingMeasures(): Measure[] {
   const amount = sum("amount", spending.amount)
-  const yoyGrowth = comparisonMeasureWithPeriod(
-          "YoY Growth",
-          ComparisonMethod.ABSOLUTE_DIFFERENCE,
-          amount,
-          new Map([[spending.year, "y-1"]]),
-          new Year(spending.year))
-  const amountComparison = comparisonMeasureWithBucket("amount comparison",
-          ComparisonMethod.ABSOLUTE_DIFFERENCE,
-          amount,
-          new Map([[spending.country.as(country.alias), "first"]]))
-  return [amount, yoyGrowth, amountComparison]
+  return [amount]
 }
 
 function createSpendingFields(): Field[] {
-  return [spending.spendingCategory, spending.spendingSubcategory, spending.city, spending.year, continent, country, groupOfCountries]
+  return [spending.spendingCategory, spending.spendingSubcategory, spending.city, spending.year, continent, country]
 }
 
 function createPopulationFields(): Field[] {
@@ -77,12 +46,8 @@ export class SpendingAndPopulationQueryProvider implements QueryProvider {
               [continent, country],
               [spending.continent, spending.country])
 
-      const gocIndex = targetFieldSpendingStore.indexOf(groupOfCountries)
-      targetFieldSpendingStore = targetFieldSpendingStore.filter(f => f !== groupOfCountries)
-      const columnSets = gocIndex >= 0 ? [new BucketColumnSet(groupOfCountries, spending.country.as(country.alias), countryGroups)] : []
-
       q1 = from(spending._name)
-              .select(targetFieldSpendingStore, columnSets, targetMeasureSpendingStore)
+              .select(targetFieldSpendingStore, [], targetMeasureSpendingStore)
               .build()
     }
 
@@ -98,7 +63,7 @@ export class SpendingAndPopulationQueryProvider implements QueryProvider {
     }
 
     if (q1 && q2) {
-      return new QueryMerge(q2).join(q1, JoinType.LEFT);
+      return new QueryMerge(q2).join(q1, JoinType.LEFT)
     } else if (q1) {
       return q1
     } else if (q2) {

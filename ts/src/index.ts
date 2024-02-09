@@ -10,4 +10,4 @@ const querier = new Querier(url)
 
 // TODO execute the query and see the result in the console
 // querier.executeQuery(query, true)
-//         .then(r => console.log(r));
+//         .then(r => console.log(r))

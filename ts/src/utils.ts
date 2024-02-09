@@ -8,6 +8,6 @@ export function showInBrowser(pivotTable: PivotTableQueryResult) {
     values: pivotTable.values,
     table: pivotTable.queryResult.table,
   })
-  fs.writeFileSync('../target/classes/public/data.json', data);
+  fs.writeFileSync('../target/classes/public/data.json', data)
   console.log(`http://localhost:8080`)
 }
