@@ -59,6 +59,7 @@ export class BudgetProvider implements QueryProvider {
               ]))
       orderByFuncs.push((r: any) => r.orderByFirstElements(expenseLevels.expenseLevel, ["low", "medium", "high"]))
     }
+
     const canAddRollup = table
             .where(criterion(budget.scenario, eq("b")))
             .select(select, [], values)
