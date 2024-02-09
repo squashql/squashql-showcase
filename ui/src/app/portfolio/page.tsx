@@ -1,6 +1,6 @@
 'use client'
-import Dashboard from "@/app/components/Dashboard";
-import {PortfolioProvider} from "@/app/portfolio/portfolioProvider";
+import Dashboard from "@/app/components/Dashboard"
+import {PortfolioProvider} from "@/app/portfolio/portfolioProvider"
 
 const portfolioQueryProvider = new PortfolioProvider()
 

@@ -64,7 +64,12 @@ export default function Dashboard(props: DashboardProps) {
 
   return (
           <div className="ms-1">
-            <h5>{props.title}</h5>
+            <nav aria-label="breadcrumb">
+              <ol className="breadcrumb">
+                <li className="breadcrumb-item"><a href="../">Home</a></li>
+                <li className="breadcrumb-item active" aria-current="page">{props.title}</li>
+              </ol>
+            </nav>
             <AxisSelector type={AxisType.ROWS}
                           elements={rows}
                           selectableElements={selectableElements}
