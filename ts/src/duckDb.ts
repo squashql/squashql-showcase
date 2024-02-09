@@ -1,8 +1,8 @@
 import axios, {AxiosInstance} from "axios"
 import {CreateAxiosDefaults} from "axios/index"
-import {Client, TableType} from "@squashql/squashql-codegen";
-import {url} from "./constants";
-import {codeGenerateTablesFile} from "@squashql/squashql-codegen/build";
+import {Client, TableType} from "@squashql/squashql-codegen"
+import {url} from "./constants"
+import {codeGenerateTablesFile} from "@squashql/squashql-codegen/build"
 
 export class DuckDb implements Client {
 

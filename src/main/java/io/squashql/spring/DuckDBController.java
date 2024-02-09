@@ -1,15 +1,10 @@
 package io.squashql.spring;
 
-import com.google.common.collect.ImmutableList;
 import io.squashql.DuckDBDatastore;
 import io.squashql.ShowcaseApplication;
-import io.squashql.query.Header;
 import io.squashql.query.database.DuckDBQueryEngine;
-import io.squashql.query.database.SqlUtils;
-import io.squashql.query.dto.*;
 import io.squashql.store.Store;
 import io.squashql.table.Table;
-import io.squashql.table.TableUtils;
 import io.squashql.type.TableTypedField;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 public class DuckDBController {
@@ -27,9 +21,9 @@ public class DuckDBController {
   private final DuckDBQueryEngine engine;
   private final DuckDBDatastore datastore;
 
-  public DuckDBController(DuckDBQueryEngine engine, DuckDBDatastore datastore) {
+  public DuckDBController(DuckDBQueryEngine engine) {
     this.engine = engine;
-    this.datastore = datastore;
+    this.datastore = engine.datastore;
   }
 
   @PostMapping("gs-load")
@@ -40,19 +34,19 @@ public class DuckDBController {
 
   @PostMapping("show-tables")
   public ResponseEntity<String> showTables() {
-    Table table = ShowcaseApplication.showTables(engine);
+    Table table = ShowcaseApplication.showTables(this.engine);
     return ResponseEntity.ok(table.toString());
   }
 
   @PostMapping("drop")
   public ResponseEntity<String> dropTable(@RequestParam(name = "tablename") String tableName) {
-    ShowcaseApplication.dropTable(engine, tableName);
+    ShowcaseApplication.dropTable(this.engine, tableName);
     return ResponseEntity.ok("");
   }
 
   @PostMapping("tables-info")
   public ResponseEntity<List<TableTypeDto>> tablesInfo() {
-    Map<String, Store> storesByName = datastore.fetchStoresByName();
+    Map<String, Store> storesByName = this.datastore.fetchStoresByName();
     List<TableTypeDto> tableTypeDtos = new ArrayList<>();
     for (Map.Entry<String, Store> e : storesByName.entrySet()) {
       tableTypeDtos.add(new TableTypeDto(e.getKey(), e.getValue().fields().stream().map(TableTypedField::name).toList()));

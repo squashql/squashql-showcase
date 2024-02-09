@@ -1,13 +1,18 @@
 package io.squashql;
 
+import io.squashql.jdbc.JdbcUtil;
+import io.squashql.query.QueryExecutor;
 import io.squashql.query.database.DuckDBQueryEngine;
-import io.squashql.query.database.QueryEngine;
 import io.squashql.table.Table;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 @SpringBootApplication
 public class ShowcaseApplication {
@@ -17,14 +22,23 @@ public class ShowcaseApplication {
   }
 
   @Bean
-  public DuckDBQueryEngine queryEngine() {
-    return new DuckDBQueryEngine(createTestDatastoreWithData());
+  public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurer() {
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
+      }
+    };
   }
 
   @Bean
-  public DuckDBDatastore createTestDatastoreWithData() {
-    DuckDBDatastore datastore = new DuckDBDatastore(false);
-    DuckDBQueryEngine engine = new DuckDBQueryEngine(datastore);
+  public DuckDBQueryEngine queryEngine() {
+    DuckDBQueryEngine engine = new DuckDBQueryEngine(new DuckDBDatastore(false));
+    configure(engine);
+    return engine;
+  }
+
+  private static void configure(DuckDBQueryEngine engine) {
     engine.executeSql("""
             CREATE OR REPLACE MACRO read_gsheet(id, gid) AS
                 TABLE FROM read_csv_auto(
@@ -35,11 +49,9 @@ public class ShowcaseApplication {
                     );
             """);
 
-    createTable(engine, "portfolio", "17QFM8B9E0vRPb6v9Ct2zPKobFWWHia53Odfu1LChAY0", "446626508");
-    createTable(engine, "spending", "1WujqnAJXrRGvfzSYKF_uyHhacehbpuOiJ2ygcb5-AYQ", "0");
-    createTable(engine, "population", "1WujqnAJXrRGvfzSYKF_uyHhacehbpuOiJ2ygcb5-AYQ", "1150075574");
+    loadPersonalBudget(engine);
+    System.out.println("Available tables:");
     showTables(engine).show();
-    return datastore;
   }
 
   public static Table createTable(DuckDBQueryEngine engine, String tableName, String id, String gid) {
@@ -55,37 +67,25 @@ public class ShowcaseApplication {
     return engine.executeRawSql("SHOW TABLES;");
   }
 
-  @Bean
-  public WebMvcConfigurer corsConfigurer() {
-    return new WebMvcConfigurer() {
-      @Override
-      public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
-      }
-    };
-  }
+  private static void loadPersonalBudget(DuckDBQueryEngine engine) {
+    try {
+      String fileName = "personal_budget.csv";
+      String path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(fileName).toURI()).toString();
+      Statement statement = engine.datastore.getConnection().createStatement();
+      statement.execute("CREATE TABLE budget_temp AS SELECT * FROM read_csv_auto('" + path + "');");
 
-//  public static DuckDBDatastore createTestDatastoreWithData() {
-//    DuckDBDatastore datastore = new DuckDBDatastore();
-//
-//    try {
-//      String fileName = "personal_budget.csv";
-//      String path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(fileName).toURI()).toString();
-//      Statement statement = datastore.getConnection().createStatement();
-//      statement.execute("CREATE TABLE budget_temp AS SELECT * FROM read_csv_auto('" + path + "');");
-//
-//      // Print info on the table
-//      ResultSet resultSet = statement.executeQuery("DESCRIBE budget_temp;");
-//      JdbcUtil.toTable(resultSet).show();
-//
-//      // Unnest -> one line per scenario
-//      statement.execute("CREATE TABLE budget AS select * replace (unnest(string_split(Scenarios, ',')) as Scenarios) from budget_temp");
-//      statement.execute("ALTER TABLE budget RENAME Scenarios to Scenario");
-//      QueryExecutor queryExecutor = new QueryExecutor(new DuckDBQueryEngine(datastore));
-//      queryExecutor.executeRaw("select * from budget").show(100);
-//    } catch (Exception e) {
-//      throw new RuntimeException(e);
-//    }
-//    return datastore;
-//  }
+      // Print info on the table
+      ResultSet resultSet = statement.executeQuery("DESCRIBE budget_temp;");
+      JdbcUtil.toTable(resultSet).show();
+
+      // Unnest -> one line per scenario
+      statement.execute("CREATE TABLE budget AS select * replace (unnest(string_split(Scenarios, ',')) as Scenarios) from budget_temp");
+      statement.execute("ALTER TABLE budget RENAME Scenarios to Scenario");
+      dropTable(engine, "budget_temp");
+      QueryExecutor queryExecutor = new QueryExecutor(engine);
+      queryExecutor.executeRaw("select * from budget").show(20);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

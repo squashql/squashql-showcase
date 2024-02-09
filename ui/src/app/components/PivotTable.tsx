@@ -84,7 +84,7 @@ function buildData(result: PivotTableQueryResult): S2DataConfig {
   result.cells.forEach((cell: Map<string, any>) => {
     const r: Data = {}
     Object.entries(cell).forEach(entry => {
-      r[entry[0]] = typeof entry[1] === 'number' ? (Math.round(entry[1] * 100) / 100).toFixed(2) : entry[1]
+      r[entry[0]] = typeof entry[1] === 'number' && entry[1] % 1 != 0 ? (Math.round(entry[1] * 100) / 100).toFixed(2) : entry[1]
     })
     data.push(r)
   })
