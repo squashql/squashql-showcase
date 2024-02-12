@@ -397,7 +397,7 @@ Now that we know the distribution of the expenses per satisfaction levels, we wo
 for instance, cutting expenses with a high cost and for which the satisfaction level is neutral. To do that, we can apply 
 a new bucketing on top of the one described above. 
 
-Let's define a new virtual table to classify expenses according to their cost. Expsenses with amount between `[0, 10[` will 
+Let's define a new virtual table to classify expenses according to their cost. Expenses with amount between `[0, 10[` will 
 be classified as low, between `[10, 40[` as medium and between `[40, 500[` as high.
 ```typescript
 const expenseLevelsRecords = [
@@ -529,12 +529,12 @@ const groups = new Map(Object.entries({
 ```
 
 The groups are simply map. The keys are group name and values are the list of scenario names. A scenario 
-can be in multiple groups. We use this map to create a [ColumnSet](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md#dynamic-comparison---what-if---columnset).
+can be in multiple groups. We use this map to create a [ColumnSet](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md#group-comparison---columnset).
 
 ```typescript
 import {budget} from "./tables";
 
-const columnSet = new BucketColumnSet(new TableField("group"), budget.scenario, groups)
+const columnSet = new GroupColumnSet(new TableField("group"), budget.scenario, groups)
 ```
 
 Execute the following query containing the previously defined column set. Notice you do not need to add the Scenario column
@@ -581,12 +581,12 @@ used to express "previous year" we saw earlier.
 
 <details><summary>Hint</summary>
 
-Use the `comparisonMeasureWithBucket` to create the comparison measure.
+Use the `comparisonMeasureWithinGroup` to create the comparison measure.
 </details>
 <details><summary>Code</summary>
 
 ```typescript
-const netIncomeCompPrev = comparisonMeasureWithBucket(
+const netIncomeCompPrev = comparisonMeasureWithinGroup(
         "Net Income comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         netIncome,
@@ -638,7 +638,7 @@ in the same way *Net Income comp. with prev. scenario* has been done.
 
 ```typescript
 const happiness = sum("Happiness score sum", budget.score);
-const happinessCompPrev = comparisonMeasureWithBucket(
+const happinessCompPrev = comparisonMeasureWithinGroup(
         "Happiness score sum comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         happiness,
@@ -688,12 +688,12 @@ Use the `first` keyword in `{["Scenario"]: "s-1"}` to change the reference posit
 <details><summary>Code</summary>
 
 ```typescript
-const netIncomeCompFirst = comparisonMeasureWithBucket(
+const netIncomeCompFirst = comparisonMeasureWithinGroup(
         "Net Income comp. with first scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         netIncome,
         new Map([[budget.scenario, "first"]]))
-const happinessCompFirst = comparisonMeasureWithBucket(
+const happinessCompFirst = comparisonMeasureWithinGroup(
         "Happiness score sum comp. with first scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         happiness,
@@ -791,7 +791,7 @@ bun dev
 
 Open [http://localhost:3000/tutorial](http://localhost:3000/tutorial) with your browser. 
 
-<img width="1000" src="doc/assets/pivot-table-1.png">
+<img width="1000" src="documentation/assets/pivot-table-1.png">
 
 Another example with the "double bucketing" saw earlier. As a reminder, the query is the following:
 
@@ -834,4 +834,4 @@ querier.executePivotQuery(query, pivotConfig, true)
 +---------------------------------------+----------------------+----------------------+----------------------+----------------------+
 </details>
 
-<img width="1000" src="doc/assets/pivot-table-2.png">
+<img width="1000" src="documentation/assets/pivot-table-2.png">

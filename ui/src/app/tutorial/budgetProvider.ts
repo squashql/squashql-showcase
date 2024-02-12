@@ -1,5 +1,5 @@
 import {
-  all,
+  all, CanAddRollup,
   comparisonMeasureWithPeriod,
   ComparisonMethod,
   ConditionType,
@@ -77,7 +77,7 @@ export class BudgetProvider implements QueryProvider {
                 criterion_(budget.happinessScore, satisfactionLevels.lowerBound, ConditionType.GE),
                 criterion_(budget.happinessScore, satisfactionLevels.upperBound, ConditionType.LT)
               ]))
-      orderByFuncs.push((r: any) => r.orderByFirstElements(satisfactionLevels.satisfactionLevel, ["neutral", "happy", "very happy"]))
+      orderByFuncs.push((r: CanAddRollup) => r.orderByFirstElements(satisfactionLevels.satisfactionLevel, ["neutral", "happy", "very happy"]))
     }
     if (select.includes(expenseLevels.expenseLevel)) {
       table.joinVirtual(expenseLevelsVT, JoinType.INNER)
@@ -85,10 +85,10 @@ export class BudgetProvider implements QueryProvider {
                 criterion_(budget.amount, expenseLevels.lowerBound, ConditionType.GE),
                 criterion_(budget.amount, expenseLevels.upperBound, ConditionType.LT)
               ]))
-      orderByFuncs.push((r: any) => r.orderByFirstElements(expenseLevels.expenseLevel, ["low", "medium", "high"]))
+      orderByFuncs.push((r: CanAddRollup) => r.orderByFirstElements(expenseLevels.expenseLevel, ["low", "medium", "high"]))
     }
 
-    const canAddRollup = table
+    const canAddRollup: CanAddRollup = table
             .where(criterion(budget.scenario, eq("b")))
             .select(select, [], values)
     orderByFuncs.map(f => f(canAddRollup))

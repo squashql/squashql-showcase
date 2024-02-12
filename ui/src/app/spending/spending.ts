@@ -1,6 +1,6 @@
 import {
-  BucketColumnSet,
-  comparisonMeasureWithBucket, comparisonMeasureWithParent,
+  GroupColumnSet,
+  comparisonMeasureWithinSameGroup, comparisonMeasureWithParent,
   comparisonMeasureWithPeriod,
   ComparisonMethod,
   Field,
@@ -35,7 +35,7 @@ function createSpendingMeasures(): Measure[] {
           amount,
           new Map([[spending.year, "y-1"]]),
           new Year(spending.year))
-  const amountComparison = comparisonMeasureWithBucket("group amount comparison",
+  const amountComparison = comparisonMeasureWithinSameGroup("group amount comparison",
           ComparisonMethod.ABSOLUTE_DIFFERENCE,
           amount,
           new Map([[spending.country, "first"]]))
@@ -72,7 +72,7 @@ export class SpendingQueryProvider implements QueryProvider {
 
     const gocIndex = select.indexOf(groupOfCountries)
     select = select.filter(f => f !== groupOfCountries)
-    const columnSets = gocIndex >= 0 ? [new BucketColumnSet(groupOfCountries, spending.country, countryGroups)] : []
+    const columnSets = gocIndex >= 0 ? [new GroupColumnSet(groupOfCountries, spending.country, countryGroups)] : []
 
     return from(spending._name)
             .select(select, columnSets, copy)
