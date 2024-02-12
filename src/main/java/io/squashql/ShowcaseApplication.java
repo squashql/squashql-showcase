@@ -10,9 +10,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.nio.file.Paths;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.nio.file.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootApplication
 public class ShowcaseApplication {
@@ -68,11 +73,14 @@ public class ShowcaseApplication {
   }
 
   private static void loadPersonalBudget(DuckDBQueryEngine engine) {
+    String fileName = "personal_budget.csv";
+    Path tempPath = null;
     try {
-      String fileName = "personal_budget.csv";
-      String path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(fileName).toURI()).toString();
+      InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+      tempPath = Files.createTempFile("personal_budget_tmp_" + System.currentTimeMillis(), ".csv");
+      Files.copy(in, tempPath, StandardCopyOption.REPLACE_EXISTING); // copy the file in tmp dir. otherwise, issue can happen in docker container (file system does not exist)
       Statement statement = engine.datastore.getConnection().createStatement();
-      statement.execute("CREATE TABLE budget_temp AS SELECT * FROM read_csv_auto('" + path + "');");
+      statement.execute("CREATE TABLE budget_temp AS SELECT * FROM read_csv_auto('" + tempPath + "');");
 
       // Print info on the table
       ResultSet resultSet = statement.executeQuery("DESCRIBE budget_temp;");
@@ -86,6 +94,14 @@ public class ShowcaseApplication {
       queryExecutor.executeRaw("select * from budget").show(20);
     } catch (Exception e) {
       throw new RuntimeException(e);
+    } finally {
+      if (tempPath != null) {
+        try {
+          Files.delete(tempPath);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
     }
   }
 }
