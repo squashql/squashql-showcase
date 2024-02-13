@@ -93,7 +93,7 @@ Use the `sumIf` aggregation function with a criterion on Income / Expenditure co
 <details><summary>Code</summary>
 
 ```typescript
-const income = sumIf("Income", budget.amount, criterion(budget.incomeOrExpenditure, eq("Income")))
+const income = sumIf("Income", budget.amount, criterion(budget.incomeExpenditure, eq("Income")))
 ```
 </details>
 
@@ -106,7 +106,7 @@ Use the `sumIf` aggregation function with a criterion on Income / Expenditure co
 <details><summary>Code</summary>
 
 ```typescript
-const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeOrExpenditure, neq("Income")))
+const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeExpenditure, neq("Income")))
 ```
 </details>
 
@@ -250,12 +250,11 @@ Use the `comparisonMeasureWithPeriod` to create the comparison measure.
 
 ```typescript
 const netIncomeGrowth = comparisonMeasureWithPeriod(
-        "Net Income growth (prev. year)",
+        "YoY Net Income Growth",
         ComparisonMethod.RELATIVE_DIFFERENCE,
         netIncome,
-        new Map(Object.entries({ ["Year"]: "y-1" })),
-        new Year("Year")
-)
+        new Map([[budget.year, "y-1"]]),
+        new Year(budget.year))
 ```
 </details>
 
@@ -298,14 +297,14 @@ set to assess how much an expenditure affect (in a positive way) our well-being.
 ```typescript
 import {countRows} from "@squashql/squashql-js";
 
-const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeOrExpenditure, neq("Income")))
+const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeExpenditure, neq("Income")))
 const query = from(budget._name)
         .where(
                 all([
                   criterion(budget.scenario, eq("b")),
                   criterion(budget.year, eq(2023)),
                 ]))
-        .select([budget.year, budget.score], [], [expenditure])
+        .select([budget.year, budget.happinessScore], [], [expenditure])
         .build()
 ```
 
@@ -345,7 +344,7 @@ const records = [
   ["neutral", 0, 2],
   ["happy", 2, 4],
   ["very happy", 4, 5],
-];
+]
 const satisfactionLevelsVT = new VirtualTable(
         satisfactionLevels._name,
         [
@@ -365,8 +364,8 @@ import {countRows} from "@squashql/squashql-js"
 const query = from(budget._name)
         .joinVirtual(satisfactionLevelsVT, JoinType.INNER)
         .on(all([
-          criterion_(budget.score, satisfactionLevels.lowerBound, ConditionType.GE),
-          criterion_(budget.score, satisfactionLevels.upperBound, ConditionType.LT)
+          criterion_(budget.happinessScore, satisfactionLevels.lowerBound, ConditionType.GE),
+          criterion_(budget.happinessScore, satisfactionLevels.upperBound, ConditionType.LT)
         ]))
         .where(
                 all([
@@ -398,14 +397,14 @@ Now that we know the distribution of the expenses per satisfaction levels, we wo
 for instance, cutting expenses with a high cost and for which the satisfaction level is neutral. To do that, we can apply 
 a new bucketing on top of the one described above. 
 
-Let's define a new virtual table to classify expenses according to their cost. Expsenses with amount between `[0, 10[` will 
+Let's define a new virtual table to classify expenses according to their cost. Expenses with amount between `[0, 10[` will 
 be classified as low, between `[10, 40[` as medium and between `[40, 500[` as high.
 ```typescript
 const expenseLevelsRecords = [
   ["low", 0, 10],
   ["medium", 10, 40],
   ["high", 40, 500],
-];
+]
 const expenseLevelsVT = new VirtualTable(
         expenseLevels._name,
         [
@@ -530,12 +529,12 @@ const groups = new Map(Object.entries({
 ```
 
 The groups are simply map. The keys are group name and values are the list of scenario names. A scenario 
-can be in multiple groups. We use this map to create a [ColumnSet](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md#dynamic-comparison---what-if---columnset).
+can be in multiple groups. We use this map to create a [ColumnSet](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md#group-comparison---columnset).
 
 ```typescript
 import {budget} from "./tables";
 
-const columnSet = new BucketColumnSet(new TableField("group"), budget.scenario, groups)
+const columnSet = new GroupColumnSet(new TableField("group"), budget.scenario, groups)
 ```
 
 Execute the following query containing the previously defined column set. Notice you do not need to add the Scenario column
@@ -582,12 +581,12 @@ used to express "previous year" we saw earlier.
 
 <details><summary>Hint</summary>
 
-Use the `comparisonMeasureWithBucket` to create the comparison measure.
+Use the `comparisonMeasureWithinGroup` to create the comparison measure.
 </details>
 <details><summary>Code</summary>
 
 ```typescript
-const netIncomeCompPrev = comparisonMeasureWithBucket(
+const netIncomeCompPrev = comparisonMeasureWithinGroup(
         "Net Income comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         netIncome,
@@ -639,7 +638,7 @@ in the same way *Net Income comp. with prev. scenario* has been done.
 
 ```typescript
 const happiness = sum("Happiness score sum", budget.score);
-const happinessCompPrev = comparisonMeasureWithBucket(
+const happinessCompPrev = comparisonMeasureWithinGroup(
         "Happiness score sum comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         happiness,
@@ -689,12 +688,12 @@ Use the `first` keyword in `{["Scenario"]: "s-1"}` to change the reference posit
 <details><summary>Code</summary>
 
 ```typescript
-const netIncomeCompFirst = comparisonMeasureWithBucket(
+const netIncomeCompFirst = comparisonMeasureWithinGroup(
         "Net Income comp. with first scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         netIncome,
         new Map([[budget.scenario, "first"]]))
-const happinessCompFirst = comparisonMeasureWithBucket(
+const happinessCompFirst = comparisonMeasureWithinGroup(
         "Happiness score sum comp. with first scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         happiness,
@@ -778,52 +777,21 @@ in the Terminal and click on "Toggle Size to Content Width". Table should look l
 +-------------+-------------+--------------------+----------------------+----------------+---------------------------------+---------------------+--------------------+---------------------+
 ```
 
-The result can be displayed in the browser. Use the function `showInBrowser` from `./utils.ts`. It uses [S2 library](https://s2.antv.vision/en) created by AntV.
+You can also run interactive queries by launching the ui project available in this repository. Navigate to `ui/`, then run the development server:
 
-```typescript
-import {showInBrowser} from "./utils"
-
-querier.executePivotQuery(query, pivotConfig)
-        .then(r => {
-          showInBrowser(<PivotTableQueryResult>r)
-        })
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-The output is a clickable link. Click on it to open a web page that displays the pivot table.
-```
-http://localhost:8080
-```
+Open [http://localhost:3000/tutorial](http://localhost:3000/tutorial) with your browser. 
 
-<details><summary>Full code</summary>
-
-```typescript
-import {
-  PivotTableQueryResult,
-  Querier, criterion, eq, from, neq, sumIf,
-} from "@squashql/squashql-js"
-import { showInBrowser } from "./utils"
-
-const querier = new Querier("http://localhost:8080")
-const expenditure = sumIf("Expenditure", budget.amount, criterion(budget.incomeOrExpenditure, neq("Income")))
-
-const pivotConfig = {rows: [budget.year, budget.month], columns: [budget.category]};
-const query = from(budget._name)
-        .where(criterion(budget.scenario, eq("b")))
-        .select([budget.year, budget.month, budget.category], [], [expenditure])
-        .build()
-
-querier.executePivotQuery(query, pivotConfig, true)
-        .then(r => console.log(r));
-querier.executePivotQuery(query, pivotConfig)
-        .then(r => {
-          showInBrowser(<PivotTableQueryResult>r)
-        })
-```
-</details>
-
-You should see the following table:
-
-<img width="1000" alt="Screenshot 2023-12-06 at 4 00 45 PM" src="https://github.com/squashql/squashql-showcase/assets/5783183/64607058-7faf-4fd6-8e92-390293aa6217">
+<img width="1000" src="documentation/assets/pivot-table-1.png">
 
 Another example with the "double bucketing" saw earlier. As a reminder, the query is the following:
 
@@ -865,3 +833,5 @@ querier.executePivotQuery(query, pivotConfig, true)
 |                            very happy |                   16 |                 null |                   14 |                    2 |
 +---------------------------------------+----------------------+----------------------+----------------------+----------------------+
 </details>
+
+<img width="1000" src="documentation/assets/pivot-table-2.png">

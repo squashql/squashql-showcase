@@ -1,9 +1,13 @@
-import {from, Querier,} from "@squashql/squashql-js"
-import {budget} from "./tables"
+import {Querier,} from "@squashql/squashql-js"
+import {url} from "./constants"
 
-const querier = new Querier("http://localhost:8080")
+const querier = new Querier(url)
 
-const query = from(budget._name)// TODO continue to edit the query
+// TODO edit the query
+// const query = from(budget._name)
+//         .select([], [], [])
+//         .build()
 
-// querier.execute(query, undefined, true)
+// TODO execute the query and see the result in the console
+// querier.executeQuery(query, true)
 //         .then(r => console.log(r))
