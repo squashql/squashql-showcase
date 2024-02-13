@@ -1,18 +1,18 @@
 #!/bin/bash
 
-SQUASHQL_TS_PATH=/code/squashql-ts
+SQUASHQL_TS_PATH=/code/ts
 if [ -d "$SQUASHQL_TS_PATH" ]; then
     echo 'Directory exists'
 else
-    cp -r squashql-ts $SQUASHQL_TS_PATH
+    cp -r ts $SQUASHQL_TS_PATH
 	npm i --prefix $SQUASHQL_TS_PATH
 fi
 
-SQUASHQL_UI_PATH=/code/squashql-ui-starter
+SQUASHQL_UI_PATH=/code/ui
 if [ -d "$SQUASHQL_UI_PATH" ]; then
     echo 'Directory exists'
 else
-    cp -r squashql-ui-starter $SQUASHQL_UI_PATH
+    cp -r ui $SQUASHQL_UI_PATH
 	npm i --prefix $SQUASHQL_UI_PATH
 fi
 

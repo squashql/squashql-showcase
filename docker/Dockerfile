@@ -13,8 +13,8 @@ RUN apt install nodejs -y
 RUN mkdir /opt/app
 COPY target/squashql-showcase-1.0.0.jar /opt/app
 
-ADD ts /squashql-ts
-ADD ui /squashql-ui-starter
+ADD ts /ts
+ADD ui /ui
 
 COPY docker/config.yaml /root/.config/code-server/
 COPY docker/startup.sh /startup.sh
