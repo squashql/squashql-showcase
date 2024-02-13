@@ -4,7 +4,10 @@ import {Data, S2DataConfig} from "@antv/s2"
 import {PivotTableQueryResult} from "@squashql/squashql-js"
 
 interface PivotTableProps {
-  result: PivotTableQueryResult
+  result: PivotTableQueryResult,
+  height?: number,
+  width?: number,
+  colShowGrandTotal?: boolean
 }
 
 export default function PivotTable(props: PivotTableProps) {
@@ -14,8 +17,8 @@ export default function PivotTable(props: PivotTableProps) {
 
   const hierarchyType: 'grid' | 'tree' | 'customTree' = 'tree'
   const options = {
-    height: window.innerHeight - 20,
-    width: window.innerWidth - 20,
+    height: props.height === undefined ? window.innerHeight - 20 : props.height,
+    width: props.width === undefined ? window.innerWidth - 20 : props.width,
     showDefaultHeaderActionIcon: false,
     hierarchyType,
     tooltip: {
@@ -34,7 +37,7 @@ export default function PivotTable(props: PivotTableProps) {
         subLabel: "Total",
       },
       col: {
-        showGrandTotals: true,
+        showGrandTotals: props.colShowGrandTotal === undefined ? true : props.colShowGrandTotal,
         showSubTotals: {always: true},
         reverseLayout: true,
         reverseSubLayout: true,
