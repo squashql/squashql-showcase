@@ -12,7 +12,7 @@ The project contains three parts:
 
 - A server (SpringBoot app) written in Java; under `src/`
 - A typescript command line application; under `ts/`. Read [TUTORIAL.md](./TUTORIAL.md) to understand how to use it.
-- A small Next.js web application; under `ui` to demonstrate all the features SquashQL can offer and how to start building your own 
+- A small Next.js web application; under `ui/` to demonstrate all the features SquashQL can offer and how to start building your own 
 application.
 
 ## Typescript tutorial
@@ -40,3 +40,70 @@ mvn spring-boot:run
 ```
 
 Server address is: `http://localhost:8080`
+
+## Next.js application
+
+The application show you how to build a web application to interactively generate different pivot tables. You can either 
+run it locally on your computer if you have installed all prerequisites or use the built-in docker image containing everything 
+needed. 
+
+### Docker image
+
+The docker image is available on [dockerhub](https://hub.docker.com/r/paulbares/squashql-showcase). Run to download and 
+start the container for the first time.
+
+```
+docker run -it -p 8080:8080 -p 9090:9090 -p 3000:3000 -v $(pwd)/data:/data -v $(pwd)/code:/code --name squashql-showcase paulbares/squashql-showcase:latest
+```
+
+Next time, simply run:
+```
+docker start -a squashql-showcase
+```
+
+The image contains: 
+- A pre-configured SquashQL server started when launching the container
+- An instance of [Visual Studio Code Server](https://code.visualstudio.com/docs/remote/vscode-server) to edit the code
+directly in the container
+- The code source of this repository
+
+## Edit the code
+
+Open `http://localhost:9090` in your browser to open Visual Studio. The password is `123456`. 
+
+You can start the [TUTORIAL.md](./TUTORIAL.md) from there. 
+
+
+### Load tables from Google Sheets
+
+The server is configured to be able to load Google Sheets into the embedded DuckDB instance. Check the file `ts/duckdb.ts`. 
+It can be run from the root directory with
+
+```
+npm --prefix ts run duckdb
+```
+
+It will load three tables (population, spending and portfolio) from three different public Sheets identified by their gid and id.
+
+### Start Next.js pivot table web app
+
+To start Next.js in development mode.
+
+```
+npm --prefix ui run dev
+```
+
+Open `http://localhost:3000` in your browser. You will see 4 cards. Each one of them will show you one or several SquashQL 
+feature. Do not hesitate to try them all! Here's the full list of features and below some examples: conditional aggregation, 
+basic aggregation, time-series comparison, multiple dynamic bucketing, group comparison, hierarchical measures, drilling across.
+
+<img width="300" src="documentation/assets/features.png">
+
+The drilling across feature, querying two fact tables at the same time
+
+<img width="500" src="documentation/assets/drilling-across.png">
+
+The percentage of parent a.k.a. [hierarchical comparison](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md#hierarchical--parent-child-comparison).
+The parenthood is **automatically** determined by the columns set on the rows. 
+
+<img width="500" src="documentation/assets/percentage-of-parent-on-rows.png">
