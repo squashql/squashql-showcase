@@ -2,8 +2,7 @@
 import * as duckdb from "@duckdb/duckdb-wasm"
 import React, {useEffect, useState} from "react"
 import {PivotTableQueryResult} from "@squashql/squashql-js"
-import {SheetComponent} from "@antv/s2-react"
-import {s2Palette} from "@/app/components/PivotTable"
+import dynamic from "next/dynamic"
 
 async function setupDuckDB(): Promise<duckdb.AsyncDuckDBConnection> {
   const JSDELIVR_BUNDLES = duckdb.getJsDelivrBundles()
@@ -213,7 +212,10 @@ export default function Page() {
     return () => {
       connection?.close()
     }
-  }, [])
+  }, [connection])
+
+  // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
+  const BasicTable = dynamic(() => import("@/app/components/BasicTable"), {ssr: false})
 
   if (!connection) {
     return <div>Creating the database...</div>
@@ -250,15 +252,13 @@ export default function Page() {
 
               <div className="row row-cols-auto">
                 <div className="col">
-                  <SheetComponent
-                          sheetType="table"
+                  <BasicTable
                           dataCfg={{
                             data: queryResult.cells,
                             fields: {
                               columns: ["continent", "country", "city", "sales"]
                             },
                           }}
-                          themeCfg={{palette: s2Palette}}
                           options={{
                             width: 400,
                             height: window.innerHeight,
