@@ -2,33 +2,34 @@
 import * as duckdb from "@duckdb/duckdb-wasm"
 import React, {useEffect, useState} from "react"
 import {PivotTableQueryResult} from "@squashql/squashql-js"
-import dynamic from "next/dynamic"
+import {SheetComponent} from "@antv/s2-react"
+import {s2Palette} from "@/app/components/PivotTable"
 
 async function setupDuckDB(): Promise<duckdb.AsyncDuckDBConnection> {
-  const JSDELIVR_BUNDLES = duckdb.getJsDelivrBundles();
+  const JSDELIVR_BUNDLES = duckdb.getJsDelivrBundles()
 
   // Select a bundle based on browser checks
-  const bundle = await duckdb.selectBundle(JSDELIVR_BUNDLES);
+  const bundle = await duckdb.selectBundle(JSDELIVR_BUNDLES)
   const worker_url = URL.createObjectURL(
           new Blob([`importScripts("${bundle.mainWorker!}");`], {type: 'text/javascript'})
-  );
+  )
 
-  // Instantiate the asynchronus version of DuckDB-wasm
-  const worker = new Worker(worker_url);
-  const logger = new duckdb.ConsoleLogger();
-  const db = new duckdb.AsyncDuckDB(logger, worker);
-  await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+  // Instantiate the asynchronous version of DuckDB-wasm
+  const worker = new Worker(worker_url)
+  const logger = new duckdb.ConsoleLogger()
+  const db = new duckdb.AsyncDuckDB(logger, worker)
+  await db.instantiate(bundle.mainModule, bundle.pthreadWorker)
 
-  const c = await db.connect();
+  const c = await db.connect()
   const sql = `
               -- Create Continents Table
             CREATE TABLE continents (
                 continent_id INT PRIMARY KEY,
-                continent_name VARCHAR(50)
+                continent VARCHAR(50)
             );
 
             -- Insert data into Continents Table
-            INSERT INTO continents (continent_id, continent_name) VALUES
+            INSERT INTO continents (continent_id, continent) VALUES
             (2, 'Europe'),
             (3, 'Asia'),
             (5, 'Africa');
@@ -36,12 +37,12 @@ async function setupDuckDB(): Promise<duckdb.AsyncDuckDBConnection> {
             -- Create Countries Table
             CREATE TABLE countries (
                 country_id INT PRIMARY KEY,
-                country_name VARCHAR(50),
+                country VARCHAR(50),
                 continent_id INT
             );
 
             -- Insert data into Countries Table
-            INSERT INTO countries (country_id, country_name, continent_id) VALUES
+            INSERT INTO countries (country_id, country, continent_id) VALUES
             (101, 'USA', 1),
             (102, 'Canada', 1),
             (103, 'Germany', 2),
@@ -56,13 +57,13 @@ async function setupDuckDB(): Promise<duckdb.AsyncDuckDBConnection> {
             -- Create Cities Table
             CREATE TABLE cities (
                 city_id INT PRIMARY KEY,
-                city_name VARCHAR(50),
+                city VARCHAR(50),
                 country_id INT,
                 sales_amount DECIMAL(10, 2)
             );
 
             -- Insert data into Cities Table
-            INSERT INTO cities (city_id, city_name, country_id, sales_amount) VALUES
+            INSERT INTO cities (city_id, city, country_id, sales_amount) VALUES
             (1001, 'New York', 101, 15000.00),
             (1002, 'Los Angeles', 101, 12000.50),
             (1003, 'Toronto', 102, 10000.75),
@@ -84,7 +85,7 @@ async function setupDuckDB(): Promise<duckdb.AsyncDuckDBConnection> {
             (1019, 'Munich', 103, 8800.50),
             (1020, 'Lyon', 104, 9200.25);
   `
-  await c.query(sql);
+  await c.query(sql)
 
   return c
 }
@@ -92,50 +93,67 @@ async function setupDuckDB(): Promise<duckdb.AsyncDuckDBConnection> {
 type Column = "continent" | "country" | "city"
 
 function removeItemOnce(arr: string[], value: string) {
-  const index = arr.indexOf(value);
+  const index = arr.indexOf(value)
   if (index > -1) {
-    arr.splice(index, 1);
+    arr.splice(index, 1)
   }
-  return arr;
+  return arr
 }
 
-async function execute(c: duckdb.AsyncDuckDBConnection, rollup: Column[]): Promise<string> {
-  const base = ["continent", "country", "city"]
+async function execute(c: duckdb.AsyncDuckDBConnection, rollup: Column[]): Promise<string[]> {
+  const select: Column[] = ["continent", "country", "city"]
+  const base: Column[] = ["continent", "country", "city"]
   rollup.forEach(r => removeItemOnce(base, r))
-  let rollupStatement = undefined
-  if (rollup.length > 0) {
-    rollupStatement = "rollup(" + rollup.join(', ') + ")"
-  }
+  const rollupStatement = rollup.length > 0 ? "ROLLUP(" + rollup.join(', ') + ")" : ""
+  const groupByRollup = `${base.join(', ')}${base.length > 0 ? ", " : " "}${rollupStatement}`
   const sql = `
-    SELECT continent_name as continent, country_name as country, city_name as city, sum(sales_amount) as sales
+    SELECT ${select.join(', ')}, sum(sales_amount) as sales
     FROM cities
            INNER JOIN countries on cities.country_id = countries.country_id
            INNER JOIN continents on continents.continent_id = countries.continent_id
-    GROUP BY ${base.join(', ')} ${rollupStatement}
-    ORDER BY continent_name, country_name, city_name
+    GROUP BY ${groupByRollup}
+    ORDER BY ALL NULLS FIRST
   `
   console.log(sql)
-  const table = await c.query(sql);
-  return table.toString();
+
+  // Build grouping sets equivalent
+  const groupingSets: string[] = []
+  groupingSets.push("(" + ["continent", "country", "city"].join(", ") + ")")
+  const toRemove: string[] = []
+  for (let i = rollup.length - 1; i >= 0; i--) {
+    toRemove.push(rollup[i])
+    let copy = ["continent", "country", "city"]
+    copy = copy.filter(function (e) {
+      return !toRemove.includes(e)
+    })
+    groupingSets.push("(" + copy.join(", ") + ")")
+  }
+  const table = await c.query(sql)
+  return [table.toString(), groupByRollup.trim(), "GROUPING SETS (" + groupingSets.join(", ") + ")"]
 }
 
 export default function Page() {
   const [connection, setConnection] = useState<duckdb.AsyncDuckDBConnection | undefined>(undefined)
   const [queryResult, setQueryResult] = useState<PivotTableQueryResult | undefined>(undefined)
-  const [continentCheck, setContinentCheck] = useState(true)
-  const [countryCheck, setCountryCheck] = useState(true)
-  const [cityCheck, setCityCheck] = useState(true)
+  const [rollupStatement, setRollupStatement] = useState<string>("rollup")
+  const [groupingSetsStatement, setGroupingSetsStatement] = useState<string>("gs")
+  const [columnsCheck, setColumnsCheck] = useState<Record<Column, boolean>>({
+    "continent": true,
+    "country": true,
+    "city": true,
+  })
 
-  function refreshFromState() {
+  function refresh(columnsCheckState: Record<Column, boolean>) {
     if (!connection) {
       return
     }
-    execute(connection, ["continent", "country", "city"])
+    execute(connection, createRollupArray(columnsCheckState))
             .then(r => {
-              const cells = JSON.parse(r)
+              const cells = JSON.parse(r[0])
+              // console.log(cells)
               cells.forEach((cell: any) => Object.keys(cell).forEach(key => {
                 if (cell[key] == null) {
-                  delete cell[key];
+                  delete cell[key]
                 }
               }))
               const data = {
@@ -144,23 +162,50 @@ export default function Page() {
                 columns: [],
                 values: ["sales"]
               }
-              // console.log(data)
               setQueryResult(data)
-            });
+              setRollupStatement(r[1])
+              setGroupingSetsStatement(r[2])
+            })
+  }
+
+  function createRollupArray(columnsCheckState: Record<Column, boolean>) {
+    const a: Column[] = []
+    Object.entries(columnsCheckState).forEach(([key, value]) => {
+      if (value) {
+        a.push(key as Column)
+      }
+    })
+    return a
   }
 
   function toggleColumn(col: Column) {
+    const copy = {...columnsCheck}
     switch (col) {
       case "continent":
-        setContinentCheck(!continentCheck)
-        break;
+        copy.continent = !copy.continent
+        setColumnsCheck(copy)
+        break
       case "country":
-        setCountryCheck(!countryCheck)
-        break;
+        copy.country = !copy.country
+        setColumnsCheck(copy)
+        break
       case "city":
-        setCityCheck(!cityCheck)
-        break;
+        copy.city = !copy.city
+        setColumnsCheck(copy)
+        break
     }
+    refresh(copy)
+  }
+
+  function Button(col: Column) {
+    return (
+            <div className="col py-1">
+              <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked"
+                     checked={columnsCheck[col]}
+                     onChange={() => toggleColumn(col)}/>
+              <label className="form-check-label px-1" htmlFor="flexCheckChecked">{col}</label>
+            </div>
+    )
   }
 
   useEffect(() => {
@@ -170,46 +215,69 @@ export default function Page() {
     }
   }, [])
 
-  // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
-  const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
-
   if (!connection) {
     return <div>Creating the database...</div>
   } else if (queryResult === undefined) {
-    refreshFromState()
+    refresh(columnsCheck)
     return undefined
   } else {
     return (
-            <div className="ms-2">
-              <div className="row row-cols-auto">
+            <div className="container">
+              <div className="row">
                 <div className="col">
-                  <button className="btn btn-ligth" onClick={refreshFromState}>Execute</button>
-                </div>
-                <div className="col py-2 ms-2">
-                  <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked"
-                         checked={continentCheck}
-                         onChange={() => toggleColumn("continent")}/>
-                  <label className="form-check-label px-1" htmlFor="flexCheckChecked">
-                    continent
-                  </label>
-                </div>
-                <div className="col py-2 ms-2">
-                  <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked"
-                         checked={countryCheck}
-                         onChange={() => toggleColumn("country")}/>
-                  <label className="form-check-label px-1" htmlFor="flexCheckChecked">
-                    country
-                  </label>
-                </div>
-                <div className="col py-2 ms-2">
-                  <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked={cityCheck}
-                         onChange={() => toggleColumn("city")}/>
-                  <label className="form-check-label px-1" htmlFor="flexCheckChecked">
-                    city
-                  </label>
+                  <p className="lead">
+                    <a href={"https://github.com/squashql/squashql-showcase"}>
+                      <i className="bi bi-github"></i>
+                    </a> (Partial) rollup to grouping sets and vice versa
+                  </p>
+                  <p style={{fontWeight: 300}}>
+                    Powered by: <a href="https://nextjs.org/">nextjs</a>, <a
+                          href="https://duckdb.org/docs/api/wasm/overview.html">DuckDB Wasm</a>
+                  </p>
                 </div>
               </div>
-              <PivotTable result={queryResult} width={350} colShowGrandTotal={false}/>
+              <div className="row row-cols-auto mb-3">
+                <div className="col">
+                  <button className="btn btn-dark btn-sm" onClick={() => refresh(columnsCheck)}>Execute</button>
+                </div>
+                <div className="col py-1">
+                  Rollup on:
+                </div>
+                {Button("continent")}
+                {Button("country")}
+                {Button("city")}
+              </div>
+
+              <div className="row row-cols-auto">
+                <div className="col">
+                  <SheetComponent
+                          sheetType="table"
+                          dataCfg={{
+                            data: queryResult.cells,
+                            fields: {
+                              columns: ["continent", "country", "city", "sales"]
+                            },
+                          }}
+                          themeCfg={{palette: s2Palette}}
+                          options={{
+                            width: 400,
+                            height: window.innerHeight,
+                          }}
+                  />
+                </div>
+                <div className="col">
+                  <div className="row">
+
+                    <mark>GROUP BY {rollupStatement}</mark>
+                  </div>
+                  <div className="row">
+                    <small>is equivalent to</small>
+                  </div>
+                  <div className="row">
+                    <mark>GROUP BY {groupingSetsStatement}</mark>
+                  </div>
+                </div>
+              </div>
             </div>
     )
   }

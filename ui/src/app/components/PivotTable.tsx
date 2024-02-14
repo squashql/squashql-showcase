@@ -47,32 +47,6 @@ export default function PivotTable(props: PivotTableProps) {
     }
   }
 
-  const s2Palette = {
-    basicColors: [
-      "#000000",
-      "#FFFBF2",
-      "#FFF4D9",
-      "#FFB304",
-      "#D99803",
-      "#D99803",
-      "#D99803",
-      "#FFB304",
-      "#FFFFFF",
-      "#FFF4D9",
-      "#FFBE2A",
-      "#FFBE2A",
-      "#FFB304",
-      "#000000",
-      "#000000"
-    ],
-
-    // ---------- semantic colors ----------
-    semanticColors: {
-      red: '#FF4D4F',
-      green: '#29A294',
-    },
-  }
-
   return (
           <div>
             <SheetComponent dataCfg={buildData(props.result)} options={options} themeCfg={{
@@ -101,4 +75,30 @@ function buildData(result: PivotTableQueryResult): S2DataConfig {
     },
     data
   }
+}
+
+export const s2Palette = {
+  basicColors: [
+    "#000000",
+    "#FFFBF2",
+    "#FFF4D9",
+    "#FFB304",
+    "#D99803",
+    "#D99803",
+    "#D99803",
+    "#FFB304",
+    "#FFFFFF",
+    "#FFF4D9",
+    "#FFBE2A",
+    "#FFBE2A",
+    "#FFB304",
+    "#000000",
+    "#000000"
+  ],
+
+  // ---------- semantic colors ----------
+  semanticColors: {
+    red: '#FF4D4F',
+    green: '#29A294',
+  },
 }
