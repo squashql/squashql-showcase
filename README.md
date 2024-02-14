@@ -101,9 +101,9 @@ basic aggregation, time-series comparison, multiple dynamic bucketing, group com
 
 The drilling across feature, querying two fact tables at the same time
 
-<img width="500" src="documentation/assets/drilling-across.png">
+<img width="800" src="documentation/assets/drilling-across.png">
 
 The percentage of parent a.k.a. [hierarchical comparison](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md#hierarchical--parent-child-comparison).
 The parenthood is **automatically** determined by the columns set on the rows. 
 
-<img width="500" src="documentation/assets/percentage-of-parent-on-rows.png">
+<img width="800" src="documentation/assets/percentage-of-parent-on-rows.png">
