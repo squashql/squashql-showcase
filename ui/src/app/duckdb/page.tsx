@@ -212,7 +212,7 @@ export default function Page() {
     return () => {
       connection?.close()
     }
-  }, [connection])
+  }, []) // Do not put connection as dependency because it will re-render in infinite loop
 
   // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
   const BasicTable = dynamic(() => import("@/app/components/BasicTable"), {ssr: false})
