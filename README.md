@@ -12,24 +12,26 @@ The project contains three parts:
 
 - A server (SpringBoot app) written in Java; under `src/`
 - A typescript command line application; under `ts/`. Read [TUTORIAL.md](./TUTORIAL.md) to understand how to use it.
-- A small Next.js web application; under `ui/` to demonstrate all the features SquashQL can offer and how to start building your own 
-application.
+- A small Next.js web application; under `ui/` to demonstrate all the features SquashQL can offer and how to start 
+building your own client application.
 
 ## Typescript tutorial
 
 > **Note**
 > The tutorial can be done with Codespaces. No need to install anything on your computer!
 
+If you do not want to use Codespaces, you can installed and run the project locally or in a Docker container (see below). 
+
 Read [TUTORIAL.md](./TUTORIAL.md) to try SquashQL with a hands-on training.
 
-## Run locally
+## Run locally without Docker
 
 ### Prerequisites
 
-In order to build the server, you will need:
+In order to build and run the server, you will need:
 - [Java JDK](https://www.oracle.com/java/) >= 17
 - Latest stable [Apache Maven](http://maven.apache.org/)
-- Latest LTS node version
+- Node.js >= 20
 
 ### Server
 
@@ -41,16 +43,15 @@ mvn spring-boot:run
 
 Server address is: `http://localhost:8080`
 
-## Next.js application
+## Run locally with Docker
 
-The application show you how to build a web application to interactively generate different pivot tables. You can either 
-run it locally on your computer if you have installed all prerequisites or use the built-in docker image containing everything 
-needed. 
+### Prerequisites
 
-### Docker image
+- Install [Docker](https://docs.docker.com/engine/install/)
 
-The docker image is available on [dockerhub](https://hub.docker.com/r/paulbares/squashql-showcase). Run to download and 
-start the container for the first time.
+### Server 
+
+The docker image is available on [dockerhub](https://hub.docker.com/r/paulbares/squashql-showcase). Run to download and start the container for the first time.
 
 ```
 docker run -it -p 8080:8080 -p 9090:9090 -p 3000:3000 -v $(pwd)/data:/data -v $(pwd)/code:/code --name squashql-showcase paulbares/squashql-showcase:latest
@@ -61,18 +62,22 @@ Next time, simply run:
 docker start -a squashql-showcase
 ```
 
-The image contains: 
+The image contains:
 - A pre-configured SquashQL server started when launching the container
 - An instance of [Visual Studio Code Server](https://code.visualstudio.com/docs/remote/vscode-server) to edit the code
-directly in the container
+  directly in the container
 - The code source of this repository
 
-## Edit the code
+Server address is: `http://localhost:8080`
+Visual Studio is available at `http://localhost:9090`. Default password is `123456`.
 
-Open `http://localhost:9090` in your browser to open Visual Studio. The password is `123456`. 
+You can start the [TUTORIAL.md](./TUTORIAL.md) from there.
 
-You can start the [TUTORIAL.md](./TUTORIAL.md) from there. 
+## UI - Next.js application
 
+The application show you how to build a web application to interactively generate different pivot tables. You can either 
+run it locally on your computer if you have installed all prerequisites or use the built-in docker image containing everything 
+needed. 
 
 ### Load tables from Google Sheets
 
