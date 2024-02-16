@@ -14,9 +14,10 @@ export class QueryExecutor {
       const pivotConfig: PivotConfig = {
         rows,
         columns,
-        minify
       }
-      return this.querier.executePivotQuery(queryProvider.query(select, values, pivotConfig), pivotConfig)
+      const query = queryProvider.query(select, values, pivotConfig);
+      query.minify = minify
+      return this.querier.executePivotQuery(query, pivotConfig)
     }
   }
 }
