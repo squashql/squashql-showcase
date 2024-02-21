@@ -1,6 +1,14 @@
-import {Measure, PivotConfig, Querier, TableField} from "@squashql/squashql-js"
+import {
+  comparisonMeasureWithParent,
+  ComparisonMethod,
+  Field, integer,
+  Measure, multiply,
+  PivotConfig,
+  Querier,
+  TableField
+} from "@squashql/squashql-js"
 
-import {QueryProvider} from "@/app/lib/queryProvider"
+import {MeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
 
 export class QueryExecutor {
 
@@ -19,6 +27,18 @@ export class QueryExecutor {
       query.minify = minify
       return this.querier.executePivotQuery(query, pivotConfig)
     }
+  }
+}
+
+export class PercentOfParentAlongAncestors implements MeasureProviderType {
+  readonly class: string = ""
+
+  constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
+  }
+
+  create(ancestors: Field[]): Measure {
+    const ratio = comparisonMeasureWithParent("_" + this.underlying.alias + "_percent_of_parent_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
+    return multiply(this.alias, integer(100), ratio)
   }
 }
 
