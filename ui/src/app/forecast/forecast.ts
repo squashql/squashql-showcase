@@ -17,8 +17,8 @@ import {
   Year
 } from "@squashql/squashql-js"
 import {forecast} from "@/app/lib/tables"
-import {QueryProvider} from "@/app/lib/queryProvider"
-import {isMeasureProviderType, PercentOfParentAlongAncestors} from "@/app/spending/spending";
+import {isMeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
+import {PercentOfParentAlongAncestors} from "@/app/lib/queries"
 
 const value = sum("value", forecast.accrual)
 const revenue = sumIf("Revenue", forecast.accrual, criterion(forecast.pnl, eq("Revenue")))
