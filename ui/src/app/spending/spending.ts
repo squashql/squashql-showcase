@@ -26,9 +26,9 @@ interface MeasureProvider {
   axis: "row" | "column"
 }
 
-type MeasureProviderType = Measure & MeasureProvider
+export type MeasureProviderType = Measure & MeasureProvider
 
-function isMeasureProviderType(m: Measure): m is MeasureProviderType {
+export function isMeasureProviderType(m: Measure): m is MeasureProviderType {
   return "create" in m && "axis" in m
 }
 
@@ -44,14 +44,14 @@ class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
   }
 }
 
-class PercentOfParentAlongAncestors implements MeasureProviderType {
+export class PercentOfParentAlongAncestors implements MeasureProviderType {
   readonly class: string = ""
 
   constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
   }
 
   create(ancestors: Field[]): Measure {
-    const ratio = comparisonMeasureWithParent("percent_of_parent_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
+    const ratio = comparisonMeasureWithParent("_" + this.underlying.alias + "_percent_of_parent_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
     return multiply(this.alias, integer(100), ratio)
   }
 }

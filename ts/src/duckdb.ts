@@ -48,6 +48,7 @@ async function createTablesAndGenerateTablesFile() {
   await duckDb.createTable("spending", "1WujqnAJXrRGvfzSYKF_uyHhacehbpuOiJ2ygcb5-AYQ", "0").then(r => console.log(r))
   await duckDb.createTable("population", "1WujqnAJXrRGvfzSYKF_uyHhacehbpuOiJ2ygcb5-AYQ", "1150075574").then(r => console.log(r))
   await duckDb.showTables().then(r => console.log(r))
+  await duckDb.getTablesInfo().then(r => console.log(r))
   return codeGenerateTablesFile(duckDb)
 }
 

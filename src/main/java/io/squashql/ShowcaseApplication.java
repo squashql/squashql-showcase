@@ -55,6 +55,7 @@ public class ShowcaseApplication {
             """);
 
     loadPersonalBudget(engine);
+    loadCdgFile(engine);
     System.out.println("Available tables:");
     showTables(engine).show();
   }
@@ -92,6 +93,35 @@ public class ShowcaseApplication {
       dropTable(engine, "budget_temp");
       QueryExecutor queryExecutor = new QueryExecutor(engine);
       queryExecutor.executeRaw("select * from budget").show(20);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    } finally {
+      if (tempPath != null) {
+        try {
+          Files.delete(tempPath);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
+    }
+  }
+
+  private static void loadCdgFile(DuckDBQueryEngine engine) {
+    String fileName = "cdg.csv";
+    Path tempPath = null;
+    try {
+      InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+      tempPath = Files.createTempFile("cdg_tmp_" + System.currentTimeMillis(), ".csv");
+      Files.copy(in, tempPath, StandardCopyOption.REPLACE_EXISTING); // copy the file in tmp dir. otherwise, issue can happen in docker container (file system does not exist)
+      Statement statement = engine.datastore.getConnection().createStatement();
+      statement.execute("CREATE TABLE forecast AS SELECT * FROM read_csv_auto('" + tempPath + "');");
+
+      // Print info on the table
+      ResultSet resultSet = statement.executeQuery("DESCRIBE forecast;");
+      JdbcUtil.toTable(resultSet).show();
+
+      QueryExecutor queryExecutor = new QueryExecutor(engine);
+      queryExecutor.executeRaw("select * from forecast").show(20);
     } catch (Exception e) {
       throw new RuntimeException(e);
     } finally {
