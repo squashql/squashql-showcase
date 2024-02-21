@@ -26,13 +26,15 @@ export default function Page() {
   return (
           <div className="ms-1 mt-1">
             <Card link={"tutorial"} tables={["budget"]}
-                  features={["Time-series comparison", "Multiple bucketing, conditional aggregation"]}/>
+                  features={["Time-series comparison", "Multiple bucketing", "conditional aggregation"]}/>
             <Card link={"spending"} tables={["spending"]}
                   features={["Time-series comparison", "group comparison", "hierarchical measures"]}/>
             <Card link={"portfolio"} tables={["portfolio"]}
                   features={["Basic measures"]}/>
             <Card link={"spendingandpopulation"} tables={["spending", "population"]}
                   features={["Drilling across", "basic measures"]}/>
+            <Card link={"forecast"} tables={["forecast"]}
+                  features={["Time-series comparison", "conditional aggregation", "hierarchical measures"]}/>
           </div>
   )
 }

@@ -15,3 +15,15 @@ export interface QueryProvider {
    */
   query(select: Field[], values: Measure[], pivotConfig: PivotConfig): QueryMerge | Query
 }
+
+interface MeasureProvider {
+  create(ancestors: Field[]): Measure
+
+  axis: "row" | "column"
+}
+
+export type MeasureProviderType = Measure & MeasureProvider
+
+export function isMeasureProviderType(m: Measure): m is MeasureProviderType {
+  return "create" in m && "axis" in m
+}

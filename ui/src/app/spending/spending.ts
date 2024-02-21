@@ -1,7 +1,7 @@
 import {
-  comparisonMeasureWithGrandTotal, comparisonMeasureWithGrandTotalAlongAncestors,
+  comparisonMeasureWithGrandTotal,
+  comparisonMeasureWithGrandTotalAlongAncestors,
   comparisonMeasureWithinSameGroup,
-  comparisonMeasureWithParent,
   comparisonMeasureWithPeriod,
   ComparisonMethod,
   Field,
@@ -18,19 +18,8 @@ import {
   Year
 } from "@squashql/squashql-js"
 import {spending} from "@/app/lib/tables"
-import {QueryProvider} from "@/app/lib/queryProvider"
-
-interface MeasureProvider {
-  create(ancestors: Field[]): Measure
-
-  axis: "row" | "column"
-}
-
-type MeasureProviderType = Measure & MeasureProvider
-
-function isMeasureProviderType(m: Measure): m is MeasureProviderType {
-  return "create" in m && "axis" in m
-}
+import {isMeasureProviderType, MeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
+import {PercentOfParentAlongAncestors} from "@/app/lib/queries"
 
 class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
   readonly class: string = ""
@@ -40,18 +29,6 @@ class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
 
   create(ancestors: Field[]): Measure {
     const ratio = comparisonMeasureWithGrandTotalAlongAncestors("percent_of_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
-    return multiply(this.alias, integer(100), ratio)
-  }
-}
-
-class PercentOfParentAlongAncestors implements MeasureProviderType {
-  readonly class: string = ""
-
-  constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
-  }
-
-  create(ancestors: Field[]): Measure {
-    const ratio = comparisonMeasureWithParent("percent_of_parent_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
     return multiply(this.alias, integer(100), ratio)
   }
 }
