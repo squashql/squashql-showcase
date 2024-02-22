@@ -1,5 +1,4 @@
 import {s2Palette} from "@/app/components/PivotTable"
-import React from "react"
 import {SheetComponent, SheetComponentOptions} from "@antv/s2-react"
 import {S2DataConfig} from "@antv/s2"
 

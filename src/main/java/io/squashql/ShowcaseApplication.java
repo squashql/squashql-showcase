@@ -12,8 +12,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.file.*;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 @SpringBootApplication
@@ -119,6 +121,33 @@ public class ShowcaseApplication {
 
       QueryExecutor queryExecutor = new QueryExecutor(engine);
       queryExecutor.executeRaw("select * from forecast").show(20);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    } finally {
+      if (tempPath != null) {
+        try {
+          Files.delete(tempPath);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
+    }
+  }
+
+  public static void loadFile(DuckDBQueryEngine engine, String table, InputStream in) {
+    Path tempPath = null;
+    try {
+      tempPath = Files.createTempFile("squashql_tmp_" + System.currentTimeMillis(), ".csv");
+      Files.copy(in, tempPath, StandardCopyOption.REPLACE_EXISTING); // copy the file in tmp dir. otherwise, issue can happen in docker container (file system does not exist)
+      Statement statement = engine.datastore.getConnection().createStatement();
+      statement.execute("CREATE OR REPLACE TABLE " + table + " AS SELECT * FROM read_csv_auto('" + tempPath + "');");
+
+      // Print info on the table
+      ResultSet resultSet = statement.executeQuery("DESCRIBE " + table + ";");
+      JdbcUtil.toTable(resultSet).show();
+
+      QueryExecutor queryExecutor = new QueryExecutor(engine);
+      queryExecutor.executeRaw("select * from " + table).show(20);
     } catch (Exception e) {
       throw new RuntimeException(e);
     } finally {
