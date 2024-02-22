@@ -54,7 +54,8 @@ public class ShowcaseApplication {
             """);
 
     loadPersonalBudget(engine);
-    loadBusinessPlanning(engine);
+    loadFile(engine, "business_planning.csv", "forecast");
+    loadFile(engine, "portfolio.csv", "portfolio");
     System.out.println("Available tables:");
     showTables(engine).show();
   }
@@ -105,22 +106,21 @@ public class ShowcaseApplication {
     }
   }
 
-  private static void loadBusinessPlanning(DuckDBQueryEngine engine) {
-    String fileName = "business_planning.csv";
+  private static void loadFile(DuckDBQueryEngine engine, String fileName, String table) {
     Path tempPath = null;
     try {
       InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
-      tempPath = Files.createTempFile("business_planning_tmp_" + System.currentTimeMillis(), ".csv");
+      tempPath = Files.createTempFile(fileName + "_tmp_" + System.currentTimeMillis(), ".csv");
       Files.copy(in, tempPath, StandardCopyOption.REPLACE_EXISTING); // copy the file in tmp dir. otherwise, issue can happen in docker container (file system does not exist)
       Statement statement = engine.datastore.getConnection().createStatement();
-      statement.execute("CREATE TABLE forecast AS SELECT * FROM read_csv_auto('" + tempPath + "');");
+      statement.execute("CREATE TABLE " + table + " AS SELECT * FROM read_csv_auto('" + tempPath + "');");
 
       // Print info on the table
-      ResultSet resultSet = statement.executeQuery("DESCRIBE forecast;");
+      ResultSet resultSet = statement.executeQuery("DESCRIBE " + table + ";");
       JdbcUtil.toTable(resultSet).show();
 
       QueryExecutor queryExecutor = new QueryExecutor(engine);
-      queryExecutor.executeRaw("select * from forecast").show(20);
+      queryExecutor.executeRaw("select * from " + table).show(20);
     } catch (Exception e) {
       throw new RuntimeException(e);
     } finally {
@@ -137,7 +137,7 @@ public class ShowcaseApplication {
   public static void loadFile(DuckDBQueryEngine engine, String table, InputStream in) {
     Path tempPath = null;
     try {
-      tempPath = Files.createTempFile("squashql_tmp_" + System.currentTimeMillis(), ".csv");
+      tempPath = Files.createTempFile(table + "_tmp_" + System.currentTimeMillis(), ".csv");
       Files.copy(in, tempPath, StandardCopyOption.REPLACE_EXISTING); // copy the file in tmp dir. otherwise, issue can happen in docker container (file system does not exist)
       Statement statement = engine.datastore.getConnection().createStatement();
       statement.execute("CREATE OR REPLACE TABLE " + table + " AS SELECT * FROM read_csv_auto('" + tempPath + "');");
