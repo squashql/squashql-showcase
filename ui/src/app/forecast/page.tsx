@@ -8,7 +8,7 @@ const forecastQueryProvider = new ForecastQueryProvider()
 export default function Page() {
 
   return (
-          <Dashboard title={"Spending"}
+          <Dashboard title={"Business planning"}
                      queryProvider={forecastQueryProvider}
                      elements={[<UploadFiles key={"uf"}/>]}/>
   )
