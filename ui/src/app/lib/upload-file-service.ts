@@ -1,12 +1,15 @@
 import http from "@/app/lib/http-common"
 
 class UploadFilesService {
-  upload(file: any, onUploadProgress: any) {
+  upload(file: any, table: string, onUploadProgress: any) {
     let formData = new FormData()
 
     formData.append("file", file)
 
     return http.post("/upload", formData, {
+      params: {
+        table
+      },
       headers: {
         "Content-Type": "multipart/form-data",
       },

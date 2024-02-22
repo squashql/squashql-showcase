@@ -62,8 +62,8 @@ public class DuckDBController {
   }
 
   @PostMapping("/upload")
-  public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-    ShowcaseApplication.loadFile(engine, "forecast", file.getInputStream());
+  public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam String table) throws IOException {
+    ShowcaseApplication.loadFile(engine, table, file.getInputStream());
     return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully: " + file.getOriginalFilename());
   }
 }

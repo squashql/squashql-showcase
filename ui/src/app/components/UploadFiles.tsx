@@ -27,7 +27,7 @@ export default function UploadFiles() {
       currentFile: currentFile,
     })
 
-    UploadFileService.upload(currentFile, (event: any) => {
+    UploadFileService.upload(currentFile, "forecast", (event: any) => {
       console.log(event.loaded)
       setState({
         currentFile,
@@ -66,7 +66,8 @@ export default function UploadFiles() {
                       <div className="col">
                         <div className="alert alert-sm alert-light alert-dismissible" role="alert">
                           {message}
-                          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          <button type="button" className="btn-close" data-bs-dismiss="alert"
+                                  aria-label="Close"></button>
                         </div>
                       </div>
               )}
