@@ -1,15 +1,40 @@
-import {Field, from, Measure, Query, QueryMerge, sum, countRows, max} from "@squashql/squashql-js"
+import {
+  countRows,
+  Field,
+  from,
+  Measure,
+  ParametrizedMeasure,
+  PivotConfig,
+  Query,
+  QueryMerge
+} from "@squashql/squashql-js"
 import {portfolio} from "@/app/lib/tables"
-import {QueryProvider} from "@/app/lib/queryProvider"
+import {isMeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
+import {IncVarAncestors} from "@/app/lib/queries"
+
+const var95 = new ParametrizedMeasure("VaR 95", "VAR", {
+  "value": portfolio.scenarioValue,
+  "date": portfolio.dateScenario,
+  "quantile": 0.95
+})
+
+const incVar95 = new IncVarAncestors("Incr. VaR 95", "row")
 
 export class PortfolioProvider implements QueryProvider {
 
   readonly selectableFields = portfolio._fields
-  readonly measures = [countRows, sum("scenarioValue_sum", portfolio.scenarioValue), max("scenarioValue_max", portfolio.scenarioValue)]
+  readonly measures = [countRows, var95, incVar95]
 
-  query(select: Field[], values: Measure[]): QueryMerge | Query {
+  query(select: Field[], values: Measure[], pivotConfig: PivotConfig): QueryMerge | Query {
+    const measures = values.map(m => {
+      if (isMeasureProviderType(m) && m.axis === "row") {
+        return m.create(pivotConfig.rows)
+      }
+      return m
+    })
+
     return from(portfolio._name)
-            .select(select, [], values)
+            .select(select, [], measures)
             .build()
   }
 }
