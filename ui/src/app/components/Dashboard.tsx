@@ -1,5 +1,5 @@
 'use client'
-import React, {useState} from "react"
+import {useState} from "react"
 import AxisSelector, {AxisType, SelectedType} from "@/app/components/AxisSelector"
 import {Measure, PivotTableQueryResult, TableField} from "@squashql/squashql-js"
 import {queryExecutor} from "@/app/lib/queries"

@@ -9,10 +9,11 @@ import {
 } from "@squashql/squashql-js"
 
 import {MeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
+import {url} from "@/app/lib/constants"
 
 export class QueryExecutor {
 
-  readonly querier = new Querier("http://localhost:8080")
+  readonly querier = new Querier(url)
 
   async executePivotQuery(queryProvider: QueryProvider, rows: TableField[], columns: TableField[], values: Measure[], minify: boolean) {
     const select = rows.concat(columns)
