@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import UploadFileService from "@/app/lib/upload-file-service"
+import {PivotTableQueryResult} from "@squashql/squashql-js";
 
 const initialState = {
   selectedFiles: undefined,
@@ -8,7 +9,11 @@ const initialState = {
   message: undefined,
 }
 
-export default function UploadFiles() {
+interface UploadFileProps {
+  table: string,
+}
+
+export default function UploadFile(props: UploadFileProps) {
   const [state, setState] = useState<any>(initialState)
 
   function selectFile(event: any) {
@@ -27,7 +32,7 @@ export default function UploadFiles() {
       currentFile: currentFile,
     })
 
-    UploadFileService.upload(currentFile, "forecast", (event: any) => {
+    UploadFileService.upload(currentFile, props.table, (event: any) => {
       console.log(event.loaded)
       setState({
         currentFile,

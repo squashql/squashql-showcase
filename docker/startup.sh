@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p code
+
 SQUASHQL_TS_PATH=/code/ts
 if [ -d "$SQUASHQL_TS_PATH" ]; then
     echo 'Directory exists'
