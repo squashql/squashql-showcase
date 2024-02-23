@@ -54,7 +54,7 @@ Server address is: `http://localhost:8080`
 The docker image is available on [dockerhub](https://hub.docker.com/r/paulbares/squashql-showcase). Run to download and start the container for the first time.
 
 ```
-docker run -it -p 8080:8080 -p 9090:9090 -p 3000:3000 -v $(pwd)/data:/data -v $(pwd)/code:/code --name squashql-showcase paulbares/squashql-showcase:latest
+docker run -it -p 8080:8080 -p 9090:9090 -p 3000:3000 --name squashql-showcase paulbares/squashql-showcase:latest
 ```
 
 Next time, simply run:
