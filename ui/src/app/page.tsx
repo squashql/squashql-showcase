@@ -30,7 +30,7 @@ export default function Page() {
             <Card link={"spending"} tables={["spending"]}
                   features={["Time-series comparison", "group comparison", "hierarchical measures"]}/>
             <Card link={"portfolio"} tables={["portfolio"]}
-                  features={["Basic measures"]}/>
+                  features={["VaR 95", "Incremental VaR 95"]}/>
             <Card link={"spendingandpopulation"} tables={["spending", "population"]}
                   features={["Drilling across", "basic measures"]}/>
             <Card link={"forecast"} tables={["forecast"]}

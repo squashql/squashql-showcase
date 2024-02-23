@@ -2,7 +2,7 @@ import {
   comparisonMeasureWithParent,
   ComparisonMethod,
   Field, integer,
-  Measure, multiply,
+  Measure, multiply, ParametrizedMeasure,
   PivotConfig,
   Querier,
   TableField
@@ -10,6 +10,7 @@ import {
 
 import {MeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
 import {url} from "@/app/lib/constants"
+import {portfolio} from "@/app/lib/tables"
 
 export class QueryExecutor {
 
@@ -40,6 +41,22 @@ export class PercentOfParentAlongAncestors implements MeasureProviderType {
   create(ancestors: Field[]): Measure {
     const ratio = comparisonMeasureWithParent("_" + this.underlying.alias + "_percent_of_parent_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
     return multiply(this.alias, integer(100), ratio)
+  }
+}
+
+export class IncVarAncestors implements MeasureProviderType {
+  readonly class: string = ""
+
+  constructor(readonly alias: string, readonly axis: "row" | "column") {
+  }
+
+  create(ancestors: Field[]): Measure {
+    return new ParametrizedMeasure(this.alias, "INCREMENTAL_VAR", {
+      "value": portfolio.scenarioValue,
+      "date": portfolio.dateScenario,
+      "quantile": 0.95,
+      "ancestors": ancestors
+    })
   }
 }
 

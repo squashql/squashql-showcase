@@ -26,9 +26,27 @@ class Portfolio implements SquashQLTable {
   readonly dateScenario: TableField = new TableField("portfolio.DateScenario")
   readonly currency: TableField = new TableField("portfolio.Currency")
   readonly nbShares: TableField = new TableField("portfolio.NbShares")
+  readonly portfolio: TableField = new TableField("portfolio.Portfolio")
   readonly riskType: TableField = new TableField("portfolio.RiskType")
   readonly scenarioValue: TableField = new TableField("portfolio.ScenarioValue")
-  readonly _fields: TableField[] = [this.ticker, this.dateScenario, this.currency, this.nbShares, this.riskType, this.scenarioValue]
+  readonly _fields: TableField[] = [this.ticker, this.dateScenario, this.currency, this.nbShares, this.portfolio, this.riskType, this.scenarioValue]
+}
+
+class Forecast implements SquashQLTable {
+  readonly _name = "forecast"
+  readonly pnl: TableField = new TableField("forecast.pnl")
+  readonly class: TableField = new TableField("forecast.class")
+  readonly account: TableField = new TableField("forecast.account")
+  readonly subAccount: TableField = new TableField("forecast.sub_account")
+  readonly extraInfo: TableField = new TableField("forecast.extra_info")
+  readonly accrual: TableField = new TableField("forecast.accrual")
+  readonly accrualDay: TableField = new TableField("forecast.accrual_day")
+  readonly accrualMonth: TableField = new TableField("forecast.accrual_month")
+  readonly accrualYear: TableField = new TableField("forecast.accrual_year")
+  readonly hypothesis: TableField = new TableField("forecast.hypothesis")
+  readonly scenario: TableField = new TableField("forecast.scenario")
+  readonly backlog: TableField = new TableField("forecast.backlog")
+  readonly _fields: TableField[] = [this.pnl, this.class, this.account, this.subAccount, this.extraInfo, this.accrual, this.accrualDay, this.accrualMonth, this.accrualYear, this.hypothesis, this.scenario, this.backlog]
 }
 
 class Population implements SquashQLTable {
@@ -55,29 +73,12 @@ class Budget implements SquashQLTable {
   readonly _fields: TableField[] = [this.incomeExpenditure, this.category, this.subcategory, this.year, this.month, this.day, this.date, this.description, this.amount, this.happinessScore, this.scenario]
 }
 
-class Forecast implements SquashQLTable {
-  readonly _name = "forecast"
-  readonly pnl: TableField = new TableField("forecast.pnl")
-  readonly class: TableField = new TableField("forecast.class")
-  readonly account: TableField = new TableField("forecast.account")
-  readonly subAccount: TableField = new TableField("forecast.sub_account")
-  readonly extraInfo: TableField = new TableField("forecast.extra_info")
-  readonly accrual: TableField = new TableField("forecast.accrual")
-  readonly accrualDay: TableField = new TableField("forecast.accrual_day")
-  readonly accrualMonth: TableField = new TableField("forecast.accrual_month")
-  readonly accrualYear: TableField = new TableField("forecast.accrual_year")
-  readonly hypothesis: TableField = new TableField("forecast.hypothesis")
-  readonly scenario: TableField = new TableField("forecast.scenario")
-  readonly backlog: TableField = new TableField("forecast.backlog")
-  readonly _fields: TableField[] = [this.pnl, this.class, this.account, this.subAccount, this.extraInfo, this.accrual, this.accrualDay, this.accrualMonth, this.accrualYear, this.hypothesis, this.scenario, this.backlog]
-}
-
 const spending = new Spending()
 const portfolio = new Portfolio()
+const forecast = new Forecast()
 const population = new Population()
 const budget = new Budget()
-const forecast = new Forecast()
 
 export {
-  spending, portfolio, population, budget, forecast
+  spending, portfolio, forecast, population, budget
 }

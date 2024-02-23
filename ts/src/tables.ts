@@ -26,9 +26,10 @@ class Portfolio implements SquashQLTable {
     readonly dateScenario: TableField = new TableField("portfolio.DateScenario")
     readonly currency: TableField = new TableField("portfolio.Currency")
     readonly nbShares: TableField = new TableField("portfolio.NbShares")
+    readonly portfolio: TableField = new TableField("portfolio.Portfolio")
     readonly riskType: TableField = new TableField("portfolio.RiskType")
     readonly scenarioValue: TableField = new TableField("portfolio.ScenarioValue")
-    readonly _fields: TableField[] = [this.ticker, this.dateScenario, this.currency, this.nbShares, this.riskType, this.scenarioValue]
+    readonly _fields: TableField[] = [this.ticker, this.dateScenario, this.currency, this.nbShares, this.portfolio, this.riskType, this.scenarioValue]
 }
 
 class Forecast implements SquashQLTable {

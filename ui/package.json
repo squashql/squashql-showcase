@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@squashql/squashql-js": "1.12.1",
+    "@squashql/squashql-js": "1.12.2",
     "@antv/s2-react": "^1.46.1",
     "@duckdb/duckdb-wasm": "^1.28.1-dev106.0",
     "bootstrap": "^5.3.2",
