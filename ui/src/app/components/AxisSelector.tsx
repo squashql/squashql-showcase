@@ -4,7 +4,8 @@ import {Field, Measure, TableField, AliasedField} from "@squashql/squashql-js"
 export enum AxisType {
   ROWS,
   COLUMNS,
-  VALUES
+  VALUES,
+  FILTERS,
 }
 
 export type SelectedType = Field | Measure
@@ -26,6 +27,8 @@ function getAxisName(axisType: AxisType): string {
       return "Columns"
     case AxisType.VALUES:
       return "Measures"
+    case AxisType.FILTERS:
+      return "Filters"
   }
 }
 

@@ -1,9 +1,11 @@
 import {
+  all,
+  any,
   comparisonMeasureWithGrandTotal,
   comparisonMeasureWithGrandTotalAlongAncestors,
   comparisonMeasureWithinSameGroup,
   comparisonMeasureWithPeriod,
-  ComparisonMethod,
+  ComparisonMethod, Criteria, criterion, eq,
   Field,
   from,
   GroupColumnSet,
@@ -72,8 +74,9 @@ export class SpendingQueryProvider implements QueryProvider {
 
   readonly selectableFields = spendingFields
   readonly measures = spendingMeasures
+  readonly table = [spending]
 
-  query(select: Field[], values: Measure[], pivotConfig: PivotConfig): QueryMerge | Query {
+  query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
     const measures = values.map(m => {
       if (isMeasureProviderType(m) && m.axis === "row") {
         return m.create(pivotConfig.rows)
@@ -83,11 +86,19 @@ export class SpendingQueryProvider implements QueryProvider {
       return m
     })
 
+    const sqlFilters: Criteria[] = []
+    filters.forEach((values, key) => {
+      const f = any(values.map(v => criterion(key, eq(v))))
+      sqlFilters.push(f)
+    })
+    // all(sqlFilters)
+
     const gocIndex = select.indexOf(groupOfCountries)
     select = select.filter(f => f !== groupOfCountries)
     const columnSets = gocIndex >= 0 ? [new GroupColumnSet(groupOfCountries, spending.country, countryGroups)] : []
 
     return from(spending._name)
+            .where(all(sqlFilters))
             .select(select, columnSets, measures)
             .build()
   }
