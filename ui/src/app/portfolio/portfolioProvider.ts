@@ -12,7 +12,8 @@ import {portfolio} from "@/app/lib/tables"
 import {isMeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
 import {IncVarAncestors} from "@/app/lib/queries"
 
-const var95 = new ParametrizedMeasure("VaR 95", "VAR", {
+export const var95MeasureName = "VaR 95"
+const var95 = new ParametrizedMeasure(var95MeasureName, "VAR", {
   "value": portfolio.scenarioValue,
   "date": portfolio.dateScenario,
   "quantile": 0.95
