@@ -24,7 +24,7 @@ import {
 import {budget} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import {expenseLevels, expenseLevelsVT, satisfactionLevels} from "@/app/tutorial/virtualTables"
-import {toCriteria} from "@/app/lib/queries";
+import {toCriteria} from "@/app/lib/queries"
 
 export const initialRecords = [
   ["neutral", 0, 2],
