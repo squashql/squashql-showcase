@@ -1,6 +1,8 @@
 import {
+  all,
+  any,
   comparisonMeasureWithParent,
-  ComparisonMethod,
+  ComparisonMethod, Criteria, criterion, eq,
   Field, integer,
   Measure, multiply, ParametrizedMeasure,
   PivotConfig,
@@ -58,6 +60,15 @@ export class IncVarAncestors implements MeasureProviderType {
       "ancestors": ancestors
     })
   }
+}
+
+export function toCriteria(filters: Map<Field, any[]>): Criteria {
+  const sqlFilters: Criteria[] = []
+  filters.forEach((values, key) => {
+    const f = any(values.map(v => criterion(key, eq(v))))
+    sqlFilters.push(f)
+  })
+  return all(sqlFilters)
 }
 
 export const queryExecutor: QueryExecutor = new QueryExecutor()

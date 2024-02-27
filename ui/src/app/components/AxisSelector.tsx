@@ -45,11 +45,11 @@ function isAliasedField(element: any): element is AliasedField {
 }
 
 function getElementString(element: SelectedType): string {
-  if(isMeasure(element)){
+  if (isMeasure(element)) {
     return element.alias
-  } else if(isTableField(element)){
+  } else if (isTableField(element)) {
     return element.fullName
-  } else if(isAliasedField(element)){
+  } else if (isAliasedField(element)) {
     return element.alias
   } else {
     throw new Error("Unexpected type " + element)
@@ -85,18 +85,20 @@ function onClickSelectedElement(element: string, props: AxisSelectorProps) {
 
 export default function AxisSelector(props: AxisSelectorProps) {
   return (
-          <div>
+          <div className="w-25">
             {getAxisName(props.type)}:
             {props.elements?.map((element, index) => (
                     <span key={index} className="ms-1 mb-1 badge rounded-pill text-bg-dark" style={{cursor: "pointer"}}
                           onClick={() => onClickSelectedElement(getElementString(element), props)}>{getElementString(element)}</span>))}
-            <div className="w-25">
+            <div>
               <select value={'DEFAULT'}
                       className="form-select form-select-sm"
                       onChange={event => onChangeSelection(event, props)}>
                 <option value="DEFAULT" disabled>Select option</option>
-                {props.selectableElements.map((element, index) => <option key={index}
-                                                                          value={getElementString(element)}>{getElementString(element)}</option>)}
+                {props.selectableElements
+                        .map((element, index) =>
+                                <option key={index}
+                                        value={getElementString(element)}>{getElementString(element)}</option>)}
               </select>
             </div>
           </div>

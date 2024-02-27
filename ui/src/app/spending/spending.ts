@@ -21,7 +21,7 @@ import {
 } from "@squashql/squashql-js"
 import {spending} from "@/app/lib/tables"
 import {isMeasureProviderType, MeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
-import {PercentOfParentAlongAncestors} from "@/app/lib/queries"
+import {PercentOfParentAlongAncestors, toCriteria} from "@/app/lib/queries"
 
 class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
   readonly class: string = ""
@@ -86,19 +86,12 @@ export class SpendingQueryProvider implements QueryProvider {
       return m
     })
 
-    const sqlFilters: Criteria[] = []
-    filters.forEach((values, key) => {
-      const f = any(values.map(v => criterion(key, eq(v))))
-      sqlFilters.push(f)
-    })
-    // all(sqlFilters)
-
     const gocIndex = select.indexOf(groupOfCountries)
     select = select.filter(f => f !== groupOfCountries)
     const columnSets = gocIndex >= 0 ? [new GroupColumnSet(groupOfCountries, spending.country, countryGroups)] : []
 
     return from(spending._name)
-            .where(all(sqlFilters))
+            .where(toCriteria(filters))
             .select(select, columnSets, measures)
             .build()
   }

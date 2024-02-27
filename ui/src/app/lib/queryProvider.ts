@@ -11,12 +11,12 @@ export interface QueryProvider {
    */
   measures: Measure[]
 
+  table: SquashQLTable[]
+
   /**
    * The query to be executed
    */
   query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query
-
-  table: SquashQLTable[]
 }
 
 interface MeasureProvider {

@@ -90,7 +90,7 @@ export default function Dashboard(props: DashboardProps) {
   }
 
   return (
-          <div className="ms-1">
+          <div className="px-1">
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><a href="../">Home</a></li>
@@ -121,14 +121,13 @@ export default function Dashboard(props: DashboardProps) {
                           elementsDispatcher={setFilters}
                           selectableElementsDispatcher={setSelectableFilters}
                           queryResultDispatcher={refresh}/>
-            <div>
-              {filters?.map((element, index) => (
-                      <FiltersSelector key={JSON.stringify(element)}
-                                       table={spending}
-                                       field={(element as Field)}
-                                       filters={filtersValues}
-                                       onFilterChange={onFilterChange}/>))}
-            </div>
+            {filters?.map((element, index) => (
+                    <FiltersSelector key={JSON.stringify(element)}
+                                     table={spending}
+                                     field={(element as Field)}
+                                     filters={filtersValues}
+                                     onFilterChange={onFilterChange}/>))}
+            {/* Refresh button + Minify option + other elements */}
             <div className="row row-cols-auto">
               <div className="col">
                 <button className="btn btn-ligth" onClick={refreshFromState}>Refresh</button>
@@ -142,6 +141,7 @@ export default function Dashboard(props: DashboardProps) {
               </div>
               {props.elements}
             </div>
+            {/* The pivot table */}
             {pivotQueryResult !== undefined ? <PivotTable result={pivotQueryResult}/> : undefined}
           </div>
   )
