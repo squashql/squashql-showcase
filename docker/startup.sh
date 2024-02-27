@@ -19,7 +19,7 @@ else
 fi
 
 # Start the first process
-java -jar /opt/app/squashql-showcase-1.0.0.jar &
+java --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED -jar /opt/app/squashql-showcase-1.0.0.jar &
 
 # Start the second process
 code-server --user-data-dir /data /code --bind-addr 0.0.0.0:9090 &

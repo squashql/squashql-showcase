@@ -1,8 +1,9 @@
 package io.squashql.spring;
 
-import io.squashql.DuckDBDatastore;
 import io.squashql.ShowcaseApplication;
-import io.squashql.query.database.DuckDBQueryEngine;
+import io.squashql.SparkDatastore;
+import io.squashql.query.database.QueryEngine;
+import io.squashql.store.Datastore;
 import io.squashql.store.Store;
 import io.squashql.table.Table;
 import io.squashql.type.TableTypedField;
@@ -14,20 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-public class DuckDBController {
+public class DBController {
 
-  private final DuckDBQueryEngine engine;
-  private final DuckDBDatastore datastore;
+  private final QueryEngine<?> engine;
+  private final Datastore datastore;
 
-  public DuckDBController(DuckDBQueryEngine engine) {
+  public DBController(QueryEngine<?> engine) {
     this.engine = engine;
-    this.datastore = engine.datastore;
+    this.datastore = engine.datastore();
   }
 
   @PostMapping("gs-load")
@@ -50,7 +50,7 @@ public class DuckDBController {
 
   @PostMapping("tables-info")
   public ResponseEntity<List<TableTypeDto>> tablesInfo() {
-    Map<String, Store> storesByName = this.datastore.fetchStoresByName();
+    Map<String, Store> storesByName = this.datastore.storesByName();
     List<TableTypeDto> tableTypeDtos = new ArrayList<>();
     for (Map.Entry<String, Store> e : storesByName.entrySet()) {
       tableTypeDtos.add(new TableTypeDto(e.getKey(), e.getValue().fields().stream().map(TableTypedField::name).toList()));
@@ -63,7 +63,7 @@ public class DuckDBController {
 
   @PostMapping("/upload")
   public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam String table) throws IOException {
-    ShowcaseApplication.loadFile(engine, table, file.getInputStream());
+    ShowcaseApplication.loadFile((QueryEngine<SparkDatastore>) engine, table, file.getInputStream());
     return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully: " + file.getOriginalFilename());
   }
 }
