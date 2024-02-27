@@ -127,7 +127,7 @@ export default function Dashboard(props: DashboardProps) {
                           queryResultDispatcher={refresh}/>
             {filters?.map((element, index) => (
                     <FiltersSelector key={index}
-                                     table={queryProvider.table[0]} // FIXME can be of size > 1
+                                     table={queryProvider.table[0]} // FIXME it only handles 1 table for the time being
                                      field={(element as Field)}
                                      filters={filtersValues}
                                      onFilterChange={onFilterChange}/>))}
@@ -146,7 +146,8 @@ export default function Dashboard(props: DashboardProps) {
               {props.elements}
             </div>
             {/* The pivot table */}
-            {pivotQueryResult !== undefined ? <PivotTable result={pivotQueryResult} formatters={props.formatters}/> : undefined}
+            {pivotQueryResult !== undefined ?
+                    <PivotTable result={pivotQueryResult} formatters={props.formatters}/> : undefined}
           </div>
   )
 }
