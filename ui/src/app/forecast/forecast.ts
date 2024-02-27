@@ -18,7 +18,7 @@ import {
 } from "@squashql/squashql-js"
 import {forecast} from "@/app/lib/tables"
 import {isMeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
-import {PercentOfParentAlongAncestors} from "@/app/lib/queries"
+import {PercentOfParentAlongAncestors, toCriteria} from "@/app/lib/queries"
 
 const value = sum("value", forecast.accrual)
 const revenue = sumIf("Revenue", forecast.accrual, criterion(forecast.pnl, eq("Revenue")))
@@ -73,8 +73,9 @@ export class ForecastQueryProvider implements QueryProvider {
     marginRate, growth, ebitda,
     growthSubscription, decGrowthSubscription, revenue, expense,
     subscription, decSubscription, popOfParentOnRowsRevenue, popOfParentOnRowsNotRevenue]
+  readonly table = [forecast]
 
-  query(select: Field[], values: Measure[], pivotConfig: PivotConfig): QueryMerge | Query {
+  query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
     const measures = values.map(m => {
       if (isMeasureProviderType(m) && m.axis === "row") {
         return m.create(pivotConfig.rows)
@@ -85,6 +86,7 @@ export class ForecastQueryProvider implements QueryProvider {
     })
 
     return from(forecast._name)
+            .where(toCriteria(filters))
             .select(select, [], measures)
             .build()
   }

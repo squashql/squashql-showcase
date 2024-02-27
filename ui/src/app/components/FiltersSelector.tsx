@@ -1,6 +1,5 @@
 import Select, {ActionMeta} from 'react-select'
-import {Field, from, QueryResult, TableField} from "@squashql/squashql-js"
-import {QueryProvider} from "@/app/lib/queryProvider"
+import {Field, from, QueryResult} from "@squashql/squashql-js"
 import {SquashQLTable} from "@/app/lib/tables"
 import {queryExecutor, toCriteria} from "@/app/lib/queries"
 import React, {useEffect, useState} from "react"
@@ -21,8 +20,10 @@ export default function FiltersSelector(props: FiltersSelectorProps) {
   const [options, setOptions] = useState<Option[]>()
 
   useEffect(() => {
+    const copy = new Map(props.filters)
+    copy.delete(props.field)
     const query = from(props.table._name)
-            .where(toCriteria(props.filters)) // smart filtering
+            .where(toCriteria(copy)) // smart filtering
             .select([props.field], [], [])
             .build()
 
@@ -34,7 +35,7 @@ export default function FiltersSelector(props: FiltersSelectorProps) {
               }))
             })
             .then(options => setOptions(options))
-  }, [])
+  }, [props.table._name, props.filters, props.field])
 
   function onChange(values: readonly Option[], action: ActionMeta<Option>) {
     const valuesSt = values.map(v => v.value);

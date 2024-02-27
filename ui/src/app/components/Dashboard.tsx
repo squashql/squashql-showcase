@@ -6,9 +6,6 @@ import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import {spending} from "@/app/lib/tables"
-import {Jim_Nightshade} from "next/dist/compiled/@next/font/dist/google";
-
-// FIXME should not be hardcoded
 
 export interface Formatter {
   field: string
@@ -130,7 +127,7 @@ export default function Dashboard(props: DashboardProps) {
                           queryResultDispatcher={refresh}/>
             {filters?.map((element, index) => (
                     <FiltersSelector key={index}
-                                     table={spending}
+                                     table={queryProvider.table[0]} // FIXME can be of size > 1
                                      field={(element as Field)}
                                      filters={filtersValues}
                                      onFilterChange={onFilterChange}/>))}

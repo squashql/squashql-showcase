@@ -32,6 +32,7 @@ export class SpendingAndPopulationQueryProvider implements QueryProvider {
 
   readonly selectableFields = spendingFields.concat(populationFields).filter((value, index, array) => array.indexOf(value) === index)
   readonly measures = spendingMeasures.concat(populationMeasures)
+  readonly table = [spending, population]
 
   query(select: Field[], values: Measure[]): QueryMerge | Query {
     const targetMeasureSpendingStore = values.filter((m) => spendingMeasures.includes(m))

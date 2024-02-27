@@ -11,6 +11,9 @@ export interface QueryProvider {
    */
   measures: Measure[]
 
+  /**
+   * The tables that can be queried
+   */
   table: SquashQLTable[]
 
   /**

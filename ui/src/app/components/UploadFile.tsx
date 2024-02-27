@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import UploadFileService from "@/app/lib/upload-file-service"
-import {PivotTableQueryResult} from "@squashql/squashql-js";
+import uploadFileService from "@/app/lib/upload-file-service"
 
 const initialState = {
   selectedFiles: undefined,
@@ -32,8 +31,7 @@ export default function UploadFile(props: UploadFileProps) {
       currentFile: currentFile,
     })
 
-    UploadFileService.upload(currentFile, props.table, (event: any) => {
-      console.log(event.loaded)
+    uploadFileService.upload(currentFile, props.table, (event: any) => {
       setState({
         currentFile,
         progress: Math.round((100 * event.loaded) / event.total),
