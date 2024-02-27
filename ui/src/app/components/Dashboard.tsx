@@ -1,14 +1,20 @@
 'use client'
-import {useState} from "react"
+import React, {useState} from "react"
 import AxisSelector, {AxisType, SelectedType} from "@/app/components/AxisSelector"
 import {Measure, PivotTableQueryResult, TableField} from "@squashql/squashql-js"
 import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
 
+export interface Formatter {
+  field: string
+  formatter: (v: any) => string
+}
+
 interface DashboardProps {
   title: string
   queryProvider: QueryProvider,
+  formatters?: Formatter[]
   elements?: React.JSX.Element[]
 }
 
@@ -102,7 +108,7 @@ export default function Dashboard(props: DashboardProps) {
               </div>
               {props.elements}
             </div>
-            {pivotQueryResult !== undefined ? <PivotTable result={pivotQueryResult}/> : undefined}
+            {pivotQueryResult !== undefined ? <PivotTable result={pivotQueryResult} formatters={props.formatters}/> : undefined}
           </div>
   )
 }
