@@ -6,12 +6,19 @@ import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import {spending} from "@/app/lib/tables"
+import {Jim_Nightshade} from "next/dist/compiled/@next/font/dist/google";
 
 // FIXME should not be hardcoded
+
+export interface Formatter {
+  field: string
+  formatter: (v: any) => string
+}
 
 interface DashboardProps {
   title: string
   queryProvider: QueryProvider,
+  formatters?: Formatter[]
   elements?: React.JSX.Element[]
 }
 
@@ -51,7 +58,7 @@ export default function Dashboard(props: DashboardProps) {
       case AxisType.FILTERS:
         // Special case for the filters to handle elements being removed
         const copy = new Map(fv)
-        for (let [key, val] of copy) {
+        for (let [key, __] of copy) {
           if (newElements.indexOf(key) < 0) {
             copy.delete(key)
           }
@@ -122,7 +129,7 @@ export default function Dashboard(props: DashboardProps) {
                           selectableElementsDispatcher={setSelectableFilters}
                           queryResultDispatcher={refresh}/>
             {filters?.map((element, index) => (
-                    <FiltersSelector key={JSON.stringify(element)}
+                    <FiltersSelector key={index}
                                      table={spending}
                                      field={(element as Field)}
                                      filters={filtersValues}
@@ -142,7 +149,7 @@ export default function Dashboard(props: DashboardProps) {
               {props.elements}
             </div>
             {/* The pivot table */}
-            {pivotQueryResult !== undefined ? <PivotTable result={pivotQueryResult}/> : undefined}
+            {pivotQueryResult !== undefined ? <PivotTable result={pivotQueryResult} formatters={props.formatters}/> : undefined}
           </div>
   )
 }

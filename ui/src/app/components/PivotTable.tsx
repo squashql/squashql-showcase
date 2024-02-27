@@ -2,12 +2,15 @@ import {SheetComponent} from '@antv/s2-react'
 import React from "react"
 import {Data, S2DataConfig} from "@antv/s2"
 import {PivotTableQueryResult} from "@squashql/squashql-js"
+import {Formatter} from "@/app/components/Dashboard"
+import {formatNumber} from "@/app/lib/utils"
 
 interface PivotTableProps {
   result: PivotTableQueryResult,
   height?: number,
   width?: number,
-  colShowGrandTotal?: boolean
+  colShowGrandTotal?: boolean,
+  formatters?: Formatter[]
 }
 
 export default function PivotTable(props: PivotTableProps) {
@@ -26,6 +29,10 @@ export default function PivotTable(props: PivotTableProps) {
       row: {
         showTooltip: true,
       },
+    },
+    interaction: {
+      selectedCellsSpotlight: true,
+      hoverHighlight: true,
     },
     totals: {
       row: {
@@ -49,20 +56,18 @@ export default function PivotTable(props: PivotTableProps) {
 
   return (
           <div>
-            <SheetComponent dataCfg={buildData(props.result)} options={options} themeCfg={{
+            <SheetComponent dataCfg={buildData(props.result, props.formatters)} options={options} themeCfg={{
               palette: s2Palette
             }}/>
           </div>
   )
 }
 
-function buildData(result: PivotTableQueryResult): S2DataConfig {
+function buildData(result: PivotTableQueryResult, formatters?: Formatter[]): S2DataConfig {
   let data: Data[] = [] // see data.js to see the expected format
   result.cells.forEach((cell: Record<string, any>) => {
     const r: Data = {}
-    Object.entries(cell).forEach(entry => {
-      r[entry[0]] = typeof entry[1] === 'number' && entry[1] % 1 != 0 ? (Math.round(entry[1] * 100) / 100).toFixed(2) : entry[1]
-    })
+    Object.entries(cell).forEach(entry => r[entry[0]] = formatNumber(entry[1]))
     data.push(r)
   })
 
@@ -73,7 +78,8 @@ function buildData(result: PivotTableQueryResult): S2DataConfig {
       values: result.values,
       valueInCols: true,
     },
-    data
+    data,
+    meta: formatters
   }
 }
 

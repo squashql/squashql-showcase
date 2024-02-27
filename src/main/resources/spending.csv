@@ -1,0 +1,46 @@
+city,country,continent,spending category,spending subcategory,year,amount
+paris,france,eu,minimum expenditure,car,2023,1
+paris,france,eu,minimum expenditure,housing,2023,2
+paris,france,eu,extra,hobbies,2023,1
+lyon,france,eu,minimum expenditure,car,2023,2
+lyon,france,eu,minimum expenditure,housing,2023,3
+lyon,france,eu,extra,hobbies,2023,4
+london,uk,eu,minimum expenditure,car,2023,2
+london,uk,eu,minimum expenditure,housing,2023,2
+london,uk,eu,extra,hobbies,2023,5
+nyc,usa,am,minimum expenditure,car,2023,8
+nyc,usa,am,minimum expenditure,housing,2023,12
+nyc,usa,am,extra,hobbies,2023,6
+la,usa,am,minimum expenditure,car,2023,7
+la,usa,am,minimum expenditure,housing,2023,2
+la,usa,am,extra,hobbies,2023,4
+paris,france,eu,minimum expenditure,car,2022,2
+paris,france,eu,minimum expenditure,housing,2022,3
+paris,france,eu,extra,hobbies,2022,2
+lyon,france,eu,minimum expenditure,car,2022,3
+lyon,france,eu,minimum expenditure,housing,2022,4
+lyon,france,eu,extra,hobbies,2022,5
+london,uk,eu,minimum expenditure,car,2022,3
+london,uk,eu,minimum expenditure,housing,2022,3
+london,uk,eu,extra,hobbies,2022,6
+nyc,usa,am,minimum expenditure,car,2022,9
+nyc,usa,am,minimum expenditure,housing,2022,13
+nyc,usa,am,extra,hobbies,2022,7
+la,usa,am,minimum expenditure,car,2022,8
+la,usa,am,minimum expenditure,housing,2022,3
+la,usa,am,extra,hobbies,2022,5
+paris,france,eu,minimum expenditure,car,2021,3
+paris,france,eu,minimum expenditure,housing,2021,4
+paris,france,eu,extra,hobbies,2021,3
+lyon,france,eu,minimum expenditure,car,2021,4
+lyon,france,eu,minimum expenditure,housing,2021,5
+lyon,france,eu,extra,hobbies,2021,6
+london,uk,eu,minimum expenditure,car,2021,4
+london,uk,eu,minimum expenditure,housing,2021,4
+london,uk,eu,extra,hobbies,2021,7
+nyc,usa,am,minimum expenditure,car,2021,10
+nyc,usa,am,minimum expenditure,housing,2021,14
+nyc,usa,am,extra,hobbies,2021,8
+la,usa,am,minimum expenditure,car,2021,9
+la,usa,am,minimum expenditure,housing,2021,4
+la,usa,am,extra,hobbies,2021,6
