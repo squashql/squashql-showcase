@@ -1,6 +1,18 @@
-import {AliasedField, Field, from, JoinType, Measure, Query, QueryMerge, sum, TableField} from "@squashql/squashql-js"
+import {
+  AliasedField,
+  Field,
+  from,
+  JoinType,
+  Measure,
+  PivotConfig,
+  Query,
+  QueryMerge,
+  sum,
+  TableField
+} from "@squashql/squashql-js"
 import {population, spending} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
+import {toCriteria} from "@/app/lib/queries"
 
 const continent = new AliasedField("continent")
 const country = new AliasedField("country")
@@ -32,8 +44,9 @@ export class SpendingAndPopulationQueryProvider implements QueryProvider {
 
   readonly selectableFields = spendingFields.concat(populationFields).filter((value, index, array) => array.indexOf(value) === index)
   readonly measures = spendingMeasures.concat(populationMeasures)
+  readonly table = [spending, population]
 
-  query(select: Field[], values: Measure[]): QueryMerge | Query {
+  query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
     const targetMeasureSpendingStore = values.filter((m) => spendingMeasures.includes(m))
     const targetMeasurePopulationStore = values.filter((m) => populationMeasures.includes(m))
 
@@ -46,7 +59,12 @@ export class SpendingAndPopulationQueryProvider implements QueryProvider {
               [continent, country],
               [spending.continent, spending.country])
 
+      const copy = this.aliasTableFieldsInFilters(filters,
+              [continent, country],
+              [spending.continent, spending.country])
+
       q1 = from(spending._name)
+              .where(toCriteria(copy))
               .select(targetFieldSpendingStore, [], targetMeasureSpendingStore)
               .build()
     }
@@ -83,5 +101,17 @@ export class SpendingAndPopulationQueryProvider implements QueryProvider {
         fields[index] = fieldToAlias[i].as(aliasedFields[i].alias)
       }
     }
+  }
+
+  aliasTableFieldsInFilters(filters: Map<Field, any[]>, aliasedFields: AliasedField[], fieldToAlias: TableField[]) {
+    const copy = new Map(filters)
+    for (let i = 0; i < aliasedFields.length; i++) {
+      const v = filters.get(aliasedFields[i])
+      if (v) {
+        copy.delete(aliasedFields[i])
+        copy.set(fieldToAlias[i].as(aliasedFields[i].alias), v)
+      }
+    }
+    return copy
   }
 }

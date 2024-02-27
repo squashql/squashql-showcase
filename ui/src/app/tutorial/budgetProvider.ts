@@ -14,7 +14,7 @@ import {
   Measure,
   minus,
   multiply,
-  neq,
+  neq, PivotConfig,
   Query,
   QueryMerge,
   sumIf,
@@ -24,6 +24,7 @@ import {
 import {budget} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import {expenseLevels, expenseLevelsVT, satisfactionLevels} from "@/app/tutorial/virtualTables"
+import {toCriteria} from "@/app/lib/queries"
 
 export const initialRecords = [
   ["neutral", 0, 2],
@@ -60,13 +61,14 @@ export class BudgetProvider implements QueryProvider {
 
   readonly selectableFields = budget._fields.concat([satisfactionLevels.satisfactionLevel, expenseLevels.expenseLevel])
   readonly measures = createMeasures()
+  readonly table = [budget]
   readonly recordsProvider: () => (string | number)[][]
 
   constructor(recordsProvider: () => (string | number)[][]) {
     this.recordsProvider = recordsProvider
   }
 
-  query(select: Field[], values: Measure[]): QueryMerge | Query {
+  query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
     const table = from(budget._name)
     const orderByFuncs = []
     if (select.includes(satisfactionLevels.satisfactionLevel)) {
@@ -89,7 +91,7 @@ export class BudgetProvider implements QueryProvider {
     }
 
     const canAddRollup: CanAddRollup = table
-            .where(criterion(budget.scenario, eq("b")))
+            .where(all([criterion(budget.scenario, eq("b")), toCriteria(filters)]))
             .select(select, [], values)
     orderByFuncs.map(f => f(canAddRollup))
     return canAddRollup.build()

@@ -4,7 +4,8 @@ import {Field, Measure, TableField, AliasedField} from "@squashql/squashql-js"
 export enum AxisType {
   ROWS,
   COLUMNS,
-  VALUES
+  VALUES,
+  FILTERS,
 }
 
 export type SelectedType = Field | Measure
@@ -26,6 +27,8 @@ function getAxisName(axisType: AxisType): string {
       return "Columns"
     case AxisType.VALUES:
       return "Measures"
+    case AxisType.FILTERS:
+      return "Filters"
   }
 }
 
@@ -42,11 +45,11 @@ function isAliasedField(element: any): element is AliasedField {
 }
 
 function getElementString(element: SelectedType): string {
-  if(isMeasure(element)){
+  if (isMeasure(element)) {
     return element.alias
-  } else if(isTableField(element)){
+  } else if (isTableField(element)) {
     return element.fullName
-  } else if(isAliasedField(element)){
+  } else if (isAliasedField(element)) {
     return element.alias
   } else {
     throw new Error("Unexpected type " + element)
@@ -85,15 +88,17 @@ export default function AxisSelector(props: AxisSelectorProps) {
           <div>
             {getAxisName(props.type)}:
             {props.elements?.map((element, index) => (
-                    <span key={index} className="ms-1 mb-1 badge rounded-pill text-bg-dark" style={{cursor: "pointer"}}
+                    <span key={index} className="ms-1 mb-1 badge text-bg-secondary" style={{cursor: "pointer"}}
                           onClick={() => onClickSelectedElement(getElementString(element), props)}>{getElementString(element)}</span>))}
             <div className="w-25">
               <select value={'DEFAULT'}
                       className="form-select form-select-sm"
                       onChange={event => onChangeSelection(event, props)}>
                 <option value="DEFAULT" disabled>Select option</option>
-                {props.selectableElements.map((element, index) => <option key={index}
-                                                                          value={getElementString(element)}>{getElementString(element)}</option>)}
+                {props.selectableElements
+                        .map((element, index) =>
+                                <option key={index}
+                                        value={getElementString(element)}>{getElementString(element)}</option>)}
               </select>
             </div>
           </div>

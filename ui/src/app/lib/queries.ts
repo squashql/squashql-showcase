@@ -1,6 +1,8 @@
 import {
+  all,
+  any,
   comparisonMeasureWithParent,
-  ComparisonMethod,
+  ComparisonMethod, Criteria, criterion, eq,
   Field, integer,
   Measure, multiply, ParametrizedMeasure,
   PivotConfig,
@@ -16,7 +18,7 @@ export class QueryExecutor {
 
   readonly querier = new Querier(url)
 
-  async executePivotQuery(queryProvider: QueryProvider, rows: TableField[], columns: TableField[], values: Measure[], minify: boolean) {
+  async executePivotQuery(queryProvider: QueryProvider, rows: TableField[], columns: TableField[], values: Measure[], filters: Map<Field, any[]>, minify: boolean) {
     const select = rows.concat(columns)
     if (select.length === 0 || values.length === 0) {
       return undefined
@@ -25,7 +27,7 @@ export class QueryExecutor {
         rows,
         columns,
       }
-      const query = queryProvider.query(select, values, pivotConfig);
+      const query = queryProvider.query(select, values, filters, pivotConfig);
       query.minify = minify
       return this.querier.executePivotQuery(query, pivotConfig)
     }
@@ -58,6 +60,15 @@ export class IncVarAncestors implements MeasureProviderType {
       "ancestors": ancestors
     })
   }
+}
+
+export function toCriteria(filters: Map<Field, any[]>): Criteria {
+  const sqlFilters: Criteria[] = []
+  filters.forEach((values, key) => {
+    const f = any(values.map(v => criterion(key, eq(v))))
+    sqlFilters.push(f)
+  })
+  return all(sqlFilters)
 }
 
 export const queryExecutor: QueryExecutor = new QueryExecutor()

@@ -10,7 +10,7 @@ import {
 } from "@squashql/squashql-js"
 import {portfolio} from "@/app/lib/tables"
 import {isMeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
-import {IncVarAncestors} from "@/app/lib/queries"
+import {IncVarAncestors, toCriteria} from "@/app/lib/queries"
 
 export const var95MeasureName = "VaR 95"
 const var95 = new ParametrizedMeasure(var95MeasureName, "VAR", {
@@ -25,8 +25,9 @@ export class PortfolioProvider implements QueryProvider {
 
   readonly selectableFields = portfolio._fields
   readonly measures = [countRows, var95, incVar95]
+  readonly table = [portfolio]
 
-  query(select: Field[], values: Measure[], pivotConfig: PivotConfig): QueryMerge | Query {
+  query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
     const measures = values.map(m => {
       if (isMeasureProviderType(m) && m.axis === "row") {
         return m.create(pivotConfig.rows)
@@ -35,6 +36,7 @@ export class PortfolioProvider implements QueryProvider {
     })
 
     return from(portfolio._name)
+            .where(toCriteria(filters))
             .select(select, [], measures)
             .build()
   }
