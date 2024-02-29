@@ -144,7 +144,7 @@ export default function Dashboard(props: DashboardProps) {
                 <TimeComparisonMeasureBuilder
                         measures={selectableValues.concat(values).map(m => (m as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         fields={queryProvider.selectableFields}
-                        newMeasureHandler={m => {
+                        onNewMeasure={m => {
                           const copy = [...selectableValues]
                           copy.push(m as Measure)
                           setSelectableValues(copy)

@@ -1,56 +1,34 @@
 import React, {ChangeEvent, useState} from "react"
-import {
-  comparisonMeasureWithPeriod,
-  ComparisonMethod,
-  Field, integer,
-  Measure,
-  Month,
-  multiply,
-  Year
-} from "@squashql/squashql-js"
+import {comparisonMeasureWithPeriod, ComparisonMethod, Field, Measure, Month, Year} from "@squashql/squashql-js"
 import {getElementString, SelectablePeriod, SelectedType} from "@/app/components/AxisSelector"
 
-interface TimeComparisonMeasureBuilderProps {
+interface HierarchicalMeasureBuilderProps {
   measures: Measure[]
   fields: Field[]
-  onNewMeasure: (m: Measure) => void // call when a new measure is created
+  newMeasureHandler: (m: Measure) => void
 }
 
-interface TimeComparisonMeasureBuilderState {
+interface HierarchicalMeasureBuilderState {
   underlyingMeasure?: Measure
-  period?: SelectablePeriod
-  year?: Field
-  month?: Field
   alias: string | ""
   comparisonMethod?: ComparisonMethod
-  referencePosition: Map<Field, string>
-  referencePositionLabel?: string
 }
 
 const initialState = {
   alias: "",
-  referencePosition: new Map
 }
 
 const selectablePeriodElements: SelectablePeriod[] = ["Year", "Month"]
 
-export default function TimeComparisonMeasureBuilder(props: TimeComparisonMeasureBuilderProps) {
-  const [state, setState] = useState<TimeComparisonMeasureBuilderState>(initialState)
+export default function HierarchicalMeasureBuilder(props: HierarchicalMeasureBuilderProps) {
+  const [state, setState] = useState<HierarchicalMeasureBuilderState>(initialState)
 
   function createMeasureFromState() {
     let measure
     switch (state.period) {
       case "Year":
-        const builder = (alias: string) => {
-          if (state.year && state.underlyingMeasure && state.comparisonMethod && state.referencePosition.size > 0) {
-            return comparisonMeasureWithPeriod(alias, state.comparisonMethod, state.underlyingMeasure, state.referencePosition, new Year(state.year))
-          }
-        }
-        if (state.comparisonMethod === ComparisonMethod.RELATIVE_DIFFERENCE) {
-          const underlying = builder("__" + state.alias + "__")
-          measure = underlying && multiply(state.alias, integer(100), underlying)
-        } else {
-          measure = builder(state.alias)
+        if (state.year && state.underlyingMeasure && state.comparisonMethod && state.referencePosition.size > 0) {
+          measure = comparisonMeasureWithPeriod(state.alias, state.comparisonMethod, state.underlyingMeasure, state.referencePosition, new Year(state.year))
         }
         break
       case "Month":
@@ -63,7 +41,7 @@ export default function TimeComparisonMeasureBuilder(props: TimeComparisonMeasur
     }
 
     if (measure) {
-      props.onNewMeasure(measure)
+      props.newMeasureHandler(measure)
       setState(initialState) // Clear everything
     }
   }
