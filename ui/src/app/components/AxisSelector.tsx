@@ -45,12 +45,8 @@ function isAliasedField(element: any): element is AliasedField {
   return element.alias
 }
 
-function isSelectablePeriod(element: any): element is SelectablePeriod {
-  return typeof element === "string"
-}
-
 export function getElementString(element: SelectedType | SelectablePeriod | string): string {
-  if (isSelectablePeriod(element)) {
+  if (typeof element === "string") {
     return element
   } else if (isMeasure(element)) {
     return element.alias
