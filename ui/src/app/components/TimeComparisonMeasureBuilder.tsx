@@ -86,7 +86,7 @@ export default function TimeComparisonMeasureBuilder(props: TimeComparisonMeasur
 
   return (
           <div>
-            <button type="button" className="btn btn-sm btn-primary" data-bs-toggle="modal"
+            <button type="button" className="btn btn-sm btn-light" data-bs-toggle="modal"
                     data-bs-target="#timeperiodcompModal">
               Time period comparison
             </button>

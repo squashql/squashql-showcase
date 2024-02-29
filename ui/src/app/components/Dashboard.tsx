@@ -134,14 +134,14 @@ export default function Dashboard(props: DashboardProps) {
             {/* Refresh button + Minify option + other elements */}
             <div className="row row-cols-auto">
               <div className="col py-2">
-                <button className="btn btn-sm btn-ligth" onClick={refreshFromState}>Refresh</button>
+                <button type="button" className="btn btn-sm btn-light" onClick={refreshFromState}>Refresh</button>
               </div>
-              <div className="col py-2">
+              <div className="col px-1 py-2">
                 <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked={minify}
                        onChange={toggleMinify}/>
                 <label className="form-check-label px-1" htmlFor="flexCheckChecked">Minify</label>
               </div>
-              <div className="col py-2">
+              <div className="col px-1 py-2">
                 <TimeComparisonMeasureBuilder
                         measures={selectableValues.concat(values).map(m => (m as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         fields={queryProvider.selectableFields}
@@ -151,7 +151,7 @@ export default function Dashboard(props: DashboardProps) {
                           setSelectableValues(copy)
                         }}/>
               </div>
-              <div className="col py-2">
+              <div className="col px-1 py-2">
                 <HierarchicalMeasureBuilder
                         measures={selectableValues.concat(values).map(m => (m as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         onNewMeasure={m => {
