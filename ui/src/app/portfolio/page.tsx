@@ -11,6 +11,7 @@ const varFormatter = (value: any) => {
     const localeDateString = new Date(value[0][0], value[0][1] - 1, value[0][2]).toLocaleDateString();
     return `${formatNumber(value[1])}\n${localeDateString}`
   }
+  return ""
 }
 
 export default function Page() {

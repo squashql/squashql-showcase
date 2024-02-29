@@ -10,7 +10,7 @@ import TimeComparisonMeasureBuilder from "@/app/components/TimeComparisonMeasure
 
 export interface Formatter {
   field: string
-  formatter: (v: any) => string | undefined
+  formatter: (v: any) => string
 }
 
 interface DashboardProps {
