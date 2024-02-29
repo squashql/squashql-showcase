@@ -8,29 +8,38 @@ interface TimeComparisonMeasureBuilderProps {
   newMeasureHandler: (m: Measure) => void
 }
 
+interface TimeComparisonMeasureBuilderState {
+  underlyingMeasure?: Measure
+  period?: SelectablePeriod
+  year?: Field
+  month?: Field
+  alias: string | ""
+  comparisonMethod?: ComparisonMethod
+  referencePosition: Map<Field, string>
+  referencePositionLabel?: string
+}
+
+const initialState = {
+  alias: "",
+  referencePosition: new Map
+}
+
 const selectablePeriodElements: SelectablePeriod[] = ["Year", "Month"]
 
 export default function TimeComparisonMeasureBuilder(props: TimeComparisonMeasureBuilderProps) {
-  const [underlyingMeasure, setUnderlyingMeasure] = useState<Measure | undefined>(undefined)
-  const [period, setPeriod] = useState<SelectablePeriod | undefined>(undefined)
-  const [year, setYear] = useState<Field | undefined>(undefined);
-  const [month, setMonth] = useState<Field | undefined>(undefined);
-  const [alias, setAlias] = useState<string>("");
-  const [comparisonMethod, setComparisonMethod] = useState<ComparisonMethod | undefined>(undefined);
-  const [referencePosition, setReferencePosition] = useState<Map<Field, string>>(new Map);
-  const [referencePositionSt, setReferencePositionSt] = useState<string | undefined>(undefined);
+  const [state, setState] = useState<TimeComparisonMeasureBuilderState>(initialState)
 
   function createMeasureFromState() {
     let measure
-    switch (period) {
+    switch (state.period) {
       case "Year":
-        if (year && underlyingMeasure && comparisonMethod && referencePosition.size > 0) {
-          measure = comparisonMeasureWithPeriod(alias, comparisonMethod, underlyingMeasure, referencePosition, new Year(year))
+        if (state.year && state.underlyingMeasure && state.comparisonMethod && state.referencePosition.size > 0) {
+          measure = comparisonMeasureWithPeriod(state.alias, state.comparisonMethod, state.underlyingMeasure, state.referencePosition, new Year(state.year))
         }
         break
       case "Month":
-        if (year && month && underlyingMeasure && comparisonMethod && referencePosition.size > 0) {
-          measure = comparisonMeasureWithPeriod(alias, comparisonMethod, underlyingMeasure, referencePosition, new Month(month, year))
+        if (state.year && state.month && state.underlyingMeasure && state.comparisonMethod && state.referencePosition.size > 0) {
+          measure = comparisonMeasureWithPeriod(state.alias, state.comparisonMethod, state.underlyingMeasure, state.referencePosition, new Month(state.month, state.year))
         }
         break
       default:
@@ -39,35 +48,22 @@ export default function TimeComparisonMeasureBuilder(props: TimeComparisonMeasur
 
     if (measure) {
       props.newMeasureHandler(measure)
-      // Clear everything
-      setUnderlyingMeasure(undefined)
-      setPeriod(undefined)
-      setYear(undefined)
-      setMonth(undefined)
-      setAlias("")
-      setComparisonMethod(undefined)
-      setReferencePosition(new Map)
+      setState(initialState) // Clear everything
     }
   }
 
   function canBuildMeasure(): boolean {
     let periodIsOk = false
-    switch (period) {
+    switch (state.period) {
       case "Year":
-        periodIsOk = year !== undefined
+        periodIsOk = state.year !== undefined
         break
       case "Month":
-        periodIsOk = year !== undefined && month !== undefined
+        periodIsOk = state.year !== undefined && state.month !== undefined
         break
     }
-    return underlyingMeasure !== undefined && period !== undefined && periodIsOk && alias !== "" && comparisonMethod !== undefined && referencePosition.size > 0
+    return state.underlyingMeasure !== undefined && state.period !== undefined && periodIsOk && state.alias !== "" && state.comparisonMethod !== undefined && state.referencePosition.size > 0
   }
-
-  console.log(" start render Time comp")
-
-  console.log(underlyingMeasure)
-  console.log(period)
-  console.log(" end render Time comp")
 
   return (
           <div>
@@ -90,68 +86,98 @@ export default function TimeComparisonMeasureBuilder(props: TimeComparisonMeasur
 
                     {/*measure*/}
                     <div className="pb-1">
-                      {(renderSelect("measure", underlyingMeasure?.alias, props.measures, event => {
+                      {(renderSelect("measure", state.underlyingMeasure?.alias, props.measures, event => {
                         const index = props.measures.map(v => getElementString(v)).indexOf(event.target.value)
-                        setUnderlyingMeasure(props.measures[index])
+                        setState({
+                          ...state,
+                          underlyingMeasure: props.measures[index]
+                        })
                       }))}
                     </div>
 
                     {/*period*/}
                     <div className="pb-1">
-                      {(renderSelect("period", period, selectablePeriodElements, event => {
+                      {(renderSelect("period", state.period, selectablePeriodElements, event => {
                         if (event.target.value === "Year" || event.target.value === "Month") {
-                          setPeriod(event.target.value);
+                          setState({
+                            ...state,
+                            period: event.target.value
+                          })
                         }
                       }))}
                     </div>
 
                     {/*field(s) selection to build the selected period*/}
                     <div className="pb-1">
-                      {period && renderSelectPeriod(period, year, month, props.fields,
+                      {state.period && renderSelectPeriod(state.period, state.year, state.month, props.fields,
                               event => {
                                 const index = props.fields.map(v => getElementString(v)).indexOf(event.target.value)
-                                setYear(props.fields[index])
+                                setState({
+                                  ...state,
+                                  year: props.fields[index]
+                                })
                               },
                               event => {
                                 const index = props.fields.map(v => getElementString(v)).indexOf(event.target.value)
-                                setMonth(props.fields[index])
+                                setState({
+                                  ...state,
+                                  month: props.fields[index]
+                                })
                               }
                       )}
                     </div>
 
                     {/*comparison method*/}
                     <div className="pb-1">
-                      {period && renderSelect("comparison method", comparisonMethod && ComparisonMethod[comparisonMethod], Object.keys(ComparisonMethod), event => {
+                      {state.period && renderSelect("comparison method", state.comparisonMethod && ComparisonMethod[state.comparisonMethod], Object.keys(ComparisonMethod), event => {
                         const index = Object.keys(ComparisonMethod).map(v => getElementString(v)).indexOf(event.target.value)
-                        setComparisonMethod(Object.values(ComparisonMethod)[index])
+                        setState({
+                          ...state,
+                          comparisonMethod: Object.values(ComparisonMethod)[index]
+                        })
                       })}
                     </div>
 
                     {/*reference position*/}
                     <div className="pb-1">
-                      {period === "Year" && renderSelect("compare with", referencePositionSt, ["previous year"], event => {
-                        if (year) {
+                      {state.period === "Year" && renderSelect("compare with", state.referencePositionLabel, ["previous year"], event => {
+                        if (state.year) {
                           if (event.target.value === "previous year") {
-                            setReferencePosition(new Map([[year, "y-1"]]));
+                            setState({
+                              ...state,
+                              referencePosition: new Map([[state.year, "y-1"]]),
+                              referencePositionLabel: event.target.value
+                            })
                           }
-                          setReferencePositionSt(event.target.value);
                         }
                       })}
-                      {period === "Month" && renderSelect("compare with", referencePositionSt, ["previous year, same month", "same year, previous month"], event => {
-                        if (year && month) {
+                      {state.period === "Month" && renderSelect("compare with", state.referencePositionLabel, ["previous year, same month", "same year, previous month"], event => {
+                        if (state.year && state.month) {
                           if (event.target.value === "previous year, same month") {
-                            setReferencePosition(new Map([[year, "y-1"], [month, "m"]]));
+                            setState({
+                              ...state,
+                              referencePosition: new Map([[state.year, "y-1"], [state.month, "m"]]),
+                              referencePositionLabel: event.target.value
+                            })
                           } else if (event.target.value === "same year, previous month") {
-                            setReferencePosition(new Map([[year, "y"], [month, "m-1"]]));
+                            setState({
+                              ...state,
+                              referencePosition: new Map([[state.year, "y"], [state.month, "m-1"]]),
+                              referencePositionLabel: event.target.value
+                            })
                           }
-                          setReferencePositionSt(event.target.value);
                         }
                       })}
                     </div>
 
                     {/*alias*/}
                     <div className="pb-1">
-                      {period && renderAlias(alias, setAlias)}
+                      {state.period && renderAlias(state.alias, event => {
+                        setState({
+                          ...state,
+                          alias: event.target.value
+                        })
+                      })}
                     </div>
                   </div>
 
@@ -204,17 +230,17 @@ function renderSelect(label: string, value: string | undefined, fields: Selected
                       <option key={index}
                               value={getElementString(element)}>{getElementString(element)}</option>)}
             </select>
-            <label htmlFor="floatingSelect">{label} field</label>
+            <label htmlFor="floatingSelect">{label}</label>
           </div>
   )
 }
 
-function renderAlias(alias: string, setAlias: (value: (((prevState: string) => string) | string)) => void) {
+function renderAlias(alias: string, onChange: (event: ChangeEvent<HTMLInputElement>) => void) {
   return (
           <form className="form-floating">
             <input type="text" className="form-control" id="measureAliasInput"
                    value={alias}
-                   onChange={e => setAlias(e.target.value)}/>
+                   onChange={onChange}/>
             <label htmlFor="measureAliasInput" className="form-label">alias</label>
           </form>
   )
