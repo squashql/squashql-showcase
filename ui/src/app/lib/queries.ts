@@ -1,6 +1,6 @@
 import {
   all,
-  any,
+  any, comparisonMeasureWithGrandTotalAlongAncestors,
   comparisonMeasureWithParent,
   ComparisonMethod, Criteria, criterion, eq,
   Field, integer,
@@ -69,6 +69,18 @@ export function toCriteria(filters: Map<Field, any[]>): Criteria {
     sqlFilters.push(f)
   })
   return all(sqlFilters)
+}
+
+export class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
+  readonly class: string = ""
+
+  constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
+  }
+
+  create(ancestors: Field[]): Measure {
+    const ratio = comparisonMeasureWithGrandTotalAlongAncestors("percent_of_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
+    return multiply(this.alias, integer(100), ratio)
+  }
 }
 
 export const queryExecutor: QueryExecutor = new QueryExecutor()

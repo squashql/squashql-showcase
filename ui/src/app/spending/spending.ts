@@ -1,11 +1,8 @@
 import {
-  all,
-  any,
   comparisonMeasureWithGrandTotal,
-  comparisonMeasureWithGrandTotalAlongAncestors,
   comparisonMeasureWithinSameGroup,
   comparisonMeasureWithPeriod,
-  ComparisonMethod, Criteria, criterion, eq,
+  ComparisonMethod,
   Field,
   from,
   GroupColumnSet,
@@ -20,20 +17,8 @@ import {
   Year
 } from "@squashql/squashql-js"
 import {spending} from "@/app/lib/tables"
-import {isMeasureProviderType, MeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
-import {PercentOfParentAlongAncestors, toCriteria} from "@/app/lib/queries"
-
-export class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
-  readonly class: string = ""
-
-  constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
-  }
-
-  create(ancestors: Field[]): Measure {
-    const ratio = comparisonMeasureWithGrandTotalAlongAncestors("percent_of_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
-    return multiply(this.alias, integer(100), ratio)
-  }
-}
+import {isMeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
+import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors, toCriteria} from "@/app/lib/queries"
 
 const amount = sum("amount", spending.amount)
 const popOfRow = new CompareWithGrandTotalAlongAncestors("amount - % on rows", amount, "row")
