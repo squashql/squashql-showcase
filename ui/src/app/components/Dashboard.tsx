@@ -5,6 +5,7 @@ import {Field, Measure, PivotTableQueryResult, TableField} from "@squashql/squas
 import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
+import HierarchicalMeasureBuilder from "@/app/components/HierarchicalMeasureBuilder"
 import TimeComparisonMeasureBuilder from "@/app/components/TimeComparisonMeasureBuilder"
 
 export interface Formatter {
@@ -149,6 +150,16 @@ export default function Dashboard(props: DashboardProps) {
                           copy.push(m as Measure)
                           setSelectableValues(copy)
                         }}/>
+              </div>
+              <div className="col py-2">
+                <HierarchicalMeasureBuilder
+                        measures={selectableValues.concat(values).map(m => (m as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        onNewMeasure={m => {
+                          const copy = [...selectableValues]
+                          copy.push(m as Measure)
+                          setSelectableValues(copy)
+                        }}
+                />
               </div>
               {props.elements}
             </div>

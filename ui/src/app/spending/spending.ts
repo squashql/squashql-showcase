@@ -23,7 +23,7 @@ import {spending} from "@/app/lib/tables"
 import {isMeasureProviderType, MeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
 import {PercentOfParentAlongAncestors, toCriteria} from "@/app/lib/queries"
 
-class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
+export class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
   readonly class: string = ""
 
   constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {

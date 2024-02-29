@@ -1,177 +1,156 @@
 import React, {ChangeEvent, useState} from "react"
-import {comparisonMeasureWithPeriod, ComparisonMethod, Field, Measure, Month, Year} from "@squashql/squashql-js"
+import {
+  comparisonMeasureWithGrandTotal,
+  comparisonMeasureWithPeriod,
+  ComparisonMethod,
+  Field, integer,
+  Measure,
+  Month,
+  multiply,
+  Year
+} from "@squashql/squashql-js"
 import {getElementString, SelectablePeriod, SelectedType} from "@/app/components/AxisSelector"
+import {PercentOfParentAlongAncestors} from "@/app/lib/queries"
+import {MeasureProviderType} from "@/app/lib/queryProvider";
+import {CompareWithGrandTotalAlongAncestors} from "@/app/spending/spending";
+import FloatingSelect from "@/app/components/FloatingSelect";
+import FloatingInputTextProps from "@/app/components/FloatingInputText";
+import FloatingInputText from "@/app/components/FloatingInputText";
 
 interface HierarchicalMeasureBuilderProps {
   measures: Measure[]
-  fields: Field[]
-  newMeasureHandler: (m: Measure) => void
+  onNewMeasure: (m: Measure | MeasureProviderType) => void
 }
 
 interface HierarchicalMeasureBuilderState {
   underlyingMeasure?: Measure
   alias: string | ""
-  comparisonMethod?: ComparisonMethod
+  type?: HierarchicalType
+}
+
+enum HierarchicalType {
+  GrandTotal = "% on Grand Total",
+  ParentOnRows = "% of parent on rows",
+  TotalOnRows = "% on rows",
+  ParentOnColumns = "% of parent on columns",
+  TotalOnColumns = "% on columns"
+}
+
+function hierarchicalTypeToHumanReadableString(type: HierarchicalType | undefined): string | undefined {
+  switch (type) {
+    case HierarchicalType.GrandTotal:
+      return "% on Grand Total"
+    case HierarchicalType.ParentOnRows:
+      return "% of parent on rows"
+    case HierarchicalType.TotalOnRows:
+      return "% on rows"
+    case HierarchicalType.ParentOnColumns:
+      return "% of parent on columns"
+    case HierarchicalType.TotalOnColumns:
+      return "% on columns"
+  }
 }
 
 const initialState = {
   alias: "",
 }
 
-const selectablePeriodElements: SelectablePeriod[] = ["Year", "Month"]
+const isString = (item: string | undefined): item is string => {
+  return !!item
+}
+const availableTypes = Object.values(HierarchicalType).map(a => hierarchicalTypeToHumanReadableString(a)).filter(isString)
 
 export default function HierarchicalMeasureBuilder(props: HierarchicalMeasureBuilderProps) {
   const [state, setState] = useState<HierarchicalMeasureBuilderState>(initialState)
 
   function createMeasureFromState() {
-    let measure
-    switch (state.period) {
-      case "Year":
-        if (state.year && state.underlyingMeasure && state.comparisonMethod && state.referencePosition.size > 0) {
-          measure = comparisonMeasureWithPeriod(state.alias, state.comparisonMethod, state.underlyingMeasure, state.referencePosition, new Year(state.year))
-        }
-        break
-      case "Month":
-        if (state.year && state.month && state.underlyingMeasure && state.comparisonMethod && state.referencePosition.size > 0) {
-          measure = comparisonMeasureWithPeriod(state.alias, state.comparisonMethod, state.underlyingMeasure, state.referencePosition, new Month(state.month, state.year))
-        }
-        break
-      default:
-        break
-    }
+    if (state.underlyingMeasure) {
+      let measure
+      switch (state.type) {
+        case HierarchicalType.GrandTotal:
+          measure = multiply(state.alias + " - % of Grand Total", comparisonMeasureWithGrandTotal("__" + state.alias + "__", ComparisonMethod.DIVIDE, state.underlyingMeasure), integer(100))
+          break
+        case HierarchicalType.ParentOnRows:
+          measure = new PercentOfParentAlongAncestors(state.alias + " - % parent on rows", state.underlyingMeasure, "row")
+          break
+        case HierarchicalType.TotalOnRows:
+          measure = new CompareWithGrandTotalAlongAncestors(state.alias + " - % on rows", state.underlyingMeasure, "row")
+          break
+        case HierarchicalType.ParentOnColumns:
+          measure = new PercentOfParentAlongAncestors(state.alias + " - % parent on columns", state.underlyingMeasure, "column")
+          break
+        case HierarchicalType.TotalOnColumns:
+          measure = new CompareWithGrandTotalAlongAncestors(state.alias + " - % on columns", state.underlyingMeasure, "column")
+          break
+      }
 
-    if (measure) {
-      props.newMeasureHandler(measure)
-      setState(initialState) // Clear everything
+      if (measure) {
+        props.onNewMeasure(measure)
+        setState(initialState) // Clear everything
+      }
     }
   }
 
   function canBuildMeasure(): boolean {
-    let periodIsOk = false
-    switch (state.period) {
-      case "Year":
-        periodIsOk = state.year !== undefined
-        break
-      case "Month":
-        periodIsOk = state.year !== undefined && state.month !== undefined
-        break
-    }
-    return state.underlyingMeasure !== undefined && state.period !== undefined && periodIsOk && state.alias !== "" && state.comparisonMethod !== undefined && state.referencePosition.size > 0
+    return state.underlyingMeasure !== undefined && state.type !== undefined && state.alias !== ""
   }
 
   return (
           <div>
             <button type="button" className="btn btn-sm btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#timeperiodcompModal">
-              Time period comparison
+                    data-bs-target="#hiercompModal">
+              Hierarchical comparison
             </button>
 
-            <div className="modal fade" id="timeperiodcompModal"
+            <div className="modal fade" id="hiercompModal"
                  tabIndex={-1}
-                 aria-labelledby="timeperiodcompModalLabel"
+                 aria-labelledby="hiercompModalLabel"
                  aria-hidden="true">
               <div className="modal-dialog">
                 <div className="modal-content">
                   <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="timeperiodcompModalLabel">Time period comparison</h1>
+                    <h1 className="modal-title fs-5" id="hiercompModalLabel">Time period comparison</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div className="modal-body">
 
                     {/*measure*/}
                     <div className="pb-1">
-                      {(renderSelect("measure", state.underlyingMeasure?.alias, props.measures, event => {
-                        const index = props.measures.map(v => getElementString(v)).indexOf(event.target.value)
-                        setState({
-                          ...state,
-                          underlyingMeasure: props.measures[index]
-                        })
-                      }))}
+                      <FloatingSelect label={"measure"}
+                                      value={state.underlyingMeasure?.alias}
+                                      fields={props.measures}
+                                      onChange={event => {
+                                        const index = props.measures.map(v => getElementString(v)).indexOf(event.target.value)
+                                        setState({
+                                          ...state,
+                                          underlyingMeasure: props.measures[index]
+                                        })
+                                      }}/>
                     </div>
 
-                    {/*period*/}
+                    {/*type*/}
                     <div className="pb-1">
-                      {(renderSelect("period", state.period, selectablePeriodElements, event => {
-                        if (event.target.value === "Year" || event.target.value === "Month") {
-                          setState({
-                            ...state,
-                            period: event.target.value
-                          })
-                        }
-                      }))}
-                    </div>
-
-                    {/*field(s) selection to build the selected period*/}
-                    <div className="pb-1">
-                      {state.period && renderSelectPeriod(state.period, state.year, state.month, props.fields,
-                              event => {
-                                const index = props.fields.map(v => getElementString(v)).indexOf(event.target.value)
-                                setState({
-                                  ...state,
-                                  year: props.fields[index]
-                                })
-                              },
-                              event => {
-                                const index = props.fields.map(v => getElementString(v)).indexOf(event.target.value)
-                                setState({
-                                  ...state,
-                                  month: props.fields[index]
-                                })
-                              }
-                      )}
-                    </div>
-
-                    {/*comparison method*/}
-                    <div className="pb-1">
-                      {state.period && renderSelect("comparison method", state.comparisonMethod && ComparisonMethod[state.comparisonMethod], Object.keys(ComparisonMethod), event => {
-                        const index = Object.keys(ComparisonMethod).map(v => getElementString(v)).indexOf(event.target.value)
-                        setState({
-                          ...state,
-                          comparisonMethod: Object.values(ComparisonMethod)[index]
-                        })
-                      })}
-                    </div>
-
-                    {/*reference position*/}
-                    <div className="pb-1">
-                      {state.period === "Year" && renderSelect("compare with", state.referencePositionLabel, ["previous year"], event => {
-                        if (state.year) {
-                          if (event.target.value === "previous year") {
-                            setState({
-                              ...state,
-                              referencePosition: new Map([[state.year, "y-1"]]),
-                              referencePositionLabel: event.target.value
-                            })
-                          }
-                        }
-                      })}
-                      {state.period === "Month" && renderSelect("compare with", state.referencePositionLabel, ["previous year, same month", "same year, previous month"], event => {
-                        if (state.year && state.month) {
-                          if (event.target.value === "previous year, same month") {
-                            setState({
-                              ...state,
-                              referencePosition: new Map([[state.year, "y-1"], [state.month, "m"]]),
-                              referencePositionLabel: event.target.value
-                            })
-                          } else if (event.target.value === "same year, previous month") {
-                            setState({
-                              ...state,
-                              referencePosition: new Map([[state.year, "y"], [state.month, "m-1"]]),
-                              referencePositionLabel: event.target.value
-                            })
-                          }
-                        }
-                      })}
+                      <FloatingSelect label={"type"}
+                                      value={hierarchicalTypeToHumanReadableString(state.type)}
+                                      fields={availableTypes}
+                                      onChange={event => {
+                                        const index = availableTypes.indexOf(event.target.value)
+                                        setState({
+                                          ...state,
+                                          type: Object.values(HierarchicalType)[index]
+                                        })
+                                      }}/>
                     </div>
 
                     {/*alias*/}
                     <div className="pb-1">
-                      {state.period && renderAlias(state.alias, event => {
-                        setState({
-                          ...state,
-                          alias: event.target.value
-                        })
-                      })}
+                      <FloatingInputText textValue={state.alias}
+                                         onChange={event => {
+                                           setState({
+                                             ...state,
+                                             alias: event.target.value
+                                           })
+                                         }}/>
                     </div>
                   </div>
 
@@ -185,57 +164,5 @@ export default function HierarchicalMeasureBuilder(props: HierarchicalMeasureBui
               </div>
             </div>
           </div>
-  )
-}
-
-function renderSelectPeriod(period: SelectablePeriod,
-                            year: Field | undefined,
-                            month: Field | undefined,
-                            fields: Field[],
-                            onYearChange: (event: ChangeEvent<HTMLSelectElement>) => void,
-                            onMonthChange: (event: ChangeEvent<HTMLSelectElement>) => void) {
-  switch (period) {
-    case "Year":
-      return (renderSelect("year", year && getElementString(year), fields, onYearChange))
-    case "Month":
-      return (
-              <div>
-                <div className="pb-1">
-                  {renderSelect("year", year && getElementString(year), fields, onYearChange)}
-                </div>
-                <div>
-                  {renderSelect("month", month && getElementString(month), fields, onMonthChange)}
-                </div>
-              </div>
-      )
-    default:
-      return undefined
-  }
-}
-
-function renderSelect(label: string, value: string | undefined, fields: SelectedType[] | SelectablePeriod[] | string[], onChange: (event: ChangeEvent<HTMLSelectElement>) => void) {
-  return (
-          <div className="form-floating">
-            <select className="form-select" id="floatingSelect" aria-label="Floating label select example"
-                    onChange={onChange}
-                    value={value === undefined ? 'DEFAULT' : value}>
-              <option key={-1} value={'DEFAULT'}>Select {label}</option>
-              {fields.map((element, index) =>
-                      <option key={index}
-                              value={getElementString(element)}>{getElementString(element)}</option>)}
-            </select>
-            <label htmlFor="floatingSelect">{label}</label>
-          </div>
-  )
-}
-
-function renderAlias(alias: string, onChange: (event: ChangeEvent<HTMLInputElement>) => void) {
-  return (
-          <form className="form-floating">
-            <input type="text" className="form-control" id="measureAliasInput"
-                   value={alias}
-                   onChange={onChange}/>
-            <label htmlFor="measureAliasInput" className="form-label">alias</label>
-          </form>
   )
 }
