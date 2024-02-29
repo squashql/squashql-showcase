@@ -1,21 +1,11 @@
-import React, {ChangeEvent, useState} from "react"
-import {
-  comparisonMeasureWithGrandTotal,
-  comparisonMeasureWithPeriod,
-  ComparisonMethod,
-  Field, integer,
-  Measure,
-  Month,
-  multiply,
-  Year
-} from "@squashql/squashql-js"
-import {getElementString, SelectablePeriod, SelectedType} from "@/app/components/AxisSelector"
+import React, {useState} from "react"
+import {comparisonMeasureWithGrandTotal, ComparisonMethod, integer, Measure, multiply} from "@squashql/squashql-js"
+import {getElementString} from "@/app/components/AxisSelector"
 import {PercentOfParentAlongAncestors} from "@/app/lib/queries"
-import {MeasureProviderType} from "@/app/lib/queryProvider";
-import {CompareWithGrandTotalAlongAncestors} from "@/app/spending/spending";
-import FloatingSelect from "@/app/components/FloatingSelect";
-import FloatingInputTextProps from "@/app/components/FloatingInputText";
-import FloatingInputText from "@/app/components/FloatingInputText";
+import {MeasureProviderType} from "@/app/lib/queryProvider"
+import {CompareWithGrandTotalAlongAncestors} from "@/app/spending/spending"
+import FloatingSelect from "@/app/components/FloatingSelect"
+import FloatingInputText from "@/app/components/FloatingInputText"
 
 interface HierarchicalMeasureBuilderProps {
   measures: Measure[]

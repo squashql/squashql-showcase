@@ -11,8 +11,7 @@ import {
 } from "@squashql/squashql-js"
 import {getElementString, SelectablePeriod} from "@/app/components/AxisSelector"
 import FloatingSelect from "@/app/components/FloatingSelect"
-import FloatingInputTextProps from "@/app/components/FloatingInputText";
-import FloatingInputText from "@/app/components/FloatingInputText";
+import FloatingInputText from "@/app/components/FloatingInputText"
 
 interface TimeComparisonMeasureBuilderProps {
   measures: Measure[]

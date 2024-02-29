@@ -38,7 +38,7 @@ export default function FiltersSelector(props: FiltersSelectorProps) {
   }, [props.table._name, props.filters, props.field])
 
   function onChange(values: readonly Option[], action: ActionMeta<Option>) {
-    const valuesSt = values.map(v => v.value);
+    const valuesSt = values.map(v => v.value)
     props.filters.set(props.field, valuesSt)
     props.onFilterChange(props.field, valuesSt)
   }

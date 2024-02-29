@@ -27,7 +27,7 @@ export class QueryExecutor {
         rows,
         columns,
       }
-      const query = queryProvider.query(select, values, filters, pivotConfig);
+      const query = queryProvider.query(select, values, filters, pivotConfig)
       query.minify = minify
       return this.querier.executePivotQuery(query, pivotConfig)
     }

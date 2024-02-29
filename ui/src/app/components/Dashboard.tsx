@@ -167,5 +167,5 @@ export default function Dashboard(props: DashboardProps) {
             {pivotQueryResult !== undefined ?
                     <PivotTable result={pivotQueryResult} formatters={props.formatters}/> : undefined}
           </div>
-  );
+  )
 }

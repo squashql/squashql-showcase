@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 import {url} from "@/app/lib/constants"
 
 export default axios.create({

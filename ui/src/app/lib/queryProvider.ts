@@ -1,5 +1,5 @@
 import {Field, Measure, PivotConfig, Query, QueryMerge} from "@squashql/squashql-js"
-import {SquashQLTable} from "@/app/lib/tables";
+import {SquashQLTable} from "@/app/lib/tables"
 
 export interface QueryProvider {
   /**
