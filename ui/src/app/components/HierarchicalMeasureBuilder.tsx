@@ -18,26 +18,17 @@ interface HierarchicalMeasureBuilderState {
 }
 
 enum HierarchicalType {
-  GrandTotal = "% on Grand Total",
-  ParentOnRows = "% of parent on rows",
-  TotalOnRows = "% on rows",
-  ParentOnColumns = "% of parent on columns",
-  TotalOnColumns = "% on columns"
+  GrandTotal = "% on grand total",
+  ParentOnRows = "% of parent of row",
+  TotalOnRows = "% of row",
+  ParentOnColumns = "% of parent of column",
+  TotalOnColumns = "% of column"
 }
 
 function hierarchicalTypeToHumanReadableString(type: HierarchicalType | undefined): string | undefined {
-  switch (type) {
-    case HierarchicalType.GrandTotal:
-      return "% on Grand Total"
-    case HierarchicalType.ParentOnRows:
-      return "% of parent on rows"
-    case HierarchicalType.TotalOnRows:
-      return "% on rows"
-    case HierarchicalType.ParentOnColumns:
-      return "% of parent on columns"
-    case HierarchicalType.TotalOnColumns:
-      return "% on columns"
-  }
+  return Object.values(HierarchicalType)
+          .filter(a => a === type)
+          .filter(isString)[0]
 }
 
 const initialState = {
@@ -47,6 +38,8 @@ const initialState = {
 const isString = (item: string | undefined): item is string => {
   return !!item
 }
+
+// Last filter to indicate to TS compiler that array does not contain any undefined
 const availableTypes = Object.values(HierarchicalType).map(a => hierarchicalTypeToHumanReadableString(a)).filter(isString)
 
 export default function HierarchicalMeasureBuilder(props: HierarchicalMeasureBuilderProps) {
@@ -57,19 +50,19 @@ export default function HierarchicalMeasureBuilder(props: HierarchicalMeasureBui
       let measure
       switch (state.type) {
         case HierarchicalType.GrandTotal:
-          measure = multiply(state.alias + " - % of Grand Total", comparisonMeasureWithGrandTotal("__" + state.alias + "__", ComparisonMethod.DIVIDE, state.underlyingMeasure), integer(100))
+          measure = multiply(state.alias, comparisonMeasureWithGrandTotal("__" + state.alias + "__", ComparisonMethod.DIVIDE, state.underlyingMeasure), integer(100))
           break
         case HierarchicalType.ParentOnRows:
-          measure = new PercentOfParentAlongAncestors(state.alias + " - % parent on rows", state.underlyingMeasure, "row")
+          measure = new PercentOfParentAlongAncestors(state.alias, state.underlyingMeasure, "column")
           break
         case HierarchicalType.TotalOnRows:
-          measure = new CompareWithGrandTotalAlongAncestors(state.alias + " - % on rows", state.underlyingMeasure, "row")
+          measure = new CompareWithGrandTotalAlongAncestors(state.alias, state.underlyingMeasure, "column")
           break
         case HierarchicalType.ParentOnColumns:
-          measure = new PercentOfParentAlongAncestors(state.alias + " - % parent on columns", state.underlyingMeasure, "column")
+          measure = new PercentOfParentAlongAncestors(state.alias, state.underlyingMeasure, "row")
           break
         case HierarchicalType.TotalOnColumns:
-          measure = new CompareWithGrandTotalAlongAncestors(state.alias + " - % on columns", state.underlyingMeasure, "column")
+          measure = new CompareWithGrandTotalAlongAncestors(state.alias, state.underlyingMeasure, "row")
           break
       }
 
@@ -82,6 +75,14 @@ export default function HierarchicalMeasureBuilder(props: HierarchicalMeasureBui
 
   function canBuildMeasure(): boolean {
     return state.underlyingMeasure !== undefined && state.type !== undefined && state.alias !== ""
+  }
+
+  function suggestedAlias(underlyingMeasure: Measure | undefined, type: HierarchicalType | undefined): string {
+    if (state.alias === "" && underlyingMeasure && type) {
+      return underlyingMeasure.alias + " - " + hierarchicalTypeToHumanReadableString(type)
+    } else {
+      return state.alias
+    }
   }
 
   return (
@@ -110,9 +111,13 @@ export default function HierarchicalMeasureBuilder(props: HierarchicalMeasureBui
                                       fields={props.measures}
                                       onChange={event => {
                                         const index = props.measures.map(v => getElementString(v)).indexOf(event.target.value)
-                                        setState({
-                                          ...state,
-                                          underlyingMeasure: props.measures[index]
+                                        const underlyingMeasure = props.measures[index]
+                                        setState((prevState) => {
+                                          return {
+                                            ...state,
+                                            underlyingMeasure,
+                                            alias: suggestedAlias(underlyingMeasure, prevState.type)
+                                          }
                                         })
                                       }}/>
                     </div>
@@ -124,9 +129,13 @@ export default function HierarchicalMeasureBuilder(props: HierarchicalMeasureBui
                                       fields={availableTypes}
                                       onChange={event => {
                                         const index = availableTypes.indexOf(event.target.value)
-                                        setState({
-                                          ...state,
-                                          type: Object.values(HierarchicalType)[index]
+                                        const type = Object.values(HierarchicalType)[index]
+                                        setState((prevState) => {
+                                          return {
+                                            ...state,
+                                            type,
+                                            alias: suggestedAlias(prevState.underlyingMeasure, type)
+                                          }
                                         })
                                       }}/>
                     </div>
