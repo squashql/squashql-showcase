@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState} from "react"
 import uploadFileService from "@/app/lib/upload-file-service"
 
 const initialState = {
@@ -25,7 +25,7 @@ export default function UploadFile(props: UploadFileProps) {
   }
 
   function upload() {
-    const currentFile = state.selectedFiles[0];
+    const currentFile = state.selectedFiles[0]
 
     setState({
       currentFile: currentFile,
@@ -54,15 +54,15 @@ export default function UploadFile(props: UploadFileProps) {
     currentFile,
     progress,
     message,
-  } = state;
+  } = state
 
   return (
           <div>
             <div className="row row-cols-auto">
-              <div className="col py-2">
+              <div className="col px-1 py-2">
                 <input className="form-control form-control-sm" type="file" id="formFile" onChange={selectFile}/>
               </div>
-              <div className="col py-2">
+              <div className="col px-1 py-2">
                 <button className="btn btn-sm btn-success" disabled={!selectedFiles} onClick={upload}>Upload</button>
               </div>
               {message && (

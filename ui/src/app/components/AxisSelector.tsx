@@ -9,6 +9,7 @@ export enum AxisType {
 }
 
 export type SelectedType = Field | Measure
+export type SelectablePeriod = "Year" | "Month"
 
 interface AxisSelectorProps {
   type: AxisType,
@@ -44,8 +45,10 @@ function isAliasedField(element: any): element is AliasedField {
   return element.alias
 }
 
-function getElementString(element: SelectedType): string {
-  if (isMeasure(element)) {
+export function getElementString(element: SelectedType | SelectablePeriod | string): string {
+  if (typeof element === "string") {
+    return element
+  } else if (isMeasure(element)) {
     return element.alias
   } else if (isTableField(element)) {
     return element.fullName

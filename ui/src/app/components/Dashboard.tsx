@@ -5,7 +5,9 @@ import {Field, Measure, PivotTableQueryResult, TableField} from "@squashql/squas
 import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
-import {spending} from "@/app/lib/tables"
+import HierarchicalMeasureBuilder from "@/app/components/HierarchicalMeasureBuilder"
+import TimeComparisonMeasureBuilder from "@/app/components/TimeComparisonMeasureBuilder"
+import CalculatedMeasureBuilder from "@/app/components/CalculatedMeasureBuilder"
 
 export interface Formatter {
   field: string
@@ -14,7 +16,7 @@ export interface Formatter {
 
 interface DashboardProps {
   title: string
-  queryProvider: QueryProvider,
+  queryProvider: QueryProvider
   formatters?: Formatter[]
   elements?: React.JSX.Element[]
 }
@@ -24,7 +26,6 @@ const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: fa
 const FiltersSelector = dynamic(() => import("@/app/components/FiltersSelector"), {ssr: false})
 
 export default function Dashboard(props: DashboardProps) {
-
   const queryProvider = props.queryProvider
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
   const [rows, setRows] = useState<SelectedType[]>([])
@@ -133,15 +134,42 @@ export default function Dashboard(props: DashboardProps) {
                                      onFilterChange={onFilterChange}/>))}
             {/* Refresh button + Minify option + other elements */}
             <div className="row row-cols-auto">
-              <div className="col">
-                <button className="btn btn-ligth" onClick={refreshFromState}>Refresh</button>
-              </div>
               <div className="col py-2">
+                <button type="button" className="btn btn-sm btn-light" onClick={refreshFromState}>Refresh</button>
+              </div>
+              <div className="col px-1 py-2">
                 <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked={minify}
                        onChange={toggleMinify}/>
-                <label className="form-check-label px-1" htmlFor="flexCheckChecked">
-                  Minify
-                </label>
+                <label className="form-check-label px-1" htmlFor="flexCheckChecked">Minify</label>
+              </div>
+              <div className="col px-1 py-2">
+                <CalculatedMeasureBuilder
+                        measures={selectableValues.concat(values).map(m => (m as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        onNewMeasure={m => {
+                          const copy = [...selectableValues]
+                          copy.push(m as Measure)
+                          setSelectableValues(copy)
+                        }}/>
+              </div>
+              <div className="col px-1 py-2">
+                <TimeComparisonMeasureBuilder
+                        measures={selectableValues.concat(values).map(m => (m as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        fields={queryProvider.selectableFields}
+                        onNewMeasure={m => {
+                          const copy = [...selectableValues]
+                          copy.push(m as Measure)
+                          setSelectableValues(copy)
+                        }}/>
+              </div>
+              <div className="col px-1 py-2">
+                <HierarchicalMeasureBuilder
+                        measures={selectableValues.concat(values).map(m => (m as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        onNewMeasure={m => {
+                          const copy = [...selectableValues]
+                          copy.push(m as Measure)
+                          setSelectableValues(copy)
+                        }}
+                />
               </div>
               {props.elements}
             </div>

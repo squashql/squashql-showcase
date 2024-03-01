@@ -1,16 +1,23 @@
 import {
   all,
   any,
+  comparisonMeasureWithGrandTotalAlongAncestors,
   comparisonMeasureWithParent,
-  ComparisonMethod, Criteria, criterion, eq,
-  Field, integer,
-  Measure, multiply, ParametrizedMeasure,
+  ComparisonMethod,
+  Criteria,
+  criterion,
+  eq,
+  Field,
+  integer,
+  Measure,
+  multiply,
+  ParametrizedMeasure,
   PivotConfig,
   Querier,
   TableField
 } from "@squashql/squashql-js"
 
-import {MeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
+import {QueryProvider} from "@/app/lib/queryProvider"
 import {url} from "@/app/lib/constants"
 import {portfolio} from "@/app/lib/tables"
 
@@ -27,11 +34,33 @@ export class QueryExecutor {
         rows,
         columns,
       }
-      const query = queryProvider.query(select, values, filters, pivotConfig);
+
+      const measures = values.map(m => {
+        if (isMeasureProviderType(m) && m.axis === "row") {
+          return m.create(pivotConfig.rows)
+        } else if (isMeasureProviderType(m) && m.axis === "column") {
+          return m.create(pivotConfig.columns)
+        }
+        return m
+      })
+
+      const query = queryProvider.query(select, measures, filters, pivotConfig)
       query.minify = minify
       return this.querier.executePivotQuery(query, pivotConfig)
     }
   }
+}
+
+export interface MeasureProvider {
+  create(ancestors: Field[]): Measure
+
+  axis: "row" | "column"
+}
+
+export type MeasureProviderType = Measure & MeasureProvider
+
+function isMeasureProviderType(m: Measure): m is MeasureProviderType {
+  return "create" in m && "axis" in m
 }
 
 export class PercentOfParentAlongAncestors implements MeasureProviderType {
@@ -69,6 +98,18 @@ export function toCriteria(filters: Map<Field, any[]>): Criteria {
     sqlFilters.push(f)
   })
   return all(sqlFilters)
+}
+
+export class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
+  readonly class: string = ""
+
+  constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
+  }
+
+  create(ancestors: Field[]): Measure {
+    const ratio = comparisonMeasureWithGrandTotalAlongAncestors("percent_of_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
+    return multiply(this.alias, integer(100), ratio)
+  }
 }
 
 export const queryExecutor: QueryExecutor = new QueryExecutor()

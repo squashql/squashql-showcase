@@ -1,11 +1,8 @@
 import {
-  all,
-  any,
   comparisonMeasureWithGrandTotal,
-  comparisonMeasureWithGrandTotalAlongAncestors,
   comparisonMeasureWithinSameGroup,
   comparisonMeasureWithPeriod,
-  ComparisonMethod, Criteria, criterion, eq,
+  ComparisonMethod,
   Field,
   from,
   GroupColumnSet,
@@ -20,27 +17,15 @@ import {
   Year
 } from "@squashql/squashql-js"
 import {spending} from "@/app/lib/tables"
-import {isMeasureProviderType, MeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
-import {PercentOfParentAlongAncestors, toCriteria} from "@/app/lib/queries"
-
-class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
-  readonly class: string = ""
-
-  constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
-  }
-
-  create(ancestors: Field[]): Measure {
-    const ratio = comparisonMeasureWithGrandTotalAlongAncestors("percent_of_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
-    return multiply(this.alias, integer(100), ratio)
-  }
-}
+import {QueryProvider} from "@/app/lib/queryProvider"
+import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors, toCriteria} from "@/app/lib/queries"
 
 const amount = sum("amount", spending.amount)
-const popOfRow = new CompareWithGrandTotalAlongAncestors("amount - % on rows", amount, "row")
-const popOfParentOnRows = new PercentOfParentAlongAncestors("amount - % parent on rows", amount, "row")
-const popOfCol = new CompareWithGrandTotalAlongAncestors("amount - % on columns", amount, "column")
-const popOfParentOnCols = new PercentOfParentAlongAncestors("amount - % parent on columns", amount, "column")
-const popOfGT = multiply("amount - % of Grand Total", comparisonMeasureWithGrandTotal("amount_percent_gt", ComparisonMethod.DIVIDE, amount), integer(100))
+const popOfRow = new CompareWithGrandTotalAlongAncestors("amount - % of row", amount, "column")
+const popOfParentOnRows = new PercentOfParentAlongAncestors("amount - % of parent of row", amount, "column")
+const popOfCol = new CompareWithGrandTotalAlongAncestors("amount - % on column", amount, "row")
+const popOfParentOnCols = new PercentOfParentAlongAncestors("amount - % of parent of column", amount, "row")
+const popOfGT = multiply("amount - % of grand total", comparisonMeasureWithGrandTotal("amount_percent_gt", ComparisonMethod.DIVIDE, amount), integer(100))
 
 const groupOfCountries = new TableField("group of countries")
 const countryGroups = new Map(Object.entries({
@@ -77,22 +62,13 @@ export class SpendingQueryProvider implements QueryProvider {
   readonly table = [spending]
 
   query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
-    const measures = values.map(m => {
-      if (isMeasureProviderType(m) && m.axis === "row") {
-        return m.create(pivotConfig.rows)
-      } else if (isMeasureProviderType(m) && m.axis === "column") {
-        return m.create(pivotConfig.columns)
-      }
-      return m
-    })
-
     const gocIndex = select.indexOf(groupOfCountries)
     select = select.filter(f => f !== groupOfCountries)
     const columnSets = gocIndex >= 0 ? [new GroupColumnSet(groupOfCountries, spending.country, countryGroups)] : []
 
     return from(spending._name)
             .where(toCriteria(filters))
-            .select(select, columnSets, measures)
+            .select(select, columnSets, values)
             .build()
   }
 }
