@@ -25,8 +25,6 @@ export default function Page() {
 
   return (
           <div className="ms-1 mt-1">
-            <Card link={"monthly-forecast"} tables={["forecast"]}
-                  features={["(work in progress)"]}/>
             <Card link={"tutorial"} tables={["budget"]}
                   features={["Time-series comparison", "Multiple bucketing", "conditional aggregation"]}/>
             <Card link={"spending"} tables={["spending"]}

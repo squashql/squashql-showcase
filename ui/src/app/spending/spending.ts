@@ -17,7 +17,7 @@ import {
   Year
 } from "@squashql/squashql-js"
 import {spending} from "@/app/lib/tables"
-import {isMeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
+import {QueryProvider} from "@/app/lib/queryProvider"
 import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors, toCriteria} from "@/app/lib/queries"
 
 const amount = sum("amount", spending.amount)
@@ -62,22 +62,13 @@ export class SpendingQueryProvider implements QueryProvider {
   readonly table = [spending]
 
   query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
-    const measures = values.map(m => {
-      if (isMeasureProviderType(m) && m.axis === "row") {
-        return m.create(pivotConfig.rows)
-      } else if (isMeasureProviderType(m) && m.axis === "column") {
-        return m.create(pivotConfig.columns)
-      }
-      return m
-    })
-
     const gocIndex = select.indexOf(groupOfCountries)
     select = select.filter(f => f !== groupOfCountries)
     const columnSets = gocIndex >= 0 ? [new GroupColumnSet(groupOfCountries, spending.country, countryGroups)] : []
 
     return from(spending._name)
             .where(toCriteria(filters))
-            .select(select, columnSets, measures)
+            .select(select, columnSets, values)
             .build()
   }
 }

@@ -1,24 +1,23 @@
 import {
   all,
-  comparisonMeasureWithPeriod,
-  ComparisonMethod,
-  criterion, divide,
+  criterion,
+  divide,
   eq,
   Field,
   from,
   integer,
   Measure,
-  multiply, neq,
-  PivotConfig, plus,
+  multiply,
+  neq,
+  PivotConfig,
   Query,
   QueryMerge,
   sum,
-  sumIf,
-  Year
+  sumIf
 } from "@squashql/squashql-js"
 import {forecast} from "@/app/lib/tables"
-import {isMeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
-import {PercentOfParentAlongAncestors, toCriteria} from "@/app/lib/queries"
+import {QueryProvider} from "@/app/lib/queryProvider"
+import {toCriteria} from "@/app/lib/queries"
 
 const value = sum("value", forecast.accrual)
 const revenue = sumIf("Revenue", forecast.accrual, criterion(forecast.pnl, eq("Revenue")))
@@ -29,6 +28,10 @@ const decSubscription = multiply("Dec. Subscription", sumIf("__dec__subscription
   criterion(forecast.accrualMonth, eq(12)),
 ])), integer(12))
 const marginRate = multiply("margin %", divide("__margin__", value, revenue), integer(100))
+
+////////////////////////////////////////////////////////////////
+// Commented because we can build those measures from the UI ///
+////////////////////////////////////////////////////////////////
 
 // const yoyPerc = multiply("YoY % value Growth", comparisonMeasureWithPeriod(
 //         "__yoy_perc_value",
@@ -60,39 +63,20 @@ const marginRate = multiply("margin %", divide("__margin__", value, revenue), in
 //         decSubscription,
 //         new Map([[forecast.accrualYear, "y-1"]]),
 //         new Year(forecast.accrualYear)), integer(100))
-// const ebitda = plus("EBITDA", yoyPerc, growth)
-
 // const popOfParentOnRowsRevenue = new PercentOfParentAlongAncestors("Revenue - % parent on rows", revenue, "row")
 // const popOfParentOnRowsNotRevenue = new PercentOfParentAlongAncestors("Expense - % parent on rows", expense, "row")
+// const ebitda = plus("EBITDA", yoyPerc, growth)
 
-
-export class ForecastQueryProvider implements QueryProvider {
+export class MonthlyForecastQueryProvider implements QueryProvider {
 
   readonly selectableFields = forecast._fields
-  readonly measures = [value,
-    marginRate,
-    // yoyPerc, yoyAbs,
-    // growth, ebitda,
-    // growthSubscription, decGrowthSubscription,
-    // popOfParentOnRowsRevenue, popOfParentOnRowsNotRevenue,
-    revenue, expense,
-    subscription, decSubscription,
-  ]
+  readonly measures = [value, marginRate, revenue, expense, subscription, decSubscription]
   readonly table = [forecast]
 
   query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
-    const measures = values.map(m => {
-      if (isMeasureProviderType(m) && m.axis === "row") {
-        return m.create(pivotConfig.rows)
-      } else if (isMeasureProviderType(m) && m.axis === "column") {
-        return m.create(pivotConfig.columns)
-      }
-      return m
-    })
-
     return from(forecast._name)
             .where(toCriteria(filters))
-            .select(select, [], measures)
+            .select(select, [], values)
             .build()
   }
 }

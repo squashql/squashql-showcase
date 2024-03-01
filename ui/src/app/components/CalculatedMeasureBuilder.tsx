@@ -1,10 +1,10 @@
 import React, {useState} from "react"
 import {Measure} from "@squashql/squashql-js"
 import {getElementString} from "@/app/components/AxisSelector"
-import {MeasureProviderType} from "@/app/lib/queryProvider"
 import FloatingSelect from "@/app/components/FloatingSelect"
 import FloatingInputText from "@/app/components/FloatingInputText"
 import {BinaryOperationMeasure, BinaryOperator} from "@squashql/squashql-js/dist/measure"
+import {MeasureProviderType} from "@/app/lib/queries"
 
 interface CalculatedMeasureBuilderProps {
   measures: Measure[]

@@ -1,8 +1,11 @@
 import React, {useState} from "react"
 import {comparisonMeasureWithGrandTotal, ComparisonMethod, integer, Measure, multiply} from "@squashql/squashql-js"
 import {getElementString} from "@/app/components/AxisSelector"
-import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors} from "@/app/lib/queries"
-import {MeasureProviderType} from "@/app/lib/queryProvider"
+import {
+  CompareWithGrandTotalAlongAncestors,
+  MeasureProviderType,
+  PercentOfParentAlongAncestors
+} from "@/app/lib/queries"
 import FloatingSelect from "@/app/components/FloatingSelect"
 import FloatingInputText from "@/app/components/FloatingInputText"
 

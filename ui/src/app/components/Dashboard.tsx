@@ -7,7 +7,7 @@ import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import HierarchicalMeasureBuilder from "@/app/components/HierarchicalMeasureBuilder"
 import TimeComparisonMeasureBuilder from "@/app/components/TimeComparisonMeasureBuilder"
-import CalculatedMeasureBuilder from "@/app/components/CalculatedMeasureBuilder";
+import CalculatedMeasureBuilder from "@/app/components/CalculatedMeasureBuilder"
 
 export interface Formatter {
   field: string
