@@ -67,7 +67,7 @@ const marginRate = multiply("margin %", divide("__margin__", value, revenue), in
 // const popOfParentOnRowsNotRevenue = new PercentOfParentAlongAncestors("Expense - % parent on rows", expense, "row")
 // const ebitda = plus("EBITDA", yoyPerc, growth)
 
-export class MonthlyForecastQueryProvider implements QueryProvider {
+export class ForecastQueryProvider implements QueryProvider {
 
   readonly selectableFields = forecast._fields
   readonly measures = [value, marginRate, revenue, expense, subscription, decSubscription]
