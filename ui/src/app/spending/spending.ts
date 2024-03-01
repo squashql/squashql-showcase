@@ -21,11 +21,11 @@ import {isMeasureProviderType, QueryProvider} from "@/app/lib/queryProvider"
 import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors, toCriteria} from "@/app/lib/queries"
 
 const amount = sum("amount", spending.amount)
-const popOfRow = new CompareWithGrandTotalAlongAncestors("amount - % on rows", amount, "row")
-const popOfParentOnRows = new PercentOfParentAlongAncestors("amount - % parent on rows", amount, "row")
-const popOfCol = new CompareWithGrandTotalAlongAncestors("amount - % on columns", amount, "column")
-const popOfParentOnCols = new PercentOfParentAlongAncestors("amount - % parent on columns", amount, "column")
-const popOfGT = multiply("amount - % of Grand Total", comparisonMeasureWithGrandTotal("amount_percent_gt", ComparisonMethod.DIVIDE, amount), integer(100))
+const popOfRow = new CompareWithGrandTotalAlongAncestors("amount - % of row", amount, "column")
+const popOfParentOnRows = new PercentOfParentAlongAncestors("amount - % of parent of row", amount, "column")
+const popOfCol = new CompareWithGrandTotalAlongAncestors("amount - % on column", amount, "row")
+const popOfParentOnCols = new PercentOfParentAlongAncestors("amount - % of parent of column", amount, "row")
+const popOfGT = multiply("amount - % of grand total", comparisonMeasureWithGrandTotal("amount_percent_gt", ComparisonMethod.DIVIDE, amount), integer(100))
 
 const groupOfCountries = new TableField("group of countries")
 const countryGroups = new Map(Object.entries({

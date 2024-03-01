@@ -7,6 +7,7 @@ import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import HierarchicalMeasureBuilder from "@/app/components/HierarchicalMeasureBuilder"
 import TimeComparisonMeasureBuilder from "@/app/components/TimeComparisonMeasureBuilder"
+import CalculatedMeasureBuilder from "@/app/components/CalculatedMeasureBuilder";
 
 export interface Formatter {
   field: string
@@ -140,6 +141,15 @@ export default function Dashboard(props: DashboardProps) {
                 <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked={minify}
                        onChange={toggleMinify}/>
                 <label className="form-check-label px-1" htmlFor="flexCheckChecked">Minify</label>
+              </div>
+              <div className="col px-1 py-2">
+                <CalculatedMeasureBuilder
+                        measures={selectableValues.concat(values).map(m => (m as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        onNewMeasure={m => {
+                          const copy = [...selectableValues]
+                          copy.push(m as Measure)
+                          setSelectableValues(copy)
+                        }}/>
               </div>
               <div className="col px-1 py-2">
                 <TimeComparisonMeasureBuilder
