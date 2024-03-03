@@ -1,6 +1,6 @@
 import {SheetComponent} from '@antv/s2-react'
 import React from "react"
-import {Data, S2DataConfig} from "@antv/s2"
+import {Data, S2DataConfig, setLang} from "@antv/s2"
 import {PivotTableQueryResult} from "@squashql/squashql-js"
 import {Formatter} from "@/app/components/Dashboard"
 import {formatNumber} from "@/app/lib/utils"
@@ -18,6 +18,8 @@ export default function PivotTable(props: PivotTableProps) {
     return
   }
 
+  setLang("en_US")
+
   const hierarchyType: 'grid' | 'tree' | 'customTree' = 'tree'
   const options = {
     height: props.height === undefined ? window.innerHeight - 20 : props.height,
@@ -33,6 +35,8 @@ export default function PivotTable(props: PivotTableProps) {
     interaction: {
       selectedCellsSpotlight: true,
       hoverHighlight: true,
+      enableCopy: true,
+      copyWithHeader: true,
     },
     totals: {
       row: {
@@ -54,11 +58,21 @@ export default function PivotTable(props: PivotTableProps) {
     }
   }
 
+  const themeCfg = {
+    palette: s2Palette
+  }
+  const header = {
+    exportCfg: {
+      open: true
+    }
+  }
+
   return (
           <div>
-            <SheetComponent dataCfg={buildData(props.result, props.formatters)} options={options} themeCfg={{
-              palette: s2Palette
-            }}/>
+            <SheetComponent dataCfg={buildData(props.result, props.formatters)}
+                            options={options}
+                            themeCfg={themeCfg}
+                            header={header}/>
           </div>
   )
 }
