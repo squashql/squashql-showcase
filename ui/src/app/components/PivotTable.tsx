@@ -2,29 +2,31 @@ import {SheetComponent} from '@antv/s2-react'
 import React from "react"
 import {Data, S2DataConfig, setLang} from "@antv/s2"
 import {PivotTableQueryResult} from "@squashql/squashql-js"
-import {Formatter} from "@/app/components/Dashboard"
+import {Formatter, HierarchyType} from "@/app/components/Dashboard"
 import {formatNumber} from "@/app/lib/utils"
+import {AxisType} from "@/app/components/AxisSelector";
 
 interface PivotTableProps {
   result: PivotTableQueryResult,
+  hierarchyType: HierarchyType,
   height?: number,
   width?: number,
   formatters?: Formatter[]
 }
 
-function showGrandTotals(rows: string[], hiddenTotals: string[]) {
-  if (rows.length > 0) {
-    return hiddenTotals.indexOf(rows[0]) < 0
+function showGrandTotals(fields: string[], hiddenTotals: string[]) {
+  if (fields.length > 0) {
+    return hiddenTotals.indexOf(fields[0]) < 0
   }
   // Nothing on rows, only values, no need to display the GT
   return false
 }
 
-function subTotalsDimensions(rows: string[], hiddenTotals: string[]): string[] {
+function subTotalsDimensions(fields: string[], hiddenTotals: string[]): string[] {
   const a = []
-  for (let i = 0; i < rows.length - 1; i++) {
-    if (hiddenTotals.indexOf(rows[i + 1]) < 0) {
-      a.push(rows[i])
+  for (let i = 0; i < fields.length - 1; i++) {
+    if (hiddenTotals.indexOf(fields[i + 1]) < 0) {
+      a.push(fields[i])
     }
   }
   return a
@@ -37,20 +39,23 @@ export default function PivotTable(props: PivotTableProps) {
 
   setLang("en_US")
 
-  const hierarchyType: 'grid' | 'tree' | 'customTree' = 'grid'
+  const layoutWidthType: 'adaptive' | 'colAdaptive' | 'compact' = 'compact'
   const subTotalsDimensionsRows = subTotalsDimensions(props.result.rows, props.result.hiddenTotals)
   const subTotalsDimensionsOnColumns = subTotalsDimensions(props.result.columns, props.result.hiddenTotals)
 
   const options = {
     height: props.height === undefined ? window.innerHeight - 20 : props.height,
-    width: props.width === undefined ? window.innerWidth - 20 : props.width,
+    width: props.width === undefined ? window.innerWidth - 44 : props.width,
     showDefaultHeaderActionIcon: false,
-    hierarchyType,
+    hierarchyType: props.hierarchyType,
     tooltip: {
       showTooltip: true,
       row: {
         showTooltip: true,
       },
+    },
+    style: {
+      layoutWidthType,
     },
     interaction: {
       selectedCellsSpotlight: true,
@@ -106,7 +111,7 @@ function buildData(result: PivotTableQueryResult, formatters?: Formatter[]): S2D
     Object.entries(cell).forEach(entry => r[entry[0]] = formatNumber(entry[1]))
     data.push(r)
   })
-  console.log(data)
+
   return {
     fields: {
       rows: result.rows,

@@ -48,7 +48,6 @@ export class QueryExecutor {
 
       const query = queryProvider.query(select.map(e => e.type as TableField), measures, filters, pivotConfig)
       query.minify = minify
-      console.log(pivotConfig)
       return this.querier.executePivotQuery(query, pivotConfig)
     }
   }

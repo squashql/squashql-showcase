@@ -21,6 +21,8 @@ interface DashboardProps {
   elements?: React.JSX.Element[]
 }
 
+export type HierarchyType = 'grid' | 'tree' | 'customTree'
+
 function fieldToSelectableElement(f: Field) {
   return {
     type: f,
@@ -51,6 +53,7 @@ export default function Dashboard(props: DashboardProps) {
   const [values, setValues] = useState<SelectableElement[]>([])
   const [minify, setMinify] = useState<boolean>(true)
   const [filtersValues, setFiltersValues] = useState<Map<Field, any[]>>(new Map())
+  const [ptHierarchyType, setPtHierarchyType] = useState<HierarchyType>("tree")
 
   function refresh(newElements: SelectableElement[], type: AxisType) {
     let r = rows
@@ -108,58 +111,79 @@ export default function Dashboard(props: DashboardProps) {
     executeAndSetResult(rows, columns, values, copy, minify)
   }
 
+  function onChangePivotTableMode(mode: HierarchyType) {
+    setPtHierarchyType(mode)
+  }
+
   return (
-          <div>
+          <div className="container-fluid">
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><a href="../">Home</a></li>
                 <li className="breadcrumb-item active" aria-current="page">{props.title}</li>
               </ol>
             </nav>
-            <AxisSelector axisType={AxisType.ROWS}
-                          elements={rows}
-                          selectableElements={selectableElements}
-                          elementsDispatcher={setRows}
-                          selectableElementsDispatcher={setSelectableElements}
-                          queryResultDispatcher={refresh}
-                          showTotalsCheckBox={true}/>
-            <AxisSelector axisType={AxisType.COLUMNS}
-                          elements={columns}
-                          selectableElements={selectableElements}
-                          elementsDispatcher={setColumns}
-                          selectableElementsDispatcher={setSelectableElements}
-                          queryResultDispatcher={refresh}
-                          showTotalsCheckBox={true}/>
-            <AxisSelector axisType={AxisType.VALUES}
-                          elements={values}
-                          selectableElements={selectableValues}
-                          elementsDispatcher={setValues}
-                          selectableElementsDispatcher={setSelectableValues}
-                          queryResultDispatcher={refresh}
-                          showTotalsCheckBox={false}/>
-            <AxisSelector axisType={AxisType.FILTERS}
-                          elements={filters}
-                          selectableElements={selectableFilters}
-                          elementsDispatcher={setFilters}
-                          selectableElementsDispatcher={setSelectableFilters}
-                          queryResultDispatcher={refresh}
-                          showTotalsCheckBox={false}/>
-            {filters?.map((element, index) => (
-                    <FiltersSelector key={index}
-                                     table={queryProvider.table[0]} // FIXME it only handles 1 table for the time being
-                                     field={(element.type as Field)}
-                                     filters={filtersValues}
-                                     onFilterChange={onFilterChange}/>))}
+            <div className="row">
+              <AxisSelector axisType={AxisType.ROWS}
+                            elements={rows}
+                            selectableElements={selectableElements}
+                            elementsDispatcher={setRows}
+                            selectableElementsDispatcher={setSelectableElements}
+                            queryResultDispatcher={refresh}
+                            showTotalsCheckBox={true}/>
+              <AxisSelector axisType={AxisType.COLUMNS}
+                            elements={columns}
+                            selectableElements={selectableElements}
+                            elementsDispatcher={setColumns}
+                            selectableElementsDispatcher={setSelectableElements}
+                            queryResultDispatcher={refresh}
+                            showTotalsCheckBox={true}/>
+              <AxisSelector axisType={AxisType.VALUES}
+                            elements={values}
+                            selectableElements={selectableValues}
+                            elementsDispatcher={setValues}
+                            selectableElementsDispatcher={setSelectableValues}
+                            queryResultDispatcher={refresh}
+                            showTotalsCheckBox={false}/>
+              <AxisSelector axisType={AxisType.FILTERS}
+                            elements={filters}
+                            selectableElements={selectableFilters}
+                            elementsDispatcher={setFilters}
+                            selectableElementsDispatcher={setSelectableFilters}
+                            queryResultDispatcher={refresh}
+                            showTotalsCheckBox={false}/>
+              {filters?.map((element, index) => (
+                      <FiltersSelector key={index}
+                                       table={queryProvider.table[0]} // FIXME it only handles 1 table for the time being
+                                       field={(element.type as Field)}
+                                       filters={filtersValues}
+                                       onFilterChange={onFilterChange}/>))}
+            </div>
             {/* Refresh button + Minify option + other elements */}
             <div className="row row-cols-auto">
               <div className="col py-2">
                 <button type="button" className="btn btn-sm btn-light" onClick={refreshFromState}>Refresh</button>
               </div>
-              <div className="col px-1 py-2">
+              <div className="col px-0 py-2">
                 <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked={minify}
                        onChange={toggleMinify}/>
                 <label className="form-check-label px-1" htmlFor="flexCheckChecked">Minify</label>
               </div>
+
+              {/* Tree | Grid mode */}
+              <div className="col px-0 py-2">
+                <div className="form-check form-check-inline mx-1">
+                  <input className="form-check-input" type="radio" name="inlineRadioOptions" id="treeRadio"
+                         value="tree" checked={ptHierarchyType === "tree"} onChange={() => onChangePivotTableMode("tree")}/>
+                  <label className="form-check-label" htmlFor="treeRadio">tree</label>
+                </div>
+                <div className="form-check form-check-inline mx-1">
+                  <input className="form-check-input" type="radio" name="inlineRadioOptions" id="gridRadio"
+                         value="grid" checked={ptHierarchyType === "grid"} onChange={() => onChangePivotTableMode("grid")}/>
+                  <label className="form-check-label" htmlFor="gridRadio">grid</label>
+                </div>
+              </div>
+
               <div className="col px-1 py-2">
                 <CalculatedMeasureBuilder
                         measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
@@ -194,7 +218,9 @@ export default function Dashboard(props: DashboardProps) {
             {/* The pivot table */}
             <div className="row">
               {pivotQueryResult !== undefined ?
-                      <PivotTable result={pivotQueryResult} formatters={props.formatters}/> : undefined}
+                      <PivotTable result={pivotQueryResult}
+                                  hierarchyType={ptHierarchyType}
+                                  formatters={props.formatters}/> : undefined}
             </div>
           </div>
   )

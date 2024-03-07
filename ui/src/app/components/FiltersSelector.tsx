@@ -1,4 +1,4 @@
-import Select, {ActionMeta} from 'react-select'
+import Select, {ActionMeta} from "react-select"
 import {Field, from, QueryResult} from "@squashql/squashql-js"
 import {SquashQLTable} from "@/app/lib/tables"
 import {queryExecutor, toCriteria} from "@/app/lib/queries"

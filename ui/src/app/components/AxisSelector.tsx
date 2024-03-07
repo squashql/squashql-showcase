@@ -66,7 +66,7 @@ function getFieldOrMeasureString(element: Field | Measure) {
   }
 }
 
-export function getElementString(element: SelectableElement | SelectablePeriod | string): string {
+export function getElementString(element: Field | Measure | SelectableElement | SelectablePeriod | string): string {
   if (typeof element === "string") {
     return element
   } else if (isSelectableElement(element)) {

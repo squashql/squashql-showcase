@@ -1,10 +1,11 @@
-import {getElementString, SelectablePeriod, SelectableElement} from "@/app/components/AxisSelector"
+import {getElementString, SelectablePeriod} from "@/app/components/AxisSelector"
+import {Field, Measure} from "@squashql/squashql-js"
 import React, {ChangeEvent} from "react"
 
 interface FloatingSelectProps {
   label: string,
   value: string | undefined,
-  fields: SelectableElement[] | SelectablePeriod[] | string[],
+  fields: Field[] | Measure[] | SelectablePeriod[] | string[],
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void
 }
 
