@@ -9,8 +9,25 @@ interface PivotTableProps {
   result: PivotTableQueryResult,
   height?: number,
   width?: number,
-  colShowGrandTotal?: boolean,
   formatters?: Formatter[]
+}
+
+function showGrandTotals(rows: string[], hiddenTotals: string[]) {
+  if (rows.length > 0) {
+    return hiddenTotals.indexOf(rows[0]) < 0
+  }
+  // Nothing on rows, only values, no need to display the GT
+  return false
+}
+
+function subTotalsDimensions(rows: string[], hiddenTotals: string[]): string[] {
+  const a = []
+  for (let i = 0; i < rows.length - 1; i++) {
+    if (hiddenTotals.indexOf(rows[i + 1]) < 0) {
+      a.push(rows[i])
+    }
+  }
+  return a
 }
 
 export default function PivotTable(props: PivotTableProps) {
@@ -20,7 +37,10 @@ export default function PivotTable(props: PivotTableProps) {
 
   setLang("en_US")
 
-  const hierarchyType: 'grid' | 'tree' | 'customTree' = 'tree'
+  const hierarchyType: 'grid' | 'tree' | 'customTree' = 'grid'
+  const subTotalsDimensionsRows = subTotalsDimensions(props.result.rows, props.result.hiddenTotals)
+  const subTotalsDimensionsOnColumns = subTotalsDimensions(props.result.columns, props.result.hiddenTotals)
+
   const options = {
     height: props.height === undefined ? window.innerHeight - 20 : props.height,
     width: props.width === undefined ? window.innerWidth - 20 : props.width,
@@ -40,7 +60,8 @@ export default function PivotTable(props: PivotTableProps) {
     },
     totals: {
       row: {
-        showGrandTotals: true,
+        subTotalsDimensions: subTotalsDimensionsRows,
+        showGrandTotals: showGrandTotals(props.result.rows, props.result.hiddenTotals),
         showSubTotals: {always: true},
         reverseLayout: true,
         reverseSubLayout: true,
@@ -48,7 +69,8 @@ export default function PivotTable(props: PivotTableProps) {
         subLabel: "Total",
       },
       col: {
-        showGrandTotals: props.colShowGrandTotal === undefined ? true : props.colShowGrandTotal,
+        subTotalsDimensions: subTotalsDimensionsOnColumns,
+        showGrandTotals: showGrandTotals(props.result.columns, props.result.hiddenTotals),
         showSubTotals: {always: true},
         reverseLayout: true,
         reverseSubLayout: true,

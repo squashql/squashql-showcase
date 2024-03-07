@@ -1,7 +1,7 @@
 'use client'
 import React, {useState} from "react"
 import AxisSelector, {AxisType, SelectableElement} from "@/app/components/AxisSelector"
-import {Field, Measure, PivotTableQueryResult, TableField} from "@squashql/squashql-js"
+import {Field, Measure, PivotTableQueryResult} from "@squashql/squashql-js"
 import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
@@ -109,7 +109,7 @@ export default function Dashboard(props: DashboardProps) {
   }
 
   return (
-          <div className="px-1">
+          <div>
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><a href="../">Home</a></li>
@@ -192,8 +192,10 @@ export default function Dashboard(props: DashboardProps) {
               {props.elements}
             </div>
             {/* The pivot table */}
-            {pivotQueryResult !== undefined ?
-                    <PivotTable result={pivotQueryResult} formatters={props.formatters}/> : undefined}
+            <div className="row">
+              {pivotQueryResult !== undefined ?
+                      <PivotTable result={pivotQueryResult} formatters={props.formatters}/> : undefined}
+            </div>
           </div>
   )
 }

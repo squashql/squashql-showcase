@@ -34,7 +34,7 @@ export class QueryExecutor {
       const pivotConfig: PivotConfig = {
         rows: rows.map(r => r.type as TableField),
         columns: columns.map(r => r.type as TableField),
-        hideTotals: select.filter(e => !e.showTotals).map(e => e.type as TableField),
+        hiddenTotals: select.filter(e => !e.showTotals).map(e => e.type as TableField),
       }
 
       const measures = values.map(m => {
