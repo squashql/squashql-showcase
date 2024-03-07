@@ -1,10 +1,10 @@
-import {getElementString, SelectablePeriod, SelectedType} from "@/app/components/AxisSelector"
+import {getElementString, SelectablePeriod, SelectableElement} from "@/app/components/AxisSelector"
 import React, {ChangeEvent} from "react"
 
 interface FloatingSelectProps {
   label: string,
   value: string | undefined,
-  fields: SelectedType[] | SelectablePeriod[] | string[],
+  fields: SelectableElement[] | SelectablePeriod[] | string[],
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void
 }
 

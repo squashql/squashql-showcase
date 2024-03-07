@@ -36,7 +36,7 @@ export default function UploadFile(props: UploadFileProps) {
         currentFile,
         progress: Math.round((100 * event.loaded) / event.total),
       })
-    }).then(r => {
+    }).then((r: { data: any }) => {
       setState({
         message: r.data,
         currentFile: undefined,

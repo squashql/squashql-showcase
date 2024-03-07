@@ -1,6 +1,6 @@
 'use client'
 import React, {useState} from "react"
-import AxisSelector, {AxisType, SelectedType} from "@/app/components/AxisSelector"
+import AxisSelector, {AxisType, SelectableElement} from "@/app/components/AxisSelector"
 import {Field, Measure, PivotTableQueryResult, TableField} from "@squashql/squashql-js"
 import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
@@ -21,6 +21,20 @@ interface DashboardProps {
   elements?: React.JSX.Element[]
 }
 
+function fieldToSelectableElement(f: Field) {
+  return {
+    type: f,
+    showTotals: true
+  }
+}
+
+function measureToSelectableElement(m: Measure) {
+  return {
+    type: m,
+    showTotals: true
+  }
+}
+
 // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
 const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
 const FiltersSelector = dynamic(() => import("@/app/components/FiltersSelector"), {ssr: false})
@@ -28,17 +42,17 @@ const FiltersSelector = dynamic(() => import("@/app/components/FiltersSelector")
 export default function Dashboard(props: DashboardProps) {
   const queryProvider = props.queryProvider
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
-  const [rows, setRows] = useState<SelectedType[]>([])
-  const [columns, setColumns] = useState<SelectedType[]>([])
-  const [filters, setFilters] = useState<SelectedType[]>([])
-  const [selectableElements, setSelectableElements] = useState<SelectedType[]>(queryProvider.selectableFields)
-  const [selectableFilters, setSelectableFilters] = useState<SelectedType[]>(queryProvider.selectableFields)
-  const [selectableValues, setSelectableValues] = useState<SelectedType[]>(queryProvider.measures)
-  const [values, setValues] = useState<SelectedType[]>([])
+  const [rows, setRows] = useState<SelectableElement[]>([])
+  const [columns, setColumns] = useState<SelectableElement[]>([])
+  const [filters, setFilters] = useState<SelectableElement[]>([])
+  const [selectableElements, setSelectableElements] = useState<SelectableElement[]>(queryProvider.selectableFields.map(fieldToSelectableElement))
+  const [selectableFilters, setSelectableFilters] = useState<SelectableElement[]>(queryProvider.selectableFields.map(fieldToSelectableElement))
+  const [selectableValues, setSelectableValues] = useState<SelectableElement[]>(queryProvider.measures.map(measureToSelectableElement))
+  const [values, setValues] = useState<SelectableElement[]>([])
   const [minify, setMinify] = useState<boolean>(true)
   const [filtersValues, setFiltersValues] = useState<Map<Field, any[]>>(new Map())
 
-  function refresh(newElements: SelectedType[], type: AxisType) {
+  function refresh(newElements: SelectableElement[], type: AxisType) {
     let r = rows
     let c = columns
     let v = values
@@ -57,7 +71,7 @@ export default function Dashboard(props: DashboardProps) {
         // Special case for the filters to handle elements being removed
         const copy = new Map(fv)
         for (let [key, __] of copy) {
-          if (newElements.indexOf(key) < 0) {
+          if (newElements.map(e => e.type).indexOf(key) < 0) {
             copy.delete(key)
           }
         }
@@ -76,12 +90,12 @@ export default function Dashboard(props: DashboardProps) {
     executeAndSetResult(rows, columns, values, filtersValues, !minify)
   }
 
-  function executeAndSetResult(rows: SelectedType[], columns: SelectedType[], values: SelectedType[], filters: Map<Field, any[]>, minify: boolean) {
+  function executeAndSetResult(rows: SelectableElement[], columns: SelectableElement[], values: SelectableElement[], filters: Map<Field, any[]>, minify: boolean) {
     return queryExecutor.executePivotQuery(
             queryProvider,
-            rows.map(e => e as TableField),
-            columns.map(e => e as TableField),
-            values.map(e => e as Measure),
+            rows,
+            columns,
+            values.map(e => e.type as Measure),
             filters,
             minify)
             .then(r => setPivotQueryResult(r as PivotTableQueryResult))
@@ -102,34 +116,38 @@ export default function Dashboard(props: DashboardProps) {
                 <li className="breadcrumb-item active" aria-current="page">{props.title}</li>
               </ol>
             </nav>
-            <AxisSelector type={AxisType.ROWS}
+            <AxisSelector axisType={AxisType.ROWS}
                           elements={rows}
                           selectableElements={selectableElements}
                           elementsDispatcher={setRows}
                           selectableElementsDispatcher={setSelectableElements}
-                          queryResultDispatcher={refresh}/>
-            <AxisSelector type={AxisType.COLUMNS}
+                          queryResultDispatcher={refresh}
+                          showTotalsCheckBox={true}/>
+            <AxisSelector axisType={AxisType.COLUMNS}
                           elements={columns}
                           selectableElements={selectableElements}
                           elementsDispatcher={setColumns}
                           selectableElementsDispatcher={setSelectableElements}
-                          queryResultDispatcher={refresh}/>
-            <AxisSelector type={AxisType.VALUES}
+                          queryResultDispatcher={refresh}
+                          showTotalsCheckBox={true}/>
+            <AxisSelector axisType={AxisType.VALUES}
                           elements={values}
                           selectableElements={selectableValues}
                           elementsDispatcher={setValues}
                           selectableElementsDispatcher={setSelectableValues}
-                          queryResultDispatcher={refresh}/>
-            <AxisSelector type={AxisType.FILTERS}
+                          queryResultDispatcher={refresh}
+                          showTotalsCheckBox={false}/>
+            <AxisSelector axisType={AxisType.FILTERS}
                           elements={filters}
                           selectableElements={selectableFilters}
                           elementsDispatcher={setFilters}
                           selectableElementsDispatcher={setSelectableFilters}
-                          queryResultDispatcher={refresh}/>
+                          queryResultDispatcher={refresh}
+                          showTotalsCheckBox={false}/>
             {filters?.map((element, index) => (
                     <FiltersSelector key={index}
                                      table={queryProvider.table[0]} // FIXME it only handles 1 table for the time being
-                                     field={(element as Field)}
+                                     field={(element.type as Field)}
                                      filters={filtersValues}
                                      onFilterChange={onFilterChange}/>))}
             {/* Refresh button + Minify option + other elements */}
@@ -144,29 +162,29 @@ export default function Dashboard(props: DashboardProps) {
               </div>
               <div className="col px-1 py-2">
                 <CalculatedMeasureBuilder
-                        measures={selectableValues.concat(values).map(m => (m as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         onNewMeasure={m => {
                           const copy = [...selectableValues]
-                          copy.push(m as Measure)
+                          copy.push(measureToSelectableElement(m))
                           setSelectableValues(copy)
                         }}/>
               </div>
               <div className="col px-1 py-2">
                 <TimeComparisonMeasureBuilder
-                        measures={selectableValues.concat(values).map(m => (m as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         fields={queryProvider.selectableFields}
                         onNewMeasure={m => {
                           const copy = [...selectableValues]
-                          copy.push(m as Measure)
+                          copy.push(measureToSelectableElement(m))
                           setSelectableValues(copy)
                         }}/>
               </div>
               <div className="col px-1 py-2">
                 <HierarchicalMeasureBuilder
-                        measures={selectableValues.concat(values).map(m => (m as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         onNewMeasure={m => {
                           const copy = [...selectableValues]
-                          copy.push(m as Measure)
+                          copy.push(measureToSelectableElement(m))
                           setSelectableValues(copy)
                         }}
                 />

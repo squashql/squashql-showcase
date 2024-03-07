@@ -84,7 +84,7 @@ function buildData(result: PivotTableQueryResult, formatters?: Formatter[]): S2D
     Object.entries(cell).forEach(entry => r[entry[0]] = formatNumber(entry[1]))
     data.push(r)
   })
-
+  console.log(data)
   return {
     fields: {
       rows: result.rows,
