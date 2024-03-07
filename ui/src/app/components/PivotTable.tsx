@@ -4,7 +4,6 @@ import {Data, S2DataConfig, setLang} from "@antv/s2"
 import {PivotTableQueryResult} from "@squashql/squashql-js"
 import {Formatter, HierarchyType} from "@/app/components/Dashboard"
 import {formatNumber} from "@/app/lib/utils"
-import {AxisType} from "@/app/components/AxisSelector";
 
 interface PivotTableProps {
   result: PivotTableQueryResult,
