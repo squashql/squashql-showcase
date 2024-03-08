@@ -120,33 +120,44 @@ export default function AxisSelector(props: AxisSelectorProps) {
               <div className="col">
                 {getAxisName(props.axisType)}:
               </div>
+              <div className="col">
+                <select value={'DEFAULT'}
+                        className="form-select form-select-sm"
+                        onChange={event => onChangeSelection(event, props)}>
+                  <option value="DEFAULT" disabled>Select option</option>
+                  {props.selectableElements
+                          .map((element, index) =>
+                                  <option key={index}
+                                          value={getElementString(element)}>{getElementString(element)}</option>)}
+                </select>
+              </div>
+            </div>
+            <div className="row row-cols-auto">
+
               {props.elements?.map((element, index) => (
-                      <div key={index} className="col ps-0">
-                      <span key={index} className="badge text-bg-secondary" style={{cursor: "pointer"}}
-                            onClick={() => onClickSelectedElement(getElementString(element), props)}>{getElementString(element)}
-                      </span>
-                        {props.showTotalsCheckBox && (
-                                <div className="form-check">
-                                  <input className="form-check-input" type="checkbox" value="" id="showTotals"
-                                         checked={element.showTotals}
-                                         onChange={() => onToggleShowTotals(getElementString(element), props)}/>
-                                  <label className="form-check-label" htmlFor="showTotals">
-                                    Show totals
-                                  </label>
-                                </div>)}
+                      <div key={index} className="col m-1 text-bg-light" style={{borderRadius: 4}}>
+                        <div className="row row-cols-auto">
+                          <div className="col px-1">
+                            <strong>{getElementString(element)}</strong>
+                          </div>
+                          <div className="col px-1">
+                            <button type="button" className="btn-close" aria-label="Close"
+                                    onClick={() => onClickSelectedElement(getElementString(element), props)}></button>
+                          </div>
+                        </div>
+                        <div className="row px-1">
+                          {props.showTotalsCheckBox && (
+                                  <div className="col form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="showTotals"
+                                           checked={element.showTotals}
+                                           onChange={() => onToggleShowTotals(getElementString(element), props)}/>
+                                    <label className="form-check-label" htmlFor="showTotals">
+                                      <small>Show totals</small>
+                                    </label>
+                                  </div>)}
+                        </div>
                       </div>
               ))}
-            </div>
-            <div className="w-25">
-              <select value={'DEFAULT'}
-                      className="form-select form-select-sm"
-                      onChange={event => onChangeSelection(event, props)}>
-                <option value="DEFAULT" disabled>Select option</option>
-                {props.selectableElements
-                        .map((element, index) =>
-                                <option key={index}
-                                        value={getElementString(element)}>{getElementString(element)}</option>)}
-              </select>
             </div>
           </div>
   )

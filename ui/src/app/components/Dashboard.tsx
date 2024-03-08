@@ -118,7 +118,7 @@ export default function Dashboard(props: DashboardProps) {
   return (
           <div className="container-fluid">
             <nav aria-label="breadcrumb">
-              <ol className="breadcrumb">
+              <ol className="breadcrumb my-2">
                 <li className="breadcrumb-item"><a href="../">Home</a></li>
                 <li className="breadcrumb-item active" aria-current="page">{props.title}</li>
               </ol>
