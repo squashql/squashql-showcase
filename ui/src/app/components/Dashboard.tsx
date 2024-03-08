@@ -115,6 +115,13 @@ export default function Dashboard(props: DashboardProps) {
     setPtHierarchyType(mode)
   }
 
+  function addNewMeasureToSelection(m: Measure) {
+    const copy = values.slice()
+    copy.push(measureToSelectableElement(m))
+    setValues(copy)
+    refresh(copy, AxisType.VALUES)
+  }
+
   return (
           <div className="container-fluid">
             <nav aria-label="breadcrumb">
@@ -209,35 +216,23 @@ export default function Dashboard(props: DashboardProps) {
               <div className="col px-1">
                 <CalculatedMeasureBuilder
                         measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
-                        onNewMeasure={m => {
-                          const copy = [...selectableValues]
-                          copy.push(measureToSelectableElement(m))
-                          setSelectableValues(copy)
-                        }}/>
+                        onNewMeasure={addNewMeasureToSelection}/>
               </div>
               <div className="col px-1">
                 <TimeComparisonMeasureBuilder
                         measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         fields={queryProvider.selectableFields}
-                        onNewMeasure={m => {
-                          const copy = [...selectableValues]
-                          copy.push(measureToSelectableElement(m))
-                          setSelectableValues(copy)
-                        }}/>
+                        onNewMeasure={addNewMeasureToSelection}/>
               </div>
               <div className="col px-1">
                 <HierarchicalMeasureBuilder
                         measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
-                        onNewMeasure={m => {
-                          const copy = [...selectableValues]
-                          copy.push(measureToSelectableElement(m))
-                          setSelectableValues(copy)
-                        }}
+                        onNewMeasure={addNewMeasureToSelection}
                 />
               </div>
               {props.elements}
             </div>
-            
+
             {/* The pivot table */}
             <div className="row">
               {pivotQueryResult !== undefined ?
