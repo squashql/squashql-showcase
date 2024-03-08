@@ -237,6 +237,7 @@ export default function Dashboard(props: DashboardProps) {
               </div>
               {props.elements}
             </div>
+            
             {/* The pivot table */}
             <div className="row">
               {pivotQueryResult !== undefined ?
