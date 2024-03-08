@@ -20,19 +20,21 @@ import {
 import {QueryProvider} from "@/app/lib/queryProvider"
 import {url} from "@/app/lib/constants"
 import {portfolio} from "@/app/lib/tables"
+import {SelectableElement} from "@/app/components/AxisSelector"
 
 export class QueryExecutor {
 
   readonly querier = new Querier(url)
 
-  async executePivotQuery(queryProvider: QueryProvider, rows: TableField[], columns: TableField[], values: Measure[], filters: Map<Field, any[]>, minify: boolean) {
+  async executePivotQuery(queryProvider: QueryProvider, rows: SelectableElement[], columns: SelectableElement[], values: Measure[], filters: Map<Field, any[]>, minify: boolean) {
     const select = rows.concat(columns)
     if (select.length === 0 || values.length === 0) {
       return undefined
     } else {
       const pivotConfig: PivotConfig = {
-        rows,
-        columns,
+        rows: rows.map(r => r.type as TableField),
+        columns: columns.map(r => r.type as TableField),
+        hiddenTotals: select.filter(e => !e.showTotals).map(e => e.type as TableField),
       }
 
       const measures = values.map(m => {
@@ -44,7 +46,7 @@ export class QueryExecutor {
         return m
       })
 
-      const query = queryProvider.query(select, measures, filters, pivotConfig)
+      const query = queryProvider.query(select.map(e => e.type as TableField), measures, filters, pivotConfig)
       query.minify = minify
       return this.querier.executePivotQuery(query, pivotConfig)
     }

@@ -159,7 +159,8 @@ export default function Page() {
                 cells: cells,
                 rows: ["continent", "country", "city"],
                 columns: [],
-                values: ["sales"]
+                values: ["sales"],
+                hiddenTotals: []
               }
               setQueryResult(data)
               setRollupStatement(r[1])

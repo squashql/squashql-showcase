@@ -1,4 +1,4 @@
-import Select, {ActionMeta} from 'react-select'
+import Select, {ActionMeta} from "react-select"
 import {Field, from, QueryResult} from "@squashql/squashql-js"
 import {SquashQLTable} from "@/app/lib/tables"
 import {queryExecutor, toCriteria} from "@/app/lib/queries"
@@ -44,7 +44,7 @@ export default function FiltersSelector(props: FiltersSelectorProps) {
   }
 
   return (
-          <div className="w-50 py-1">
+          <div className="container px-1">
             <Select options={options} isMulti onChange={onChange}/>
           </div>
   )
