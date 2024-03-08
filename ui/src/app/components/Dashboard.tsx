@@ -123,68 +123,90 @@ export default function Dashboard(props: DashboardProps) {
                 <li className="breadcrumb-item active" aria-current="page">{props.title}</li>
               </ol>
             </nav>
-            <div className="row">
-              <AxisSelector axisType={AxisType.ROWS}
-                            elements={rows}
-                            selectableElements={selectableElements}
-                            elementsDispatcher={setRows}
-                            selectableElementsDispatcher={setSelectableElements}
-                            queryResultDispatcher={refresh}
-                            showTotalsCheckBox={true}/>
-              <AxisSelector axisType={AxisType.COLUMNS}
-                            elements={columns}
-                            selectableElements={selectableElements}
-                            elementsDispatcher={setColumns}
-                            selectableElementsDispatcher={setSelectableElements}
-                            queryResultDispatcher={refresh}
-                            showTotalsCheckBox={true}/>
-              <AxisSelector axisType={AxisType.VALUES}
-                            elements={values}
-                            selectableElements={selectableValues}
-                            elementsDispatcher={setValues}
-                            selectableElementsDispatcher={setSelectableValues}
-                            queryResultDispatcher={refresh}
-                            showTotalsCheckBox={false}/>
-              <AxisSelector axisType={AxisType.FILTERS}
-                            elements={filters}
-                            selectableElements={selectableFilters}
-                            elementsDispatcher={setFilters}
-                            selectableElementsDispatcher={setSelectableFilters}
-                            queryResultDispatcher={refresh}
-                            showTotalsCheckBox={false}/>
-              {filters?.map((element, index) => (
-                      <FiltersSelector key={index}
-                                       table={queryProvider.table[0]} // FIXME it only handles 1 table for the time being
-                                       field={(element.type as Field)}
-                                       filters={filtersValues}
-                                       onFilterChange={onFilterChange}/>))}
+
+            {/* Edit Pivot Table */}
+            <div className="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1}
+                 id="offcanvasRight"
+                 aria-labelledby="offcanvasRightLabel">
+              <div className="offcanvas-header pb-1">
+                <h5 className="my-0" id="offcanvasRightLabel">Pivot Table Editor</h5>
+                <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+              </div>
+              <div className="offcanvas-body">
+                <AxisSelector axisType={AxisType.ROWS}
+                              elements={rows}
+                              selectableElements={selectableElements}
+                              elementsDispatcher={setRows}
+                              selectableElementsDispatcher={setSelectableElements}
+                              queryResultDispatcher={refresh}
+                              showTotalsCheckBox={true}/>
+                <hr/>
+                <AxisSelector axisType={AxisType.COLUMNS}
+                              elements={columns}
+                              selectableElements={selectableElements}
+                              elementsDispatcher={setColumns}
+                              selectableElementsDispatcher={setSelectableElements}
+                              queryResultDispatcher={refresh}
+                              showTotalsCheckBox={true}/>
+                <hr/>
+                <AxisSelector axisType={AxisType.VALUES}
+                              elements={values}
+                              selectableElements={selectableValues}
+                              elementsDispatcher={setValues}
+                              selectableElementsDispatcher={setSelectableValues}
+                              queryResultDispatcher={refresh}
+                              showTotalsCheckBox={false}/>
+                <hr/>
+                <AxisSelector axisType={AxisType.FILTERS}
+                              elements={filters}
+                              selectableElements={selectableFilters}
+                              elementsDispatcher={setFilters}
+                              selectableElementsDispatcher={setSelectableFilters}
+                              queryResultDispatcher={refresh}
+                              showTotalsCheckBox={false}/>
+                {filters?.map((element, index) => (
+                        <FiltersSelector key={index}
+                                         table={queryProvider.table[0]} // FIXME it only handles 1 table for the time being
+                                         field={(element.type as Field)}
+                                         filters={filtersValues}
+                                         onFilterChange={onFilterChange}/>))}
+              </div>
             </div>
+
             {/* Refresh button + Minify option + other elements */}
             <div className="row row-cols-auto">
-              <div className="col py-2">
+              <div className="col px-1">
+                <button className="btn btn-sm btn-dark" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Edit
+                </button>
+              </div>
+              <div className="col px-1">
                 <button type="button" className="btn btn-sm btn-light" onClick={refreshFromState}>Refresh</button>
               </div>
-              <div className="col px-0 py-2">
+              <div className="col px-0">
                 <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked={minify}
                        onChange={toggleMinify}/>
                 <label className="form-check-label px-1" htmlFor="flexCheckChecked">Minify</label>
               </div>
 
               {/* Tree | Grid mode */}
-              <div className="col px-0 py-2">
+              <div className="col px-0">
                 <div className="form-check form-check-inline mx-1">
                   <input className="form-check-input" type="radio" name="inlineRadioOptions" id="treeRadio"
-                         value="tree" checked={ptHierarchyType === "tree"} onChange={() => onChangePivotTableMode("tree")}/>
+                         value="tree" checked={ptHierarchyType === "tree"}
+                         onChange={() => onChangePivotTableMode("tree")}/>
                   <label className="form-check-label" htmlFor="treeRadio">tree</label>
                 </div>
                 <div className="form-check form-check-inline mx-1">
                   <input className="form-check-input" type="radio" name="inlineRadioOptions" id="gridRadio"
-                         value="grid" checked={ptHierarchyType === "grid"} onChange={() => onChangePivotTableMode("grid")}/>
+                         value="grid" checked={ptHierarchyType === "grid"}
+                         onChange={() => onChangePivotTableMode("grid")}/>
                   <label className="form-check-label" htmlFor="gridRadio">grid</label>
                 </div>
               </div>
 
-              <div className="col px-1 py-2">
+              <div className="col px-1">
                 <CalculatedMeasureBuilder
                         measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         onNewMeasure={m => {
@@ -193,7 +215,7 @@ export default function Dashboard(props: DashboardProps) {
                           setSelectableValues(copy)
                         }}/>
               </div>
-              <div className="col px-1 py-2">
+              <div className="col px-1">
                 <TimeComparisonMeasureBuilder
                         measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         fields={queryProvider.selectableFields}
@@ -203,7 +225,7 @@ export default function Dashboard(props: DashboardProps) {
                           setSelectableValues(copy)
                         }}/>
               </div>
-              <div className="col px-1 py-2">
+              <div className="col px-1">
                 <HierarchicalMeasureBuilder
                         measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         onNewMeasure={m => {

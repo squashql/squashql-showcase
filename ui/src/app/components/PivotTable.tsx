@@ -61,6 +61,7 @@ export default function PivotTable(props: PivotTableProps) {
       hoverHighlight: true,
       enableCopy: true,
       copyWithHeader: true,
+      resize: true
     },
     totals: {
       row: {

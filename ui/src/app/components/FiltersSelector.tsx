@@ -44,7 +44,7 @@ export default function FiltersSelector(props: FiltersSelectorProps) {
   }
 
   return (
-          <div className="w-50 py-1">
+          <div className="container px-1">
             <Select options={options} isMulti onChange={onChange}/>
           </div>
   )

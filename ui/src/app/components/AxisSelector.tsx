@@ -115,12 +115,12 @@ function onToggleShowTotals(element: string, props: AxisSelectorProps) {
 
 export default function AxisSelector(props: AxisSelectorProps) {
   return (
-          <div>
-            <div className="row row-cols-auto">
-              <div className="col">
-                {getAxisName(props.axisType)}:
+          <div className="container">
+            <div className="row">
+              <div className="col px-0">
+                {getAxisName(props.axisType)}
               </div>
-              <div className="col">
+              <div className="col-8 px-0">
                 <select value={'DEFAULT'}
                         className="form-select form-select-sm"
                         onChange={event => onChangeSelection(event, props)}>
@@ -132,20 +132,15 @@ export default function AxisSelector(props: AxisSelectorProps) {
                 </select>
               </div>
             </div>
-            <div className="row row-cols-auto">
-
+            <div className="row">
               {props.elements?.map((element, index) => (
-                      <div key={index} className="col m-1 text-bg-light" style={{borderRadius: 4}}>
-                        <div className="row row-cols-auto">
-                          <div className="col px-1">
-                            <strong>{getElementString(element)}</strong>
-                          </div>
-                          <div className="col px-1">
-                            <button type="button" className="btn-close" aria-label="Close"
-                                    onClick={() => onClickSelectedElement(getElementString(element), props)}></button>
-                          </div>
+                      <div key={index} className="row m-1 p-1 text-bg-light" style={{borderRadius: 4}}>
+                        <div className="px-1">
+                          <strong>{getElementString(element)}</strong>
+                          <button type="button" className="btn-close float-end" aria-label="Close"
+                                  onClick={() => onClickSelectedElement(getElementString(element), props)}></button>
                         </div>
-                        <div className="row px-1">
+                        <div className="row px-3">
                           {props.showTotalsCheckBox && (
                                   <div className="col form-check">
                                     <input className="form-check-input" type="checkbox" value="" id="showTotals"
