@@ -66,13 +66,25 @@ function isMeasureProviderType(m: Measure): m is MeasureProviderType {
 }
 
 export class PercentOfParentAlongAncestors implements MeasureProviderType {
-  readonly class: string = ""
+  readonly class: string = "PercentOfParentAlongAncestors"
 
   constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
   }
 
   create(ancestors: Field[]): Measure {
     const ratio = comparisonMeasureWithParent("_" + this.underlying.alias + "_percent_of_parent_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
+    return multiply(this.alias, integer(100), ratio)
+  }
+}
+
+export class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
+  readonly class: string = "CompareWithGrandTotalAlongAncestors"
+
+  constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
+  }
+
+  create(ancestors: Field[]): Measure {
+    const ratio = comparisonMeasureWithGrandTotalAlongAncestors("percent_of_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
     return multiply(this.alias, integer(100), ratio)
   }
 }
@@ -100,18 +112,6 @@ export function toCriteria(filters: Map<Field, any[]>): Criteria {
     sqlFilters.push(f)
   })
   return all(sqlFilters)
-}
-
-export class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
-  readonly class: string = ""
-
-  constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
-  }
-
-  create(ancestors: Field[]): Measure {
-    const ratio = comparisonMeasureWithGrandTotalAlongAncestors("percent_of_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
-    return multiply(this.alias, integer(100), ratio)
-  }
 }
 
 export const queryExecutor: QueryExecutor = new QueryExecutor()

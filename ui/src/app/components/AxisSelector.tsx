@@ -19,8 +19,8 @@ interface AxisSelectorProps {
   axisType: AxisType,
   elements: SelectableElement[],
   selectableElements: SelectableElement[],
-  elementsDispatcher: Dispatch<SetStateAction<SelectableElement[]>>
-  selectableElementsDispatcher: Dispatch<SetStateAction<SelectableElement[]>>
+  elementsDispatcher: (newElements: SelectableElement[]) => void
+  selectableElementsDispatcher: (newElements: SelectableElement[]) => void
   queryResultDispatcher: (newElements: SelectableElement[], type: AxisType) => void
   showTotalsCheckBox: boolean
 }

@@ -1,17 +1,32 @@
 'use client'
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import AxisSelector, {AxisType, SelectableElement} from "@/app/components/AxisSelector"
 import {Field, Measure, PivotTableQueryResult} from "@squashql/squashql-js"
-import {queryExecutor} from "@/app/lib/queries"
+import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors, queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import HierarchicalMeasureBuilder from "@/app/components/HierarchicalMeasureBuilder"
 import TimeComparisonMeasureBuilder from "@/app/components/TimeComparisonMeasureBuilder"
 import CalculatedMeasureBuilder from "@/app/components/CalculatedMeasureBuilder"
 
+// disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
+const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
+const FiltersSelector = dynamic(() => import("@/app/components/FiltersSelector"), {ssr: false})
+
 export interface Formatter {
   field: string
   formatter: (v: any) => string
+}
+
+interface DashboardState {
+  rows: SelectableElement[]
+  columns: SelectableElement[]
+  values: SelectableElement[]
+  filters: SelectableElement[]
+  selectableElements: SelectableElement[]
+  selectableFilters: SelectableElement[]
+  selectableValues: SelectableElement[]
+  filtersValues: Map<Field, any[]>
 }
 
 interface DashboardProps {
@@ -37,29 +52,91 @@ function measureToSelectableElement(m: Measure) {
   }
 }
 
-// disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
-const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
-const FiltersSelector = dynamic(() => import("@/app/components/FiltersSelector"), {ssr: false})
+function initialState(props: DashboardProps): DashboardState {
+  const queryProvider = props.queryProvider
+  return {
+    columns: [],
+    filters: [],
+    filtersValues: new Map(),
+    rows: [],
+    selectableElements: queryProvider.selectableFields.map(fieldToSelectableElement),
+    selectableFilters: queryProvider.selectableFields.map(fieldToSelectableElement),
+    selectableValues: queryProvider.measures.map(measureToSelectableElement),
+    values: []
+  }
+}
+
+function computeInitialState(props: DashboardProps): DashboardState {
+  if (typeof window !== "undefined") {
+    const localStoreKey = window.location.href + "-" + props.title
+    const data = window.localStorage.getItem(localStoreKey)
+    if (data) {
+      const state: DashboardState = JSON.parse(data, reviver)
+      console.log(state)
+      return state
+    }
+  }
+  return initialState(props)
+}
+
+function serializeMap(map: Map<any, any>): Map<string, any> {
+  const m = new Map()
+  for (const [key, value] of map) {
+    m.set(JSON.stringify(key), value)
+  }
+  return m
+}
+
+function reviver(key: string, value: any) {
+  if (key === "filtersValues") {
+    console.log("filter")
+    // TODO parse values
+    const m = new Map
+    for (const [k, v] of Object.entries(value)) {
+      console.log(`${k}: ${v}`)
+      m.set(JSON.parse(k), v)
+    }
+    return m
+  } else if (key === "type" && typeof value === "object") {
+    if (value["class"] === "PercentOfParentAlongAncestors") {
+      return new PercentOfParentAlongAncestors(value["alias"], value["underlying"], value["axis"])
+    } else if (value["class"] === "CompareWithGrandTotalAlongAncestors") {
+      return new CompareWithGrandTotalAlongAncestors(value["alias"], value["underlying"], value["axis"])
+    }
+  }
+
+  return value
+}
+
+function replacer(key: string, value: any) {
+  if (key === "filtersValues") {
+    let fromEntries = Object.fromEntries(serializeMap(value))
+    return fromEntries
+  }
+
+  return value
+}
 
 export default function Dashboard(props: DashboardProps) {
   const queryProvider = props.queryProvider
+  const [state, setState] = useState<DashboardState>(() => computeInitialState(props))
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
-  const [rows, setRows] = useState<SelectableElement[]>([])
-  const [columns, setColumns] = useState<SelectableElement[]>([])
-  const [filters, setFilters] = useState<SelectableElement[]>([])
-  const [selectableElements, setSelectableElements] = useState<SelectableElement[]>(queryProvider.selectableFields.map(fieldToSelectableElement))
-  const [selectableFilters, setSelectableFilters] = useState<SelectableElement[]>(queryProvider.selectableFields.map(fieldToSelectableElement))
-  const [selectableValues, setSelectableValues] = useState<SelectableElement[]>(queryProvider.measures.map(measureToSelectableElement))
-  const [values, setValues] = useState<SelectableElement[]>([])
   const [minify, setMinify] = useState<boolean>(true)
-  const [filtersValues, setFiltersValues] = useState<Map<Field, any[]>>(new Map())
   const [ptHierarchyType, setPtHierarchyType] = useState<HierarchyType>("tree")
 
+  useEffect(() => {
+    if (state) {
+      const localStoreKey = window.location.href + "-" + props.title
+      window.localStorage.setItem(localStoreKey, JSON.stringify(state, replacer))
+    }
+  }, [state])
+
+  // TODO review this logic.
   function refresh(newElements: SelectableElement[], type: AxisType) {
-    let r = rows
-    let c = columns
-    let v = values
-    let fv = filtersValues
+    let r = state.rows
+    let c = state.columns
+    let v = state.values
+    let fv = state.filtersValues
     switch (type) {
       case AxisType.ROWS:
         r = newElements
@@ -74,23 +151,30 @@ export default function Dashboard(props: DashboardProps) {
         // Special case for the filters to handle elements being removed
         const copy = new Map(fv)
         for (let [key, __] of copy) {
-          if (newElements.map(e => e.type).indexOf(key) < 0) {
+          if (newElements.map(e => e.type).indexOf(key) < 0) { // find the one that does not exist anymore
             copy.delete(key)
           }
         }
-        setFiltersValues(fv = copy)
+        setState((prevState) => {
+          return {
+            ...prevState,
+            filtersValues: copy
+          }
+        })
+        fv = copy
         break
     }
+
     return executeAndSetResult(r, c, v, fv, minify)
   }
 
   function refreshFromState() {
-    return executeAndSetResult(rows, columns, values, filtersValues, minify)
+    return executeAndSetResult(state.rows, state.columns, state.values, state.filtersValues, minify)
   }
 
   function toggleMinify() {
     setMinify(!minify)
-    executeAndSetResult(rows, columns, values, filtersValues, !minify)
+    executeAndSetResult(state.rows, state.columns, state.values, state.filtersValues, !minify)
   }
 
   function executeAndSetResult(rows: SelectableElement[], columns: SelectableElement[], values: SelectableElement[], filters: Map<Field, any[]>, minify: boolean) {
@@ -105,20 +189,26 @@ export default function Dashboard(props: DashboardProps) {
   }
 
   function onFilterChange(field: Field, filterValues: any[]) {
-    filtersValues.set(field, filterValues)
-    const copy = new Map(filtersValues)
-    setFiltersValues(copy)
-    executeAndSetResult(rows, columns, values, copy, minify)
-  }
-
-  function onChangePivotTableMode(mode: HierarchyType) {
-    setPtHierarchyType(mode)
+    const copy = new Map(state.filtersValues)
+    copy.set(field, filterValues)
+    setState((prevState) => {
+      return {
+        ...prevState,
+        filtersValues: copy
+      }
+    })
+    executeAndSetResult(state.rows, state.columns, state.values, copy, minify)
   }
 
   function addNewMeasureToSelection(m: Measure) {
-    const copy = values.slice()
+    const copy = state.values.slice()
     copy.push(measureToSelectableElement(m))
-    setValues(copy)
+    setState((prevState) => {
+      return {
+        ...prevState,
+        values: copy
+      }
+    })
     refresh(copy, AxisType.VALUES)
   }
 
@@ -142,41 +232,81 @@ export default function Dashboard(props: DashboardProps) {
               </div>
               <div className="offcanvas-body">
                 <AxisSelector axisType={AxisType.ROWS}
-                              elements={rows}
-                              selectableElements={selectableElements}
-                              elementsDispatcher={setRows}
-                              selectableElementsDispatcher={setSelectableElements}
+                              elements={state.rows}
+                              selectableElements={state.selectableElements}
+                              elementsDispatcher={newElements => setState((prevState) => {
+                                return {
+                                  ...prevState,
+                                  rows: newElements
+                                }
+                              })}
+                              selectableElementsDispatcher={newSelectableElements => setState((prevState) => {
+                                return {
+                                  ...prevState,
+                                  selectableElements: newSelectableElements
+                                }
+                              })}
                               queryResultDispatcher={refresh}
                               showTotalsCheckBox={true}/>
                 <hr/>
                 <AxisSelector axisType={AxisType.COLUMNS}
-                              elements={columns}
-                              selectableElements={selectableElements}
-                              elementsDispatcher={setColumns}
-                              selectableElementsDispatcher={setSelectableElements}
+                              elements={state.columns}
+                              selectableElements={state.selectableElements}
+                              elementsDispatcher={newElements => setState((prevState) => {
+                                return {
+                                  ...prevState,
+                                  columns: newElements
+                                }
+                              })}
+                              selectableElementsDispatcher={newSelectableElements => setState((prevState) => {
+                                return {
+                                  ...prevState,
+                                  selectableElements: newSelectableElements
+                                }
+                              })}
                               queryResultDispatcher={refresh}
                               showTotalsCheckBox={true}/>
                 <hr/>
                 <AxisSelector axisType={AxisType.VALUES}
-                              elements={values}
-                              selectableElements={selectableValues}
-                              elementsDispatcher={setValues}
-                              selectableElementsDispatcher={setSelectableValues}
+                              elements={state.values}
+                              selectableElements={state.selectableValues}
+                              elementsDispatcher={newElements => setState((prevState) => {
+                                return {
+                                  ...prevState,
+                                  values: newElements
+                                }
+                              })}
+                              selectableElementsDispatcher={newSelectableValues => setState((prevState) => {
+                                return {
+                                  ...prevState,
+                                  selectableValues: newSelectableValues
+                                }
+                              })}
                               queryResultDispatcher={refresh}
                               showTotalsCheckBox={false}/>
                 <hr/>
                 <AxisSelector axisType={AxisType.FILTERS}
-                              elements={filters}
-                              selectableElements={selectableFilters}
-                              elementsDispatcher={setFilters}
-                              selectableElementsDispatcher={setSelectableFilters}
+                              elements={state.filters}
+                              selectableElements={state.selectableFilters}
+                              elementsDispatcher={newElements => setState((prevState) => {
+                                return {
+                                  ...prevState,
+                                  filters: newElements
+                                }
+                              })}
+                              selectableElementsDispatcher={newSelectableFilters => setState((prevState) => {
+                                return {
+                                  ...prevState,
+                                  selectableFilters: newSelectableFilters
+                                }
+                              })}
                               queryResultDispatcher={refresh}
                               showTotalsCheckBox={false}/>
-                {filters?.map((element, index) => (
+                {state.filters?.map((element, index) => (
                         <FiltersSelector key={index}
                                          table={queryProvider.table[0]} // FIXME it only handles 1 table for the time being
                                          field={(element.type as Field)}
-                                         filters={filtersValues}
+                                         filters={state.filtersValues}
                                          onFilterChange={onFilterChange}/>))}
               </div>
             </div>
@@ -202,31 +332,31 @@ export default function Dashboard(props: DashboardProps) {
                 <div className="form-check form-check-inline mx-1">
                   <input className="form-check-input" type="radio" name="inlineRadioOptions" id="treeRadio"
                          value="tree" checked={ptHierarchyType === "tree"}
-                         onChange={() => onChangePivotTableMode("tree")}/>
+                         onChange={() => setPtHierarchyType("tree")}/>
                   <label className="form-check-label" htmlFor="treeRadio">tree</label>
                 </div>
                 <div className="form-check form-check-inline mx-1">
                   <input className="form-check-input" type="radio" name="inlineRadioOptions" id="gridRadio"
                          value="grid" checked={ptHierarchyType === "grid"}
-                         onChange={() => onChangePivotTableMode("grid")}/>
+                         onChange={() => setPtHierarchyType("grid")}/>
                   <label className="form-check-label" htmlFor="gridRadio">grid</label>
                 </div>
               </div>
 
               <div className="col px-1">
                 <CalculatedMeasureBuilder
-                        measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        measures={state.selectableValues.concat(state.values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         onNewMeasure={addNewMeasureToSelection}/>
               </div>
               <div className="col px-1">
                 <TimeComparisonMeasureBuilder
-                        measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        measures={state.selectableValues.concat(state.values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         fields={queryProvider.selectableFields}
                         onNewMeasure={addNewMeasureToSelection}/>
               </div>
               <div className="col px-1">
                 <HierarchicalMeasureBuilder
-                        measures={selectableValues.concat(values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        measures={state.selectableValues.concat(state.values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         onNewMeasure={addNewMeasureToSelection}
                 />
               </div>
