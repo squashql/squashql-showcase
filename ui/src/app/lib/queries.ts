@@ -29,7 +29,7 @@ export class QueryExecutor {
   async executePivotQuery(queryProvider: QueryProvider, rows: SelectableElement[], columns: SelectableElement[], values: Measure[], filters: Map<Field, any[]>, minify: boolean) {
     const select = rows.concat(columns)
     if (select.length === 0 || values.length === 0) {
-      return undefined
+      return Promise.resolve()
     } else {
       const pivotConfig: PivotConfig = {
         rows: rows.map(r => r.type as TableField),

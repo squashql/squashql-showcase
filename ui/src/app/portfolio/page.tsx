@@ -4,10 +4,6 @@ import UploadFile from "@/app/components/UploadFile"
 import {formatNumber} from "@/app/lib/utils"
 import dynamic from "next/dynamic"
 
-// Dashboard makes use of local storage and window
-// https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const Dashboard = dynamic(() => import("@/app/components/Dashboard"), {ssr: false})
-
 const portfolioQueryProvider = new PortfolioProvider()
 
 const varFormatter = (value: any) => {
@@ -18,8 +14,11 @@ const varFormatter = (value: any) => {
   return ""
 }
 
-export default function Page() {
+// Dashboard makes use of local storage and window
+// https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
+const Dashboard = dynamic(() => import("@/app/components/Dashboard"), {ssr: false})
 
+export default function Page() {
   return (
           <Dashboard title={"Portfolio"}
                      queryProvider={portfolioQueryProvider}

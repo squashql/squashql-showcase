@@ -1,6 +1,7 @@
 import {Field} from "@squashql/squashql-js"
 import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors} from "@/app/lib/queries"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
+import {useEffect, useState} from "react"
 
 export interface DashboardState {
   rows: SelectableElement[]
@@ -29,7 +30,6 @@ export function computeInitialState(key: string, selectableElements: SelectableE
         }
       })
       state.filtersValues = newFiltersValues
-      console.log(state) // FIXME delete
       return state
     }
   }
@@ -82,5 +82,53 @@ function replacer(key: string, value: any) {
     return Object.fromEntries(serializeMap(value))
   } else {
     return value
+  }
+}
+
+export function useUndoRedo(initialValue: DashboardState, limit = 8) {
+  const [history, setHistory] = useState<DashboardState[]>([initialValue])
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  function set(dispatch: (prevState: DashboardState) => DashboardState) {
+    setHistory((prevHistory) => {
+      const nextState = dispatch({...prevHistory[prevHistory.length - 1]}) // do a copy
+      let nextHistory = prevHistory.slice(0, currentIndex + 1)
+      nextHistory.push(nextState)
+      if (nextHistory.length > limit) {
+        nextHistory = nextHistory.slice(nextHistory.length - limit)
+      }
+      setCurrentIndex(nextHistory.length - 1)
+      console.log(nextHistory)
+      return nextHistory
+    })
+  }
+
+  function undo() {
+    setCurrentIndex((curr) => Math.max(curr - 1, 0))
+  }
+
+  function redo() {
+    setCurrentIndex((curr) => Math.min(curr + 1, history.length - 1))
+  }
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === "z") {
+        redo()
+      } else if ((event.ctrlKey || event.metaKey) && event.key === "y") {
+        redo()
+      } else if ((event.ctrlKey || event.metaKey) && event.key === "z") {
+        undo()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [redo, undo])
+
+  return {
+    state: history[currentIndex],
+    setState: set
   }
 }

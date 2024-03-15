@@ -1,6 +1,6 @@
 'use client'
 import React, {useEffect, useState} from "react"
-import AxisSelector, {AxisType, getElementString, SelectableElement} from "@/app/components/AxisSelector"
+import AxisSelector, {AxisType, SelectableElement} from "@/app/components/AxisSelector"
 import {Field, Measure, PivotTableQueryResult} from "@squashql/squashql-js"
 import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
@@ -8,7 +8,7 @@ import {QueryProvider} from "@/app/lib/queryProvider"
 import HierarchicalMeasureBuilder from "@/app/components/HierarchicalMeasureBuilder"
 import TimeComparisonMeasureBuilder from "@/app/components/TimeComparisonMeasureBuilder"
 import CalculatedMeasureBuilder from "@/app/components/CalculatedMeasureBuilder"
-import {computeInitialState, DashboardState, saveCurrentState} from "@/app/lib/dashboard"
+import {computeInitialState, saveCurrentState, useUndoRedo} from "@/app/lib/dashboard"
 
 // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
 const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
@@ -19,7 +19,7 @@ export interface Formatter {
   formatter: (v: any) => string
 }
 
-interface DashboardProps {
+export interface DashboardProps {
   title: string
   queryProvider: QueryProvider
   formatters?: Formatter[]
@@ -45,16 +45,17 @@ function measureToSelectableElement(m: Measure) {
 export default function Dashboard(props: DashboardProps) {
   const storageKey = `${window.location.href}#${props.title}`
   const queryProvider = props.queryProvider
-  const [state, setState] = useState<DashboardState>(() => computeInitialState(storageKey,
-          props.queryProvider.selectableFields.map(fieldToSelectableElement),
-          props.queryProvider.selectableFields.map(fieldToSelectableElement),
-          props.queryProvider.measures.map(measureToSelectableElement)))
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
   const [minify, setMinify] = useState<boolean>(true)
   const [ptHierarchyType, setPtHierarchyType] = useState<HierarchyType>("tree")
 
+  const {state, setState} = useUndoRedo(computeInitialState(storageKey,
+          props.queryProvider.selectableFields.map(fieldToSelectableElement),
+          props.queryProvider.selectableFields.map(fieldToSelectableElement),
+          props.queryProvider.measures.map(measureToSelectableElement)), 8)
+
   useEffect(() => {
-    saveCurrentState(storageKey, state)
+    refreshFromState().finally(() => saveCurrentState(storageKey, state))
   }, [state])
 
   // TODO review this logic.
@@ -158,17 +159,12 @@ export default function Dashboard(props: DashboardProps) {
               </div>
               <div className="offcanvas-body">
                 <AxisSelector axisType={AxisType.ROWS}
-                              elements={state.rows}
+                              selectedElements={state.rows}
                               selectableElements={state.selectableElements}
-                              elementsDispatcher={newElements => setState((prevState) => {
+                              elementsDispatcher={(newSelectedElements, newSelectableElements) => setState((prevState) => {
                                 return {
                                   ...prevState,
-                                  rows: newElements
-                                }
-                              })}
-                              selectableElementsDispatcher={newSelectableElements => setState((prevState) => {
-                                return {
-                                  ...prevState,
+                                  rows: newSelectedElements,
                                   selectableElements: newSelectableElements
                                 }
                               })}
@@ -176,17 +172,12 @@ export default function Dashboard(props: DashboardProps) {
                               showTotalsCheckBox={true}/>
                 <hr/>
                 <AxisSelector axisType={AxisType.COLUMNS}
-                              elements={state.columns}
+                              selectedElements={state.columns}
                               selectableElements={state.selectableElements}
-                              elementsDispatcher={newElements => setState((prevState) => {
+                              elementsDispatcher={(newSelectedElements, newSelectableElements) => setState((prevState) => {
                                 return {
                                   ...prevState,
-                                  columns: newElements
-                                }
-                              })}
-                              selectableElementsDispatcher={newSelectableElements => setState((prevState) => {
-                                return {
-                                  ...prevState,
+                                  columns: newSelectedElements,
                                   selectableElements: newSelectableElements
                                 }
                               })}
@@ -194,36 +185,26 @@ export default function Dashboard(props: DashboardProps) {
                               showTotalsCheckBox={true}/>
                 <hr/>
                 <AxisSelector axisType={AxisType.VALUES}
-                              elements={state.values}
+                              selectedElements={state.values}
                               selectableElements={state.selectableValues}
-                              elementsDispatcher={newElements => setState((prevState) => {
+                              elementsDispatcher={(newSelectedElements, newSelectableElements) => setState((prevState) => {
                                 return {
                                   ...prevState,
-                                  values: newElements
-                                }
-                              })}
-                              selectableElementsDispatcher={newSelectableValues => setState((prevState) => {
-                                return {
-                                  ...prevState,
-                                  selectableValues: newSelectableValues
+                                  values: newSelectedElements,
+                                  selectableValues: newSelectableElements
                                 }
                               })}
                               queryResultDispatcher={refresh}
                               showTotalsCheckBox={false}/>
                 <hr/>
                 <AxisSelector axisType={AxisType.FILTERS}
-                              elements={state.filters}
+                              selectedElements={state.filters}
                               selectableElements={state.selectableFilters}
-                              elementsDispatcher={newElements => setState((prevState) => {
+                              elementsDispatcher={(newSelectedElements, newSelectableElements) => setState((prevState) => {
                                 return {
                                   ...prevState,
-                                  filters: newElements
-                                }
-                              })}
-                              selectableElementsDispatcher={newSelectableFilters => setState((prevState) => {
-                                return {
-                                  ...prevState,
-                                  selectableFilters: newSelectableFilters
+                                  filters: newSelectedElements,
+                                  selectableFilters: newSelectableElements
                                 }
                               })}
                               queryResultDispatcher={refresh}
@@ -295,7 +276,7 @@ export default function Dashboard(props: DashboardProps) {
             </div>
 
             {/* The pivot table */}
-            <div className="row">
+            <div className="row pt-2">
               {pivotQueryResult !== undefined ?
                       <PivotTable result={pivotQueryResult}
                                   hierarchyType={ptHierarchyType}
