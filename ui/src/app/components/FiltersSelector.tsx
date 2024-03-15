@@ -27,11 +27,7 @@ export default function FiltersSelector(props: FiltersSelectorProps) {
 
   useEffect(() => {
     const copy = new Map(props.filters)
-    for (let [key, __] of copy) {
-      if (getElementString(key) === getElementString(props.field)) {
-        copy.delete(key)
-      }
-    }
+    copy.delete(props.field)
     const query = from(props.table._name)
             .where(toCriteria(copy)) // smart filtering
             .select([props.field], [], [])

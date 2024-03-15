@@ -2,12 +2,13 @@
 import React, {useEffect, useState} from "react"
 import AxisSelector, {AxisType, getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {Field, Measure, PivotTableQueryResult} from "@squashql/squashql-js"
-import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors, queryExecutor} from "@/app/lib/queries"
+import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import HierarchicalMeasureBuilder from "@/app/components/HierarchicalMeasureBuilder"
 import TimeComparisonMeasureBuilder from "@/app/components/TimeComparisonMeasureBuilder"
 import CalculatedMeasureBuilder from "@/app/components/CalculatedMeasureBuilder"
+import {computeInitialState, DashboardState, saveCurrentState} from "@/app/lib/dashboard"
 
 // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
 const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
@@ -16,17 +17,6 @@ const FiltersSelector = dynamic(() => import("@/app/components/FiltersSelector")
 export interface Formatter {
   field: string
   formatter: (v: any) => string
-}
-
-interface DashboardState {
-  rows: SelectableElement[]
-  columns: SelectableElement[]
-  values: SelectableElement[]
-  filters: SelectableElement[]
-  selectableElements: SelectableElement[]
-  selectableFilters: SelectableElement[]
-  selectableValues: SelectableElement[]
-  filtersValues: Map<Field, any[]>
 }
 
 interface DashboardProps {
@@ -52,77 +42,19 @@ function measureToSelectableElement(m: Measure) {
   }
 }
 
-function initialState(props: DashboardProps): DashboardState {
-  const queryProvider = props.queryProvider
-  return {
-    columns: [],
-    filters: [],
-    filtersValues: new Map(),
-    rows: [],
-    selectableElements: queryProvider.selectableFields.map(fieldToSelectableElement),
-    selectableFilters: queryProvider.selectableFields.map(fieldToSelectableElement),
-    selectableValues: queryProvider.measures.map(measureToSelectableElement),
-    values: []
-  }
-}
-
-function computeInitialState(props: DashboardProps): DashboardState {
-  if (typeof window !== "undefined") {
-    const localStoreKey = window.location.href + "-" + props.title
-    const data = window.localStorage.getItem(localStoreKey)
-    if (data) {
-      const state: DashboardState = JSON.parse(data, reviver)
-      console.log(state) // FIXME delete
-      return state
-    }
-  }
-  return initialState(props)
-}
-
-function serializeMap(map: Map<any, any>): Map<string, any> {
-  const m = new Map()
-  for (const [key, value] of map) {
-    m.set(JSON.stringify(key), value)
-  }
-  return m
-}
-
-function reviver(key: string, value: any) {
-  if (key === "filtersValues") {
-    const m: Map<Field, any> = new Map
-    Object.entries(value).forEach(([k, v]) => m.set(JSON.parse(k), v))
-    return m
-  } else if (key === "type" && typeof value === "object") {
-    if (value["class"] === "PercentOfParentAlongAncestors") {
-      return new PercentOfParentAlongAncestors(value["alias"], value["underlying"], value["axis"])
-    } else if (value["class"] === "CompareWithGrandTotalAlongAncestors") {
-      return new CompareWithGrandTotalAlongAncestors(value["alias"], value["underlying"], value["axis"])
-    }
-  }
-
-  return value
-}
-
-function replacer(key: string, value: any) {
-  if (key === "filtersValues") {
-    return Object.fromEntries(serializeMap(value))
-  } else {
-    return value
-  }
-}
-
 export default function Dashboard(props: DashboardProps) {
+  const storageKey = `${window.location.href}#${props.title}`
   const queryProvider = props.queryProvider
-  const [state, setState] = useState<DashboardState>(() => computeInitialState(props))
+  const [state, setState] = useState<DashboardState>(() => computeInitialState(storageKey,
+          props.queryProvider.selectableFields.map(fieldToSelectableElement),
+          props.queryProvider.selectableFields.map(fieldToSelectableElement),
+          props.queryProvider.measures.map(measureToSelectableElement)))
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
   const [minify, setMinify] = useState<boolean>(true)
   const [ptHierarchyType, setPtHierarchyType] = useState<HierarchyType>("tree")
 
   useEffect(() => {
-    if (state) {
-      const localStoreKey = window.location.href + "-" + props.title
-      window.localStorage.setItem(localStoreKey, JSON.stringify(state, replacer))
-    }
+    saveCurrentState(storageKey, state)
   }, [state])
 
   // TODO review this logic.
@@ -145,7 +77,7 @@ export default function Dashboard(props: DashboardProps) {
         // Special case for the filters to handle elements being removed
         const copy = new Map(fv)
         for (let [key, __] of copy) {
-          if (newElements.map(e => getElementString(e.type)).indexOf(getElementString(key)) < 0) { // find the one that does not exist anymore
+          if (newElements.map(e => e.type).indexOf(key) < 0) { // find the one that does not exist anymore
             copy.delete(key)
           }
         }
@@ -298,16 +230,11 @@ export default function Dashboard(props: DashboardProps) {
                               showTotalsCheckBox={false}/>
                 {state.filters?.map((element, index) => {
                   const field = element.type as Field
-                  let preSelectedValues
-                  state.filtersValues.forEach((v, k) => {
-                    if (getElementString(k) === getElementString(field)) {
-                      preSelectedValues = v
-                    }
-                  })
+                  const preSelectedValues = state.filtersValues.get(field)
                   return (
                           <FiltersSelector key={index}
                                            table={queryProvider.table[0]} // FIXME it only handles 1 table for the time being
-                                           field={(element.type as Field)}
+                                           field={field}
                                            filters={state.filtersValues}
                                            preSelectedValues={preSelectedValues ?? []}
                                            onFilterChange={onFilterChange}/>)
