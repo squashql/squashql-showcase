@@ -3,11 +3,13 @@ import {Field, from, QueryResult} from "@squashql/squashql-js"
 import {SquashQLTable} from "@/app/lib/tables"
 import {queryExecutor, toCriteria} from "@/app/lib/queries"
 import React, {useEffect, useState} from "react"
+import {getElementString} from "@/app/components/AxisSelector";
 
 interface FiltersSelectorProps {
   table: SquashQLTable
   field: Field
   filters: Map<Field, any[]>
+  preSelectedValues: any[]
   onFilterChange: (field: Field, values: any[]) => void
 }
 
@@ -18,10 +20,18 @@ interface Option {
 
 export default function FiltersSelector(props: FiltersSelectorProps) {
   const [options, setOptions] = useState<Option[]>()
+  const [selectedValues, setSelectedValues] = useState<Option[]>(props.preSelectedValues.map(p => ({
+    value: p,
+    label: p
+  })))
 
   useEffect(() => {
     const copy = new Map(props.filters)
-    copy.delete(props.field)
+    for (let [key, __] of copy) {
+      if (getElementString(key) === getElementString(props.field)) {
+        copy.delete(key)
+      }
+    }
     const query = from(props.table._name)
             .where(toCriteria(copy)) // smart filtering
             .select([props.field], [], [])
@@ -38,14 +48,13 @@ export default function FiltersSelector(props: FiltersSelectorProps) {
   }, [props.table._name, props.filters, props.field])
 
   function onChange(values: readonly Option[], action: ActionMeta<Option>) {
-    const valuesSt = values.map(v => v.value)
-    props.filters.set(props.field, valuesSt)
-    props.onFilterChange(props.field, valuesSt)
+    props.onFilterChange(props.field, values.map(v => v.value))
+    setSelectedValues(values.slice())
   }
 
   return (
           <div className="container px-1">
-            <Select options={options} isMulti onChange={onChange}/>
+            <Select options={options} isMulti onChange={onChange} value={selectedValues}/>
           </div>
   )
 }

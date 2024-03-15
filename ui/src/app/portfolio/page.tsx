@@ -1,8 +1,12 @@
 'use client'
-import Dashboard from "@/app/components/Dashboard"
 import {PortfolioProvider, var95MeasureName} from "@/app/portfolio/portfolioProvider"
 import UploadFile from "@/app/components/UploadFile"
 import {formatNumber} from "@/app/lib/utils"
+import dynamic from "next/dynamic"
+
+// Dashboard makes use of local storage and window
+// https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
+const Dashboard = dynamic(() => import("@/app/components/Dashboard"), {ssr: false})
 
 const portfolioQueryProvider = new PortfolioProvider()
 

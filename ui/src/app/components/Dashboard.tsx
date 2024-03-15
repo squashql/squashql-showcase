@@ -1,6 +1,6 @@
 'use client'
 import React, {useEffect, useState} from "react"
-import AxisSelector, {AxisType, SelectableElement} from "@/app/components/AxisSelector"
+import AxisSelector, {AxisType, getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {Field, Measure, PivotTableQueryResult} from "@squashql/squashql-js"
 import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors, queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
@@ -72,7 +72,7 @@ function computeInitialState(props: DashboardProps): DashboardState {
     const data = window.localStorage.getItem(localStoreKey)
     if (data) {
       const state: DashboardState = JSON.parse(data, reviver)
-      console.log(state)
+      console.log(state) // FIXME delete
       return state
     }
   }
@@ -89,13 +89,8 @@ function serializeMap(map: Map<any, any>): Map<string, any> {
 
 function reviver(key: string, value: any) {
   if (key === "filtersValues") {
-    console.log("filter")
-    // TODO parse values
-    const m = new Map
-    for (const [k, v] of Object.entries(value)) {
-      console.log(`${k}: ${v}`)
-      m.set(JSON.parse(k), v)
-    }
+    const m: Map<Field, any> = new Map
+    Object.entries(value).forEach(([k, v]) => m.set(JSON.parse(k), v))
     return m
   } else if (key === "type" && typeof value === "object") {
     if (value["class"] === "PercentOfParentAlongAncestors") {
@@ -110,11 +105,10 @@ function reviver(key: string, value: any) {
 
 function replacer(key: string, value: any) {
   if (key === "filtersValues") {
-    let fromEntries = Object.fromEntries(serializeMap(value))
-    return fromEntries
+    return Object.fromEntries(serializeMap(value))
+  } else {
+    return value
   }
-
-  return value
 }
 
 export default function Dashboard(props: DashboardProps) {
@@ -151,7 +145,7 @@ export default function Dashboard(props: DashboardProps) {
         // Special case for the filters to handle elements being removed
         const copy = new Map(fv)
         for (let [key, __] of copy) {
-          if (newElements.map(e => e.type).indexOf(key) < 0) { // find the one that does not exist anymore
+          if (newElements.map(e => getElementString(e.type)).indexOf(getElementString(key)) < 0) { // find the one that does not exist anymore
             copy.delete(key)
           }
         }
@@ -302,12 +296,22 @@ export default function Dashboard(props: DashboardProps) {
                               })}
                               queryResultDispatcher={refresh}
                               showTotalsCheckBox={false}/>
-                {state.filters?.map((element, index) => (
-                        <FiltersSelector key={index}
-                                         table={queryProvider.table[0]} // FIXME it only handles 1 table for the time being
-                                         field={(element.type as Field)}
-                                         filters={state.filtersValues}
-                                         onFilterChange={onFilterChange}/>))}
+                {state.filters?.map((element, index) => {
+                  const field = element.type as Field
+                  let preSelectedValues
+                  state.filtersValues.forEach((v, k) => {
+                    if (getElementString(k) === getElementString(field)) {
+                      preSelectedValues = v
+                    }
+                  })
+                  return (
+                          <FiltersSelector key={index}
+                                           table={queryProvider.table[0]} // FIXME it only handles 1 table for the time being
+                                           field={(element.type as Field)}
+                                           filters={state.filtersValues}
+                                           preSelectedValues={preSelectedValues ?? []}
+                                           onFilterChange={onFilterChange}/>)
+                })}
               </div>
             </div>
 
