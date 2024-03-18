@@ -117,15 +117,15 @@ export default function Dashboard(props: DashboardProps) {
                 </nav>
               </div>
 
-              <div className="col my-2">
+              <div className="col my-1">
                 <div className="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                  <button type="button" className="btn btn-outline-primary" onClick={undo}>
+                  <button type="button" className="btn btn-outline-primary" title="Undo" onClick={undo}>
                     <i className="bi bi-arrow-left-circle"></i>
                   </button>
                   {/* Refresh button */}
-                  <button type="button" className="btn btn-outline-primary" onClick={refreshFromState}>
+                  <button type="button" className="btn btn-outline-primary" title="Re-execute" onClick={refreshFromState}>
                     <i className="bi bi-arrow-repeat"></i></button>
-                  <button type="button" className="btn btn-outline-primary" onClick={redo}>
+                  <button type="button" className="btn btn-outline-primary" title="Redo" onClick={redo}>
                     <i className="bi bi-arrow-right-circle"></i>
                   </button>
                   <button type="button" className="btn btn-outline-primary" onClick={clearHistory}>Clear cache</button>
