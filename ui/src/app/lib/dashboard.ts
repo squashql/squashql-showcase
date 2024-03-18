@@ -1,7 +1,7 @@
 import {Field} from "@squashql/squashql-js"
 import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors} from "@/app/lib/queries"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
-import {useEffect, useState} from "react"
+import {useCallback, useEffect, useState} from "react"
 
 export interface DashboardState {
   rows: SelectableElement[]
@@ -111,19 +111,19 @@ export function useUndoRedo(initialValue: DashboardState, limit = 8) {
     })
   }
 
-  function undo() {
+  const undo = useCallback(() => {
     setHistory({
       ...history,
       currentIndex: Math.max(history.currentIndex - 1, 0)
     })
-  }
+  }, [history])
 
-  function redo() {
+  const redo = useCallback(() => {
     setHistory({
       ...history,
       currentIndex: Math.min(history.currentIndex + 1, history.states.length - 1)
     })
-  }
+  }, [history])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

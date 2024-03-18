@@ -49,5 +49,5 @@ export default function FiltersSelector(props: FiltersSelectorProps) {
               label: o
             }))}/>
           </div>
-  );
+  )
 }

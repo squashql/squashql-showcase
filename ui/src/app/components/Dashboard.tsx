@@ -56,7 +56,7 @@ export default function Dashboard(props: DashboardProps) {
 
   useEffect(() => {
     refreshFromState().finally(() => saveCurrentState(storageKey, state))
-  }, [state])
+  }, [state, refreshFromState, storageKey])
 
   // TODO review this logic.
   function refresh(newElements: SelectableElement[], type: AxisType) {
