@@ -43,7 +43,7 @@ function measureToSelectableElement(m: Measure) {
 }
 
 export default function Dashboard(props: DashboardProps) {
-  const storageKey = `${window.location.href}#${props.title}`
+  const storageKey = `state#${props.title.toLowerCase()}`
   const queryProvider = props.queryProvider
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
   const [minify, setMinify] = useState<boolean>(true)
@@ -139,17 +139,33 @@ export default function Dashboard(props: DashboardProps) {
     refresh(copy, AxisType.VALUES)
   }
 
+  function clearHistory() {
+    window.localStorage.removeItem(storageKey)
+  }
+
   return (
           <div className="container-fluid">
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb my-2">
-                <li className="breadcrumb-item"><a href="../">Home</a></li>
-                <li className="breadcrumb-item active" aria-current="page">{props.title}</li>
-              </ol>
-            </nav>
+            <div className="row row-cols-auto">
+              <div className="col">
+                <nav aria-label="breadcrumb">
+                  <ol className="breadcrumb my-2">
+                    <li className="breadcrumb-item"><a href="../">Home</a></li>
+                    <li className="breadcrumb-item active" aria-current="page">{props.title}</li>
+                  </ol>
+                </nav>
+              </div>
+
+              <div className="col my-2">
+                <div className="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                  <button type="button" className="btn btn-outline-primary" onClick={clearHistory}>Clear history</button>
+                  {/*<button type="button" className="btn btn-outline-primary">Middle</button>*/}
+                  {/*<button type="button" className="btn btn-outline-primary">Right</button>*/}
+                </div>
+              </div>
+            </div>
 
             {/* Edit Pivot Table */}
-            <div className={`offcanvas offcanvas-end`} data-bs-scroll="true"
+            <div className="offcanvas offcanvas-end" data-bs-scroll="true"
                  data-bs-backdrop="false" tabIndex={-1}
                  id="offcanvasRight"
                  aria-labelledby="offcanvasRightLabel">
