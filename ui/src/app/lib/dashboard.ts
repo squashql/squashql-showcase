@@ -91,8 +91,6 @@ interface History {
 }
 
 export function useUndoRedo(initialValue: DashboardState, limit = 8) {
-  // const [history, setHistory] = useState<DashboardState[]>([initialValue])
-  // const [currentIndex, setCurrentIndex] = useState(0)
   const [history, setHistory] = useState<History>({
     states: [initialValue],
     currentIndex: 0
@@ -106,12 +104,6 @@ export function useUndoRedo(initialValue: DashboardState, limit = 8) {
       if (nextHistory.length > limit) {
         nextHistory = nextHistory.slice(nextHistory.length - limit)
       }
-      // setCurrentIndex(nextHistory.length - 1)
-      console.log("====== nextState ======== ")
-      console.log(nextState)
-      console.log(`setCurrentIndex ${nextHistory.length - 1}`)
-      console.log(`CurrentIndex ${prevHistory.currentIndex}`)
-      console.log(nextHistory)
       return {
         states: nextHistory,
         currentIndex: nextHistory.length - 1
@@ -124,7 +116,6 @@ export function useUndoRedo(initialValue: DashboardState, limit = 8) {
       ...history,
       currentIndex: Math.max(history.currentIndex - 1, 0)
     })
-    // setCurrentIndex((curr) => Math.max(curr - 1, 0))
   }
 
   function redo() {
@@ -132,7 +123,6 @@ export function useUndoRedo(initialValue: DashboardState, limit = 8) {
       ...history,
       currentIndex: Math.min(history.currentIndex + 1, history.states.length - 1)
     })
-    // setCurrentIndex((curr) => Math.min(curr + 1, history.length - 1))
   }
 
   useEffect(() => {
