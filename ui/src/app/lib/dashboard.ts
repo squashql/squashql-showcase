@@ -3,13 +3,12 @@ import {
   BinaryOperationMeasure,
   ExpressionMeasure,
   Field,
-  Measure,
   ParametrizedMeasure
 } from "@squashql/squashql-js"
 import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors} from "@/app/lib/queries"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {useCallback, useEffect, useState} from "react"
-import {ComparisonMeasureGrandTotal, ComparisonMeasureReferencePosition} from "@squashql/squashql-js/dist/measure";
+import {ComparisonMeasureGrandTotal, ComparisonMeasureReferencePosition} from "@squashql/squashql-js/dist/measure"
 
 export interface DashboardState {
   rows: SelectableElement[]
