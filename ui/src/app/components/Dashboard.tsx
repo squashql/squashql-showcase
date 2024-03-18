@@ -78,16 +78,16 @@ export default function Dashboard(props: DashboardProps) {
         // Special case for the filters to handle elements being removed
         const copy = new Map(fv)
         for (let [key, __] of copy) {
-          if (newElements.map(e => e.type).indexOf(key) < 0) { // find the one that does not exist anymore
-            copy.delete(key)
+          if (newElements.map(e => e.type).indexOf(key) < 0 && copy.delete(key)) { // find the one that does not exist anymore
+            // setState((prevState) => {
+            //   return {
+            //     ...prevState,
+            //     filtersValues: copy
+            //   }
+            // })
+            break
           }
         }
-        setState((prevState) => {
-          return {
-            ...prevState,
-            filtersValues: copy
-          }
-        })
         fv = copy
         break
     }
@@ -149,7 +149,8 @@ export default function Dashboard(props: DashboardProps) {
             </nav>
 
             {/* Edit Pivot Table */}
-            <div className="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1}
+            <div className={`offcanvas offcanvas-end`} data-bs-scroll="true"
+                 data-bs-backdrop="false" tabIndex={-1}
                  id="offcanvasRight"
                  aria-labelledby="offcanvasRightLabel">
               <div className="offcanvas-header pb-1">
@@ -201,10 +202,18 @@ export default function Dashboard(props: DashboardProps) {
                               selectedElements={state.filters}
                               selectableElements={state.selectableFilters}
                               elementsDispatcher={(newSelectedElements, newSelectableElements) => setState((prevState) => {
+                                // Special case for the filters to handle elements being removed
+                                const copy = new Map(state.filtersValues)
+                                for (let [key, __] of copy) {
+                                  if (newSelectedElements.map(e => e.type).indexOf(key) < 0 && copy.delete(key)) { // find the one that does not exist anymore
+                                    break
+                                  }
+                                }
                                 return {
                                   ...prevState,
                                   filters: newSelectedElements,
-                                  selectableFilters: newSelectableElements
+                                  selectableFilters: newSelectableElements,
+                                  filtersValues: copy
                                 }
                               })}
                               queryResultDispatcher={refresh}
@@ -227,7 +236,8 @@ export default function Dashboard(props: DashboardProps) {
             <div className="row row-cols-auto">
               <div className="col px-1">
                 <button className="btn btn-sm btn-dark" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Edit
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                  Edit
                 </button>
               </div>
               <div className="col px-1">

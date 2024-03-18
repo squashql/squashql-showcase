@@ -49,7 +49,7 @@ function initialState(selectableElements: SelectableElement[], selectableFilters
     selectableElements,
     selectableFilters,
     selectableValues,
-    values: []
+    values: [],
   }
 }
 
@@ -85,30 +85,54 @@ function replacer(key: string, value: any) {
   }
 }
 
+interface History {
+  states: DashboardState[]
+  currentIndex: number
+}
+
 export function useUndoRedo(initialValue: DashboardState, limit = 8) {
-  const [history, setHistory] = useState<DashboardState[]>([initialValue])
-  const [currentIndex, setCurrentIndex] = useState(0)
+  // const [history, setHistory] = useState<DashboardState[]>([initialValue])
+  // const [currentIndex, setCurrentIndex] = useState(0)
+  const [history, setHistory] = useState<History>({
+    states: [initialValue],
+    currentIndex: 0
+  })
 
   function set(dispatch: (prevState: DashboardState) => DashboardState) {
     setHistory((prevHistory) => {
-      const nextState = dispatch({...prevHistory[prevHistory.length - 1]}) // do a copy
-      let nextHistory = prevHistory.slice(0, currentIndex + 1)
+      const nextState = dispatch({...prevHistory.states[prevHistory.currentIndex]}) // do a copy
+      let nextHistory = prevHistory.states.slice(0, prevHistory.currentIndex + 1)
       nextHistory.push(nextState)
       if (nextHistory.length > limit) {
         nextHistory = nextHistory.slice(nextHistory.length - limit)
       }
-      setCurrentIndex(nextHistory.length - 1)
+      // setCurrentIndex(nextHistory.length - 1)
+      console.log("====== nextState ======== ")
+      console.log(nextState)
+      console.log(`setCurrentIndex ${nextHistory.length - 1}`)
+      console.log(`CurrentIndex ${prevHistory.currentIndex}`)
       console.log(nextHistory)
-      return nextHistory
+      return {
+        states: nextHistory,
+        currentIndex: nextHistory.length - 1
+      }
     })
   }
 
   function undo() {
-    setCurrentIndex((curr) => Math.max(curr - 1, 0))
+    setHistory({
+      ...history,
+      currentIndex: Math.max(history.currentIndex - 1, 0)
+    })
+    // setCurrentIndex((curr) => Math.max(curr - 1, 0))
   }
 
   function redo() {
-    setCurrentIndex((curr) => Math.min(curr + 1, history.length - 1))
+    setHistory({
+      ...history,
+      currentIndex: Math.min(history.currentIndex + 1, history.states.length - 1)
+    })
+    // setCurrentIndex((curr) => Math.min(curr + 1, history.length - 1))
   }
 
   useEffect(() => {
@@ -128,7 +152,7 @@ export function useUndoRedo(initialValue: DashboardState, limit = 8) {
   }, [redo, undo])
 
   return {
-    state: history[currentIndex],
+    state: history.states[history.currentIndex],
     setState: set
   }
 }
