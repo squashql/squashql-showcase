@@ -1,7 +1,14 @@
-import {Field} from "@squashql/squashql-js"
+import {
+  AggregatedMeasure,
+  BinaryOperationMeasure,
+  ExpressionMeasure,
+  Field,
+  ParametrizedMeasure
+} from "@squashql/squashql-js"
 import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors} from "@/app/lib/queries"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {useCallback, useEffect, useState} from "react"
+import {ComparisonMeasureGrandTotal, ComparisonMeasureReferencePosition} from "@squashql/squashql-js/dist/measure"
 
 export interface DashboardState {
   rows: SelectableElement[]
@@ -67,14 +74,51 @@ function reviver(key: string, value: any) {
     Object.entries(value).forEach(([k, v]) => m.set(JSON.parse(k), v))
     return m
   } else if (key === "type" && typeof value === "object") {
-    if (value["class"] === "PercentOfParentAlongAncestors") {
-      return new PercentOfParentAlongAncestors(value["alias"], value["underlying"], value["axis"])
-    } else if (value["class"] === "CompareWithGrandTotalAlongAncestors") {
-      return new CompareWithGrandTotalAlongAncestors(value["alias"], value["underlying"], value["axis"])
-    }
+    return parseMeasure(value)
   }
-
   return value
+}
+
+function parseMeasure(value: any): any {
+  if (value["class"] === "PercentOfParentAlongAncestors") {
+    return new PercentOfParentAlongAncestors(value["alias"], value["underlying"], value["axis"])
+  } else if (value["class"] === "CompareWithGrandTotalAlongAncestors") {
+    return new CompareWithGrandTotalAlongAncestors(value["alias"], value["underlying"], value["axis"])
+  } else if (value["@class"] === "io.squashql.query.AggregatedMeasure") {
+    return new AggregatedMeasure(value["alias"], value["field"], value["aggregationFunction"], value["distinct"], value["criteria"])
+  } else if (value["@class"] === "io.squashql.query.ExpressionMeasure") {
+    return new ExpressionMeasure(value["alias"], value["expression"])
+  } else if (value["@class"] === "io.squashql.query.BinaryOperationMeasure") {
+    return new BinaryOperationMeasure(
+            value["alias"],
+            value["operator"],
+            parseMeasure(value["leftOperand"]),
+            parseMeasure(value["rightOperand"]))
+  } else if (value["@class"] === "io.squashql.query.ComparisonMeasureGrandTotal") {
+    return new ComparisonMeasureGrandTotal(
+            value["alias"],
+            value["comparisonMethod"],
+            parseMeasure(value["measure"]))
+  } else if (value["@class"] === "io.squashql.query.ComparisonMeasureReferencePosition") {
+    const m: Map<Field, any> = new Map
+    Object.entries(value["referencePosition"]).forEach(([k, v]) => m.set(JSON.parse(k), v))
+    return new ComparisonMeasureReferencePosition(
+            value["alias"],
+            value["comparisonMethod"],
+            parseMeasure(value["measure"]),
+            m,
+            value["columnSetKey"],
+            value["period"],
+            value["ancestors"],
+            value["grandTotalAlongAncestors"])
+  } else if (value["@class"] === "io.squashql.query.measure.ParametrizedMeasure") {
+    return new ParametrizedMeasure(
+            value["alias"],
+            value["key"],
+            value["parameters"])
+  } else {
+    return value
+  }
 }
 
 function replacer(key: string, value: any) {
@@ -143,6 +187,8 @@ export function useUndoRedo(initialValue: DashboardState, limit = 8) {
 
   return {
     state: history.states[history.currentIndex],
-    setState: set
+    setState: set,
+    undo,
+    redo
   }
 }
