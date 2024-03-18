@@ -82,9 +82,6 @@ function onChangeSelection(event: ChangeEvent<HTMLSelectElement>, props: AxisSel
   const nextSelectableElements = selectableElements
   nextSelectedElements.push(nextSelectableElements[index])
   nextSelectableElements.splice(index, 1)
-  // console.log("Dispatch")
-  // console.log(nextSelectedElements)
-  // console.log(nextSelectableElements)
   props.elementsDispatcher(nextSelectedElements, nextSelectableElements)
   props.queryResultDispatcher(nextSelectedElements, props.axisType)
 }

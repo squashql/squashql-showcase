@@ -1,7 +1,7 @@
 'use client'
-import Dashboard from "@/app/components/Dashboard"
 import {BudgetProvider, initialRecords} from "@/app/tutorial/budgetProvider"
 import {ChangeEvent} from "react"
+import dynamic from "next/dynamic"
 
 const records = initialRecords
 
@@ -33,6 +33,10 @@ function SatisfactionLevelComponent(props: SatisfactionLevelComponentProps) {
           </div>
   )
 }
+
+// Dashboard makes use of local storage and window
+// https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
+const Dashboard = dynamic(() => import("@/app/components/Dashboard"), {ssr: false})
 
 export default function Page() {
   const budgetProvider = new BudgetProvider(() => records)
