@@ -27,7 +27,7 @@ import {
   ComparisonMeasureReferencePosition,
   DoubleConstantMeasure,
   LongConstantMeasure
-} from "@squashql/squashql-js/dist/measure";
+} from "@squashql/squashql-js/dist/measure"
 
 export class QueryExecutor {
 
