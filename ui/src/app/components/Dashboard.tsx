@@ -49,51 +49,17 @@ export default function Dashboard(props: DashboardProps) {
   const [minify, setMinify] = useState<boolean>(true)
   const [ptHierarchyType, setPtHierarchyType] = useState<HierarchyType>("tree")
 
-  const {state, setState} = useUndoRedo(computeInitialState(storageKey,
+  const {state, setState, undo, redo} = useUndoRedo(computeInitialState(storageKey,
           props.queryProvider.selectableFields.map(fieldToSelectableElement),
           props.queryProvider.selectableFields.map(fieldToSelectableElement),
           props.queryProvider.measures.map(measureToSelectableElement)), 8)
 
   useEffect(() => {
-    refreshFromState().finally(() => saveCurrentState(storageKey, state))
+    refreshFromState().finally(() => {
+      console.log("new state")
+      saveCurrentState(storageKey, state)
+    })
   }, [state])
-
-  // TODO review this logic.
-  function refresh(newElements: SelectableElement[], type: AxisType) {
-    let r = state.rows
-    let c = state.columns
-    let v = state.values
-    let fv = state.filtersValues
-    switch (type) {
-      case AxisType.ROWS:
-        r = newElements
-        break
-      case AxisType.COLUMNS:
-        c = newElements
-        break
-      case AxisType.VALUES:
-        v = newElements
-        break
-      case AxisType.FILTERS:
-        // Special case for the filters to handle elements being removed
-        const copy = new Map(fv)
-        for (let [key, __] of copy) {
-          if (newElements.map(e => e.type).indexOf(key) < 0 && copy.delete(key)) { // find the one that does not exist anymore
-            // setState((prevState) => {
-            //   return {
-            //     ...prevState,
-            //     filtersValues: copy
-            //   }
-            // })
-            break
-          }
-        }
-        fv = copy
-        break
-    }
-
-    return executeAndSetResult(r, c, v, fv, minify)
-  }
 
   function refreshFromState() {
     return executeAndSetResult(state.rows, state.columns, state.values, state.filtersValues, minify)
@@ -136,7 +102,6 @@ export default function Dashboard(props: DashboardProps) {
         values: copy
       }
     })
-    refresh(copy, AxisType.VALUES)
   }
 
   function clearHistory() {
@@ -157,9 +122,16 @@ export default function Dashboard(props: DashboardProps) {
 
               <div className="col my-2">
                 <div className="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                  <button type="button" className="btn btn-outline-primary" onClick={clearHistory}>Clear history</button>
-                  {/*<button type="button" className="btn btn-outline-primary">Middle</button>*/}
-                  {/*<button type="button" className="btn btn-outline-primary">Right</button>*/}
+                  <button type="button" className="btn btn-outline-primary" onClick={undo}>
+                    <i className="bi bi-arrow-left-circle"></i>
+                  </button>
+                  {/* Refresh button */}
+                  <button type="button" className="btn btn-outline-primary" onClick={refreshFromState}>
+                    <i className="bi bi-arrow-repeat"></i></button>
+                  <button type="button" className="btn btn-outline-primary" onClick={redo}>
+                    <i className="bi bi-arrow-right-circle"></i>
+                  </button>
+                  <button type="button" className="btn btn-outline-primary" onClick={clearHistory}>Clear cache</button>
                 </div>
               </div>
             </div>
@@ -185,7 +157,6 @@ export default function Dashboard(props: DashboardProps) {
                                   selectableElements: newSelectableElements
                                 }
                               })}
-                              queryResultDispatcher={refresh}
                               showTotalsCheckBox={true}/>
                 <hr/>
                 <AxisSelector axisType={AxisType.COLUMNS}
@@ -198,7 +169,6 @@ export default function Dashboard(props: DashboardProps) {
                                   selectableElements: newSelectableElements
                                 }
                               })}
-                              queryResultDispatcher={refresh}
                               showTotalsCheckBox={true}/>
                 <hr/>
                 <AxisSelector axisType={AxisType.VALUES}
@@ -211,7 +181,6 @@ export default function Dashboard(props: DashboardProps) {
                                   selectableValues: newSelectableElements
                                 }
                               })}
-                              queryResultDispatcher={refresh}
                               showTotalsCheckBox={false}/>
                 <hr/>
                 <AxisSelector axisType={AxisType.FILTERS}
@@ -232,7 +201,6 @@ export default function Dashboard(props: DashboardProps) {
                                   filtersValues: copy
                                 }
                               })}
-                              queryResultDispatcher={refresh}
                               showTotalsCheckBox={false}/>
                 {state.filters?.map((element, index) => {
                   const field = element.type as Field
@@ -257,9 +225,6 @@ export default function Dashboard(props: DashboardProps) {
                 </button>
               </div>
               <div className="col px-1">
-                <button type="button" className="btn btn-sm btn-light" onClick={refreshFromState}>Refresh</button>
-              </div>
-              <div className="col px-0">
                 <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked={minify}
                        onChange={toggleMinify}/>
                 <label className="form-check-label px-1" htmlFor="flexCheckChecked">Minify</label>

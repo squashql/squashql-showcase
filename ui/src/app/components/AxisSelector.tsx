@@ -20,7 +20,6 @@ interface AxisSelectorProps {
   selectedElements: SelectableElement[],
   selectableElements: SelectableElement[],
   elementsDispatcher: (newSelectedElements: SelectableElement[], newSelectableElements: SelectableElement[],) => void
-  queryResultDispatcher: (newElements: SelectableElement[], type: AxisType) => void
   showTotalsCheckBox: boolean
 }
 
@@ -83,7 +82,6 @@ function onChangeSelection(event: ChangeEvent<HTMLSelectElement>, props: AxisSel
   nextSelectedElements.push(nextSelectableElements[index])
   nextSelectableElements.splice(index, 1)
   props.elementsDispatcher(nextSelectedElements, nextSelectableElements)
-  props.queryResultDispatcher(nextSelectedElements, props.axisType)
 }
 
 function onClickSelectedElement(element: string, props: AxisSelectorProps) {
@@ -95,7 +93,6 @@ function onClickSelectedElement(element: string, props: AxisSelectorProps) {
   nextSelectableElements.push(nextSelectedElements[index])
   nextSelectedElements.splice(index, 1)
   props.elementsDispatcher(nextSelectedElements, nextSelectableElements)
-  props.queryResultDispatcher(nextSelectedElements, props.axisType)
 }
 
 function onToggleShowTotals(element: string, props: AxisSelectorProps) {
@@ -107,7 +104,6 @@ function onToggleShowTotals(element: string, props: AxisSelectorProps) {
     showTotals: !selectedElements[index].showTotals
   }
   props.elementsDispatcher(nextSelectedElements, props.selectableElements)
-  props.queryResultDispatcher(nextSelectedElements, props.axisType)
 }
 
 export default function AxisSelector(props: AxisSelectorProps) {

@@ -73,7 +73,6 @@ function reviver(key: string, value: any) {
       return new CompareWithGrandTotalAlongAncestors(value["alias"], value["underlying"], value["axis"])
     }
   }
-
   return value
 }
 
@@ -143,6 +142,8 @@ export function useUndoRedo(initialValue: DashboardState, limit = 8) {
 
   return {
     state: history.states[history.currentIndex],
-    setState: set
+    setState: set,
+    undo,
+    redo
   }
 }

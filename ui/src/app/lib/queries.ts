@@ -145,13 +145,8 @@ function createMeasure(measure: Measure, pivotConfig: PivotConfig): Measure {
               cmrp.period,
               cmrp.ancestors,
               cmrp.grandTotalAlongAncestors)
-    case AggregatedMeasure:
-    case DoubleConstantMeasure:
-    case LongConstantMeasure:
-    case ExpressionMeasure:
-      return measure
     default:
-      throw new Error("Measure with unknown type: " + measure.constructor)
+      return measure
   }
 }
 
