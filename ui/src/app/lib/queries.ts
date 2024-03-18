@@ -146,7 +146,7 @@ function createMeasure(measure: Measure, pivotConfig: PivotConfig): Measure {
               cmrp.ancestors,
               cmrp.grandTotalAlongAncestors)
     default:
-      return measure
+      return measure // default return itself.
   }
 }
 

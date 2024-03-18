@@ -55,10 +55,7 @@ export default function Dashboard(props: DashboardProps) {
           props.queryProvider.measures.map(measureToSelectableElement)), 8)
 
   useEffect(() => {
-    refreshFromState().finally(() => {
-      console.log("new state")
-      saveCurrentState(storageKey, state)
-    })
+    refreshFromState().then(() => saveCurrentState(storageKey, state))
   }, [state])
 
   function refreshFromState() {
