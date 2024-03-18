@@ -99,7 +99,8 @@ export default function PivotTable(props: PivotTableProps) {
             <SheetComponent dataCfg={buildData(props.result, props.formatters)}
                             options={options}
                             themeCfg={themeCfg}
-                            header={header}/>
+                            // header={header} commented out to avoid multiple warnings each time the pt is rendered.
+            />
           </div>
   )
 }

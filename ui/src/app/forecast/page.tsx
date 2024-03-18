@@ -1,9 +1,13 @@
 'use client'
-import Dashboard from "@/app/components/Dashboard"
 import {ForecastQueryProvider} from "@/app/forecast/forecast"
 import UploadFile from "@/app/components/UploadFile"
+import dynamic from "next/dynamic"
 
 const qp = new ForecastQueryProvider()
+
+// Dashboard makes use of local storage and window
+// https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
+const Dashboard = dynamic(() => import("@/app/components/Dashboard"), {ssr: false})
 
 export default function Page() {
 

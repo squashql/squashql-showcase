@@ -8,6 +8,7 @@ interface FiltersSelectorProps {
   table: SquashQLTable
   field: Field
   filters: Map<Field, any[]>
+  preSelectedValues: any[]
   onFilterChange: (field: Field, values: any[]) => void
 }
 
@@ -38,14 +39,15 @@ export default function FiltersSelector(props: FiltersSelectorProps) {
   }, [props.table._name, props.filters, props.field])
 
   function onChange(values: readonly Option[], action: ActionMeta<Option>) {
-    const valuesSt = values.map(v => v.value)
-    props.filters.set(props.field, valuesSt)
-    props.onFilterChange(props.field, valuesSt)
+    props.onFilterChange(props.field, values.map(v => v.value))
   }
 
   return (
           <div className="container px-1">
-            <Select options={options} isMulti onChange={onChange}/>
+            <Select options={options} isMulti onChange={onChange} value={props.preSelectedValues.map(o => ({
+              value: o,
+              label: o
+            }))}/>
           </div>
   )
 }

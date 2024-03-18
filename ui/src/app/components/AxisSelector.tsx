@@ -17,10 +17,9 @@ export type SelectablePeriod = "Year" | "Month"
 
 interface AxisSelectorProps {
   axisType: AxisType,
-  elements: SelectableElement[],
+  selectedElements: SelectableElement[],
   selectableElements: SelectableElement[],
-  elementsDispatcher: Dispatch<SetStateAction<SelectableElement[]>>
-  selectableElementsDispatcher: Dispatch<SetStateAction<SelectableElement[]>>
+  elementsDispatcher: (newSelectedElements: SelectableElement[], newSelectableElements: SelectableElement[],) => void
   queryResultDispatcher: (newElements: SelectableElement[], type: AxisType) => void
   showTotalsCheckBox: boolean
 }
@@ -77,39 +76,37 @@ export function getElementString(element: Field | Measure | SelectableElement | 
 }
 
 function onChangeSelection(event: ChangeEvent<HTMLSelectElement>, props: AxisSelectorProps) {
-  const selectableElements = props.selectableElements
-  const selectedElements = props.elements
+  const selectableElements = props.selectableElements.slice()
+  const nextSelectedElements = props.selectedElements.slice()
   const index = selectableElements.map(v => getElementString(v)).indexOf(event.target.value)
-  const nextSelectableElements = selectableElements.slice()
-  selectedElements.push(nextSelectableElements[index])
+  const nextSelectableElements = selectableElements
+  nextSelectedElements.push(nextSelectableElements[index])
   nextSelectableElements.splice(index, 1)
-  props.elementsDispatcher(selectedElements)
-  props.selectableElementsDispatcher(nextSelectableElements)
-  props.queryResultDispatcher(selectedElements, props.axisType)
+  props.elementsDispatcher(nextSelectedElements, nextSelectableElements)
+  props.queryResultDispatcher(nextSelectedElements, props.axisType)
 }
 
 function onClickSelectedElement(element: string, props: AxisSelectorProps) {
-  const selectableElements = props.selectableElements
-  const selectedElements = props.elements
+  const selectableElements = props.selectableElements.slice()
+  const selectedElements = props.selectedElements.slice()
   const index = selectedElements.map(v => getElementString(v)).indexOf(element)
-  const nextSelectedElements = selectedElements.slice()
-  const nextSelectableElements = selectableElements.slice()
+  const nextSelectedElements = selectedElements
+  const nextSelectableElements = selectableElements
   nextSelectableElements.push(nextSelectedElements[index])
   nextSelectedElements.splice(index, 1)
-  props.elementsDispatcher(nextSelectedElements)
-  props.selectableElementsDispatcher(nextSelectableElements)
+  props.elementsDispatcher(nextSelectedElements, nextSelectableElements)
   props.queryResultDispatcher(nextSelectedElements, props.axisType)
 }
 
 function onToggleShowTotals(element: string, props: AxisSelectorProps) {
-  const selectedElements = props.elements
+  const selectedElements = props.selectedElements.slice()
   const index = selectedElements.map(v => getElementString(v)).indexOf(element)
-  const nextSelectedElements = selectedElements.slice()
+  const nextSelectedElements = selectedElements
   nextSelectedElements[index] = {
     type: selectedElements[index].type,
     showTotals: !selectedElements[index].showTotals
   }
-  props.elementsDispatcher(nextSelectedElements)
+  props.elementsDispatcher(nextSelectedElements, props.selectableElements)
   props.queryResultDispatcher(nextSelectedElements, props.axisType)
 }
 
@@ -133,7 +130,7 @@ export default function AxisSelector(props: AxisSelectorProps) {
               </div>
             </div>
             <div className="row">
-              {props.elements?.map((element, index) => (
+              {props.selectedElements?.map((element, index) => (
                       <div key={index} className="row m-1 p-1 text-bg-light" style={{borderRadius: 4}}>
                         <div className="px-1">
                           <strong>{getElementString(element)}</strong>
