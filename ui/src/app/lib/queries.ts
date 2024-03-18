@@ -1,12 +1,13 @@
 import {
+  AggregatedMeasure,
   all,
-  any,
+  any, BinaryOperationMeasure,
   comparisonMeasureWithGrandTotalAlongAncestors,
   comparisonMeasureWithParent,
-  ComparisonMethod,
+  ComparisonMethod, computePeriodDependencies,
   Criteria,
   criterion,
-  eq,
+  eq, ExpressionMeasure,
   Field,
   integer,
   Measure,
@@ -21,6 +22,12 @@ import {QueryProvider} from "@/app/lib/queryProvider"
 import {url} from "@/app/lib/constants"
 import {portfolio} from "@/app/lib/tables"
 import {SelectableElement} from "@/app/components/AxisSelector"
+import {
+  ComparisonMeasureGrandTotal,
+  ComparisonMeasureReferencePosition,
+  DoubleConstantMeasure,
+  LongConstantMeasure
+} from "@squashql/squashql-js/dist/measure"
 
 export class QueryExecutor {
 
@@ -37,15 +44,7 @@ export class QueryExecutor {
         hiddenTotals: select.filter(e => !e.showTotals).map(e => e.type as TableField),
       }
 
-      const measures = values.map(m => {
-        if (isMeasureProviderType(m) && m.axis === "row") {
-          return m.create(pivotConfig.rows)
-        } else if (isMeasureProviderType(m) && m.axis === "column") {
-          return m.create(pivotConfig.columns)
-        }
-        return m
-      })
-
+      const measures = values.map(m => createMeasure(m, pivotConfig))
       const query = queryProvider.query(select.map(e => e.type as TableField), measures, filters, pivotConfig)
       query.minify = minify
       return this.querier.executePivotQuery(query, pivotConfig)
@@ -54,7 +53,7 @@ export class QueryExecutor {
 }
 
 export interface MeasureProvider {
-  create(ancestors: Field[]): Measure
+  create(pivotConfig: PivotConfig): Measure
 
   axis: "row" | "column"
 }
@@ -71,8 +70,9 @@ export class PercentOfParentAlongAncestors implements MeasureProviderType {
   constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
   }
 
-  create(ancestors: Field[]): Measure {
-    const ratio = comparisonMeasureWithParent("_" + this.underlying.alias + "_percent_of_parent_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
+  create(pivotConfig: PivotConfig): Measure {
+    const underlying = createMeasure(this.underlying, pivotConfig)
+    const ratio = comparisonMeasureWithParent(`percent_of_parent_${this.axis}_${this.underlying.alias}`, ComparisonMethod.DIVIDE, underlying, getAncestors(this, pivotConfig))
     return multiply(this.alias, integer(100), ratio)
   }
 }
@@ -83,8 +83,9 @@ export class CompareWithGrandTotalAlongAncestors implements MeasureProviderType 
   constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
   }
 
-  create(ancestors: Field[]): Measure {
-    const ratio = comparisonMeasureWithGrandTotalAlongAncestors("percent_of_" + this.axis, ComparisonMethod.DIVIDE, this.underlying, ancestors)
+  create(pivotConfig: PivotConfig): Measure {
+    const underlying = createMeasure(this.underlying, pivotConfig)
+    const ratio = comparisonMeasureWithGrandTotalAlongAncestors(`percent_of_${this.axis}_${this.underlying.alias}`, ComparisonMethod.DIVIDE, underlying, getAncestors(this, pivotConfig))
     return multiply(this.alias, integer(100), ratio)
   }
 }
@@ -95,13 +96,62 @@ export class IncVarAncestors implements MeasureProviderType {
   constructor(readonly alias: string, readonly axis: "row" | "column") {
   }
 
-  create(ancestors: Field[]): Measure {
+  create(pivotConfig: PivotConfig): Measure {
     return new ParametrizedMeasure(this.alias, "INCREMENTAL_VAR", {
       "value": portfolio.scenarioValue,
       "date": portfolio.dateScenario,
       "quantile": 0.95,
-      "ancestors": ancestors
+      "ancestors": getAncestors(this, pivotConfig)
     })
+  }
+}
+
+function getAncestors(m: MeasureProviderType, pivotConfig: PivotConfig) {
+  switch (m.axis) {
+    case "column":
+      return pivotConfig.columns
+    case "row":
+      return pivotConfig.rows
+    default:
+      throw new Error(`Unexpected axis type ${m.axis}`)
+  }
+}
+
+function createMeasure(measure: Measure, pivotConfig: PivotConfig): Measure {
+  if (isMeasureProviderType(measure)) {
+    return measure.create(pivotConfig)
+  }
+
+  switch (measure.constructor) {
+    case BinaryOperationMeasure:
+      const bom = (measure as BinaryOperationMeasure)
+      const lop = createMeasure(bom.leftOperand, pivotConfig)
+      const rop = createMeasure(bom.rightOperand, pivotConfig)
+      return new BinaryOperationMeasure(bom.alias, bom.operator, lop, rop)
+    case ComparisonMeasureGrandTotal:
+      const cmgt = (measure as ComparisonMeasureGrandTotal)
+      return new ComparisonMeasureGrandTotal(
+              cmgt.alias,
+              cmgt.comparisonMethod,
+              createMeasure(cmgt.measure, pivotConfig))
+    case ComparisonMeasureReferencePosition:
+      const cmrp = (measure as ComparisonMeasureReferencePosition)
+      return new ComparisonMeasureReferencePosition(
+              cmrp.alias,
+              cmrp.comparisonMethod,
+              createMeasure(cmrp.measure, pivotConfig),
+              cmrp.referencePosition,
+              cmrp.columnSetKey,
+              cmrp.period,
+              cmrp.ancestors,
+              cmrp.grandTotalAlongAncestors)
+    case AggregatedMeasure:
+    case DoubleConstantMeasure:
+    case LongConstantMeasure:
+    case ExpressionMeasure:
+      return measure
+    default:
+      throw new Error("Measure with unknown type: " + measure.constructor)
   }
 }
 
