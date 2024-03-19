@@ -55,7 +55,7 @@ export interface MeasureProvider {
 
 export type MeasureProviderType = Measure & MeasureProvider
 
-function isMeasureProviderType(m: Measure): m is MeasureProviderType {
+export function isMeasureProviderType(m: Measure): m is MeasureProviderType {
   return "create" in m && "axis" in m
 }
 
@@ -86,7 +86,7 @@ export class CompareWithGrandTotalAlongAncestors implements MeasureProviderType 
 }
 
 export class IncVarAncestors implements MeasureProviderType {
-  readonly class: string = ""
+  readonly class: string = "IncVarAncestors"
 
   constructor(readonly alias: string, readonly axis: "row" | "column") {
   }

@@ -1,10 +1,11 @@
 import {describe, expect, test} from '@jest/globals'
 import {
   DashboardState,
-  deserialize,
+  deserialize, deserialize_,
   fieldToSelectableElement,
   measureToSelectableElement,
-  serialize, serialize_
+  serialize,
+  serialize_
 } from "@/app/lib/dashboard"
 import {
   AliasedField,
@@ -12,29 +13,44 @@ import {
   comparisonMeasureWithGrandTotalAlongAncestors,
   comparisonMeasureWithParent,
   comparisonMeasureWithPeriod,
-  ComparisonMethod, ConditionType, criterion, criterion_, eq,
+  ComparisonMethod,
+  criterion,
+  eq,
   ExpressionMeasure,
   Field,
-  Month, ParametrizedMeasure,
-  sum, sumIf,
-  TableField
+  Month,
+  ParametrizedMeasure,
+  sum,
+  sumIf,
+  TableField,
+  any,
+  BinaryOperationMeasure,
+  BinaryOperator,
 } from "@squashql/squashql-js"
 import {getElementString} from "@/app/components/AxisSelector"
+import {
+  CompareWithGrandTotalAlongAncestors,
+  IncVarAncestors,
+  isMeasureProviderType,
+  PercentOfParentAlongAncestors
+} from "@/app/lib/queries"
 
 // Fields
 const a = new TableField("table.a")
 const b = new TableField("table.b")
 const c = new AliasedField("c")
-const year = new AliasedField("table.year")
-const month = new AliasedField("table.month")
-const date = new AliasedField("table.date")
+const year = new TableField("table.year")
+const month = new TableField("table.month")
+const date = new TableField("table.date")
 const city = new TableField("table.city")
 
 // Measures
 const sumA = sum("sum_a", a)
+const criteria = any([criterion(b, eq("b")), criterion(b, eq("bb"))])
 const sumIfA = sumIf("sumIfA", a.divide(b.plus(c)), criterion(b, eq("bbb")))
-const sumIfB = sumIf("sumIfB", b, criterion(b, eq("bbb")))
+const sumIfB = sumIf("sumIfB", b, criteria)
 const expr = new ExpressionMeasure("expr", "my sql")
+const bom = new BinaryOperationMeasure("binary measure", BinaryOperator.PLUS, sumA, expr)
 const growth = comparisonMeasureWithPeriod("growth", ComparisonMethod.DIVIDE, sumA, new Map([
   [year, "y-1"],
   [month, "m"]
@@ -53,6 +69,9 @@ const incrVar95 = new ParametrizedMeasure("incr var measure", "INCREMENTAL_VAR",
   "quantile": 0.95,
   "ancestors": [a, b, c],
 })
+const incVarAncestors = new IncVarAncestors("incr var ancestors", "row")
+const percentOfParentAlongAncestors = new PercentOfParentAlongAncestors("pop along ancestors", sumA, "row")
+const compareWithGrandTotalAlongAncestors = new CompareWithGrandTotalAlongAncestors("gt along ancestors", sumA, "column")
 
 const filtersValues = new Map
 filtersValues.set(fieldToSelectableElement(city), ["la", "paris"])
@@ -62,19 +81,82 @@ filtersValues.set(fieldToSelectableElement(b), [true])
 const state: DashboardState = {
   rows: [],
   columns: [],
-  values: [sumA, sumIfA, expr].map(measureToSelectableElement),
+  values: [sumA, sumIfA, expr, bom].map(measureToSelectableElement),
   selectableElements: [a, b, c, city].map(fieldToSelectableElement),
-  selectableValues: [growth, parent, grandTotalAlongAncestors, grandTotal, var95, incrVar95].map(measureToSelectableElement),
+  selectableValues: [growth, parent, grandTotalAlongAncestors, grandTotal, var95, incrVar95, percentOfParentAlongAncestors, compareWithGrandTotalAlongAncestors].map(measureToSelectableElement),
   selectableFilters: [a, b, c, city].map(fieldToSelectableElement),
   filters: [city, a, b].map(fieldToSelectableElement),
   filtersValues,
 }
 
 describe('serialization', () => {
+  test('serialize criteria', () => {
+    const json = serialize_(criteria)
+    const obj = deserialize_(json)
+    expect(criteria).toEqual(obj)
+  })
+
   test('serialize sumIf simple', () => {
     const json = serialize_(sumIfB)
-    const obj = deserialize(json)
+    const obj = deserialize_(json)
+    expect(sumIfB).toEqual(obj)
+  })
+
+  test('serialize sumIf complex', () => {
+    const json = serialize_(sumIfA)
+    const obj = deserialize_(json)
     expect(sumIfA).toEqual(obj)
+  })
+
+  test('serialize comparisonMeasureWithPeriod', () => {
+    const json = serialize_(growth)
+    const obj = deserialize_(json)
+    expect(growth).toEqual(obj)
+  })
+
+  test('serialize comparisonMeasureWithParent', () => {
+    const json = serialize_(parent)
+    const obj = deserialize_(json)
+    expect(parent).toEqual(obj)
+  })
+
+  test('serialize comparisonMeasureWithGrandTotalAlongAncestors', () => {
+    const json = serialize_(grandTotalAlongAncestors)
+    const obj = deserialize_(json)
+    expect(grandTotalAlongAncestors).toEqual(obj)
+  })
+
+  test('serialize comparisonMeasureWithGrandTotal', () => {
+    const json = serialize_(grandTotal)
+    const obj = deserialize_(json)
+    expect(grandTotal).toEqual(obj)
+  })
+
+  test('serialize BinaryOperationMeasure', () => {
+    const json = serialize_(bom)
+    const obj = deserialize_(json)
+    expect(bom).toEqual(obj)
+  })
+
+  test('serialize percentOfParentAlongAncestors', () => {
+    const json = serialize_(percentOfParentAlongAncestors)
+    const obj = deserialize_(json)
+    expect(isMeasureProviderType(obj)).toBeTruthy()
+    expect(percentOfParentAlongAncestors).toEqual(obj)
+  })
+
+  test('serialize compareWithGrandTotalAlongAncestors', () => {
+    const json = serialize_(compareWithGrandTotalAlongAncestors)
+    const obj = deserialize_(json)
+    expect(isMeasureProviderType(obj)).toBeTruthy()
+    expect(compareWithGrandTotalAlongAncestors).toEqual(obj)
+  })
+
+  test('serialize incVarAncestors', () => {
+    const json = serialize_(incVarAncestors)
+    const obj = deserialize_(json)
+    expect(isMeasureProviderType(obj)).toBeTruthy()
+    expect(incVarAncestors).toEqual(obj)
   })
 
   test('serialize dashboard state', () => {
