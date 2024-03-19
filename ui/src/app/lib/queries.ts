@@ -1,13 +1,13 @@
 import {
-  AggregatedMeasure,
   all,
-  any, BinaryOperationMeasure,
+  any,
+  BinaryOperationMeasure,
   comparisonMeasureWithGrandTotalAlongAncestors,
   comparisonMeasureWithParent,
-  ComparisonMethod, computePeriodDependencies,
+  ComparisonMethod,
   Criteria,
   criterion,
-  eq, ExpressionMeasure,
+  eq,
   Field,
   integer,
   Measure,
@@ -22,12 +22,7 @@ import {QueryProvider} from "@/app/lib/queryProvider"
 import {url} from "@/app/lib/constants"
 import {portfolio} from "@/app/lib/tables"
 import {SelectableElement} from "@/app/components/AxisSelector"
-import {
-  ComparisonMeasureGrandTotal,
-  ComparisonMeasureReferencePosition,
-  DoubleConstantMeasure,
-  LongConstantMeasure
-} from "@squashql/squashql-js/dist/measure"
+import {ComparisonMeasureGrandTotal, ComparisonMeasureReferencePosition} from "@squashql/squashql-js/dist/measure"
 
 export class QueryExecutor {
 

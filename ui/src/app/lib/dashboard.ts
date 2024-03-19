@@ -1,14 +1,28 @@
 import {
-  AggregatedMeasure,
+  AggregatedMeasure, AliasedField,
   BinaryOperationMeasure,
   ExpressionMeasure,
-  Field,
-  ParametrizedMeasure
+  Field, Measure,
+  ParametrizedMeasure, TableField
 } from "@squashql/squashql-js"
 import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors} from "@/app/lib/queries"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {useCallback, useEffect, useState} from "react"
-import {ComparisonMeasureGrandTotal, ComparisonMeasureReferencePosition} from "@squashql/squashql-js/dist/measure"
+import {ComparisonMeasureGrandTotal, ComparisonMeasureReferencePosition} from "@squashql/squashql-js/dist/measure" // FIXME
+
+export function fieldToSelectableElement(f: Field) {
+  return {
+    type: f,
+    showTotals: true
+  }
+}
+
+export function measureToSelectableElement(m: Measure) {
+  return {
+    type: m,
+    showTotals: true
+  }
+}
 
 export interface DashboardState {
   rows: SelectableElement[]
@@ -25,7 +39,7 @@ export function computeInitialState(key: string, selectableElements: SelectableE
   if (typeof window !== "undefined") {
     const data = window.localStorage.getItem(key)
     if (data) {
-      const state: DashboardState = JSON.parse(data, reviver)
+      const state: DashboardState = deserialize(data)
 
       const newFiltersValues = new Map()
       const filters = state.filters.map(getElementString)
@@ -44,7 +58,7 @@ export function computeInitialState(key: string, selectableElements: SelectableE
 }
 
 export function saveCurrentState(key: string, state: DashboardState) {
-  window.localStorage.setItem(key, JSON.stringify(state, replacer))
+  window.localStorage.setItem(key, serialize(state))
 }
 
 function initialState(selectableElements: SelectableElement[], selectableFilters: SelectableElement[], selectableValues: SelectableElement[]): DashboardState {
@@ -71,51 +85,57 @@ function serializeMap(map: Map<any, any>): Map<string, any> {
 function reviver(key: string, value: any) {
   if (key === "filtersValues") {
     const m: Map<Field, any> = new Map
-    Object.entries(value).forEach(([k, v]) => m.set(JSON.parse(k), v))
+    Object.entries(value).forEach(([k, v]) => m.set(transformToObject(JSON.parse(k)), v))
     return m
   } else if (key === "type" && typeof value === "object") {
-    return parseMeasure(value)
+    return transformToObject(value)
   }
   return value
 }
 
-function parseMeasure(value: any): any {
+function transformToObject(value: any): any {
   if (value["class"] === "PercentOfParentAlongAncestors") {
     return new PercentOfParentAlongAncestors(value["alias"], value["underlying"], value["axis"])
   } else if (value["class"] === "CompareWithGrandTotalAlongAncestors") {
     return new CompareWithGrandTotalAlongAncestors(value["alias"], value["underlying"], value["axis"])
   } else if (value["@class"] === "io.squashql.query.AggregatedMeasure") {
-    return new AggregatedMeasure(value["alias"], value["field"], value["aggregationFunction"], value["distinct"], value["criteria"])
+    return new AggregatedMeasure(value["alias"], transformToObject(value["field"]), value["aggregationFunction"], value["distinct"], value["criteria"])
   } else if (value["@class"] === "io.squashql.query.ExpressionMeasure") {
     return new ExpressionMeasure(value["alias"], value["expression"])
   } else if (value["@class"] === "io.squashql.query.BinaryOperationMeasure") {
     return new BinaryOperationMeasure(
             value["alias"],
             value["operator"],
-            parseMeasure(value["leftOperand"]),
-            parseMeasure(value["rightOperand"]))
+            transformToObject(value["leftOperand"]),
+            transformToObject(value["rightOperand"]))
   } else if (value["@class"] === "io.squashql.query.ComparisonMeasureGrandTotal") {
     return new ComparisonMeasureGrandTotal(
             value["alias"],
             value["comparisonMethod"],
-            parseMeasure(value["measure"]))
+            transformToObject(value["measure"]))
   } else if (value["@class"] === "io.squashql.query.ComparisonMeasureReferencePosition") {
     const m: Map<Field, any> = new Map
-    Object.entries(value["referencePosition"]).forEach(([k, v]) => m.set(JSON.parse(k), v))
+    Object.entries(value["referencePosition"]).forEach(([k, v]) => m.set(transformToObject(k), v))
     return new ComparisonMeasureReferencePosition(
             value["alias"],
             value["comparisonMethod"],
-            parseMeasure(value["measure"]),
+            transformToObject(value["measure"]),
             m,
             value["columnSetKey"],
             value["period"],
-            value["ancestors"],
+            value["ancestors"].map((v: any) => transformToObject(v)),
             value["grandTotalAlongAncestors"])
   } else if (value["@class"] === "io.squashql.query.measure.ParametrizedMeasure") {
     return new ParametrizedMeasure(
             value["alias"],
             value["key"],
             value["parameters"])
+  } else if (value["@class"] === "io.squashql.query.TableField") {
+    return new TableField(
+            value["fullName"],
+            value["alias"])
+  } else if (value["@class"] === "io.squashql.query.AliasedField") {
+    return new AliasedField(value["alias"])
   } else {
     return value
   }
@@ -127,6 +147,14 @@ function replacer(key: string, value: any) {
   } else {
     return value
   }
+}
+
+export function serialize(state: DashboardState): string {
+  return JSON.stringify(state, replacer)
+}
+
+export function deserialize(state: string): DashboardState {
+  return JSON.parse(state, reviver)
 }
 
 interface History {

@@ -8,7 +8,13 @@ import {QueryProvider} from "@/app/lib/queryProvider"
 import HierarchicalMeasureBuilder from "@/app/components/HierarchicalMeasureBuilder"
 import TimeComparisonMeasureBuilder from "@/app/components/TimeComparisonMeasureBuilder"
 import CalculatedMeasureBuilder from "@/app/components/CalculatedMeasureBuilder"
-import {computeInitialState, saveCurrentState, useUndoRedo} from "@/app/lib/dashboard"
+import {
+  computeInitialState,
+  fieldToSelectableElement,
+  measureToSelectableElement,
+  saveCurrentState,
+  useUndoRedo
+} from "@/app/lib/dashboard"
 
 // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
 const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
@@ -27,20 +33,6 @@ export interface DashboardProps {
 }
 
 export type HierarchyType = 'grid' | 'tree' | 'customTree'
-
-function fieldToSelectableElement(f: Field) {
-  return {
-    type: f,
-    showTotals: true
-  }
-}
-
-function measureToSelectableElement(m: Measure) {
-  return {
-    type: m,
-    showTotals: true
-  }
-}
 
 export default function Dashboard(props: DashboardProps) {
   const storageKey = `state#${props.title.toLowerCase()}`
