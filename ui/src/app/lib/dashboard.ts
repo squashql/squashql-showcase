@@ -9,9 +9,9 @@ import {CompareWithGrandTotalAlongAncestors, IncVarAncestors, PercentOfParentAlo
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {useCallback, useEffect, useState} from "react"
 import {ComparisonMeasureGrandTotal, ComparisonMeasureReferencePosition} from "@squashql/squashql-js/dist/measure"
-import {SingleValueCondition} from "@squashql/squashql-js/dist/conditions";
-import {BinaryOperationField} from "../../../../../squashql/js/typescript-library/dist/field";
-import {Month, Quarter, Semester, Year} from "../../../../../squashql/js/typescript-library/dist/columnsets"; // FIXME
+import {SingleValueCondition} from "@squashql/squashql-js/dist/conditions"
+import {BinaryOperationField} from "../../../../../squashql/js/typescript-library/dist/field"
+import {Month, Quarter, Semester, Year} from "../../../../../squashql/js/typescript-library/dist/columnsets" // FIXME
 
 export function fieldToSelectableElement(f: Field) {
   return {
@@ -125,7 +125,7 @@ function transformToObject(value: any): any {
             value["alias"],
             value["comparisonMethod"],
             transformToObject(value["measure"]),
-            // @ts-ignore FIXME to remove 
+            // @ts-ignore FIXME to remove
             m.size == 0 ? undefined : m,
             value["columnSetKey"],
             value["period"],
