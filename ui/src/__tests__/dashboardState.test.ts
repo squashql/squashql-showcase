@@ -4,33 +4,79 @@ import {
   deserialize,
   fieldToSelectableElement,
   measureToSelectableElement,
-  serialize
+  serialize, serialize_
 } from "@/app/lib/dashboard"
-import {TableField, sum, AliasedField, Field} from "@squashql/squashql-js"
+import {
+  AliasedField,
+  comparisonMeasureWithGrandTotal,
+  comparisonMeasureWithGrandTotalAlongAncestors,
+  comparisonMeasureWithParent,
+  comparisonMeasureWithPeriod,
+  ComparisonMethod, ConditionType, criterion, criterion_, eq,
+  ExpressionMeasure,
+  Field,
+  Month, ParametrizedMeasure,
+  sum, sumIf,
+  TableField
+} from "@squashql/squashql-js"
 import {getElementString} from "@/app/components/AxisSelector"
 
-const a = fieldToSelectableElement(new TableField("table.a"))
-const b = fieldToSelectableElement(new TableField("table.b"))
-const c = fieldToSelectableElement(new AliasedField("c"))
-const city = fieldToSelectableElement(new TableField("table.city"))
-const sumA = measureToSelectableElement(sum("sum_a", new TableField("table.a")))
+// Fields
+const a = new TableField("table.a")
+const b = new TableField("table.b")
+const c = new AliasedField("c")
+const year = new AliasedField("table.year")
+const month = new AliasedField("table.month")
+const date = new AliasedField("table.date")
+const city = new TableField("table.city")
+
+// Measures
+const sumA = sum("sum_a", a)
+const sumIfA = sumIf("sumIfA", a.divide(b.plus(c)), criterion(b, eq("bbb")))
+const sumIfB = sumIf("sumIfB", b, criterion(b, eq("bbb")))
+const expr = new ExpressionMeasure("expr", "my sql")
+const growth = comparisonMeasureWithPeriod("growth", ComparisonMethod.DIVIDE, sumA, new Map([
+  [year, "y-1"],
+  [month, "m"]
+]), new Month(month, year))
+const parent = comparisonMeasureWithParent("parent", ComparisonMethod.DIVIDE, sumA, [year, month])
+const grandTotalAlongAncestors = comparisonMeasureWithGrandTotalAlongAncestors("grandTotalAlongAncestors", ComparisonMethod.DIVIDE, sumA, [year, month])
+const grandTotal = comparisonMeasureWithGrandTotal("grandTotal", ComparisonMethod.DIVIDE, sumA)
+const var95 = new ParametrizedMeasure("var measure", "VAR", {
+  "value": a,
+  "date": date,
+  "quantile": 0.95
+})
+const incrVar95 = new ParametrizedMeasure("incr var measure", "INCREMENTAL_VAR", {
+  "value": a,
+  "date": date,
+  "quantile": 0.95,
+  "ancestors": [a, b, c],
+})
 
 const filtersValues = new Map
-filtersValues.set(new TableField("table.city"), ["la", "paris"])
-filtersValues.set(new TableField("table.a"), [1, 2])
+filtersValues.set(fieldToSelectableElement(city), ["la", "paris"])
+filtersValues.set(fieldToSelectableElement(a), [1, 2])
+filtersValues.set(fieldToSelectableElement(b), [true])
 
 const state: DashboardState = {
   rows: [],
   columns: [],
-  values: [],
-  selectableElements: [a, b, c, city],
-  selectableValues: [sumA],
-  selectableFilters: [a, b, c, city],
-  filters: [city, a],
+  values: [sumA, sumIfA, expr].map(measureToSelectableElement),
+  selectableElements: [a, b, c, city].map(fieldToSelectableElement),
+  selectableValues: [growth, parent, grandTotalAlongAncestors, grandTotal, var95, incrVar95].map(measureToSelectableElement),
+  selectableFilters: [a, b, c, city].map(fieldToSelectableElement),
+  filters: [city, a, b].map(fieldToSelectableElement),
   filtersValues,
 }
 
 describe('serialization', () => {
+  test('serialize sumIf simple', () => {
+    const json = serialize_(sumIfB)
+    const obj = deserialize(json)
+    expect(sumIfA).toEqual(obj)
+  })
+
   test('serialize dashboard state', () => {
     const json = serialize(state)
     const obj = deserialize(json)

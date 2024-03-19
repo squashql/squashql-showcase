@@ -1,6 +1,6 @@
 import {
   AggregatedMeasure, AliasedField,
-  BinaryOperationMeasure,
+  BinaryOperationMeasure, Criteria,
   ExpressionMeasure,
   Field, Measure,
   ParametrizedMeasure, TableField
@@ -8,7 +8,8 @@ import {
 import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors} from "@/app/lib/queries"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {useCallback, useEffect, useState} from "react"
-import {ComparisonMeasureGrandTotal, ComparisonMeasureReferencePosition} from "@squashql/squashql-js/dist/measure" // FIXME
+import {ComparisonMeasureGrandTotal, ComparisonMeasureReferencePosition} from "@squashql/squashql-js/dist/measure"
+import {SingleValueCondition} from "@squashql/squashql-js/dist/conditions"; // FIXME
 
 export function fieldToSelectableElement(f: Field) {
   return {
@@ -87,7 +88,7 @@ function reviver(key: string, value: any) {
     const m: Map<Field, any> = new Map
     Object.entries(value).forEach(([k, v]) => m.set(transformToObject(JSON.parse(k)), v))
     return m
-  } else if (key === "type" && typeof value === "object") {
+  } else if (typeof value === "object") {
     return transformToObject(value)
   }
   return value
@@ -115,7 +116,7 @@ function transformToObject(value: any): any {
             transformToObject(value["measure"]))
   } else if (value["@class"] === "io.squashql.query.ComparisonMeasureReferencePosition") {
     const m: Map<Field, any> = new Map
-    Object.entries(value["referencePosition"]).forEach(([k, v]) => m.set(transformToObject(k), v))
+    value["referencePosition"] && Object.entries(value["referencePosition"])?.forEach(([k, v]) => m.set(transformToObject(k), v))
     return new ComparisonMeasureReferencePosition(
             value["alias"],
             value["comparisonMethod"],
@@ -123,7 +124,7 @@ function transformToObject(value: any): any {
             m,
             value["columnSetKey"],
             value["period"],
-            value["ancestors"].map((v: any) => transformToObject(v)),
+            value["ancestors"]?.map((v: any) => transformToObject(v)),
             value["grandTotalAlongAncestors"])
   } else if (value["@class"] === "io.squashql.query.measure.ParametrizedMeasure") {
     return new ParametrizedMeasure(
@@ -136,6 +137,8 @@ function transformToObject(value: any): any {
             value["alias"])
   } else if (value["@class"] === "io.squashql.query.AliasedField") {
     return new AliasedField(value["alias"])
+  } else if (value["@class"] === "io.squashql.query.dto.SingleValueConditionDto") {
+    return new SingleValueCondition(value["type"], value["value"])
   } else {
     return value
   }
@@ -151,6 +154,10 @@ function replacer(key: string, value: any) {
 
 export function serialize(state: DashboardState): string {
   return JSON.stringify(state, replacer)
+}
+
+export function serialize_(value: any): string {
+  return JSON.stringify(value, replacer)
 }
 
 export function deserialize(state: string): DashboardState {
