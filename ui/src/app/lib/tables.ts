@@ -45,8 +45,9 @@ class Forecast implements SquashQLTable {
   readonly accrualYear: TableField = new TableField("forecast.accrual_year")
   readonly hypothesis: TableField = new TableField("forecast.hypothesis")
   readonly scenario: TableField = new TableField("forecast.scenario")
-  readonly backlog: TableField = new TableField("forecast.backlog")
-  readonly _fields: TableField[] = [this.pnl, this.class, this.account, this.subAccount, this.extraInfo, this.accrual, this.accrualDay, this.accrualMonth, this.accrualYear, this.hypothesis, this.scenario, this.backlog]
+  readonly type: TableField = new TableField("forecast.type")
+  // readonly backlog: TableField = new TableField("forecast.backlog")
+  readonly _fields: TableField[] = [this.pnl, this.class, this.account, this.subAccount, this.extraInfo, this.accrual, this.accrualDay, this.accrualMonth, this.accrualYear, this.hypothesis, this.scenario, this.type]
 }
 
 class Population implements SquashQLTable {

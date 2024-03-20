@@ -266,6 +266,8 @@ export function useUndoRedo(initialValue: DashboardState, limit = 8) {
     state: history.states[history.currentIndex],
     setState: set,
     undo,
-    redo
+    redo,
+    canUndo: history.currentIndex > 0,
+    canRedo: history.currentIndex < history.states.length - 1,
   }
 }
