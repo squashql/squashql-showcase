@@ -3,11 +3,11 @@ import {Measure, BinaryOperator, BinaryOperationMeasure} from "@squashql/squashq
 import {getElementString} from "@/app/components/AxisSelector"
 import FloatingSelect from "@/app/components/FloatingSelect"
 import FloatingInputText from "@/app/components/FloatingInputText"
-import {MeasureProviderType} from "@/app/lib/queries"
+import {PartialMeasure} from "@/app/lib/queries"
 
 interface CalculatedMeasureBuilderProps {
   measures: Measure[]
-  onNewMeasure: (m: Measure | MeasureProviderType) => void
+  onNewMeasure: (m: Measure | PartialMeasure) => void
 }
 
 interface CalculatedMeasureBuilderState {
@@ -65,7 +65,7 @@ export default function CalculatedMeasureBuilder(props: CalculatedMeasureBuilder
                                         const underlyingMeasure = props.measures[index]
                                         setState((prevState) => {
                                           return {
-                                            ...state,
+                                            ...prevState,
                                             leftOperand: underlyingMeasure,
                                           }
                                         })
@@ -82,7 +82,7 @@ export default function CalculatedMeasureBuilder(props: CalculatedMeasureBuilder
                                         const operator = Object.values(BinaryOperator)[index]
                                         setState((prevState) => {
                                           return {
-                                            ...state,
+                                            ...prevState,
                                             operator
                                           }
                                         })
@@ -99,7 +99,7 @@ export default function CalculatedMeasureBuilder(props: CalculatedMeasureBuilder
                                         const underlyingMeasure = props.measures[index]
                                         setState((prevState) => {
                                           return {
-                                            ...state,
+                                            ...prevState,
                                             rightOperand: underlyingMeasure,
                                           }
                                         })
@@ -110,9 +110,11 @@ export default function CalculatedMeasureBuilder(props: CalculatedMeasureBuilder
                     <div className="pb-1">
                       <FloatingInputText textValue={state.alias}
                                          onChange={event => {
-                                           setState({
-                                             ...state,
-                                             alias: event.target.value
+                                           setState((prevState) => {
+                                             return {
+                                               ...prevState,
+                                               alias: event.target.value,
+                                             }
                                            })
                                          }}/>
                     </div>

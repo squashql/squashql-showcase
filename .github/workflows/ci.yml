@@ -44,6 +44,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install ui
         run: npm --prefix ui install
+      - name: Test ui
+        run: npm --prefix ui run test
       - name: Build ui
         run: npm --prefix ui run build
 
