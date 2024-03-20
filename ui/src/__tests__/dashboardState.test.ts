@@ -31,7 +31,7 @@ import {getElementString} from "@/app/components/AxisSelector"
 import {
   CompareWithGrandTotalAlongAncestors,
   IncVarAncestors,
-  isMeasureProviderType,
+  isPartialMeasure,
   PercentOfParentAlongAncestors
 } from "@/app/lib/queries"
 
@@ -141,21 +141,21 @@ describe('serialization', () => {
   test('serialize percentOfParentAlongAncestors', () => {
     const json = serialize_(percentOfParentAlongAncestors)
     const obj = deserialize_(json)
-    expect(isMeasureProviderType(obj)).toBeTruthy()
+    expect(isPartialMeasure(obj)).toBeTruthy()
     expect(percentOfParentAlongAncestors).toEqual(obj)
   })
 
   test('serialize compareWithGrandTotalAlongAncestors', () => {
     const json = serialize_(compareWithGrandTotalAlongAncestors)
     const obj = deserialize_(json)
-    expect(isMeasureProviderType(obj)).toBeTruthy()
+    expect(isPartialMeasure(obj)).toBeTruthy()
     expect(compareWithGrandTotalAlongAncestors).toEqual(obj)
   })
 
   test('serialize incVarAncestors', () => {
     const json = serialize_(incVarAncestors)
     const obj = deserialize_(json)
-    expect(isMeasureProviderType(obj)).toBeTruthy()
+    expect(isPartialMeasure(obj)).toBeTruthy()
     expect(incVarAncestors).toEqual(obj)
   })
 

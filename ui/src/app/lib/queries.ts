@@ -15,14 +15,15 @@ import {
   ParametrizedMeasure,
   PivotConfig,
   Querier,
-  TableField
+  TableField,
+  ComparisonMeasureReferencePosition,
+  ComparisonMeasureGrandTotal
 } from "@squashql/squashql-js"
 
 import {QueryProvider} from "@/app/lib/queryProvider"
 import {url} from "@/app/lib/constants"
 import {portfolio} from "@/app/lib/tables"
 import {SelectableElement} from "@/app/components/AxisSelector"
-import {ComparisonMeasureGrandTotal, ComparisonMeasureReferencePosition} from "@squashql/squashql-js/dist/measure"
 
 export class QueryExecutor {
 
@@ -47,19 +48,19 @@ export class QueryExecutor {
   }
 }
 
-export interface MeasureProvider {
-  create(pivotConfig: PivotConfig): Measure
+export interface PartialMeasure {
+  readonly class: string
+  readonly alias: string
+  readonly axis: "row" | "column"
 
-  axis: "row" | "column"
+  create(pivotConfig: PivotConfig): Measure
 }
 
-export type MeasureProviderType = Measure & MeasureProvider
-
-export function isMeasureProviderType(m: Measure): m is MeasureProviderType {
+export function isPartialMeasure(m: any): m is PartialMeasure {
   return "create" in m && "axis" in m
 }
 
-export class PercentOfParentAlongAncestors implements MeasureProviderType {
+export class PercentOfParentAlongAncestors implements PartialMeasure {
   readonly class: string = "PercentOfParentAlongAncestors"
 
   constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
@@ -72,7 +73,7 @@ export class PercentOfParentAlongAncestors implements MeasureProviderType {
   }
 }
 
-export class CompareWithGrandTotalAlongAncestors implements MeasureProviderType {
+export class CompareWithGrandTotalAlongAncestors implements PartialMeasure {
   readonly class: string = "CompareWithGrandTotalAlongAncestors"
 
   constructor(readonly alias: string, readonly underlying: Measure, readonly axis: "row" | "column") {
@@ -85,7 +86,7 @@ export class CompareWithGrandTotalAlongAncestors implements MeasureProviderType 
   }
 }
 
-export class IncVarAncestors implements MeasureProviderType {
+export class IncVarAncestors implements PartialMeasure {
   readonly class: string = "IncVarAncestors"
 
   constructor(readonly alias: string, readonly axis: "row" | "column") {
@@ -101,7 +102,7 @@ export class IncVarAncestors implements MeasureProviderType {
   }
 }
 
-function getAncestors(m: MeasureProviderType, pivotConfig: PivotConfig) {
+function getAncestors(m: PartialMeasure, pivotConfig: PivotConfig) {
   switch (m.axis) {
     case "column":
       return pivotConfig.columns
@@ -113,7 +114,7 @@ function getAncestors(m: MeasureProviderType, pivotConfig: PivotConfig) {
 }
 
 function createMeasure(measure: Measure, pivotConfig: PivotConfig): Measure {
-  if (isMeasureProviderType(measure)) {
+  if (isPartialMeasure(measure)) {
     return measure.create(pivotConfig)
   }
 

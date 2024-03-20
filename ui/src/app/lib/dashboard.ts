@@ -1,17 +1,30 @@
 import {
-  AggregatedMeasure, AliasedField,
-  BinaryOperationMeasure, Criteria,
+  AggregatedMeasure,
+  AliasedField,
+  BinaryOperationMeasure,
+  ComparisonMeasureGrandTotal,
+  ComparisonMeasureReferencePosition,
+  Criteria,
   ExpressionMeasure,
-  Field, Measure,
-  ParametrizedMeasure, TableField
+  Field,
+  Measure,
+  ParametrizedMeasure,
+  Month,
+  Quarter,
+  Semester,
+  Year,
+  TableField,
 } from "@squashql/squashql-js"
-import {CompareWithGrandTotalAlongAncestors, IncVarAncestors, PercentOfParentAlongAncestors} from "@/app/lib/queries"
+import {
+  CompareWithGrandTotalAlongAncestors,
+  IncVarAncestors,
+  PartialMeasure,
+  PercentOfParentAlongAncestors
+} from "@/app/lib/queries"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {useCallback, useEffect, useState} from "react"
-import {ComparisonMeasureGrandTotal, ComparisonMeasureReferencePosition} from "@squashql/squashql-js/dist/measure"
-import {SingleValueCondition} from "@squashql/squashql-js/dist/conditions"
-import {BinaryOperationField} from "../../../../../squashql/js/typescript-library/dist/field"
-import {Month, Quarter, Semester, Year} from "../../../../../squashql/js/typescript-library/dist/columnsets" // FIXME
+import {SingleValueCondition} from "@squashql/squashql-js/dist/condition"
+import {BinaryOperationField} from "@squashql/squashql-js/dist/field"
 
 export function fieldToSelectableElement(f: Field) {
   return {
@@ -20,7 +33,7 @@ export function fieldToSelectableElement(f: Field) {
   }
 }
 
-export function measureToSelectableElement(m: Measure) {
+export function measureToSelectableElement(m: Measure | PartialMeasure) {
   return {
     type: m,
     showTotals: true
@@ -125,7 +138,6 @@ function transformToObject(value: any): any {
             value["alias"],
             value["comparisonMethod"],
             transformToObject(value["measure"]),
-            // @ts-ignore FIXME to remove
             m.size == 0 ? undefined : m,
             value["columnSetKey"],
             value["period"],

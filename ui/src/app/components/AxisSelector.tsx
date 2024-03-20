@@ -1,5 +1,6 @@
-import {ChangeEvent, Dispatch, SetStateAction} from "react"
-import {Field, Measure, TableField, AliasedField} from "@squashql/squashql-js"
+import {ChangeEvent} from "react"
+import {AliasedField, Field, Measure, TableField} from "@squashql/squashql-js"
+import {isPartialMeasure, PartialMeasure} from "@/app/lib/queries"
 
 export enum AxisType {
   ROWS,
@@ -9,7 +10,7 @@ export enum AxisType {
 }
 
 export interface SelectableElement {
-  type: Field | Measure,
+  type: Field | Measure | PartialMeasure,
   showTotals: boolean
 }
 
@@ -52,8 +53,10 @@ function isSelectableElement(element: any): element is SelectableElement {
   return 'type' in element && 'showTotals' in element
 }
 
-function getFieldOrMeasureString(element: Field | Measure) {
+function getFieldOrMeasureString(element: Field | Measure | PartialMeasure) {
   if (isMeasure(element)) {
+    return element.alias
+  } else if (isPartialMeasure(element)) {
     return element.alias
   } else if (isTableField(element)) {
     return element.fullName
