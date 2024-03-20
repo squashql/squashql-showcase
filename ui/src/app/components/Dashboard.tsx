@@ -41,7 +41,7 @@ export default function Dashboard(props: DashboardProps) {
   const [minify, setMinify] = useState<boolean>(true)
   const [ptHierarchyType, setPtHierarchyType] = useState<HierarchyType>("tree")
 
-  const {state, setState, undo, redo} = useUndoRedo(computeInitialState(storageKey,
+  const {state, setState, undo, redo, canUndo, canRedo} = useUndoRedo(computeInitialState(storageKey,
           props.queryProvider.selectableFields.map(fieldToSelectableElement),
           props.queryProvider.selectableFields.map(fieldToSelectableElement),
           props.queryProvider.measures.map(measureToSelectableElement)), 8)
@@ -111,13 +111,13 @@ export default function Dashboard(props: DashboardProps) {
 
               <div className="col my-1">
                 <div className="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                  <button type="button" className="btn btn-outline-primary" title="Undo" onClick={undo}>
+                  <button type="button" className="btn btn-outline-primary" title="Undo" disabled={!canUndo} onClick={undo}>
                     <i className="bi bi-arrow-left-circle"></i>
                   </button>
                   {/* Refresh button */}
                   <button type="button" className="btn btn-outline-primary" title="Re-execute" onClick={refreshFromState}>
                     <i className="bi bi-arrow-repeat"></i></button>
-                  <button type="button" className="btn btn-outline-primary" title="Redo" onClick={redo}>
+                  <button type="button" className="btn btn-outline-primary" title="Redo" disabled={!canRedo} onClick={redo}>
                     <i className="bi bi-arrow-right-circle"></i>
                   </button>
                   <button type="button" className="btn btn-outline-primary" onClick={clearHistory}>Clear cache</button>

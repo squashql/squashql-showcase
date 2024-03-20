@@ -42,7 +42,7 @@ public class ShowcaseApplication {
 
   private static void configure(QueryEngine<SparkDatastore> engine) {
     loadPersonalBudget(engine);
-    loadFile(engine, "forecast", "business_planning_with_3_months.csv");
+    loadFile(engine, "forecast", "forecast.csv");
     loadFile(engine, "portfolio", "portfolio.csv");
     loadFile(engine, "spending", "spending.csv");
     loadFile(engine, "population", "population.csv");

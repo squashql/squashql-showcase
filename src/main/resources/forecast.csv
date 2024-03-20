@@ -1,0 +1,60 @@
+pnl,class,account,sub_account,extra_info,accrual,accrual_day,accrual_month,accrual_year,scenario,type
+Revenue,Services,,,,20000000,,,2024,1 Growth,model
+Revenue,Subscription,Existing Logos,,,62000000,,,2024,1 Growth,model
+Revenue,Subscription,New Logos,,,18000000,,,2024,1 Growth,model
+Fixed Costs,Overhead,,,,-15000000,,,2024,1 Growth,model
+Fixed Costs,Payroll,,,,-80000000,,,2024,1 Growth,model
+Variable Cost,Royalties,,,,-3000000,,,2024,1 Growth,model
+Variable Cost,Payroll,,,,-1000000,,,2024,1 Growth,model
+Revenue,Services,,,,19000000,,,2024,2 Neutral,model
+Revenue,Subscription,,,,75000000,,,2024,2 Neutral,model
+Fixed Costs,Overhead,,,,-12000000,,,2024,2 Neutral,model
+Fixed Costs,Payroll,,,,-78000000,,,2024,2 Neutral,model
+Variable Cost,Royalties,,,,-3000000,,,2024,2 Neutral,model
+Variable Cost,Payroll,,,,-1000000,,,2024,2 Neutral,model
+Revenue,Services,,,,15000000,,,2024,3 Cost Cut,model
+Revenue,Subscription,Existing Logos,,,60000000,,,2024,3 Cost Cut,model
+Revenue,Subscription,New Logos,,,15000000,,,2024,3 Cost Cut,model
+Fixed Costs,Overhead,,,,-10000000,,,2024,3 Cost Cut,model
+Fixed Costs,Payroll,,,,-70000000,,,2024,3 Cost Cut,model
+Variable Cost,Royalties,,,,-3000000,,,2024,3 Cost Cut,model
+Variable Cost,Payroll,,,,-1000000,,,2024,3 Cost Cut,model
+Revenue,Services,,,,18000000,,,2023,1 Growth,model
+Revenue,Subscription,Existing Logos,,,59000000,,,2023,1 Growth,model
+Revenue,Subscription,New Logos,,,14000000,,,2023,1 Growth,model
+Fixed Costs,Overhead,,,,-9000000,,,2023,1 Growth,model
+Fixed Costs,Payroll,,,,-75000000,,,2023,1 Growth,model
+Variable Cost,Royalties,,,,-2500000,,,2023,1 Growth,model
+Variable Cost,Payroll,,,,-700000,,,2023,1 Growth,model
+Revenue,Services,,,,18000000,,,2023,2 Neutral,model
+Revenue,Subscription,Existing Logos,,,59000000,,,2023,2 Neutral,model
+Revenue,Subscription,New Logos,,,14000000,,,2023,2 Neutral,model
+Fixed Costs,Overhead,,,,-9000000,,,2023,2 Neutral,model
+Fixed Costs,Payroll,,,,-75000000,,,2023,2 Neutral,model
+Variable Cost,Royalties,,,,-2500000,,,2023,2 Neutral,model
+Variable Cost,Payroll,,,,-700000,,,2023,2 Neutral,model
+Revenue,Services,,,,18000000,,,2023,3 Cost Cut,model
+Revenue,Subscription,Existing Logos,,,59000000,,,2023,3 Cost Cut,model
+Revenue,Subscription,New Logos,,,14000000,,,2023,3 Cost Cut,model
+Fixed Costs,Overhead,,,,-9000000,,,2023,3 Cost Cut,model
+Fixed Costs,Payroll,,,,-75000000,,,2023,3 Cost Cut,model
+Variable Cost,Royalties,,,,-2500000,,,2023,3 Cost Cut,model
+Variable Cost,Payroll,,,,-700000,,,2023,3 Cost Cut,model
+Revenue,Services,,,,18000000,,,2023,1 Growth,actual
+Revenue,Subscription,,,,72990000,,,2023,1 Growth,actual
+Fixed Costs,Overhead,,,,-9000000,,,2023,1 Growth,actual
+Fixed Costs,Payroll,,,,-75000000,,,2023,1 Growth,actual
+Variable Cost,Royalties,,,,-2500000,,,2023,1 Growth,actual
+Variable Cost,Payroll,,,,-700000,,,2023,1 Growth,actual
+Revenue,Services,,,,18000000,,,2023,2 Neutral,actual
+Revenue,Subscription,,,,72990000,,,2023,2 Neutral,actual
+Fixed Costs,Overhead,,,,-9000000,,,2023,2 Neutral,actual
+Fixed Costs,Payroll,,,,-75000000,,,2023,2 Neutral,actual
+Variable Cost,Royalties,,,,-2500000,,,2023,2 Neutral,actual
+Variable Cost,Payroll,,,,-700000,,,2023,2 Neutral,actual
+Revenue,Services,,,,18000000,,,2023,3 Cost Cut,actual
+Revenue,Subscription,,,,72990000,,,2023,3 Cost Cut,actual
+Fixed Costs,Overhead,,,,-9000000,,,2023,3 Cost Cut,actual
+Fixed Costs,Payroll,,,,-75000000,,,2023,3 Cost Cut,actual
+Variable Cost,Royalties,,,,-2500000,,,2023,3 Cost Cut,actual
+Variable Cost,Payroll,,,,-700000,,,2023,3 Cost Cut,actual

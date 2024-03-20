@@ -1,5 +1,7 @@
 import {
   all,
+  any,
+  countRows,
   criterion,
   divide,
   eq,
@@ -7,13 +9,14 @@ import {
   from,
   integer,
   Measure,
+  minus,
   multiply,
   neq,
   PivotConfig,
   Query,
   QueryMerge,
   sum,
-  sumIf
+  sumIf,
 } from "@squashql/squashql-js"
 import {forecast} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
@@ -21,6 +24,23 @@ import {toCriteria} from "@/app/lib/queries"
 
 const value = sum("value", forecast.accrual)
 const revenue = sumIf("Revenue", forecast.accrual, criterion(forecast.pnl, eq("Revenue")))
+
+const criteriaActual = all([
+  criterion(forecast.pnl, eq("Revenue")),
+  any([
+            all([criterion(forecast.accrualYear, eq(2023)), criterion(forecast.type, eq("actual"))]),
+            all([criterion(forecast.accrualYear, neq(2023)), criterion(forecast.type, eq("model"))])
+          ]
+  )
+])
+
+const criteriaModel = all([
+  criterion(forecast.pnl, eq("Revenue")),
+  criterion(forecast.type, eq("model"))
+])
+
+const revenueActual = sumIf("Revenue Actual", forecast.accrual, criteriaActual)
+const revenueModel = sumIf("Revenue Model", forecast.accrual, criteriaModel)
 const expense = sumIf("Expense", forecast.accrual, criterion(forecast.pnl, neq("Revenue")))
 const subscription = sumIf("Subscription", forecast.accrual, criterion(forecast.class, eq("Subscription")))
 const decSubscription = multiply("Dec. Subscription", sumIf("__dec__subscription__", forecast.accrual, all([
@@ -70,7 +90,7 @@ const marginRate = multiply("margin %", divide("__margin__", value, revenue), in
 export class ForecastQueryProvider implements QueryProvider {
 
   readonly selectableFields = forecast._fields
-  readonly measures = [value, marginRate, revenue, expense, subscription, decSubscription]
+  readonly measures = [value, marginRate, revenue, expense, subscription, decSubscription, countRows, revenueActual, revenueModel]
   readonly table = [forecast]
 
   query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
