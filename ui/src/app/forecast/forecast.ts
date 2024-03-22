@@ -39,8 +39,8 @@ const criteriaModel = all([
   criterion(forecast.type, eq("model"))
 ])
 
-const revenueActual = sumIf("Revenue Actual", forecast.accrual, criteriaActual)
-const revenueModel = sumIf("Revenue Model", forecast.accrual, criteriaModel)
+const revenueActual = sumIf("Revenue Actl & Fcst", forecast.accrual, criteriaActual)
+const revenueModel = sumIf("Revenue Fcst", forecast.accrual, criteriaModel)
 const expense = sumIf("Expense", forecast.accrual, criterion(forecast.pnl, neq("Revenue")))
 const subscription = sumIf("Subscription", forecast.accrual, criterion(forecast.class, eq("Subscription")))
 const decSubscription = multiply("Dec. Subscription", sumIf("__dec__subscription__", forecast.accrual, all([
