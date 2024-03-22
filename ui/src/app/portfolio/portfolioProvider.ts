@@ -6,7 +6,7 @@ import {
   ParametrizedMeasure,
   PivotConfig,
   Query,
-  QueryMerge
+  QueryMerge, sum
 } from "@squashql/squashql-js"
 import {portfolio} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
@@ -20,11 +20,12 @@ const var95 = new ParametrizedMeasure(var95MeasureName, "VAR", {
 })
 
 const incVar95 = new IncVarAncestors("Incr. VaR 95", "row")
+const pnl = sum("PnL", portfolio.scenarioValue)
 
 export class PortfolioProvider implements QueryProvider {
 
   readonly selectableFields = portfolio._fields
-  readonly measures = [countRows, var95, incVar95]
+  readonly measures = [countRows, pnl, var95, incVar95]
   readonly table = [portfolio]
 
   query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
