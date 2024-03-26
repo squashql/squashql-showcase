@@ -1,16 +1,17 @@
 import {SheetComponent} from '@antv/s2-react'
 import React from "react"
-import {Data, S2DataConfig, setLang} from "@antv/s2"
+import {S2DataConfig, setLang} from "@antv/s2"
 import {PivotTableQueryResult} from "@squashql/squashql-js"
-import {Formatter, HierarchyType} from "@/app/components/Dashboard"
-import {formatNumber} from "@/app/lib/utils"
+import {HierarchyType} from "@/app/components/Dashboard"
+import {PivotTableCellFormatter} from "@/app/lib/dashboard"
+import {defaultNumberFormatter} from "@/app/lib/formatters"
 
 interface PivotTableProps {
   result: PivotTableQueryResult,
   hierarchyType: HierarchyType,
   height?: number,
   width?: number,
-  formatters?: Formatter[]
+  formatters?: PivotTableCellFormatter[]
 }
 
 function showGrandTotals(fields: string[], hiddenTotals: string[]) {
@@ -99,19 +100,25 @@ export default function PivotTable(props: PivotTableProps) {
             <SheetComponent dataCfg={buildData(props.result, props.formatters)}
                             options={options}
                             themeCfg={themeCfg}
-                            // header={header} commented out to avoid multiple warnings each time the pt is rendered.
+                    // header={header} commented out to avoid multiple warnings each time the pt is rendered.
             />
           </div>
   )
 }
 
-function buildData(result: PivotTableQueryResult, formatters?: Formatter[]): S2DataConfig {
-  let data: Data[] = [] // see data.js to see the expected format
-  result.cells.forEach((cell: Record<string, any>) => {
-    const r: Data = {}
-    Object.entries(cell).forEach(entry => r[entry[0]] = formatNumber(entry[1]))
-    data.push(r)
-  })
+function buildData(result: PivotTableQueryResult, formatters?: PivotTableCellFormatter[]): S2DataConfig {
+  const meta: PivotTableCellFormatter[] = []
+  for (const v of result.values) {
+    const index = formatters?.map(f => f.field).indexOf(v)
+    if (!index || index < 0) {
+      meta.push({
+        field: v,
+        formatter: defaultNumberFormatter.formatter
+      })
+    } else if (formatters) {
+      meta.push(formatters[index])
+    }
+  }
 
   return {
     fields: {
@@ -120,8 +127,8 @@ function buildData(result: PivotTableQueryResult, formatters?: Formatter[]): S2D
       values: result.values,
       valueInCols: true,
     },
-    data,
-    meta: formatters
+    data: result.cells,
+    meta
   }
 }
 

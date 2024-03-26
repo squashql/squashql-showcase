@@ -8,12 +8,12 @@ import {
   ExpressionMeasure,
   Field,
   Measure,
-  ParametrizedMeasure,
   Month,
+  ParametrizedMeasure,
   Quarter,
   Semester,
-  Year,
   TableField,
+  Year,
 } from "@squashql/squashql-js"
 import {
   CompareWithGrandTotalAlongAncestors,
@@ -25,6 +25,7 @@ import {getElementString, SelectableElement} from "@/app/components/AxisSelector
 import {useCallback, useEffect, useState} from "react"
 import {SingleValueCondition} from "@squashql/squashql-js/dist/condition"
 import {BinaryOperationField} from "@squashql/squashql-js/dist/field"
+import {Formatter} from "@/app/lib/formatters"
 
 export function fieldToSelectableElement(f: Field) {
   return {
@@ -40,6 +41,20 @@ export function measureToSelectableElement(m: Measure | PartialMeasure) {
   }
 }
 
+export class PivotTableCellFormatter {
+
+  constructor(readonly field: string,
+              readonly formatter: Formatter) {
+  }
+
+  toJSON() {
+    return {
+      "field": this.field,
+      "label": this.formatter.label
+    }
+  }
+}
+
 export interface DashboardState {
   rows: SelectableElement[]
   columns: SelectableElement[]
@@ -49,6 +64,7 @@ export interface DashboardState {
   selectableFilters: SelectableElement[]
   selectableValues: SelectableElement[]
   filtersValues: Map<Field, any[]>
+  formatters: PivotTableCellFormatter[]
 }
 
 export function computeInitialState(key: string, selectableElements: SelectableElement[], selectableFilters: SelectableElement[], selectableValues: SelectableElement[]): DashboardState {
@@ -87,6 +103,7 @@ function initialState(selectableElements: SelectableElement[], selectableFilters
     selectableFilters,
     selectableValues,
     values: [],
+    formatters: []
   }
 }
 

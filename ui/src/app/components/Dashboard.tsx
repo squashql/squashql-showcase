@@ -1,6 +1,6 @@
 'use client'
 import React, {useEffect, useState} from "react"
-import AxisSelector, {AxisType, SelectableElement} from "@/app/components/AxisSelector"
+import AxisSelector, {AxisType, getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {Field, Measure, PivotTableQueryResult} from "@squashql/squashql-js"
 import {PartialMeasure, queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
@@ -8,27 +8,25 @@ import {QueryProvider} from "@/app/lib/queryProvider"
 import HierarchicalMeasureBuilder from "@/app/components/HierarchicalMeasureBuilder"
 import TimeComparisonMeasureBuilder from "@/app/components/TimeComparisonMeasureBuilder"
 import CalculatedMeasureBuilder from "@/app/components/CalculatedMeasureBuilder"
+import FormatterBuilder from "@/app/components/FormatterBuilder"
 import {
   computeInitialState,
   fieldToSelectableElement,
   measureToSelectableElement,
+  PivotTableCellFormatter,
   saveCurrentState,
   useUndoRedo
 } from "@/app/lib/dashboard"
+import {Formatter} from "@/app/lib/formatters"
 
 // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
 const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
 const FiltersSelector = dynamic(() => import("@/app/components/FiltersSelector"), {ssr: false})
 
-export interface Formatter {
-  field: string
-  formatter: (v: any) => string
-}
-
 export interface DashboardProps {
   title: string
   queryProvider: QueryProvider
-  formatters?: Formatter[]
+  formatters?: PivotTableCellFormatter[]
   elements?: React.JSX.Element[]
 }
 
@@ -47,7 +45,11 @@ export default function Dashboard(props: DashboardProps) {
           props.queryProvider.measures.map(measureToSelectableElement)), 8)
 
   useEffect(() => {
-    refreshFromState().then(() => saveCurrentState(storageKey, state))
+    refreshFromState().then(() => {
+      // FIXME
+      console.log(state)
+      saveCurrentState(storageKey, state)
+    })
   }, [state])
 
   function refreshFromState() {
@@ -93,6 +95,22 @@ export default function Dashboard(props: DashboardProps) {
     })
   }
 
+  function addFormatterToMeasure(m: Measure | PartialMeasure, formatter: Formatter) {
+    const copy = state.formatters ? state.formatters.slice() : []
+    const field = getElementString(m)
+    const index = copy.map(f => f.field).indexOf(field)
+    if (index >= 0) {
+      copy.splice(index, 1)
+    }
+    copy.push(new PivotTableCellFormatter(field, formatter))
+    setState((prevState) => {
+      return {
+        ...prevState,
+        formatters: copy
+      }
+    })
+  }
+
   function clearHistory() {
     window.localStorage.removeItem(storageKey)
   }
@@ -111,13 +129,16 @@ export default function Dashboard(props: DashboardProps) {
 
               <div className="col my-1">
                 <div className="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                  <button type="button" className="btn btn-outline-primary" title="Undo" disabled={!canUndo} onClick={undo}>
+                  <button type="button" className="btn btn-outline-primary" title="Undo" disabled={!canUndo}
+                          onClick={undo}>
                     <i className="bi bi-arrow-left-circle"></i>
                   </button>
                   {/* Refresh button */}
-                  <button type="button" className="btn btn-outline-primary" title="Re-execute" onClick={refreshFromState}>
+                  <button type="button" className="btn btn-outline-primary" title="Re-execute"
+                          onClick={refreshFromState}>
                     <i className="bi bi-arrow-repeat"></i></button>
-                  <button type="button" className="btn btn-outline-primary" title="Redo" disabled={!canRedo} onClick={redo}>
+                  <button type="button" className="btn btn-outline-primary" title="Redo" disabled={!canRedo}
+                          onClick={redo}>
                     <i className="bi bi-arrow-right-circle"></i>
                   </button>
                   <button type="button" className="btn btn-outline-primary" onClick={clearHistory}>Clear cache</button>
@@ -236,6 +257,11 @@ export default function Dashboard(props: DashboardProps) {
               </div>
 
               <div className="col px-1">
+                <FormatterBuilder
+                        measures={state.selectableValues.concat(state.values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                        onNewMeasureFormatter={addFormatterToMeasure}/>
+              </div>
+              <div className="col px-1">
                 <CalculatedMeasureBuilder
                         measures={state.selectableValues.concat(state.values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                         onNewMeasure={addNewMeasureToSelection}/>
@@ -260,7 +286,7 @@ export default function Dashboard(props: DashboardProps) {
               {pivotQueryResult !== undefined ?
                       <PivotTable result={pivotQueryResult}
                                   hierarchyType={ptHierarchyType}
-                                  formatters={props.formatters}/> : undefined}
+                                  formatters={state.formatters.concat(props.formatters ? props.formatters : [])}/> : undefined}
             </div>
           </div>
   )
