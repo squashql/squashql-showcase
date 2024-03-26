@@ -79,6 +79,10 @@ The application show you how to build a web application to interactively generat
 run it locally on your computer if you have installed all prerequisites or use the built-in docker image containing everything 
 needed. 
 
+Here's what the application looks like
+
+<img width="800" src="documentation/assets/application.png">
+
 ### Load tables from Google Sheets
 
 The server is configured to be able to load Google Sheets into the embedded DuckDB instance. Check the file `ts/duckdb.ts`. 
@@ -111,4 +115,4 @@ The drilling across feature, querying two fact tables at the same time
 The percentage of parent a.k.a. [hierarchical comparison](https://github.com/squashql/squashql/blob/main/documentation/QUERY.md#hierarchical--parent-child-comparison).
 The parenthood is **automatically** determined by the columns set on the rows. 
 
-<img width="800" src="documentation/assets/percentage-of-parent-on-rows.png">
+<img width="800" src="documentation/assets/hierarchical-comparisons.png">
