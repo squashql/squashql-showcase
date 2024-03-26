@@ -30,66 +30,58 @@ export default function FormatterBuilder(props: FormatterBuilderBuilderProps) {
   }
 
   return (
-          <div>
-            {/*The modal is displayed via a button in the menu list*/}
-            {/*<button type="button" className="btn btn-sm btn-light" data-bs-toggle="modal"*/}
-            {/*        data-bs-target="#formatmeasModal">*/}
-            {/*  Format measure*/}
-            {/*</button>*/}
+          <div className="modal fade" id="formatmeasModal"
+               tabIndex={-1}
+               aria-labelledby="formatmeasModalLabel"
+               aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="formatmeasModalLabel">Format measure</h1>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
 
-            <div className="modal fade" id="formatmeasModal"
-                 tabIndex={-1}
-                 aria-labelledby="formatmeasModalLabel"
-                 aria-hidden="true">
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="formatmeasModalLabel">Format measure</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div className="modal-body">
-
-                    {/*measure*/}
-                    <div className="pb-1">
-                      <FloatingSelect label={"measure"}
-                                      value={state.measure?.alias}
-                                      fields={props.measures}
-                                      onChange={event => {
-                                        const index = props.measures.map(v => getElementString(v)).indexOf(event.target.value)
-                                        const underlyingMeasure = props.measures[index]
-                                        setState((prevState) => {
-                                          return {
-                                            ...prevState,
-                                            measure: underlyingMeasure,
-                                          }
-                                        })
-                                      }}/>
-                    </div>
-
-                    {/*formatter*/}
-                    <div className="pb-1">
-                      <FloatingSelect label={"formatter"}
-                                      value={state.formatter?.label}
-                                      fields={formatters.map(f => f.label)}
-                                      onChange={event => {
-                                        const index = formatters.map(f => f.label).indexOf(event.target.value)
-                                        const formatter = formatters[index]
-                                        setState((prevState) => {
-                                          return {
-                                            ...prevState,
-                                            formatter
-                                          }
-                                        })
-                                      }}/>
-                    </div>
+                  {/*measure*/}
+                  <div className="pb-1">
+                    <FloatingSelect label={"measure"}
+                                    value={state.measure?.alias}
+                                    fields={props.measures}
+                                    onChange={event => {
+                                      const index = props.measures.map(v => getElementString(v)).indexOf(event.target.value)
+                                      const underlyingMeasure = props.measures[index]
+                                      setState((prevState) => {
+                                        return {
+                                          ...prevState,
+                                          measure: underlyingMeasure,
+                                        }
+                                      })
+                                    }}/>
                   </div>
 
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
-                            disabled={!canAddFormatMeasure()} onClick={createFormatterForMeasureFromState}>Create
-                    </button>
+                  {/*formatter*/}
+                  <div className="pb-1">
+                    <FloatingSelect label={"formatter"}
+                                    value={state.formatter?.label}
+                                    fields={formatters.map(f => f.label)}
+                                    onChange={event => {
+                                      const index = formatters.map(f => f.label).indexOf(event.target.value)
+                                      const formatter = formatters[index]
+                                      setState((prevState) => {
+                                        return {
+                                          ...prevState,
+                                          formatter
+                                        }
+                                      })
+                                    }}/>
                   </div>
+                </div>
+
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
+                          disabled={!canAddFormatMeasure()} onClick={createFormatterForMeasureFromState}>Create
+                  </button>
                 </div>
               </div>
             </div>

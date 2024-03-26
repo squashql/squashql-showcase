@@ -85,149 +85,141 @@ export default function TimeComparisonMeasureBuilder(props: TimeComparisonMeasur
   }
 
   return (
-          <div>
-            {/*The modal is displayed via a button in the menu list*/}
-            {/*<button type="button" className="btn btn-sm btn-light" data-bs-toggle="modal"*/}
-            {/*        data-bs-target="#timeperiodcompModal">*/}
-            {/*  Time period comparison*/}
-            {/*</button>*/}
+          <div className="modal fade" id="timeperiodcompModal"
+               tabIndex={-1}
+               aria-labelledby="timeperiodcompModalLabel"
+               aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="timeperiodcompModalLabel">Time period comparison</h1>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
 
-            <div className="modal fade" id="timeperiodcompModal"
-                 tabIndex={-1}
-                 aria-labelledby="timeperiodcompModalLabel"
-                 aria-hidden="true">
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="timeperiodcompModalLabel">Time period comparison</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  {/*measure*/}
+                  <div className="pb-1">
+                    <FloatingSelect label={"measure"}
+                                    value={state.underlyingMeasure?.alias}
+                                    fields={props.measures}
+                                    onChange={event => {
+                                      const index = props.measures.map(v => getElementString(v)).indexOf(event.target.value)
+                                      setState({
+                                        ...state,
+                                        underlyingMeasure: props.measures[index]
+                                      })
+                                    }}/>
                   </div>
-                  <div className="modal-body">
 
-                    {/*measure*/}
-                    <div className="pb-1">
-                      <FloatingSelect label={"measure"}
-                                      value={state.underlyingMeasure?.alias}
-                                      fields={props.measures}
-                                      onChange={event => {
-                                        const index = props.measures.map(v => getElementString(v)).indexOf(event.target.value)
+                  {/*period*/}
+                  <div className="pb-1">
+                    <FloatingSelect label={"period"}
+                                    value={state.period}
+                                    fields={selectablePeriodElements}
+                                    onChange={event => {
+                                      if (event.target.value === "Year" || event.target.value === "Month") {
                                         setState({
                                           ...state,
-                                          underlyingMeasure: props.measures[index]
+                                          period: event.target.value
                                         })
-                                      }}/>
-                    </div>
-
-                    {/*period*/}
-                    <div className="pb-1">
-                      <FloatingSelect label={"period"}
-                                      value={state.period}
-                                      fields={selectablePeriodElements}
-                                      onChange={event => {
-                                        if (event.target.value === "Year" || event.target.value === "Month") {
-                                          setState({
-                                            ...state,
-                                            period: event.target.value
-                                          })
-                                        }
-                                      }}/>
-                    </div>
-
-                    {/*field(s) selection to build the selected period*/}
-                    <div className="pb-1">
-                      {state.period && renderSelectPeriod(state.period, state.year, state.month, props.fields,
-                              event => {
-                                const index = props.fields.map(v => getElementString(v)).indexOf(event.target.value)
-                                setState({
-                                  ...state,
-                                  year: props.fields[index]
-                                })
-                              },
-                              event => {
-                                const index = props.fields.map(v => getElementString(v)).indexOf(event.target.value)
-                                setState({
-                                  ...state,
-                                  month: props.fields[index]
-                                })
-                              }
-                      )}
-                    </div>
-
-                    {/*comparison method*/}
-                    <div className="pb-1">
-                      {state.period &&
-                              <FloatingSelect label={"comparison method"}
-                                              value={state.comparisonMethod}
-                                              fields={Object.keys(ComparisonMethod)}
-                                              onChange={event => {
-                                                const index = Object.keys(ComparisonMethod).map(v => getElementString(v)).indexOf(event.target.value)
-                                                setState({
-                                                  ...state,
-                                                  comparisonMethod: Object.values(ComparisonMethod)[index]
-                                                })
-                                              }}/>}
-                    </div>
-
-                    {/*reference position*/}
-                    <div className="pb-1">
-                      {state.period === "Year" &&
-                              <FloatingSelect label={"compare with"}
-                                              value={state.referencePositionLabel}
-                                              fields={["previous year"]}
-                                              onChange={event => {
-                                                if (state.year) {
-                                                  if (event.target.value === "previous year") {
-                                                    setState({
-                                                      ...state,
-                                                      referencePosition: new Map([[state.year, "y-1"]]),
-                                                      referencePositionLabel: event.target.value
-                                                    })
-                                                  }
-                                                }
-                                              }}/>}
-                      {state.period === "Month" &&
-                              <FloatingSelect label={"compare with"}
-                                              value={state.referencePositionLabel}
-                                              fields={["previous year, same month", "same year, previous month"]}
-                                              onChange={event => {
-                                                if (state.year && state.month) {
-                                                  if (event.target.value === "previous year, same month") {
-                                                    setState({
-                                                      ...state,
-                                                      referencePosition: new Map([[state.year, "y-1"], [state.month, "m"]]),
-                                                      referencePositionLabel: event.target.value
-                                                    })
-                                                  } else if (event.target.value === "same year, previous month") {
-                                                    setState({
-                                                      ...state,
-                                                      referencePosition: new Map([[state.year, "y"], [state.month, "m-1"]]),
-                                                      referencePositionLabel: event.target.value
-                                                    })
-                                                  }
-                                                }
-                                              }}/>}
-                    </div>
-
-                    {/*alias*/}
-                    <div className="pb-1">
-                      {state.period &&
-                              <FloatingInputText
-                                      textValue={state.alias}
-                                      onChange={event => {
-                                        setState({
-                                          ...state,
-                                          alias: event.target.value
-                                        })
-                                      }}/>}
-                    </div>
+                                      }
+                                    }}/>
                   </div>
 
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
-                            disabled={!canBuildMeasure()} onClick={createMeasureFromState}>Create
-                    </button>
+                  {/*field(s) selection to build the selected period*/}
+                  <div className="pb-1">
+                    {state.period && renderSelectPeriod(state.period, state.year, state.month, props.fields,
+                            event => {
+                              const index = props.fields.map(v => getElementString(v)).indexOf(event.target.value)
+                              setState({
+                                ...state,
+                                year: props.fields[index]
+                              })
+                            },
+                            event => {
+                              const index = props.fields.map(v => getElementString(v)).indexOf(event.target.value)
+                              setState({
+                                ...state,
+                                month: props.fields[index]
+                              })
+                            }
+                    )}
                   </div>
+
+                  {/*comparison method*/}
+                  <div className="pb-1">
+                    {state.period &&
+                            <FloatingSelect label={"comparison method"}
+                                            value={state.comparisonMethod}
+                                            fields={Object.keys(ComparisonMethod)}
+                                            onChange={event => {
+                                              const index = Object.keys(ComparisonMethod).map(v => getElementString(v)).indexOf(event.target.value)
+                                              setState({
+                                                ...state,
+                                                comparisonMethod: Object.values(ComparisonMethod)[index]
+                                              })
+                                            }}/>}
+                  </div>
+
+                  {/*reference position*/}
+                  <div className="pb-1">
+                    {state.period === "Year" &&
+                            <FloatingSelect label={"compare with"}
+                                            value={state.referencePositionLabel}
+                                            fields={["previous year"]}
+                                            onChange={event => {
+                                              if (state.year) {
+                                                if (event.target.value === "previous year") {
+                                                  setState({
+                                                    ...state,
+                                                    referencePosition: new Map([[state.year, "y-1"]]),
+                                                    referencePositionLabel: event.target.value
+                                                  })
+                                                }
+                                              }
+                                            }}/>}
+                    {state.period === "Month" &&
+                            <FloatingSelect label={"compare with"}
+                                            value={state.referencePositionLabel}
+                                            fields={["previous year, same month", "same year, previous month"]}
+                                            onChange={event => {
+                                              if (state.year && state.month) {
+                                                if (event.target.value === "previous year, same month") {
+                                                  setState({
+                                                    ...state,
+                                                    referencePosition: new Map([[state.year, "y-1"], [state.month, "m"]]),
+                                                    referencePositionLabel: event.target.value
+                                                  })
+                                                } else if (event.target.value === "same year, previous month") {
+                                                  setState({
+                                                    ...state,
+                                                    referencePosition: new Map([[state.year, "y"], [state.month, "m-1"]]),
+                                                    referencePositionLabel: event.target.value
+                                                  })
+                                                }
+                                              }
+                                            }}/>}
+                  </div>
+
+                  {/*alias*/}
+                  <div className="pb-1">
+                    {state.period &&
+                            <FloatingInputText
+                                    textValue={state.alias}
+                                    onChange={event => {
+                                      setState({
+                                        ...state,
+                                        alias: event.target.value
+                                      })
+                                    }}/>}
+                  </div>
+                </div>
+
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
+                          disabled={!canBuildMeasure()} onClick={createMeasureFromState}>Create
+                  </button>
                 </div>
               </div>
             </div>
