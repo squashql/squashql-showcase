@@ -31,10 +31,11 @@ export default function FormatterBuilder(props: FormatterBuilderBuilderProps) {
 
   return (
           <div>
-            <button type="button" className="btn btn-sm btn-light" data-bs-toggle="modal"
-                    data-bs-target="#formatmeasModal">
-              Format measure
-            </button>
+            {/*The modal is displayed via a button in the menu list*/}
+            {/*<button type="button" className="btn btn-sm btn-light" data-bs-toggle="modal"*/}
+            {/*        data-bs-target="#formatmeasModal">*/}
+            {/*  Format measure*/}
+            {/*</button>*/}
 
             <div className="modal fade" id="formatmeasModal"
                  tabIndex={-1}

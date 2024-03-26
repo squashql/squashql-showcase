@@ -86,10 +86,11 @@ export default function TimeComparisonMeasureBuilder(props: TimeComparisonMeasur
 
   return (
           <div>
-            <button type="button" className="btn btn-sm btn-light" data-bs-toggle="modal"
-                    data-bs-target="#timeperiodcompModal">
-              Time period comparison
-            </button>
+            {/*The modal is displayed via a button in the menu list*/}
+            {/*<button type="button" className="btn btn-sm btn-light" data-bs-toggle="modal"*/}
+            {/*        data-bs-target="#timeperiodcompModal">*/}
+            {/*  Time period comparison*/}
+            {/*</button>*/}
 
             <div className="modal fade" id="timeperiodcompModal"
                  tabIndex={-1}

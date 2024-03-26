@@ -1,6 +1,6 @@
 import {SheetComponent} from '@antv/s2-react'
 import React from "react"
-import {S2DataConfig, setLang} from "@antv/s2"
+import {Meta, S2DataConfig, setLang} from "@antv/s2"
 import {PivotTableQueryResult} from "@squashql/squashql-js"
 import {HierarchyType} from "@/app/components/Dashboard"
 import {PivotTableCellFormatter} from "@/app/lib/dashboard"
@@ -107,16 +107,19 @@ export default function PivotTable(props: PivotTableProps) {
 }
 
 function buildData(result: PivotTableQueryResult, formatters?: PivotTableCellFormatter[]): S2DataConfig {
-  const meta: PivotTableCellFormatter[] = []
+  const meta: Meta[] = []
   for (const v of result.values) {
     const index = formatters?.map(f => f.field).indexOf(v)
-    if (!index || index < 0) {
+    if (index === undefined || index < 0) {
       meta.push({
         field: v,
         formatter: defaultNumberFormatter.formatter
       })
     } else if (formatters) {
-      meta.push(formatters[index])
+      meta.push({
+        field: v,
+        formatter: formatters[index].formatter.formatter
+      })
     }
   }
 

@@ -38,10 +38,11 @@ export default function CalculatedMeasureBuilder(props: CalculatedMeasureBuilder
 
   return (
           <div>
-            <button type="button" className="btn btn-sm btn-light" data-bs-toggle="modal"
-                    data-bs-target="#calcmeasModal">
-              Calculated measure
-            </button>
+            {/*The modal is displayed via a button in the menu list*/}
+            {/*<button type="button" className="btn btn-sm btn-light" data-bs-toggle="modal"*/}
+            {/*        data-bs-target="#calcmeasModal">*/}
+            {/*  Calculated measure*/}
+            {/*</button>*/}
 
             <div className="modal fade" id="calcmeasModal"
                  tabIndex={-1}
