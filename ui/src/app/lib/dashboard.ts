@@ -8,12 +8,14 @@ import {
   ExpressionMeasure,
   Field,
   Measure,
-  ParametrizedMeasure,
   Month,
+  ParametrizedMeasure,
   Quarter,
   Semester,
-  Year,
   TableField,
+  Year,
+  SingleValueCondition,
+  BinaryOperationField
 } from "@squashql/squashql-js"
 import {
   CompareWithGrandTotalAlongAncestors,
@@ -23,8 +25,7 @@ import {
 } from "@/app/lib/queries"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {useCallback, useEffect, useState} from "react"
-import {SingleValueCondition} from "@squashql/squashql-js/dist/condition"
-import {BinaryOperationField} from "@squashql/squashql-js/dist/field"
+import {Formatter, formatters} from "@/app/lib/formatters"
 
 export function fieldToSelectableElement(f: Field) {
   return {
@@ -40,6 +41,21 @@ export function measureToSelectableElement(m: Measure | PartialMeasure) {
   }
 }
 
+export class PivotTableCellFormatter {
+
+  constructor(readonly field: string,
+              readonly formatter: Formatter) {
+  }
+
+  toJSON() {
+    return {
+      "class": "PivotTableCellFormatter",
+      "field": this.field,
+      "label": this.formatter.label
+    }
+  }
+}
+
 export interface DashboardState {
   rows: SelectableElement[]
   columns: SelectableElement[]
@@ -49,6 +65,7 @@ export interface DashboardState {
   selectableFilters: SelectableElement[]
   selectableValues: SelectableElement[]
   filtersValues: Map<Field, any[]>
+  formatters: PivotTableCellFormatter[]
 }
 
 export function computeInitialState(key: string, selectableElements: SelectableElement[], selectableFilters: SelectableElement[], selectableValues: SelectableElement[]): DashboardState {
@@ -87,6 +104,7 @@ function initialState(selectableElements: SelectableElement[], selectableFilters
     selectableFilters,
     selectableValues,
     values: [],
+    formatters: []
   }
 }
 
@@ -116,6 +134,10 @@ function transformToObject(value: any): any {
     return new CompareWithGrandTotalAlongAncestors(value["alias"], value["underlying"], value["axis"])
   } else if (value["class"] === "IncVarAncestors") {
     return new IncVarAncestors(value["alias"], value["axis"])
+  } else if (value["class"] === "PivotTableCellFormatter") {
+    const label = value["label"]
+    const f = formatters.find(f => f.label === label)
+    return f ? new PivotTableCellFormatter(value["field"], f) : undefined
   } else if (value["@class"] === "io.squashql.query.AggregatedMeasure") {
     return new AggregatedMeasure(value["alias"], transformToObject(value["field"]), value["aggregationFunction"], value["distinct"], value["criteria"])
   } else if (value["@class"] === "io.squashql.query.ExpressionMeasure") {
