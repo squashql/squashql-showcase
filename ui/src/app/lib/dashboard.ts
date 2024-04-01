@@ -14,6 +14,8 @@ import {
   Semester,
   TableField,
   Year,
+  SingleValueCondition,
+  BinaryOperationField
 } from "@squashql/squashql-js"
 import {
   CompareWithGrandTotalAlongAncestors,
@@ -23,8 +25,6 @@ import {
 } from "@/app/lib/queries"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {useCallback, useEffect, useState} from "react"
-import {SingleValueCondition} from "@squashql/squashql-js/dist/condition"
-import {BinaryOperationField} from "@squashql/squashql-js/dist/field"
 import {Formatter, formatters} from "@/app/lib/formatters"
 
 export function fieldToSelectableElement(f: Field) {

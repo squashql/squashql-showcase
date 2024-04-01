@@ -50,7 +50,7 @@ public class DBController {
 
   @PostMapping("tables-info")
   public ResponseEntity<List<TableTypeDto>> tablesInfo() {
-    Map<String, Store> storesByName = this.datastore.storesByName();
+    Map<String, Store> storesByName = this.datastore.storeByName();
     List<TableTypeDto> tableTypeDtos = new ArrayList<>();
     for (Map.Entry<String, Store> e : storesByName.entrySet()) {
       tableTypeDtos.add(new TableTypeDto(e.getKey(), e.getValue().fields().stream().map(TableTypedField::name).toList()));
