@@ -4,7 +4,7 @@ export interface Formatter {
 }
 
 const nf = new Intl.NumberFormat("en-US", {style: "decimal", maximumFractionDigits: 2})
-const eurf = new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"})
+const eurf = new Intl.NumberFormat("en-US", {style: "currency", currency: "EUR"})
 const usdf = new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"})
 const cashf = Intl.NumberFormat("en-US", {
   notation: "compact",
