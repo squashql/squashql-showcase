@@ -26,7 +26,6 @@ const FiltersSelector = dynamic(() => import("@/app/components/FiltersSelector")
 export interface DashboardProps {
   title: string
   queryProvider: QueryProvider
-  formatters?: PivotTableCellFormatter[]
   elements?: React.JSX.Element[]
 }
 
@@ -42,7 +41,8 @@ export default function Dashboard(props: DashboardProps) {
   const {state, setState, undo, redo, canUndo, canRedo} = useUndoRedo(computeInitialState(storageKey,
           props.queryProvider.selectableFields.map(fieldToSelectableElement),
           props.queryProvider.selectableFields.map(fieldToSelectableElement),
-          props.queryProvider.measures.map(measureToSelectableElement)), 8)
+          props.queryProvider.measures.map(measureToSelectableElement),
+          props.queryProvider.formatters), 8)
 
   useEffect(() => {
     refreshFromState().then(() => saveCurrentState(storageKey, state))
@@ -128,10 +128,14 @@ export default function Dashboard(props: DashboardProps) {
                     Edit
                   </button>
                   <ul className="dropdown-menu">
-                    <li><a className={`dropdown-item ${!canUndo ? "disabled" : ""}`} href="#" onClick={undo}>Undo</a></li>
-                    <li><a className={`dropdown-item ${!canRedo ? "disabled" : ""}`} href="#" onClick={redo}>Redo</a></li>
+                    <li><a className={`dropdown-item ${!canUndo ? "disabled" : ""}`} href="#" onClick={undo}>Undo</a>
+                    </li>
+                    <li><a className={`dropdown-item ${!canRedo ? "disabled" : ""}`} href="#" onClick={redo}>Redo</a>
+                    </li>
                     <li><a className="dropdown-item" href="#" onClick={clearHistory}>Clear state</a></li>
-                    <li><hr className="dropdown-divider"/></li>
+                    <li>
+                      <hr className="dropdown-divider"/>
+                    </li>
                     <li><a className="dropdown-item" href="#" onClick={refreshFromState}>Re-execute</a></li>
                   </ul>
                 </div>
@@ -144,11 +148,17 @@ export default function Dashboard(props: DashboardProps) {
                     Data
                   </button>
                   <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#formatmeasModal">Format</a></li>
-                    <li><hr className="dropdown-divider"/></li>
-                    <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#calcmeasModal">Calculated measure</a></li>
-                    <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#timeperiodcompModal">Time period comparison</a></li>
-                    <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#hiercompModal">Hierarchical comparison</a></li>
+                    <li><a className="dropdown-item" href="#" data-bs-toggle="modal"
+                           data-bs-target="#formatmeasModal">Format</a></li>
+                    <li>
+                      <hr className="dropdown-divider"/>
+                    </li>
+                    <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#calcmeasModal">Calculated
+                      measure</a></li>
+                    <li><a className="dropdown-item" href="#" data-bs-toggle="modal"
+                           data-bs-target="#timeperiodcompModal">Time period comparison</a></li>
+                    <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#hiercompModal">Hierarchical
+                      comparison</a></li>
                   </ul>
                 </div>
               </div>
@@ -280,7 +290,7 @@ export default function Dashboard(props: DashboardProps) {
               {pivotQueryResult !== undefined ?
                       <PivotTable result={pivotQueryResult}
                                   hierarchyType={ptHierarchyType}
-                                  formatters={state.formatters.concat(props.formatters ? props.formatters : [])}/> : undefined}
+                                  formatters={state.formatters}/> : undefined}
             </div>
           </div>
   )

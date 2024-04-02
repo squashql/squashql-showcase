@@ -1,31 +1,30 @@
 import {
   all,
   any,
+  comparisonMeasureWithPeriod,
+  ComparisonMethod,
   countRows,
   criterion,
   divide,
   eq,
   Field,
   from,
-  integer,
   Measure,
-  minus,
-  multiply,
   neq,
   PivotConfig,
+  plus,
   Query,
   QueryMerge,
-  sum,
   sumIf,
+  Year,
 } from "@squashql/squashql-js"
 import {forecast} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import {toCriteria} from "@/app/lib/queries"
+import {PivotTableCellFormatter} from "@/app/lib/dashboard"
+import {percentFormatter} from "@/app/lib/formatters"
 
-const value = sum("value", forecast.accrual)
-const revenue = sumIf("Revenue", forecast.accrual, criterion(forecast.pnl, eq("Revenue")))
-
-const criteriaActual = all([
+const criteriaRevenueActual = all([
   criterion(forecast.pnl, eq("Revenue")),
   any([
             all([criterion(forecast.accrualYear, eq(2023)), criterion(forecast.type, eq("actual"))]),
@@ -34,55 +33,65 @@ const criteriaActual = all([
   )
 ])
 
-const criteriaModel = all([
+const criteriaRevenueModel = all([
   criterion(forecast.pnl, eq("Revenue")),
   criterion(forecast.type, eq("model"))
 ])
 
-const revenueActual = sumIf("Revenue Actl & Fcst", forecast.accrual, criteriaActual)
-const revenueModel = sumIf("Revenue Fcst", forecast.accrual, criteriaModel)
-const expense = sumIf("Expense", forecast.accrual, criterion(forecast.pnl, neq("Revenue")))
-const subscription = sumIf("Subscription", forecast.accrual, criterion(forecast.class, eq("Subscription")))
-const decSubscription = multiply("Dec. Subscription", sumIf("__dec__subscription__", forecast.accrual, all([
-  criterion(forecast.class, eq("Subscription")),
-  criterion(forecast.accrualMonth, eq(12)),
-])), integer(12))
-const marginRate = multiply("margin %", divide("__margin__", value, revenue), integer(100))
+const criteriaExpenseActual = all([
+  criterion(forecast.pnl, neq("Revenue")),
+  any([
+            all([criterion(forecast.accrualYear, eq(2023)), criterion(forecast.type, eq("actual"))]),
+            all([criterion(forecast.accrualYear, neq(2023)), criterion(forecast.type, eq("model"))])
+          ]
+  )
+])
+
+const criteriaExpenseModel = all([
+  criterion(forecast.pnl, neq("Revenue")),
+  criterion(forecast.type, eq("model"))
+])
+
+const revenueActual = sumIf("Rev Actl/Fcst", forecast.accrual, criteriaRevenueActual)
+const revenueModel = sumIf("Rev Fcst", forecast.accrual, criteriaRevenueModel)
+
+const expenseActual = sumIf("Exp Actl/Fcst", forecast.accrual, criteriaExpenseActual)
+const expenseModel = sumIf("Exp Fcst", forecast.accrual, criteriaExpenseModel)
+
+const pnlActual = plus("Pnl Act/Fcst", revenueActual, expenseActual)
+const pnlModel = plus("Pnl Fcst", revenueModel, expenseModel)
+
+const marginRateActual = divide("Margin Act/Fcst", pnlActual, revenueActual)
+const marginRateModel = divide("Margin Fcst", pnlModel, revenueModel)
+
+const a: Measure[] = [
+  revenueActual, revenueModel,
+  expenseActual, expenseModel,
+  pnlActual, pnlModel,
+  marginRateActual, marginRateModel,
+]
+const yoy: Measure[] = []
+const yoyFormatters: PivotTableCellFormatter[] = []
+for (const m of a) {
+  const alias = `YoY % ${m.alias} Growth`
+  yoy.push(comparisonMeasureWithPeriod(
+          alias,
+          ComparisonMethod.RELATIVE_DIFFERENCE,
+          m,
+          new Map([[forecast.accrualYear, "y-1"]]),
+          new Year(forecast.accrualYear)))
+  yoyFormatters.push(new PivotTableCellFormatter(alias, percentFormatter))
+}
+// const subscription = sumIf("Subscription", forecast.accrual, criterion(forecast.class, eq("Subscription")))
+// const decSubscription = multiply("Dec. Subscription", sumIf("__dec__subscription__", forecast.accrual, all([
+//   criterion(forecast.class, eq("Subscription")),
+//   criterion(forecast.accrualMonth, eq(12)),
+// ])), integer(12))
 
 ////////////////////////////////////////////////////////////////
 // Commented because we can build those measures from the UI ///
 ////////////////////////////////////////////////////////////////
 
-// const yoyPerc = multiply("YoY % value Growth", comparisonMeasureWithPeriod(
-//         "__yoy_perc_value",
-//         ComparisonMethod.RELATIVE_DIFFERENCE,
-//         value,
-//         new Map([[forecast.accrualYear, "y-1"]]),
-//         new Year(forecast.accrualYear)), integer(100))
-// const yoyAbs = comparisonMeasureWithPeriod(
-//         "YoY value Growth",
-//         ComparisonMethod.ABSOLUTE_DIFFERENCE,
-//         value,
-//         new Map([[forecast.accrualYear, "y-1"]]),
-//         new Year(forecast.accrualYear))
-// const growth = multiply("Growth %", comparisonMeasureWithPeriod(
-//         "__growth__perc__",
-//         ComparisonMethod.RELATIVE_DIFFERENCE,
-//         revenue,
-//         new Map([[forecast.accrualYear, "y-1"]]),
-//         new Year(forecast.accrualYear)), integer(100))
-// const growthSubscription = multiply("Growth Subscription %", comparisonMeasureWithPeriod(
-//         "__growth__subscription__perc__",
-//         ComparisonMethod.RELATIVE_DIFFERENCE,
-//         subscription,
-//         new Map([[forecast.accrualYear, "y-1"]]),
-//         new Year(forecast.accrualYear)), integer(100))
-// const decGrowthSubscription = multiply("Dec. Growth %", comparisonMeasureWithPeriod(
-//         "__dec__growth__perc__",
-//         ComparisonMethod.RELATIVE_DIFFERENCE,
-//         decSubscription,
-//         new Map([[forecast.accrualYear, "y-1"]]),
-//         new Year(forecast.accrualYear)), integer(100))
 // const popOfParentOnRowsRevenue = new PercentOfParentAlongAncestors("Revenue - % parent on rows", revenue, "row")
 // const popOfParentOnRowsNotRevenue = new PercentOfParentAlongAncestors("Expense - % parent on rows", expense, "row")
 // const ebitda = plus("EBITDA", yoyPerc, growth)
@@ -90,7 +99,11 @@ const marginRate = multiply("margin %", divide("__margin__", value, revenue), in
 export class ForecastQueryProvider implements QueryProvider {
 
   readonly selectableFields = forecast._fields
-  readonly measures = [value, marginRate, revenue, expense, subscription, decSubscription, countRows, revenueActual, revenueModel]
+  readonly measures = a.concat(countRows).concat(yoy)
+  readonly formatters = [
+    new PivotTableCellFormatter(marginRateActual.alias, percentFormatter),
+    new PivotTableCellFormatter(marginRateModel.alias, percentFormatter)
+  ].concat(yoyFormatters)
   readonly table = [forecast]
 
   query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {

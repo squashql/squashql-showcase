@@ -44,6 +44,7 @@ export class SpendingAndPopulationQueryProvider implements QueryProvider {
 
   readonly selectableFields = spendingFields.concat(populationFields).filter((value, index, array) => array.indexOf(value) === index)
   readonly measures = spendingMeasures.concat(populationMeasures)
+  readonly formatters = []
   readonly table = [spending, population]
 
   query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
