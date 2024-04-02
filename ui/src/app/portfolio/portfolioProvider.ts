@@ -11,11 +11,10 @@ import {
 import {portfolio} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import {IncVarAncestors, toCriteria} from "@/app/lib/queries"
-import {PivotTableCellFormatter} from "@/app/lib/dashboard";
-import {defaultNumberFormatter} from "@/app/lib/formatters";
+import {PivotTableCellFormatter} from "@/app/lib/dashboard"
+import {defaultNumberFormatter} from "@/app/lib/formatters"
 
-export const var95MeasureName = "VaR 95"
-const var95 = new ParametrizedMeasure(var95MeasureName, "VAR", {
+const var95 = new ParametrizedMeasure("VaR 95", "VAR", {
   "value": portfolio.scenarioValue,
   "date": portfolio.dateScenario,
   "quantile": 0.95
