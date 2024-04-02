@@ -45,6 +45,7 @@ export class SpendingQueryProvider implements QueryProvider {
 
   readonly selectableFields = spendingFields
   readonly measures = spendingMeasures
+  readonly formatters = []
   readonly table = [spending]
 
   query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {

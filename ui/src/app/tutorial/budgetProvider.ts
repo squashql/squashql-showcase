@@ -61,6 +61,7 @@ export class BudgetProvider implements QueryProvider {
 
   readonly selectableFields = budget._fields.concat([satisfactionLevels.satisfactionLevel, expenseLevels.expenseLevel])
   readonly measures = createMeasures()
+  readonly formatters = []
   readonly table = [budget]
   readonly recordsProvider: () => (string | number)[][]
 

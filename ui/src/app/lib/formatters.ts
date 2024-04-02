@@ -12,22 +12,22 @@ const cashf = Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1
 })
 
-const percentFormatter: Formatter = {
+export const percentFormatter: Formatter = {
   label: "12.15%",
   formatter: (v: any) => percentf.format(v)
 }
 
-const usdFormatter: Formatter = {
+export const usdFormatter: Formatter = {
   label: "$4,999.99",
   formatter: (v: any) => usdf.format(v)
 }
 
-const eurFormatter: Formatter = {
+export const eurFormatter: Formatter = {
   label: "€4,999.99",
   formatter: (v: any) => eurf.format(v)
 }
 
-const cashFormatter: Formatter = {
+export const cashFormatter: Formatter = {
   label: "5K",
   formatter: (v: any) => cashf.format(v)
 }
@@ -37,7 +37,7 @@ export const defaultNumberFormatter: Formatter = {
   formatter: (v: any) => nf.format(v)
 }
 
-const none: Formatter = {
+export const none: Formatter = {
   label: "None",
   formatter: (v: any) => v
 }

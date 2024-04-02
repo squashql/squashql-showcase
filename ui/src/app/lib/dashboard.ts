@@ -68,7 +68,11 @@ export interface DashboardState {
   formatters: PivotTableCellFormatter[]
 }
 
-export function computeInitialState(key: string, selectableElements: SelectableElement[], selectableFilters: SelectableElement[], selectableValues: SelectableElement[]): DashboardState {
+export function computeInitialState(key: string,
+                                    selectableElements: SelectableElement[],
+                                    selectableFilters: SelectableElement[],
+                                    selectableValues: SelectableElement[],
+                                    formatters: PivotTableCellFormatter[]): DashboardState {
   if (typeof window !== "undefined") {
     const data = window.localStorage.getItem(key)
     if (data) {
@@ -87,14 +91,17 @@ export function computeInitialState(key: string, selectableElements: SelectableE
       return state
     }
   }
-  return initialState(selectableElements, selectableFilters, selectableValues)
+  return initialState(selectableElements, selectableFilters, selectableValues, formatters)
 }
 
 export function saveCurrentState(key: string, state: DashboardState) {
   window.localStorage.setItem(key, serialize(state))
 }
 
-function initialState(selectableElements: SelectableElement[], selectableFilters: SelectableElement[], selectableValues: SelectableElement[]): DashboardState {
+function initialState(selectableElements: SelectableElement[],
+                      selectableFilters: SelectableElement[],
+                      selectableValues: SelectableElement[],
+                      formatters: PivotTableCellFormatter[]): DashboardState {
   return {
     columns: [],
     filters: [],
@@ -104,7 +111,7 @@ function initialState(selectableElements: SelectableElement[], selectableFilters
     selectableFilters,
     selectableValues,
     values: [],
-    formatters: []
+    formatters
   }
 }
 
