@@ -48,12 +48,6 @@ export default function PivotTable(props: PivotTableProps) {
     width: props.width === undefined ? window.innerWidth - 44 : props.width,
     showDefaultHeaderActionIcon: false,
     hierarchyType: props.hierarchyType,
-    tooltip: {
-      showTooltip: true,
-      row: {
-        showTooltip: true,
-      },
-    },
     style: {
       layoutWidthType,
     },

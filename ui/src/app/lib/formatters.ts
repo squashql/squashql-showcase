@@ -42,4 +42,17 @@ export const none: Formatter = {
   formatter: (v: any) => v
 }
 
-export const formatters = [none, defaultNumberFormatter, usdFormatter, eurFormatter, cashFormatter, percentFormatter]
+const varFormatter = (value: any) => {
+  if (value) {
+    const localeDateString = new Date(value[0][0], value[0][1] - 1, value[0][2]).toLocaleDateString()
+    return `${defaultNumberFormatter.formatter(value[1])}\n${localeDateString}`
+  }
+  return ""
+}
+
+export const var95f: Formatter = {
+  label: "var95",
+  formatter: varFormatter
+}
+
+export const formatters = [none, defaultNumberFormatter, usdFormatter, eurFormatter, cashFormatter, percentFormatter, var95f]
