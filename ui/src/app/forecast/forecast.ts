@@ -12,7 +12,6 @@ import {
   Measure,
   neq,
   PivotConfig,
-  plus,
   Query,
   QueryMerge,
   sumIf,
@@ -32,6 +31,12 @@ const criteriaRevenueActual = all([
           ]
   )
 ])
+
+const criteriaActual = any([
+          all([criterion(forecast.accrualYear, eq(2023)), criterion(forecast.type, eq("actual"))]),
+          all([criterion(forecast.accrualYear, neq(2023)), criterion(forecast.type, eq("model"))])
+        ]
+)
 
 const criteriaRevenueModel = all([
   criterion(forecast.pnl, eq("Revenue")),
@@ -58,8 +63,8 @@ const revenueModel = sumIf("Rev Fcst", forecast.accrual, criteriaRevenueModel)
 const expenseActual = sumIf("Exp Actl/Fcst", forecast.accrual, criteriaExpenseActual)
 const expenseModel = sumIf("Exp Fcst", forecast.accrual, criteriaExpenseModel)
 
-const pnlActual = plus("Pnl Act/Fcst", revenueActual, expenseActual)
-const pnlModel = plus("Pnl Fcst", revenueModel, expenseModel)
+const pnlActual = sumIf("Pnl Act/Fcst", forecast.accrual, criteriaActual)
+const pnlModel = sumIf("Pnl Fcst", forecast.accrual, criterion(forecast.type, eq("model")))
 
 const marginRateActual = divide("Margin Act/Fcst", pnlActual, revenueActual)
 const marginRateModel = divide("Margin Fcst", pnlModel, revenueModel)
