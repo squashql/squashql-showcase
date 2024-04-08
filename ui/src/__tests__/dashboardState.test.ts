@@ -3,7 +3,7 @@ import {
   DashboardState,
   deserialize, deserialize_,
   fieldToSelectableElement,
-  measureToSelectableElement,
+  measureToSelectableElement, PivotTableCellFormatter,
   serialize,
   serialize_
 } from "@/app/lib/dashboard"
@@ -34,6 +34,7 @@ import {
   isPartialMeasure,
   PercentOfParentAlongAncestors
 } from "@/app/lib/queries"
+import {eurFormatter, var95fDateOnly} from "@/app/lib/formatters"
 
 // Fields
 const a = new TableField("table.a")
@@ -78,6 +79,11 @@ filtersValues.set(fieldToSelectableElement(city), ["la", "paris"])
 filtersValues.set(fieldToSelectableElement(a), [1, 2])
 filtersValues.set(fieldToSelectableElement(b), [true])
 
+const formatters = [
+  new PivotTableCellFormatter(getElementString(a), eurFormatter),
+  new PivotTableCellFormatter(getElementString(b), var95fDateOnly)
+]
+
 const state: DashboardState = {
   rows: [],
   columns: [],
@@ -87,6 +93,7 @@ const state: DashboardState = {
   selectableFilters: [a, b, c, city].map(fieldToSelectableElement),
   filters: [city, a, b].map(fieldToSelectableElement),
   filtersValues,
+  formatters
 }
 
 describe('serialization', () => {
@@ -170,6 +177,7 @@ describe('serialization', () => {
     expect(state.selectableFilters).toEqual(obj.selectableFilters)
     expect(state.filters).toEqual(obj.filters)
     expect(state.filtersValues.size).toEqual(obj.filtersValues.size)
+    expect(state.formatters).toEqual(obj.formatters)
     expect(compareMaps(state.filtersValues, obj.filtersValues)).toBeTruthy()
   })
 })

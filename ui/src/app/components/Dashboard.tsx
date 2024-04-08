@@ -18,6 +18,7 @@ import {
   useUndoRedo
 } from "@/app/lib/dashboard"
 import {Formatter} from "@/app/lib/formatters"
+import ColumnComparisonMeasureBuilder from "@/app/components/ColumnComparisonMeasureBuilder"
 
 // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
 const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
@@ -159,6 +160,8 @@ export default function Dashboard(props: DashboardProps) {
                            data-bs-target="#timeperiodcompModal">Time period comparison</a></li>
                     <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#hiercompModal">Hierarchical
                       comparison</a></li>
+                    <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#columncompModal">Dimension
+                      comparison</a></li>
                   </ul>
                 </div>
               </div>
@@ -279,6 +282,11 @@ export default function Dashboard(props: DashboardProps) {
                       fields={queryProvider.selectableFields}
                       onNewMeasure={addNewMeasureToSelection}/>
               <HierarchicalMeasureBuilder
+                      measures={state.selectableValues.concat(state.values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
+                      onNewMeasure={addNewMeasureToSelection}
+              />
+              <ColumnComparisonMeasureBuilder
+                      fields={queryProvider.selectableFields}
                       measures={state.selectableValues.concat(state.values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                       onNewMeasure={addNewMeasureToSelection}
               />
