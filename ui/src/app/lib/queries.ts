@@ -138,6 +138,7 @@ function createMeasure(measure: Measure, pivotConfig: PivotConfig): Measure {
               createMeasure(cmrp.measure, pivotConfig),
               cmrp.referencePosition,
               cmrp.columnSetKey,
+              cmrp.elements,
               cmrp.period,
               cmrp.ancestors,
               cmrp.grandTotalAlongAncestors)
