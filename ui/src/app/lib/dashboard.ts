@@ -169,6 +169,7 @@ function transformToObject(value: any): any {
             transformToObject(value["measure"]),
             m.size == 0 ? undefined : m,
             value["columnSetKey"],
+            value["elements"],
             value["period"],
             value["ancestors"]?.map((v: any) => transformToObject(v)),
             value["grandTotalAlongAncestors"])
