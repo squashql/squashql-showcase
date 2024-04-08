@@ -18,7 +18,7 @@ import {
   useUndoRedo
 } from "@/app/lib/dashboard"
 import {Formatter} from "@/app/lib/formatters"
-import ColumnComparisonMeasureBuilder from "@/app/components/ColumnComparisonMeasureBuilder";
+import ColumnComparisonMeasureBuilder from "@/app/components/ColumnComparisonMeasureBuilder"
 
 // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
 const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
