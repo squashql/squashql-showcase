@@ -1,14 +1,20 @@
 import {describe, expect, test} from '@jest/globals'
 import {
   DashboardState,
-  deserialize, deserialize_,
+  deserialize,
+  deserialize_,
   fieldToSelectableElement,
-  measureToSelectableElement, PivotTableCellFormatter,
+  measureToSelectableElement,
+  PivotTableCellFormatter,
   serialize,
   serialize_
 } from "@/app/lib/dashboard"
 import {
   AliasedField,
+  any,
+  Axis,
+  BinaryOperationMeasure,
+  BinaryOperator,
   comparisonMeasureWithGrandTotal,
   comparisonMeasureWithGrandTotalAlongAncestors,
   comparisonMeasureWithParent,
@@ -20,12 +26,10 @@ import {
   Field,
   Month,
   ParametrizedMeasure,
+  PartialHierarchicalComparisonMeasure,
   sum,
   sumIf,
   TableField,
-  any,
-  BinaryOperationMeasure,
-  BinaryOperator, PartialHierarchicalComparisonMeasure, Axis,
 } from "@squashql/squashql-js"
 import {getElementString} from "@/app/components/AxisSelector"
 import {eurFormatter, var95fDateOnly} from "@/app/lib/formatters"
