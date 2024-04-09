@@ -34,7 +34,6 @@ export class PortfolioProvider implements QueryProvider {
 
   readonly selectableFields = portfolio._fields
   readonly measures = [countRows, pnl, var95, incVar95]
-  // TODO incVar95 formatter
   readonly formatters = [new PivotTableCellFormatter(var95.alias, var95f)]
   readonly table = [portfolio]
 
