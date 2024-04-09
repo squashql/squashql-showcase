@@ -25,15 +25,9 @@ import {
   TableField,
   any,
   BinaryOperationMeasure,
-  BinaryOperator,
+  BinaryOperator, PartialHierarchicalComparisonMeasure, Axis,
 } from "@squashql/squashql-js"
 import {getElementString} from "@/app/components/AxisSelector"
-import {
-  CompareWithGrandTotalAlongAncestors,
-  IncVarAncestors,
-  isPartialMeasure,
-  PercentOfParentAlongAncestors
-} from "@/app/lib/queries"
 import {eurFormatter, var95fDateOnly} from "@/app/lib/formatters"
 
 // Fields
@@ -70,9 +64,8 @@ const incrVar95 = new ParametrizedMeasure("incr var measure", "INCREMENTAL_VAR",
   "quantile": 0.95,
   "ancestors": [a, b, c],
 })
-const incVarAncestors = new IncVarAncestors("incr var ancestors", "row")
-const percentOfParentAlongAncestors = new PercentOfParentAlongAncestors("pop along ancestors", sumA, "row")
-const compareWithGrandTotalAlongAncestors = new CompareWithGrandTotalAlongAncestors("gt along ancestors", sumA, "column")
+const percentOfParentAlongAncestors = new PartialHierarchicalComparisonMeasure("pop along ancestors", ComparisonMethod.DIVIDE, sumA, Axis.ROW, false)
+const compareWithGrandTotalAlongAncestors = new PartialHierarchicalComparisonMeasure("gt along ancestors", ComparisonMethod.DIVIDE, sumA, Axis.ROW, false)
 
 const filtersValues = new Map
 filtersValues.set(fieldToSelectableElement(city), ["la", "paris"])
@@ -148,22 +141,13 @@ describe('serialization', () => {
   test('serialize percentOfParentAlongAncestors', () => {
     const json = serialize_(percentOfParentAlongAncestors)
     const obj = deserialize_(json)
-    expect(isPartialMeasure(obj)).toBeTruthy()
     expect(percentOfParentAlongAncestors).toEqual(obj)
   })
 
   test('serialize compareWithGrandTotalAlongAncestors', () => {
     const json = serialize_(compareWithGrandTotalAlongAncestors)
     const obj = deserialize_(json)
-    expect(isPartialMeasure(obj)).toBeTruthy()
     expect(compareWithGrandTotalAlongAncestors).toEqual(obj)
-  })
-
-  test('serialize incVarAncestors', () => {
-    const json = serialize_(incVarAncestors)
-    const obj = deserialize_(json)
-    expect(isPartialMeasure(obj)).toBeTruthy()
-    expect(incVarAncestors).toEqual(obj)
   })
 
   test('serialize dashboard state', () => {

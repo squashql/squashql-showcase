@@ -2,12 +2,11 @@ import React, {useState} from "react"
 import {Measure} from "@squashql/squashql-js"
 import {getElementString} from "@/app/components/AxisSelector"
 import FloatingSelect from "@/app/components/FloatingSelect"
-import {PartialMeasure} from "@/app/lib/queries"
 import {Formatter, formatters} from "@/app/lib/formatters"
 
 interface FormatterBuilderBuilderProps {
   measures: Measure[]
-  onNewMeasureFormatter: (m: Measure | PartialMeasure, formatter: Formatter) => void
+  onNewMeasureFormatter: (m: Measure, formatter: Formatter) => void
 }
 
 interface FormatterBuilderBuilderState {

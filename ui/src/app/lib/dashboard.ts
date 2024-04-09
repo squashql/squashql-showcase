@@ -15,14 +15,8 @@ import {
   TableField,
   Year,
   SingleValueCondition,
-  BinaryOperationField
+  BinaryOperationField, PartialHierarchicalComparisonMeasure
 } from "@squashql/squashql-js"
-import {
-  CompareWithGrandTotalAlongAncestors,
-  IncVarAncestors,
-  PartialMeasure,
-  PercentOfParentAlongAncestors
-} from "@/app/lib/queries"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {useCallback, useEffect, useState} from "react"
 import {Formatter, formatters} from "@/app/lib/formatters"
@@ -34,7 +28,7 @@ export function fieldToSelectableElement(f: Field) {
   }
 }
 
-export function measureToSelectableElement(m: Measure | PartialMeasure) {
+export function measureToSelectableElement(m: Measure) {
   return {
     type: m,
     showTotals: true
@@ -49,7 +43,7 @@ export class PivotTableCellFormatter {
 
   toJSON() {
     return {
-      "class": "PivotTableCellFormatter",
+      "@class": "PivotTableCellFormatter",
       "field": this.field,
       "label": this.formatter.label
     }
@@ -135,13 +129,9 @@ function reviver(key: string, value: any) {
 }
 
 function transformToObject(value: any): any {
-  if (value["class"] === "PercentOfParentAlongAncestors") {
-    return new PercentOfParentAlongAncestors(value["alias"], value["underlying"], value["axis"])
-  } else if (value["class"] === "CompareWithGrandTotalAlongAncestors") {
-    return new CompareWithGrandTotalAlongAncestors(value["alias"], value["underlying"], value["axis"])
-  } else if (value["class"] === "IncVarAncestors") {
-    return new IncVarAncestors(value["alias"], value["axis"])
-  } else if (value["class"] === "PivotTableCellFormatter") {
+  if (value["@class"] === "io.squashql.query.PartialHierarchicalComparisonMeasure") {
+    return new PartialHierarchicalComparisonMeasure(value["alias"], value["comparisonMethod"], value["measure"], value["axis"], value["grandTotalAlongAncestors"])
+  } else if (value["@class"] === "PivotTableCellFormatter") {
     const label = value["label"]
     const f = formatters.find(f => f.label === label)
     return f ? new PivotTableCellFormatter(value["field"], f) : undefined
