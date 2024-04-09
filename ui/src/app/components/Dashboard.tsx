@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from "react"
 import AxisSelector, {AxisType, getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {Field, Measure, PivotTableQueryResult} from "@squashql/squashql-js"
-import {PartialMeasure, queryExecutor} from "@/app/lib/queries"
+import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import HierarchicalMeasureBuilder from "@/app/components/HierarchicalMeasureBuilder"
@@ -81,7 +81,7 @@ export default function Dashboard(props: DashboardProps) {
     executeAndSetResult(state.rows, state.columns, state.values, copy, minify)
   }
 
-  function addNewMeasureToSelection(m: Measure | PartialMeasure) {
+  function addNewMeasureToSelection(m: Measure) {
     const copy = state.values.slice()
     copy.push(measureToSelectableElement(m))
     setState((prevState) => {
@@ -92,7 +92,7 @@ export default function Dashboard(props: DashboardProps) {
     })
   }
 
-  function addFormatterToMeasure(m: Measure | PartialMeasure, formatter: Formatter) {
+  function addFormatterToMeasure(m: Measure, formatter: Formatter) {
     const copy = state.formatters ? state.formatters.slice() : []
     const field = getElementString(m)
     const index = copy.map(f => f.field).indexOf(field)

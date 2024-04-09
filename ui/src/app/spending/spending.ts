@@ -1,6 +1,7 @@
 import {
-  comparisonMeasureWithGrandTotal,
-  comparisonMeasureWithPeriod,
+  Axis,
+  comparisonMeasureWithGrandTotal, comparisonMeasureWithParentOfAxis,
+  comparisonMeasureWithPeriod, comparisonMeasureWithTotalOfAxis,
   ComparisonMethod,
   Field,
   from,
@@ -15,13 +16,13 @@ import {
 } from "@squashql/squashql-js"
 import {spending} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
-import {CompareWithGrandTotalAlongAncestors, PercentOfParentAlongAncestors, toCriteria} from "@/app/lib/queries"
+import {toCriteria} from "@/app/lib/queries"
 
 const amount = sum("amount", spending.amount)
-const popOfRow = new CompareWithGrandTotalAlongAncestors("amount - % of row", amount, "column")
-const popOfParentOnRows = new PercentOfParentAlongAncestors("amount - % of parent of row", amount, "column")
-const popOfCol = new CompareWithGrandTotalAlongAncestors("amount - % of column", amount, "row")
-const popOfParentOnCols = new PercentOfParentAlongAncestors("amount - % of parent of column", amount, "row")
+const popOfRow = comparisonMeasureWithTotalOfAxis("amount - % of row", ComparisonMethod.DIVIDE, amount, Axis.ROW)
+const popOfParentOnRows = comparisonMeasureWithParentOfAxis("amount - % of parent of row", ComparisonMethod.DIVIDE, amount, Axis.ROW)
+const popOfCol = comparisonMeasureWithTotalOfAxis("amount - % of column", ComparisonMethod.DIVIDE, amount, Axis.COLUMN)
+const popOfParentOnCols = comparisonMeasureWithParentOfAxis("amount - % of parent of column", ComparisonMethod.DIVIDE, amount, Axis.COLUMN)
 const popOfGT = multiply("amount - % on grand total", comparisonMeasureWithGrandTotal("amount_percent_gt", ComparisonMethod.DIVIDE, amount), integer(100))
 
 function createSpendingMeasures(): Measure[] {

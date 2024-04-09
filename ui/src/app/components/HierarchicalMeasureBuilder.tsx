@@ -1,16 +1,20 @@
 import React, {useState} from "react"
-import {comparisonMeasureWithGrandTotal, ComparisonMethod, integer, Measure, multiply} from "@squashql/squashql-js"
-import {getElementString} from "@/app/components/AxisSelector"
 import {
-  CompareWithGrandTotalAlongAncestors, PartialMeasure,
-  PercentOfParentAlongAncestors
-} from "@/app/lib/queries"
+  Axis,
+  comparisonMeasureWithGrandTotal,
+  ComparisonMethod,
+  integer,
+  Measure,
+  multiply,
+  PartialHierarchicalComparisonMeasure
+} from "@squashql/squashql-js"
+import {getElementString} from "@/app/components/AxisSelector"
 import FloatingSelect from "@/app/components/FloatingSelect"
 import FloatingInputText from "@/app/components/FloatingInputText"
 
 interface HierarchicalMeasureBuilderProps {
   measures: Measure[]
-  onNewMeasure: (m: Measure | PartialMeasure) => void
+  onNewMeasure: (m: Measure) => void
 }
 
 interface HierarchicalMeasureBuilderState {
@@ -55,16 +59,16 @@ export default function HierarchicalMeasureBuilder(props: HierarchicalMeasureBui
           measure = multiply(state.alias, comparisonMeasureWithGrandTotal("__" + state.alias + "__", ComparisonMethod.DIVIDE, state.underlyingMeasure), integer(100))
           break
         case HierarchicalType.ParentOnRows:
-          measure = new PercentOfParentAlongAncestors(state.alias, state.underlyingMeasure, "column")
+          measure = new PartialHierarchicalComparisonMeasure(state.alias, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.ROW, false)
           break
         case HierarchicalType.TotalOnRows:
-          measure = new CompareWithGrandTotalAlongAncestors(state.alias, state.underlyingMeasure, "column")
+          measure = new PartialHierarchicalComparisonMeasure(state.alias, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.ROW, true)
           break
         case HierarchicalType.ParentOnColumns:
-          measure = new PercentOfParentAlongAncestors(state.alias, state.underlyingMeasure, "row")
+          measure = new PartialHierarchicalComparisonMeasure(state.alias, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.COLUMN, false)
           break
         case HierarchicalType.TotalOnColumns:
-          measure = new CompareWithGrandTotalAlongAncestors(state.alias, state.underlyingMeasure, "row")
+          measure = new PartialHierarchicalComparisonMeasure(state.alias, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.COLUMN, true)
           break
       }
 

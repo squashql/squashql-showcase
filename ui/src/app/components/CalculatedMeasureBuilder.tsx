@@ -3,11 +3,10 @@ import {Measure, BinaryOperator, BinaryOperationMeasure} from "@squashql/squashq
 import {getElementString} from "@/app/components/AxisSelector"
 import FloatingSelect from "@/app/components/FloatingSelect"
 import FloatingInputText from "@/app/components/FloatingInputText"
-import {PartialMeasure} from "@/app/lib/queries"
 
 interface CalculatedMeasureBuilderProps {
   measures: Measure[]
-  onNewMeasure: (m: Measure | PartialMeasure) => void
+  onNewMeasure: (m: Measure) => void
 }
 
 interface CalculatedMeasureBuilderState {
