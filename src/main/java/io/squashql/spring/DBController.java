@@ -1,7 +1,6 @@
 package io.squashql.spring;
 
 import io.squashql.ShowcaseApplication;
-import io.squashql.SparkDatastore;
 import io.squashql.query.database.QueryEngine;
 import io.squashql.store.Datastore;
 import io.squashql.store.Store;
@@ -63,7 +62,7 @@ public class DBController {
 
   @PostMapping("/upload")
   public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam String table) throws IOException {
-    ShowcaseApplication.loadFile((QueryEngine<SparkDatastore>) engine, table, file.getInputStream());
+    ShowcaseApplication.loadFile(this.engine, table, file.getInputStream());
     return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully: " + file.getOriginalFilename());
   }
 }
