@@ -42,39 +42,15 @@ export const none: Formatter = {
   formatter: (v: any) => v
 }
 
-const varFormatter = (value: any) => {
-  if (value) {
-    const localeDateString = new Date(value[0][0], value[0][1] - 1, value[0][2]).toLocaleDateString()
-    return `${defaultNumberFormatter.formatter(value[1])}\n${localeDateString}`
-  }
-  return ""
-}
-
-export const var95f: Formatter = {
-  label: "VaR 95 - PnL + Date",
-  formatter: varFormatter
-}
-
-export const var95fPnlOnly: Formatter = {
-  label: "VaR 95 - PnL",
-  formatter: (value: any) => {
-    if (value) {
-      return defaultNumberFormatter.formatter(value[1])
-    }
-    return ""
-  }
-}
-
 export const var95fDateOnly: Formatter = {
   label: "VaR 95 - Date",
   formatter: (value: any) => {
     if (value) {
-      return new Date(value[0][0], value[0][1] - 1, value[0][2]).toLocaleDateString()
+      return new Date(value[0], value[1] - 1, value[2]).toLocaleDateString()
     }
     return ""
   }
 }
 
 export const formatters = [none,
-  defaultNumberFormatter, usdFormatter, eurFormatter, cashFormatter, percentFormatter,
-  var95f, var95fPnlOnly, var95fDateOnly]
+  defaultNumberFormatter, usdFormatter, eurFormatter, cashFormatter, percentFormatter, var95fDateOnly]
