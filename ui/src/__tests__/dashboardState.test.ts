@@ -45,9 +45,7 @@ const city = new TableField("table.city")
 
 // Measures
 const sumA = sum("sum_a", a)
-const criteria = any([criterion(b, eq("b")), criterion(b, eq("bb"))])
 const sumIfA = sumIf("sumIfA", a.divide(b.plus(c)), criterion(b, eq("bbb")))
-const sumIfB = sumIf("sumIfB", b, criteria)
 const expr = new ExpressionMeasure("expr", "my sql")
 const bom = new BinaryOperationMeasure("binary measure", BinaryOperator.PLUS, sumA, expr)
 const growth = comparisonMeasureWithPeriod("growth", ComparisonMethod.DIVIDE, sumA, new Map([
@@ -94,65 +92,6 @@ const state: DashboardState = {
 }
 
 describe('serialization', () => {
-  test('serialize criteria', () => {
-    const json = serialize_(criteria)
-    const obj = deserialize_(json)
-    expect(criteria).toEqual(obj)
-  })
-
-  test('serialize sumIf simple', () => {
-    const json = serialize_(sumIfB)
-    const obj = deserialize_(json)
-    expect(sumIfB).toEqual(obj)
-  })
-
-  test('serialize sumIf complex', () => {
-    const json = serialize_(sumIfA)
-    const obj = deserialize_(json)
-    expect(sumIfA).toEqual(obj)
-  })
-
-  test('serialize comparisonMeasureWithPeriod', () => {
-    const json = serialize_(growth)
-    const obj = deserialize_(json)
-    expect(growth).toEqual(obj)
-  })
-
-  test('serialize comparisonMeasureWithParent', () => {
-    const json = serialize_(parent)
-    const obj = deserialize_(json)
-    expect(parent).toEqual(obj)
-  })
-
-  test('serialize comparisonMeasureWithGrandTotalAlongAncestors', () => {
-    const json = serialize_(grandTotalAlongAncestors)
-    const obj = deserialize_(json)
-    expect(grandTotalAlongAncestors).toEqual(obj)
-  })
-
-  test('serialize comparisonMeasureWithGrandTotal', () => {
-    const json = serialize_(grandTotal)
-    const obj = deserialize_(json)
-    expect(grandTotal).toEqual(obj)
-  })
-
-  test('serialize BinaryOperationMeasure', () => {
-    const json = serialize_(bom)
-    const obj = deserialize_(json)
-    expect(bom).toEqual(obj)
-  })
-
-  test('serialize percentOfParentAlongAncestors', () => {
-    const json = serialize_(percentOfParentAlongAncestors)
-    const obj = deserialize_(json)
-    expect(percentOfParentAlongAncestors).toEqual(obj)
-  })
-
-  test('serialize compareWithGrandTotalAlongAncestors', () => {
-    const json = serialize_(compareWithGrandTotalAlongAncestors)
-    const obj = deserialize_(json)
-    expect(compareWithGrandTotalAlongAncestors).toEqual(obj)
-  })
 
   test('serialize dashboard state', () => {
     const json = serialize(state)
@@ -168,6 +107,7 @@ describe('serialization', () => {
     expect(state.formatters).toEqual(obj.formatters)
     expect(compareMaps(state.filtersValues, obj.filtersValues)).toBeTruthy()
   })
+
 })
 
 function compareMaps(map1: Map<Field, any>, map2: Map<Field, any>) {

@@ -1,22 +1,4 @@
-import {
-  AggregatedMeasure,
-  AliasedField,
-  BinaryOperationMeasure,
-  ComparisonMeasureGrandTotal,
-  ComparisonMeasureReferencePosition,
-  Criteria,
-  ExpressionMeasure,
-  Field,
-  Measure,
-  Month,
-  ParametrizedMeasure,
-  Quarter,
-  Semester,
-  TableField,
-  Year,
-  SingleValueCondition,
-  BinaryOperationField, PartialHierarchicalComparisonMeasure
-} from "@squashql/squashql-js"
+import {Field, Measure, squashQLReviver} from "@squashql/squashql-js"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {useCallback, useEffect, useState} from "react"
 import {Formatter, formatters} from "@/app/lib/formatters"
@@ -120,86 +102,14 @@ function serializeMap(map: Map<any, any>): Map<string, any> {
 function reviver(key: string, value: any) {
   if (key === "filtersValues") {
     const m: Map<Field, any> = new Map
-    Object.entries(value).forEach(([k, v]) => m.set(transformToObject(JSON.parse(k)), v))
+    Object.entries(value).forEach(([k, v]) => m.set(squashQLReviver(k, JSON.parse(k)), v))
     return m
-  } else if (typeof value === "object") {
-    return transformToObject(value)
-  }
-  return value
-}
-
-function transformToObject(value: any): any {
-  if (value["@class"] === "io.squashql.query.PartialHierarchicalComparisonMeasure") {
-    return new PartialHierarchicalComparisonMeasure(value["alias"], value["comparisonMethod"], value["measure"], value["axis"], value["grandTotalAlongAncestors"])
-  } else if (value["@class"] === "PivotTableCellFormatter") {
+  } else if (typeof value === "object" && value["@class"] === "PivotTableCellFormatter") {
     const label = value["label"]
     const f = formatters.find(f => f.label === label)
     return f ? new PivotTableCellFormatter(value["field"], f) : undefined
-  } else if (value["@class"] === "io.squashql.query.AggregatedMeasure") {
-    return new AggregatedMeasure(value["alias"], transformToObject(value["field"]), value["aggregationFunction"], value["distinct"], value["criteria"])
-  } else if (value["@class"] === "io.squashql.query.ExpressionMeasure") {
-    return new ExpressionMeasure(value["alias"], value["expression"])
-  } else if (value["@class"] === "io.squashql.query.BinaryOperationMeasure") {
-    return new BinaryOperationMeasure(
-            value["alias"],
-            value["operator"],
-            transformToObject(value["leftOperand"]),
-            transformToObject(value["rightOperand"]))
-  } else if (value["@class"] === "io.squashql.query.ComparisonMeasureGrandTotal") {
-    return new ComparisonMeasureGrandTotal(
-            value["alias"],
-            value["comparisonMethod"],
-            transformToObject(value["measure"]))
-  } else if (value["@class"] === "io.squashql.query.ComparisonMeasureReferencePosition") {
-    const m: Map<Field, any> = new Map
-    value["referencePosition"] && Object.entries(value["referencePosition"])?.forEach(([k, v]) => m.set(transformToObject(JSON.parse(k)), v))
-    return new ComparisonMeasureReferencePosition(
-            value["alias"],
-            value["comparisonMethod"],
-            transformToObject(value["measure"]),
-            m.size == 0 ? undefined : m,
-            value["columnSetKey"],
-            value["elements"],
-            value["period"],
-            value["ancestors"]?.map((v: any) => transformToObject(v)),
-            value["grandTotalAlongAncestors"])
-  } else if (value["@class"] === "io.squashql.query.measure.ParametrizedMeasure") {
-    return new ParametrizedMeasure(
-            value["alias"],
-            value["key"],
-            value["parameters"])
-  } else if (value["@class"] === "io.squashql.query.TableField") {
-    return new TableField(
-            value["fullName"],
-            value["alias"])
-  } else if (value["@class"] === "io.squashql.query.AliasedField") {
-    return new AliasedField(value["alias"])
-  } else if (value["@class"] === "io.squashql.query.dto.SingleValueConditionDto") {
-    return new SingleValueCondition(value["type"], value["value"])
-  } else if (value["@class"] === "io.squashql.query.dto.CriteriaDto") {
-    const c = value["children"]
-    let children = undefined
-    if (c) {
-      children = []
-      for (const cElement of c) {
-        children.push(transformToObject(cElement))
-      }
-    }
-    // @ts-ignore
-    return new Criteria(value["field"], value["fieldOther"], value["measure"], value["condition"], value["conditionType"], children)
-  } else if (value["@class"] === "io.squashql.query.BinaryOperationField") {
-    return new BinaryOperationField(value["operator"], transformToObject(value["leftOperand"]), transformToObject(value["rightOperand"]), value["alias"])
-  } else if (value["@class"] === "io.squashql.query.dto.Period$Month") {
-    return new Month(transformToObject(value["month"]), transformToObject(value["year"]))
-  } else if (value["@class"] === "io.squashql.query.dto.Period$Quarter") {
-    return new Quarter(transformToObject(value["quarter"]), transformToObject(value["year"]))
-  } else if (value["@class"] === "io.squashql.query.dto.Period$Semester") {
-    return new Semester(transformToObject(value["semester"]), transformToObject(value["year"]))
-  } else if (value["@class"] === "io.squashql.query.dto.Period$Year") {
-    return new Year(transformToObject(transformToObject(value["year"])))
-  } else {
-    return value
   }
+  return value
 }
 
 function replacer(key: string, value: any) {
@@ -219,11 +129,11 @@ export function serialize_(value: any): string {
 }
 
 export function deserialize_(value: string): any {
-  return JSON.parse(value, reviver)
+  return deserialize(value)
 }
 
 export function deserialize(value: string): DashboardState {
-  return JSON.parse(value, reviver)
+  return JSON.parse(value, (k, v) => squashQLReviver(k, v, reviver))
 }
 
 interface History {
