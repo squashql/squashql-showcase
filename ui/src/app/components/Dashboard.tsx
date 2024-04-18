@@ -50,7 +50,7 @@ export default function Dashboard(props: DashboardProps) {
 
   useEffect(() => {
     refreshFromState().then(() => saveCurrentState(storageKey, state))
-  }, [state, props])
+  }, [state])
 
   function refreshFromState() {
     return executeAndSetResult(state.rows, state.columns, state.values, state.filtersValues, minify)
