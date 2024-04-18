@@ -79,7 +79,7 @@ export default function ForecastPeriodSelector(props: ForecastPeriodSelectorProp
                 <div className="modal-footer">
                   <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
-                          disabled={!canBuild()} onClick={createMeasuresFromState}>Define
+                          disabled={!canBuild()} onClick={createMeasuresFromState}>Save
                   </button>
                 </div>
               </div>

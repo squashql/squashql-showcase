@@ -5,6 +5,7 @@ import dynamic from "next/dynamic"
 import ForecastPeriodSelector from "@/app/components/ForecastPeriodSelector"
 import React, {useState} from "react"
 import {clearCurrentState} from "@/app/lib/dashboard"
+import MappingConfigurator from "@/app/components/MappingConfigurator"
 
 // Dashboard makes use of local storage and window
 // https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
@@ -44,6 +45,7 @@ export default function Page() {
                        elements={[<UploadFile key={"uf"} table={"forecast"}/>]}/>
 
             <ForecastPeriodSelector onForecastPeriodSelected={onForecastPeriodSelected}/>
+            <MappingConfigurator fields={state.queryProvider.selectableFields}/>
           </>
   )
 }
@@ -64,6 +66,10 @@ function SettingsMenu(props: SettingsMenuProps) {
                 <li>
                   <a className="dropdown-item" href="#" data-bs-toggle="modal"
                      data-bs-target="#forecastperiodselectorModal">Forecast start period (year = {props.year})</a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#" data-bs-toggle="modal"
+                     data-bs-target="#mappingconfiguratorModal">Configure column mapping</a>
                 </li>
               </ul>
             </div>
