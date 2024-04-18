@@ -33,7 +33,7 @@ export default function Page() {
                   features={["VaR 95", "Incremental VaR 95"]}/>
             <Card link={"spendingandpopulation"} tables={["spending", "population"]}
                   features={["Drilling across", "basic measures"]}/>
-            <Card link={"forecast"} tables={["forecast"]}
+            <Card link={"financialplanning"} tables={["forecast"]}
                   features={["Time-series comparison", "conditional aggregation", "hierarchical measures"]}/>
           </div>
   )

@@ -1,7 +1,7 @@
 'use client'
 import React, {useEffect, useState} from "react"
 import AxisSelector, {AxisType, getElementString, SelectableElement} from "@/app/components/AxisSelector"
-import {Field, Measure, PivotTableQueryResult} from "@squashql/squashql-js"
+import {AggregatedMeasure, Field, Measure, PivotTableQueryResult} from "@squashql/squashql-js"
 import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
@@ -19,6 +19,7 @@ import {
 } from "@/app/lib/dashboard"
 import {Formatter} from "@/app/lib/formatters"
 import ColumnComparisonMeasureBuilder from "@/app/components/ColumnComparisonMeasureBuilder"
+import {clearCurrentState} from "@/app/lib/dashboard"
 
 // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
 const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
@@ -26,14 +27,16 @@ const FiltersSelector = dynamic(() => import("@/app/components/FiltersSelector")
 
 export interface DashboardProps {
   title: string
+  storageKey?: string
   queryProvider: QueryProvider
+  menuElements?: React.JSX.Element[]
   elements?: React.JSX.Element[]
 }
 
 export type HierarchyType = 'grid' | 'tree' | 'customTree'
 
 export default function Dashboard(props: DashboardProps) {
-  const storageKey = `state#${props.title.toLowerCase()}`
+  const storageKey = props.storageKey ?? `state#${props.title.toLowerCase()}`
   const queryProvider = props.queryProvider
   const [pivotQueryResult, setPivotQueryResult] = useState<PivotTableQueryResult>()
   const [minify, setMinify] = useState<boolean>(true)
@@ -47,7 +50,7 @@ export default function Dashboard(props: DashboardProps) {
 
   useEffect(() => {
     refreshFromState().then(() => saveCurrentState(storageKey, state))
-  }, [state])
+  }, [state, props])
 
   function refreshFromState() {
     return executeAndSetResult(state.rows, state.columns, state.values, state.filtersValues, minify)
@@ -108,10 +111,6 @@ export default function Dashboard(props: DashboardProps) {
     })
   }
 
-  function clearHistory() {
-    window.localStorage.removeItem(storageKey)
-  }
-
   return (
           <div className="container-fluid">
             <div className="row row-cols-auto">
@@ -133,7 +132,8 @@ export default function Dashboard(props: DashboardProps) {
                     </li>
                     <li><a className={`dropdown-item ${!canRedo ? "disabled" : ""}`} href="#" onClick={redo}>Redo</a>
                     </li>
-                    <li><a className="dropdown-item" href="#" onClick={clearHistory}>Clear state</a></li>
+                    <li><a className="dropdown-item" href="#" onClick={() => clearCurrentState(storageKey)}>Clear
+                      state</a></li>
                     <li>
                       <hr className="dropdown-divider"/>
                     </li>
@@ -160,11 +160,15 @@ export default function Dashboard(props: DashboardProps) {
                            data-bs-target="#timeperiodcompModal">Time period comparison</a></li>
                     <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#hiercompModal">Hierarchical
                       comparison</a></li>
-                    <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#columncompModal">Dimension
-                      comparison</a></li>
+                    <li>
+                      <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#columncompModal">Dimension
+                        comparison</a>
+                    </li>
                   </ul>
                 </div>
               </div>
+
+              {props.menuElements}
             </div>
 
             {/* Edit Pivot Table */}

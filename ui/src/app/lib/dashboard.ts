@@ -1,4 +1,4 @@
-import {Field, Measure, squashQLReviver} from "@squashql/squashql-js"
+import {AggregatedMeasure, Field, Measure, squashQLReviver} from "@squashql/squashql-js"
 import {getElementString, SelectableElement} from "@/app/components/AxisSelector"
 import {useCallback, useEffect, useState} from "react"
 import {Formatter, formatters} from "@/app/lib/formatters"
@@ -72,6 +72,10 @@ export function computeInitialState(key: string,
 
 export function saveCurrentState(key: string, state: DashboardState) {
   window.localStorage.setItem(key, serialize(state))
+}
+
+export function clearCurrentState(key: string) {
+  window.localStorage.removeItem(key)
 }
 
 function initialState(selectableElements: SelectableElement[],
