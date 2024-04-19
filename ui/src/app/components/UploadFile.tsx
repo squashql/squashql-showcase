@@ -10,6 +10,7 @@ const initialState = {
 
 interface UploadFileProps {
   table: string,
+  onFileUploaded?: () => void
 }
 
 export default function UploadFile(props: UploadFileProps) {
@@ -41,6 +42,10 @@ export default function UploadFile(props: UploadFileProps) {
         message: r.data,
         currentFile: undefined,
       })
+
+      if (props.onFileUploaded !== undefined) {
+        props.onFileUploaded()
+      }
     }).catch(() => {
       setState({
         message: "Could not upload the file!",

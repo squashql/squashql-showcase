@@ -1,10 +1,14 @@
 import React, {ChangeEvent, useState} from "react"
 import {getElementString} from "@/app/components/AxisSelector"
 import FloatingSelect from "@/app/components/FloatingSelect"
-import {Field} from "@squashql/squashql-js"
+import {Field, TableField} from "@squashql/squashql-js"
+import leven from "leven"
+import {ForecastFields} from "@/app/financialplanning/page"
 
 interface MappingConfiguratorProps {
-  fields: Field[]
+  fields: TableField[]
+  currentMapping?: ForecastFields
+  onSave: (mapping: ForecastFields) => void
 }
 
 interface MappingConfiguratorState {
@@ -17,11 +21,48 @@ interface MappingConfiguratorState {
 
 const keys: (keyof MappingConfiguratorState)[] = ["year", "month", "type", "pnl", "accrual"]
 
+function computeInitialState(props: MappingConfiguratorProps): MappingConfiguratorState {
+  const state: MappingConfiguratorState = {}
+  for (const k of keys) {
+    const fieldNames = props.fields.map(e => e.fieldName.toLowerCase())
+    let candidateIndex
+    for (const [index, f] of fieldNames.entries()) {
+      if (f.includes(k)) {
+        candidateIndex = index
+        break
+      }
+    }
+
+    if (!candidateIndex) {
+      let [min, minIndex] = [Number.MAX_SAFE_INTEGER, -1]
+      for (const [index, f] of fieldNames.entries()) {
+        const l = leven(k, f)
+        if (l < min) {
+          min = l
+          minIndex = index
+        }
+      }
+      candidateIndex = minIndex
+    }
+    state[k] = props.fields[candidateIndex]
+  }
+  return state
+}
+
 export default function MappingConfigurator(props: MappingConfiguratorProps) {
-  const [state, setState] = useState<MappingConfiguratorState>({})
+  const initialState = props.currentMapping !== undefined ? props.currentMapping : computeInitialState(props)
+  const [state, setState] = useState<MappingConfiguratorState>(initialState)
 
-  function createMeasuresFromState() {
-
+  function onSave() {
+    if (state.accrual && state.type && state.year && state.month && state.pnl) {
+      props.onSave({
+        accrual: state.accrual,
+        year: state.year,
+        month: state.month,
+        type: state.type,
+        pnl: state.pnl,
+      })
+    }
   }
 
   function canSave(): boolean {
@@ -67,7 +108,7 @@ export default function MappingConfigurator(props: MappingConfiguratorProps) {
                 <div className="modal-footer">
                   <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
-                          disabled={!canSave()} onClick={createMeasuresFromState}>Save
+                          disabled={!canSave()} onClick={onSave}>Save
                   </button>
                 </div>
               </div>
