@@ -8,7 +8,7 @@ import {
   divide,
   eq,
   Field,
-  from,
+  from, gt, le, lt,
   Measure,
   neq,
   PivotConfig,
@@ -17,92 +17,101 @@ import {
   sumIf,
   Year,
 } from "@squashql/squashql-js"
-import {forecast} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import {toCriteria} from "@/app/lib/queries"
 import {PivotTableCellFormatter} from "@/app/lib/dashboard"
 import {percentFormatter} from "@/app/lib/formatters"
+import {SquashQLTable} from "@/app/lib/tables"
+import {ForecastFields} from "@/app/financialplanning/page"
 
 interface MeasureConfig {
   measures: Measure[]
   formatters: PivotTableCellFormatter[]
 }
 
-function createMeasures(year: number): MeasureConfig {
-  const criteriaRevenueActual = all([
-    criterion(forecast.pnl, eq("Revenue")),
-    any([
-              all([criterion(forecast.accrualYear, eq(year)), criterion(forecast.type, eq("actual"))]),
-              all([criterion(forecast.accrualYear, neq(year)), criterion(forecast.type, eq("model"))])
-            ]
-    )
-  ])
+function createMeasures(forecast: ForecastFields | undefined, year: number, month?: number): MeasureConfig {
+  if (forecast && forecast.pnl && forecast.type && forecast.accrual && forecast.year && forecast.month) {
+    let criteriaActual
+    if (month) {
+      criteriaActual = any([
+        all([criterion(forecast.year, eq(year)), criterion(forecast.month, le(month)), criterion(forecast.type, eq("actual"))]),
+        all([criterion(forecast.year, lt(year)), criterion(forecast.type, eq("actual"))]),
+        all([criterion(forecast.year, eq(year)), criterion(forecast.month, gt(month)), criterion(forecast.type, eq("model"))]),
+        all([criterion(forecast.year, gt(year)), criterion(forecast.type, eq("model"))]),
+      ])
+    } else {
+      criteriaActual = any([
+        all([criterion(forecast.year, le(year)), criterion(forecast.type, eq("actual"))]),
+        all([criterion(forecast.year, gt(year)), criterion(forecast.type, eq("model"))])
+      ])
+    }
 
-  const criteriaActual = any([
-            all([criterion(forecast.accrualYear, eq(year)), criterion(forecast.type, eq("actual"))]),
-            all([criterion(forecast.accrualYear, neq(year)), criterion(forecast.type, eq("model"))])
-          ]
-  )
+    const criteriaRevenueActual = all([
+      criterion(forecast.pnl, eq("Revenue")),
+      criteriaActual
+    ])
 
-  const criteriaRevenueModel = all([
-    criterion(forecast.pnl, eq("Revenue")),
-    criterion(forecast.type, eq("model"))
-  ])
+    const criteriaRevenueModel = all([
+      criterion(forecast.pnl, eq("Revenue")),
+      criterion(forecast.type, eq("model"))
+    ])
 
-  const criteriaExpenseActual = all([
-    criterion(forecast.pnl, neq("Revenue")),
-    any([
-              all([criterion(forecast.accrualYear, eq(year)), criterion(forecast.type, eq("actual"))]),
-              all([criterion(forecast.accrualYear, neq(year)), criterion(forecast.type, eq("model"))])
-            ]
-    )
-  ])
+    const criteriaExpenseActual = all([
+      criterion(forecast.pnl, neq("Revenue")),
+      criteriaActual
+    ])
 
-  const criteriaExpenseModel = all([
-    criterion(forecast.pnl, neq("Revenue")),
-    criterion(forecast.type, eq("model"))
-  ])
+    const criteriaExpenseModel = all([
+      criterion(forecast.pnl, neq("Revenue")),
+      criterion(forecast.type, eq("model"))
+    ])
 
-  const revenueActual = sumIf("Rev Actl/Fcst", forecast.accrual, criteriaRevenueActual)
-  const revenueModel = sumIf("Rev Fcst", forecast.accrual, criteriaRevenueModel)
+    const revenueActual = sumIf("Rev Actl/Fcst", forecast.accrual, criteriaRevenueActual)
+    const revenueModel = sumIf("Rev Fcst", forecast.accrual, criteriaRevenueModel)
 
-  const expenseActual = sumIf("Exp Actl/Fcst", forecast.accrual, criteriaExpenseActual)
-  const expenseModel = sumIf("Exp Fcst", forecast.accrual, criteriaExpenseModel)
+    const expenseActual = sumIf("Exp Actl/Fcst", forecast.accrual, criteriaExpenseActual)
+    const expenseModel = sumIf("Exp Fcst", forecast.accrual, criteriaExpenseModel)
 
-  const pnlActual = sumIf("Pnl Act/Fcst", forecast.accrual, criteriaActual)
-  const pnlModel = sumIf("Pnl Fcst", forecast.accrual, criterion(forecast.type, eq("model")))
+    const pnlActual = sumIf("Pnl Act/Fcst", forecast.accrual, criteriaActual)
+    const pnlModel = sumIf("Pnl Fcst", forecast.accrual, criterion(forecast.type, eq("model")))
 
-  const marginRateActual = divide("Margin Act/Fcst", pnlActual, revenueActual)
-  const marginRateModel = divide("Margin Fcst", pnlModel, revenueModel)
+    const marginRateActual = divide("Margin Act/Fcst", pnlActual, revenueActual)
+    const marginRateModel = divide("Margin Fcst", pnlModel, revenueModel)
 
-  const a: Measure[] = [
-    revenueActual, revenueModel,
-    expenseActual, expenseModel,
-    pnlActual, pnlModel,
-    marginRateActual, marginRateModel,
-  ]
+    const a: Measure[] = [
+      revenueActual, revenueModel,
+      expenseActual, expenseModel,
+      pnlActual, pnlModel,
+      marginRateActual, marginRateModel,
+    ]
 
-  const yoy: Measure[] = []
-  const yoyFormatters: PivotTableCellFormatter[] = []
-  for (const m of a) {
-    const alias = `YoY % ${m.alias} Growth`
-    yoy.push(comparisonMeasureWithPeriod(
-            alias,
-            ComparisonMethod.RELATIVE_DIFFERENCE,
-            m,
-            new Map([[forecast.accrualYear, "y-1"]]),
-            new Year(forecast.accrualYear)))
-    yoyFormatters.push(new PivotTableCellFormatter(alias, percentFormatter))
-  }
+    const yoy: Measure[] = []
+    const yoyFormatters: PivotTableCellFormatter[] = []
+    for (const m of a) {
+      const alias = `YoY % ${m.alias} Growth`
+      yoy.push(comparisonMeasureWithPeriod(
+              alias,
+              ComparisonMethod.RELATIVE_DIFFERENCE,
+              m,
+              new Map([[forecast.year, "y-1"]]),
+              new Year(forecast.year)))
+      yoyFormatters.push(new PivotTableCellFormatter(alias, percentFormatter))
+    }
 
-  const formatters = [
-    new PivotTableCellFormatter(marginRateActual.alias, percentFormatter),
-    new PivotTableCellFormatter(marginRateModel.alias, percentFormatter)
-  ].concat(yoyFormatters)
+    const formatters = [
+      new PivotTableCellFormatter(marginRateActual.alias, percentFormatter),
+      new PivotTableCellFormatter(marginRateModel.alias, percentFormatter)
+    ].concat(yoyFormatters)
 
-  return {
-    measures: a.concat(countRows).concat(yoy),
-    formatters
+    return {
+      measures: a.concat(countRows).concat(yoy),
+      formatters
+    }
+  } else {
+    return {
+      measures: [countRows],
+      formatters: []
+    }
   }
 }
 
@@ -122,19 +131,20 @@ function createMeasures(year: number): MeasureConfig {
 
 export class ForecastQueryProvider implements QueryProvider {
 
-  readonly selectableFields = forecast._fields
+  readonly selectableFields = this.forecastTable._fields
   readonly measures: Measure[]
   readonly formatters: PivotTableCellFormatter[]
-  readonly table = [forecast]
+  readonly table
 
-  constructor(readonly year: number) {
-    const config = createMeasures(this.year)
+  constructor(readonly forecastTable: SquashQLTable, readonly mapping: ForecastFields | undefined, readonly year: number, readonly month?: number) {
+    const config = createMeasures(this.mapping, this.year, this.month)
     this.measures = config.measures
     this.formatters = config.formatters
+    this.table = [this.forecastTable]
   }
 
   query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
-    return from(forecast._name)
+    return from(this.forecastTable._name)
             .where(toCriteria(filters))
             .select(select, [], values)
             .build()

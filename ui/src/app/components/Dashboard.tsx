@@ -1,7 +1,7 @@
 'use client'
 import React, {useEffect, useState} from "react"
 import AxisSelector, {AxisType, getElementString, SelectableElement} from "@/app/components/AxisSelector"
-import {AggregatedMeasure, Field, Measure, PivotTableQueryResult} from "@squashql/squashql-js"
+import {Field, Measure, PivotTableQueryResult} from "@squashql/squashql-js"
 import {queryExecutor} from "@/app/lib/queries"
 import dynamic from "next/dynamic"
 import {QueryProvider} from "@/app/lib/queryProvider"
@@ -10,6 +10,7 @@ import TimeComparisonMeasureBuilder from "@/app/components/TimeComparisonMeasure
 import CalculatedMeasureBuilder from "@/app/components/CalculatedMeasureBuilder"
 import FormatterBuilder from "@/app/components/FormatterBuilder"
 import {
+  clearCurrentState,
   computeInitialState,
   fieldToSelectableElement,
   measureToSelectableElement,
@@ -19,7 +20,6 @@ import {
 } from "@/app/lib/dashboard"
 import {Formatter} from "@/app/lib/formatters"
 import ColumnComparisonMeasureBuilder from "@/app/components/ColumnComparisonMeasureBuilder"
-import {clearCurrentState} from "@/app/lib/dashboard"
 
 // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
 const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
@@ -43,10 +43,10 @@ export default function Dashboard(props: DashboardProps) {
   const [ptHierarchyType, setPtHierarchyType] = useState<HierarchyType>("tree")
 
   const {state, setState, undo, redo, canUndo, canRedo} = useUndoRedo(computeInitialState(storageKey,
-          props.queryProvider.selectableFields.map(fieldToSelectableElement),
-          props.queryProvider.selectableFields.map(fieldToSelectableElement),
-          props.queryProvider.measures.map(measureToSelectableElement),
-          props.queryProvider.formatters), 8)
+          queryProvider.selectableFields.map(fieldToSelectableElement),
+          queryProvider.selectableFields.map(fieldToSelectableElement),
+          queryProvider.measures.map(measureToSelectableElement),
+          queryProvider.formatters), 8)
 
   useEffect(() => {
     refreshFromState().then(() => saveCurrentState(storageKey, state))
