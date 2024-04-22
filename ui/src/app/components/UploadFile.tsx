@@ -63,7 +63,7 @@ export default function UploadFile(props: UploadFileProps) {
 
   return (
           <div>
-            <div className="row row-cols-auto">
+            <div className="row row-cols-auto px-1 pb-1">
               <div className="col px-1">
                 <input className="form-control form-control-sm" type="file" id="formFile" onChange={selectFile}/>
               </div>
