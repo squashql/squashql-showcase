@@ -36,7 +36,7 @@ const pageStorageKey = "page#state#fpna"
 const tableName = "forecast"
 const defaultYear = new Date().getFullYear() - 1
 
-export function computeInitialState(key: string): ForecastPageState {
+function computeInitialState(key: string): ForecastPageState {
   if (typeof window !== "undefined") {
     const data = window.localStorage.getItem(key)
     if (data) {
