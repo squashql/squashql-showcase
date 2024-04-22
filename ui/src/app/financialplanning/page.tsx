@@ -139,7 +139,7 @@ export default function Page() {
 }
 
 interface SettingsMenuProps {
-  year?: number
+  year: number
   month?: number
   isMappingDefined: boolean
 }
