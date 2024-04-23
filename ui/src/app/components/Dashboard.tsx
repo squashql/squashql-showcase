@@ -20,6 +20,7 @@ import {
 } from "@/app/lib/dashboard"
 import {Formatter} from "@/app/lib/formatters"
 import ColumnComparisonMeasureBuilder from "@/app/components/ColumnComparisonMeasureBuilder"
+import BasicMeasureBuilder from "@/app/components/BasicMeasureBuilder"
 
 // disable the server-side render for the PivotTable otherwise it leads to "window is not defined" error
 const PivotTable = dynamic(() => import("@/app/components/PivotTable"), {ssr: false})
@@ -125,7 +126,7 @@ export default function Dashboard(props: DashboardProps) {
                 <div className="dropdown">
                   <button className="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
                           aria-expanded="false">
-                    Edit
+                  Edit
                   </button>
                   <ul className="dropdown-menu">
                     <li><a className={`dropdown-item ${!canUndo ? "disabled" : ""}`} href="#" onClick={undo}>Undo</a>
@@ -154,8 +155,14 @@ export default function Dashboard(props: DashboardProps) {
                     <li>
                       <hr className="dropdown-divider"/>
                     </li>
-                    <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#calcmeasModal">Calculated
-                      measure</a></li>
+                    <li>
+                      <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#basicmeasModal">Basic
+                        measure</a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#calcmeasModal">Calculated
+                        measure</a>
+                    </li>
                     <li><a className="dropdown-item" href="#" data-bs-toggle="modal"
                            data-bs-target="#timeperiodcompModal">Time period comparison</a></li>
                     <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#hiercompModal">Hierarchical
@@ -278,6 +285,7 @@ export default function Dashboard(props: DashboardProps) {
               <FormatterBuilder
                       measures={state.selectableValues.concat(state.values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                       onNewMeasureFormatter={addFormatterToMeasure}/>
+              <BasicMeasureBuilder fields={queryProvider.selectableFields} onNewMeasure={addNewMeasureToSelection}/>
               <CalculatedMeasureBuilder
                       measures={state.selectableValues.concat(state.values).map(m => (m.type as Measure)).sort((a: Measure, b: Measure) => a.alias.localeCompare(b.alias))}
                       onNewMeasure={addNewMeasureToSelection}/>
