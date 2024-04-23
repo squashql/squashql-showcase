@@ -54,7 +54,6 @@ export default function Page() {
   useEffect(() => {
     fetch()
   }, [state.table?._fields.map(e => getElementString(e)).join()])
-
   // Use join array as dependency because Object.is(["a"], ["a"]) is false
 
   function getUploadFile() {
