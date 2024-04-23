@@ -21,13 +21,6 @@ interface PageState {
 const tableName = "blank"
 const dashboardStorageKey = `dashboard#state#${tableName}`
 
-function getUploadFile(fetch: () => void) {
-  return <UploadFile key={"uf"} table={tableName} onFileUploaded={() => {
-    clearCurrentState(dashboardStorageKey)
-    fetch()
-  }}/>
-}
-
 export default function Page() {
   const [didMount, setDidMount] = useState(false)
   const [state, setState] = useState<PageState>({
