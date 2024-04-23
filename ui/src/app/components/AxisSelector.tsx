@@ -127,7 +127,7 @@ export default function AxisSelector(props: AxisSelectorProps) {
             </div>
             <div className="row">
               {props.selectedElements?.map((element, index) => (
-                      <div key={index} className="row m-1 p-1 text-bg-light" style={{borderRadius: 4}}>
+                      <div key={index} className="row m-1 p-1 text-bg-light" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" style={{borderRadius: 4}}>
                         <div className="px-1">
                           <strong>{getElementString(element)}</strong>
                           <button type="button" className="btn-close float-end" aria-label="Close"
