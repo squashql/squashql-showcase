@@ -121,7 +121,7 @@ Filter the table with `criterion(budget.scenario, eq("b"))`
 <details><summary>Code</summary>
 
 ```typescript
-const query = from("budget")
+const query = from(budget._name)
         .where(criterion(budget.scenario, eq("b")))
         .select([budget.year, budget.month, budget.category], [], [income, expenditure])
         .build()
@@ -185,7 +185,7 @@ Use the `minus` operator to compute the difference.
 
 ```typescript
 const netIncome = minus("Net income", income, expenditure)
-const query = from("budget")
+const query = from(budget._name)
         .where(criterion(budget.scenario, eq("b")))
         .select([budget.year, budget.month], [], [netIncome])
         .build()
@@ -263,9 +263,9 @@ Execute a query that shows the Net Income Growth for each year.
 <details><summary>Result</summary>
 
 ```typescript      
-const query = from("budget")
-        .where(criterion("Scenario", eq("b")))
-        .select(["Year"], [], [netIncome, netIncomeGrowth])
+const query = from(budget._name)
+        .where(criterion(budget.scenario, eq("b")))
+        .select([budget.year], [], [netIncome, netIncomeGrowth])
         .build()
 ```
 
@@ -337,8 +337,16 @@ And use this column, satisfaction level, for our analysis.
 
 Let's first define the virtual table in Typescript:
 ```typescript
-import {VirtualTable} from "@squashql/squashql-js"
-import {satisfactionLevels} from "./tables"
+import {TableField, VirtualTable} from "@squashql/squashql-js"
+
+class SatisfactionLevels {
+  readonly _name: string = "satisfaction_level"
+  readonly satisfactionLevel: TableField = new TableField("satisfaction_level.satisfaction_level")
+  readonly lowerBound: TableField = new TableField("satisfaction_level.lower_bound")
+  readonly upperBound: TableField = new TableField("satisfaction_level.upper_bound")
+}
+
+const satisfactionLevels = new SatisfactionLevels()
 
 const records = [
   ["neutral", 0, 2],
@@ -400,6 +408,15 @@ a new bucketing on top of the one described above.
 Let's define a new virtual table to classify expenses according to their cost. Expenses with amount between `[0, 10[` will 
 be classified as low, between `[10, 40[` as medium and between `[40, 500[` as high.
 ```typescript
+class ExpenseLevels {
+  readonly _name: string = "expense_level"
+  readonly expenseLevel: TableField = new TableField("expense_level.expense_level")
+  readonly lowerBound: TableField = new TableField("expense_level.lower_bound")
+  readonly upperBound: TableField = new TableField("expense_level.upper_bound")
+}
+
+const expenseLevels = new ExpenseLevels()
+
 const expenseLevelsRecords = [
   ["low", 0, 10],
   ["medium", 10, 40],
@@ -419,8 +436,8 @@ To use is, we simply join again on this table:
 const query = from(budget._name)
         .joinVirtual(satisfactionLevelsVT, JoinType.INNER)
         .on(all([
-          criterion_(budget.score, satisfactionLevels.lowerBound, ConditionType.GE),
-          criterion_(budget.score, satisfactionLevels.upperBound, ConditionType.LT)
+          criterion_(budget.happinessScore, satisfactionLevels.lowerBound, ConditionType.GE),
+          criterion_(budget.happinessScore, satisfactionLevels.upperBound, ConditionType.LT)
         ]))
         .joinVirtual(expenseLevelsVT, JoinType.INNER)
         .on(all([
@@ -502,18 +519,18 @@ const query = from(budget._name)
 <details><summary>Result</summary>
 
 ```
-+----------+------------+
-| Scenario | Net income |
-+----------+------------+
-|        b |       86.5 |
-|       sc |      260.5 |
-|      sco |      808.5 |
-|       sm |      506.5 |
-|      smc |      680.5 |
-|     smco |     1228.5 |
-|       so |      634.5 |
-|       ss |      473.5 |
-+----------+------------+
++-----------------+------------+
+| budget.Scenario | Net income |
++-----------------+------------+
+|               b |       66.5 |
+|              sc |      240.5 |
+|             sco |      788.5 |
+|              sm |      486.5 |
+|             smc |      660.5 |
+|            smco |     1208.5 |
+|              so |      614.5 |
+|              ss |      473.5 |
++-----------------+------------+
 ```
 </details>
 
@@ -555,23 +572,23 @@ const query = from(budget._name)
 <details><summary>Result</summary>
 
 ```
-+--------+----------+------------+
-|  group | Scenario | Net income |
-+--------+----------+------------+
-| group1 |        b |       86.5 |
-| group1 |       sc |      260.5 |
-| group1 |      sco |      808.5 |
-| group2 |        b |       86.5 |
-| group2 |       sm |      506.5 |
-| group2 |      smc |      680.5 |
-| group2 |     smco |     1228.5 |
-| group3 |        b |       86.5 |
-| group3 |       so |      634.5 |
-| group3 |      sco |      808.5 |
-| group3 |     smco |     1228.5 |
-| group4 |        b |       86.5 |
-| group4 |       ss |      473.5 |
-+--------+----------+------------+
++--------+-----------------+------------+
+|  group | budget.Scenario | Net income |
++--------+-----------------+------------+
+| group1 |               b |       66.5 |
+| group1 |              sc |      240.5 |
+| group1 |             sco |      788.5 |
+| group2 |               b |       66.5 |
+| group2 |              sm |      486.5 |
+| group2 |             smc |      660.5 |
+| group2 |            smco |     1208.5 |
+| group3 |               b |       66.5 |
+| group3 |              so |      614.5 |
+| group3 |             sco |      788.5 |
+| group3 |            smco |     1208.5 |
+| group4 |               b |       66.5 |
+| group4 |              ss |      473.5 |
++--------+-----------------+------------+
 ```
 </details>
 
@@ -586,7 +603,7 @@ Use the `comparisonMeasureWithinGroup` to create the comparison measure.
 <details><summary>Code</summary>
 
 ```typescript
-const netIncomeCompPrev = comparisonMeasureWithinGroup(
+const netIncomeCompPrev = comparisonMeasureWithinSameGroup(
         "Net Income comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         netIncome,
@@ -606,23 +623,23 @@ const query = from(budget._name)
 ```
 
 ```
-+--------+----------+------------+--------------------------------------+
-|  group | Scenario | Net income | Net Income comp. with prev. scenario |
-+--------+----------+------------+--------------------------------------+
-| group1 |        b |       86.5 |                                  0.0 |
-| group1 |       sc |      260.5 |                                174.0 |
-| group1 |      sco |      808.5 |                                548.0 |
-| group2 |        b |       86.5 |                                  0.0 |
-| group2 |       sm |      506.5 |                                420.0 |
-| group2 |      smc |      680.5 |                                174.0 |
-| group2 |     smco |     1228.5 |                                548.0 |
-| group3 |        b |       86.5 |                                  0.0 |
-| group3 |       so |      634.5 |                                548.0 |
-| group3 |      sco |      808.5 |                                174.0 |
-| group3 |     smco |     1228.5 |                                420.0 |
-| group4 |        b |       86.5 |                                  0.0 |
-| group4 |       ss |      473.5 |                                387.0 |
-+--------+----------+------------+--------------------------------------+
++--------+-----------------+------------+--------------------------------------+
+|  group | budget.Scenario | Net income | Net Income comp. with prev. scenario |
++--------+-----------------+------------+--------------------------------------+
+| group1 |               b |       66.5 |                                  0.0 |
+| group1 |              sc |      240.5 |                                174.0 |
+| group1 |             sco |      788.5 |                                548.0 |
+| group2 |               b |       66.5 |                                  0.0 |
+| group2 |              sm |      486.5 |                                420.0 |
+| group2 |             smc |      660.5 |                                174.0 |
+| group2 |            smco |     1208.5 |                                548.0 |
+| group3 |               b |       66.5 |                                  0.0 |
+| group3 |              so |      614.5 |                                548.0 |
+| group3 |             sco |      788.5 |                                174.0 |
+| group3 |            smco |     1208.5 |                                420.0 |
+| group4 |               b |       66.5 |                                  0.0 |
+| group4 |              ss |      473.5 |                                407.0 |
++--------+-----------------+------------+--------------------------------------+
 ```
 </details>
 
@@ -637,8 +654,8 @@ in the same way *Net Income comp. with prev. scenario* has been done.
 <details><summary>Code</summary>
 
 ```typescript
-const happiness = sum("Happiness score sum", budget.score);
-const happinessCompPrev = comparisonMeasureWithinGroup(
+const happiness = sum("Happiness score sum", budget.happinessScore);
+const happinessCompPrev = comparisonMeasureWithinSameGroup(
         "Happiness score sum comp. with prev. scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         happiness,
@@ -658,23 +675,23 @@ const query = from(budget._name)
 ```
 
 ```
-+--------+----------+------+------------+---------------------+--------------------------------------+-----------------------------------------------+
-|  group | Scenario | Year | Net income | Happiness score sum | Net Income comp. with prev. scenario | Happiness score sum comp. with prev. scenario |
-+--------+----------+------+------------+---------------------+--------------------------------------+-----------------------------------------------+
-| group1 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                             0 |
-| group1 |       sc | 2023 |      260.5 |                 108 |                                174.0 |                                           -24 |
-| group1 |      sco | 2023 |      808.5 |                  95 |                                548.0 |                                           -13 |
-| group2 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                             0 |
-| group2 |       sm | 2023 |      506.5 |                  70 |                                420.0 |                                           -62 |
-| group2 |      smc | 2023 |      680.5 |                  46 |                                174.0 |                                           -24 |
-| group2 |     smco | 2023 |     1228.5 |                  33 |                                548.0 |                                           -13 |
-| group3 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                             0 |
-| group3 |       so | 2023 |      634.5 |                 119 |                                548.0 |                                           -13 |
-| group3 |      sco | 2023 |      808.5 |                  95 |                                174.0 |                                           -24 |
-| group3 |     smco | 2023 |     1228.5 |                  33 |                                420.0 |                                           -62 |
-| group4 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                             0 |
-| group4 |       ss | 2023 |      473.5 |                  99 |                                387.0 |                                           -33 |
-+--------+----------+------+------------+---------------------+--------------------------------------+-----------------------------------------------+
++--------+-----------------+------------+--------------------------------------+-----------------------------------------------+
+|  group | budget.Scenario | Net income | Net Income comp. with prev. scenario | Happiness score sum comp. with prev. scenario |
++--------+-----------------+------------+--------------------------------------+-----------------------------------------------+
+| group1 |               b |       66.5 |                                  0.0 |                                             0 |
+| group1 |              sc |      240.5 |                                174.0 |                                           -33 |
+| group1 |             sco |      788.5 |                                548.0 |                                           -28 |
+| group2 |               b |       66.5 |                                  0.0 |                                             0 |
+| group2 |              sm |      486.5 |                                420.0 |                                           -62 |
+| group2 |             smc |      660.5 |                                174.0 |                                           -33 |
+| group2 |            smco |     1208.5 |                                548.0 |                                           -28 |
+| group3 |               b |       66.5 |                                  0.0 |                                             0 |
+| group3 |              so |      614.5 |                                548.0 |                                           -28 |
+| group3 |             sco |      788.5 |                                174.0 |                                           -33 |
+| group3 |            smco |     1208.5 |                                420.0 |                                           -62 |
+| group4 |               b |       66.5 |                                  0.0 |                                             0 |
+| group4 |              ss |      473.5 |                                407.0 |                                           -21 |
++--------+-----------------+------------+--------------------------------------+-----------------------------------------------+
 ```
 </details>
 
@@ -688,12 +705,12 @@ Use the `first` keyword in `{["Scenario"]: "s-1"}` to change the reference posit
 <details><summary>Code</summary>
 
 ```typescript
-const netIncomeCompFirst = comparisonMeasureWithinGroup(
+const netIncomeCompFirst = comparisonMeasureWithinSameGroup(
         "Net Income comp. with first scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         netIncome,
         new Map([[budget.scenario, "first"]]))
-const happinessCompFirst = comparisonMeasureWithinGroup(
+const happinessCompFirst = comparisonMeasureWithinSameGroup(
         "Happiness score sum comp. with first scenario",
         ComparisonMethod.ABSOLUTE_DIFFERENCE,
         happiness,
@@ -713,23 +730,23 @@ const query = from(budget._name)
 ```
 
 ```
-+--------+----------+------+------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------------------------+-----------------------------------------------+
-|  group | Scenario | Year | Net income | Happiness score sum | Net Income comp. with prev. scenario | Net Income comp. with first scenario | Happiness score sum comp. with prev. scenario | Happiness score sum comp. with first scenario |
-+--------+----------+------+------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------------------------+-----------------------------------------------+
-| group1 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
-| group1 |       sc | 2023 |      260.5 |                 108 |                                174.0 |                                174.0 |                                           -24 |                                           -24 |
-| group1 |      sco | 2023 |      808.5 |                  95 |                                548.0 |                                722.0 |                                           -13 |                                           -37 |
-| group2 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
-| group2 |       sm | 2023 |      506.5 |                  70 |                                420.0 |                                420.0 |                                           -62 |                                           -62 |
-| group2 |      smc | 2023 |      680.5 |                  46 |                                174.0 |                                594.0 |                                           -24 |                                           -86 |
-| group2 |     smco | 2023 |     1228.5 |                  33 |                                548.0 |                               1142.0 |                                           -13 |                                           -99 |
-| group3 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
-| group3 |       so | 2023 |      634.5 |                 119 |                                548.0 |                                548.0 |                                           -13 |                                           -13 |
-| group3 |      sco | 2023 |      808.5 |                  95 |                                174.0 |                                722.0 |                                           -24 |                                           -37 |
-| group3 |     smco | 2023 |     1228.5 |                  33 |                                420.0 |                               1142.0 |                                           -62 |                                           -99 |
-| group4 |        b | 2023 |       86.5 |                 132 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
-| group4 |       ss | 2023 |      473.5 |                  99 |                                387.0 |                                387.0 |                                           -33 |                                           -33 |
-+--------+----------+------+------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------------------------+-----------------------------------------------+
++--------+-----------------+-------------+------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------------------------+-----------------------------------------------+
+|  group | budget.Scenario | budget.Year | Net income | Happiness score sum | Net Income comp. with prev. scenario | Net Income comp. with first scenario | Happiness score sum comp. with prev. scenario | Happiness score sum comp. with first scenario |
++--------+-----------------+-------------+------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------------------------+-----------------------------------------------+
+| group1 |               b |        2023 |       66.5 |                 144 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
+| group1 |              sc |        2023 |      240.5 |                 111 |                                174.0 |                                174.0 |                                           -33 |                                           -33 |
+| group1 |             sco |        2023 |      788.5 |                  83 |                                548.0 |                                722.0 |                                           -28 |                                           -61 |
+| group2 |               b |        2023 |       66.5 |                 144 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
+| group2 |              sm |        2023 |      486.5 |                  82 |                                420.0 |                                420.0 |                                           -62 |                                           -62 |
+| group2 |             smc |        2023 |      660.5 |                  49 |                                174.0 |                                594.0 |                                           -33 |                                           -95 |
+| group2 |            smco |        2023 |     1208.5 |                  21 |                                548.0 |                               1142.0 |                                           -28 |                                          -123 |
+| group3 |               b |        2023 |       66.5 |                 144 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
+| group3 |              so |        2023 |      614.5 |                 116 |                                548.0 |                                548.0 |                                           -28 |                                           -28 |
+| group3 |             sco |        2023 |      788.5 |                  83 |                                174.0 |                                722.0 |                                           -33 |                                           -61 |
+| group3 |            smco |        2023 |     1208.5 |                  21 |                                420.0 |                               1142.0 |                                           -62 |                                          -123 |
+| group4 |               b |        2023 |       66.5 |                 144 |                                  0.0 |                                  0.0 |                                             0 |                                             0 |
+| group4 |              ss |        2023 |      473.5 |                 123 |                                407.0 |                                407.0 |                                           -21 |                                           -21 |
++--------+-----------------+-------------+------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------------------------+-----------------------------------------------+
 ```
 </details>
 
@@ -761,20 +778,20 @@ Note: if you use VSCode, line in Terminal are wrapped leading to printing an unr
 in the Terminal and click on "Toggle Size to Content Width". Table should look like this.
 
 ```
-+-------------+-------------+--------------------+----------------------+----------------+---------------------------------+---------------------+--------------------+---------------------+
-|    Category |    Category |        Grand Total | Cigarettes & Alcohol | Current Income | Media & Clothes & Food Delivery | Minimum expenditure |   Outing Lifestyle | Sport & Game & misc |
-|        Year |       Month |        Expenditure |          Expenditure |    Expenditure |                     Expenditure |         Expenditure |        Expenditure |         Expenditure |
-+-------------+-------------+--------------------+----------------------+----------------+---------------------------------+---------------------+--------------------+---------------------+
-| Grand Total | Grand Total | 11543.240000000005 |   335.82000000000005 |            NaN |                          813.91 |   8573.500000000002 |             1057.7 |              762.31 |
-|        2022 |       Total |  5599.740000000005 |   161.82000000000002 |            NaN |              393.90999999999997 |   4159.000000000002 |              509.7 |              375.31 |
-|        2022 |           1 | 1823.0399999999997 |   54.870000000000005 |            NaN |                          118.75 |             1383.87 |             141.38 |  124.17000000000002 |
-|        2022 |           2 | 1920.9299999999996 |                58.59 |            NaN |              202.22000000000003 |  1389.7999999999997 |             149.75 |              120.57 |
-|        2022 |           3 | 1855.7699999999995 |                48.36 |            NaN |                           72.94 |             1385.33 | 218.57000000000005 |              130.57 |
-|        2023 |       Total |             5943.5 |                174.0 |            NaN |                           420.0 |              4414.5 |              548.0 |               387.0 |
-|        2023 |           1 |             1938.5 |                 59.0 |            NaN |                           127.0 |              1471.5 |              152.0 |               129.0 |
-|        2023 |           2 |             2035.5 |                 63.0 |            NaN |                           216.0 |              1471.5 |              161.0 |               124.0 |
-|        2023 |           3 |             1969.5 |                 52.0 |            NaN |                            77.0 |              1471.5 |              235.0 |               134.0 |
-+-------------+-------------+--------------------+----------------------+----------------+---------------------------------+---------------------+--------------------+---------------------+
++-----------------+-----------------+--------------------+----------------------+----------------+---------------------------------+---------------------+--------------------+---------------------+
+| budget.Category | budget.Category |        Grand Total | Cigarettes & Alcohol | Current Income | Media & Clothes & Food Delivery | Minimum expenditure |   Outing Lifestyle | Sport & Game & misc |
+|     budget.Year |    budget.Month |        Expenditure |          Expenditure |    Expenditure |                     Expenditure |         Expenditure |        Expenditure |         Expenditure |
++-----------------+-----------------+--------------------+----------------------+----------------+---------------------------------+---------------------+--------------------+---------------------+
+|     Grand Total |     Grand Total | 11583.240000000005 |   335.82000000000005 |            NaN |                          813.91 |   8573.500000000002 |             1057.7 |              802.31 |
+|            2022 |           Total |  5619.740000000005 |   161.82000000000002 |            NaN |              393.90999999999997 |   4159.000000000002 |              509.7 |              395.31 |
+|            2022 |               1 | 1843.0399999999997 |   54.870000000000005 |            NaN |                          118.75 |             1383.87 |             141.38 |  144.17000000000002 |
+|            2022 |               2 | 1920.9299999999996 |                58.59 |            NaN |              202.22000000000003 |  1389.7999999999997 |             149.75 |              120.57 |
+|            2022 |               3 | 1855.7699999999995 |                48.36 |            NaN |                           72.94 |             1385.33 | 218.57000000000005 |              130.57 |
+|            2023 |           Total |             5963.5 |                174.0 |            NaN |                           420.0 |              4414.5 |              548.0 |               407.0 |
+|            2023 |               1 |             1958.5 |                 59.0 |            NaN |                           127.0 |              1471.5 |              152.0 |               149.0 |
+|            2023 |               2 |             2035.5 |                 63.0 |            NaN |                           216.0 |              1471.5 |              161.0 |               124.0 |
+|            2023 |               3 |             1969.5 |                 52.0 |            NaN |                            77.0 |              1471.5 |              235.0 |               134.0 |
++-----------------+-----------------+--------------------+----------------------+----------------+---------------------------------+---------------------+--------------------+---------------------+
 ```
 
 You can also run interactive queries by launching the ui project available in this repository. Navigate to `ui/`, then run the development server:
@@ -789,7 +806,12 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000/tutorial](http://localhost:3000/tutorial) with your browser. 
+Open [http://localhost:3000/tutorial](http://localhost:3000/tutorial) with your browser. Click on the following button
+to display the pivot table editor:
+
+<img width="40" src="documentation/assets/pivot-table-editor-button.png">
+
+Start selecting the fields in Rows and Columns and add any measures.
 
 <img width="1000" src="documentation/assets/pivot-table-1.png">
 
@@ -799,8 +821,8 @@ Another example with the "double bucketing" saw earlier. As a reminder, the quer
 const query = from(budget._name)
         .joinVirtual(satisfactionLevelsVT, JoinType.INNER)
         .on(all([
-          criterion_(budget.score, satisfactionLevels.lowerBound, ConditionType.GE),
-          criterion_(budget.score, satisfactionLevels.upperBound, ConditionType.LT)
+          criterion_(budget.happinessScore, satisfactionLevels.lowerBound, ConditionType.GE),
+          criterion_(budget.happinessScore, satisfactionLevels.upperBound, ConditionType.LT)
         ]))
         .joinVirtual(expenseLevelsVT, JoinType.INNER)
         .on(all([
@@ -835,3 +857,7 @@ querier.executePivotQuery(query, pivotConfig, true)
 </details>
 
 <img width="1000" src="documentation/assets/pivot-table-2.png">
+
+You can even dynamically change the bounds of the satisfaction levels !
+
+<img width="300" src="documentation/assets/change-satisfaction-level.png">

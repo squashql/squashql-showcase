@@ -35,7 +35,7 @@ export default function Page() {
                   features={["Drilling across", "basic measures"]}/>
             <Card link={"financialplanning"} tables={["forecast"]}
                   features={["Time-series comparison", "conditional aggregation", "hierarchical measures"]}/>
-            <Card link={"blank"} tables={["blank"]} features={[]}/>
+            <Card link={"blank"} tables={["blank"]} features={["Load your own csv file and create your own calculations"]}/>
           </div>
   )
 }
