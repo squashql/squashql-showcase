@@ -102,7 +102,7 @@ To start Next.js in development mode.
 npm --prefix ui run dev
 ```
 
-Open `http://localhost:3000` in your browser. You will see 4 cards. Each one of them will show you one or several SquashQL 
+Open `http://localhost:3000` in your browser. You will see 6 cards. Each one of them will show you one or several SquashQL 
 feature. Do not hesitate to try them all! Here's the full list of features and below some examples: conditional aggregation, 
 basic aggregation, time-series comparison, multiple dynamic bucketing, group comparison, hierarchical measures, drilling across.
 
