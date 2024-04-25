@@ -13,6 +13,7 @@ import {
 import {population, spending} from "@/app/lib/tables"
 import {QueryProvider} from "@/app/lib/queryProvider"
 import {toCriteria} from "@/app/lib/queries"
+import {getElementString} from "@/app/components/AxisSelector"
 
 const continent = new AliasedField("continent")
 const country = new AliasedField("country")
@@ -48,13 +49,13 @@ export class SpendingAndPopulationQueryProvider implements QueryProvider {
   readonly table = [spending, population]
 
   query(select: Field[], values: Measure[], filters: Map<Field, any[]>, pivotConfig: PivotConfig): QueryMerge | Query {
-    const targetMeasureSpendingStore = values.filter((m) => spendingMeasures.includes(m))
-    const targetMeasurePopulationStore = values.filter((m) => populationMeasures.includes(m))
+    const targetMeasureSpendingStore = values.filter((m) => spendingMeasures.map(v => v.alias).includes(m.alias))
+    const targetMeasurePopulationStore = values.filter((m) => populationMeasures.map(v => v.alias).includes(m.alias))
 
-    let targetFieldSpendingStore = select.filter((f) => spendingFields.includes(f))
-    const targetFieldPopulationStore = select.filter((f) => populationFields.includes(f))
+    const targetFieldSpendingStore = select.filter((f) => spendingFields.map(s => getElementString(s)).includes(getElementString(f)))
+    const targetFieldPopulationStore = select.filter((f) => populationFields.map(s => getElementString(s)).includes(getElementString(f)))
 
-    let q1 = undefined
+    let q1
     if (targetMeasureSpendingStore.length > 0) {
       this.aliasTableFields(targetFieldSpendingStore,
               [continent, country],
@@ -70,7 +71,7 @@ export class SpendingAndPopulationQueryProvider implements QueryProvider {
               .build()
     }
 
-    let q2 = undefined
+    let q2
     if (targetMeasurePopulationStore.length > 0) {
       this.aliasTableFields(targetFieldPopulationStore,
               [continent, country],
