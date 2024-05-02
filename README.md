@@ -68,11 +68,11 @@ The image contains:
   directly in the container
 - The code source of this repository
 
-Open this url: `http://localhost:8080` to start the pre-built webapp.
+Open this url: [http://localhost:8080](http://localhost:8080) to start the pre-built webapp.
 
 <img width="800" src="documentation/assets/features.png">
 
-If you want to change start the ui in dev mode, refer to _Start Next.js pivot table web app_ section below.  
+If you want to modify the ui in dev mode, refer to _Start Next.js pivot table web app_ section below.  
 
 Visual Studio is available at `http://localhost:9090`. Default password is `123456`.
 
