@@ -68,7 +68,9 @@ The image contains:
   directly in the container
 - The code source of this repository
 
-Server address is: `http://localhost:8080`
+Open this url: `http://localhost:8080` to start the pre-built webapp. If you want to change start the ui in dev mode, 
+refer to _Start Next.js pivot table web app_ section below.  
+
 Visual Studio is available at `http://localhost:9090`. Default password is `123456`.
 
 You can start the [TUTORIAL.md](./TUTORIAL.md) from there.
