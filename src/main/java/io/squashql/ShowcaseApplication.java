@@ -7,8 +7,10 @@ import io.squashql.table.Table;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -38,6 +40,15 @@ public class ShowcaseApplication {
     QueryEngine<DuckDBDatastore> engine = new DuckDBQueryEngine(new DuckDBDatastore(false));
     configure(engine);
     return engine;
+  }
+
+  @Bean
+  public ViewResolver viewResolver() {
+    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//    resolver.setPrefix("/WEB-INF/views/");
+    resolver.setSuffix(".html");
+    resolver.setExposeContextBeansAsAttributes(true);
+    return resolver;
   }
 
   private static void configure(QueryEngine<DuckDBDatastore> engine) {
