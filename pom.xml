@@ -126,8 +126,7 @@
         <version>${maven-exec-plugin.version}</version>
         <executions>
           <execution>
-            <!-- compile phase to execute before test phase (see below) -->
-            <phase>compile</phase>
+            <phase>generate-resources</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -144,7 +143,7 @@
         <executions>
           <execution>
             <id>clean old files</id>
-            <phase>clean</phase>
+            <phase>generate-resources</phase>
             <configuration>
               <target>
                 <delete dir="${basedir}/src/main/resources/static/"/>
@@ -156,8 +155,7 @@
           </execution>
           <execution>
             <id>copy ui files</id>
-            <!-- test phase to copy the files before the jar is built (in package phase) -->
-            <phase>test</phase>
+            <phase>generate-resources</phase>
             <configuration>
               <target>
                 <copy todir="${basedir}/src/main/resources/static/">
