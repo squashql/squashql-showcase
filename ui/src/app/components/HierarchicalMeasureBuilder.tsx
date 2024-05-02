@@ -11,10 +11,11 @@ import {
 import {getElementString} from "@/app/components/AxisSelector"
 import FloatingSelect from "@/app/components/FloatingSelect"
 import FloatingInputText from "@/app/components/FloatingInputText"
+import {Formatter, percentFormatter} from "@/app/lib/formatters"
 
 interface HierarchicalMeasureBuilderProps {
   measures: Measure[]
-  onNewMeasure: (m: Measure) => void
+  onNewMeasure: (m: Measure, formatter?: Formatter) => void
 }
 
 interface HierarchicalMeasureBuilderState {
@@ -73,7 +74,7 @@ export default function HierarchicalMeasureBuilder(props: HierarchicalMeasureBui
       }
 
       if (measure) {
-        props.onNewMeasure(measure)
+        props.onNewMeasure(measure, percentFormatter)
         setState(initialState) // Clear everything
       }
     }

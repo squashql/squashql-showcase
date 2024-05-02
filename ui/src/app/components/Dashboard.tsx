@@ -85,13 +85,19 @@ export default function Dashboard(props: DashboardProps) {
     executeAndSetResult(state.rows, state.columns, state.values, copy, minify)
   }
 
-  function addNewMeasureToSelection(m: Measure) {
+  function addNewMeasureToSelection(m: Measure, formatter?: Formatter) {
     const copy = state.values.slice()
     copy.push(measureToSelectableElement(m))
+    let copyFormatters = state.formatters
+    if (formatter) {
+      copyFormatters = copyFormatters.slice()
+      copyFormatters.push(new PivotTableCellFormatter(m.alias, formatter))
+    }
     setState((prevState) => {
       return {
         ...prevState,
-        values: copy
+        values: copy,
+        formatters: copyFormatters
       }
     })
   }
@@ -126,7 +132,7 @@ export default function Dashboard(props: DashboardProps) {
                 <div className="dropdown">
                   <button className="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
                           aria-expanded="false">
-                  Edit
+                    Edit
                   </button>
                   <ul className="dropdown-menu">
                     <li><a className={`dropdown-item ${!canUndo ? "disabled" : ""}`} href="#" onClick={undo}>Undo</a>
