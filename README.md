@@ -68,8 +68,11 @@ The image contains:
   directly in the container
 - The code source of this repository
 
-Open this url: `http://localhost:8080` to start the pre-built webapp. If you want to modify the ui in dev mode, 
-refer to _Start Next.js pivot table web app_ section below.  
+Open this url: [http://localhost:8080](http://localhost:8080) to start the pre-built webapp.
+
+<img width="800" src="documentation/assets/features.png">
+
+If you want to modify the ui in dev mode, refer to _Start Next.js pivot table web app_ section below.  
 
 Visual Studio is available at `http://localhost:9090`. Default password is `123456`.
 
@@ -105,10 +108,10 @@ npm --prefix ui run dev
 ```
 
 Open `http://localhost:3000` in your browser. You will see 6 cards. Each one of them will show you one or several SquashQL 
-feature. Do not hesitate to try them all! Here's the full list of features and below some examples: conditional aggregation, 
+features. Do not hesitate to try them all! Here's the full list of features and below some examples: conditional aggregation, 
 basic aggregation, time-series comparison, multiple dynamic bucketing, group comparison, hierarchical measures, drilling across.
 
-<img width="300" src="documentation/assets/features.png">
+<img width="800" src="documentation/assets/features.png">
 
 The drilling across feature, querying two fact tables at the same time
 

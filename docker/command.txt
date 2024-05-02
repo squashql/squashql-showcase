@@ -8,9 +8,9 @@ docker run --rm --name squashql-showcase -it -p 8080:8080 -p 9090:9090 -v $(pwd)
 
 Build the image:
 	In the root directory:
-	Build the project to create the server jar squashql-showcase-1.0.0.jar
-	docker build -t paulbares/squashql-showcase:latest -f docker/Dockerfile .
-	docker buildx build --platform linux/amd64,linux/arm64 -t paulbares/squashql-showcase:latest -f docker/Dockerfile .
+	- Build the project to create the server jar squashql-showcase-1.0.0.jar
+	- docker buildx build --platform linux/amd64,linux/arm64 -t paulbares/squashql-showcase:latest -f docker/Dockerfile .
+  - docker image push paulbares/squashql-showcase
 
 Run docker bash:
 docker run -it --entrypoint /bin/bash squashql-showcase
