@@ -1,4 +1,4 @@
-Run the image: 
+Run the image:
 	// To mirror host dir. and container dir.
 	docker run -it -p 8080:8080 -p 9090:9090 -p 3000:3000 -v $(pwd)/data:/data -v $(pwd)/code:/code --name squashql-showcase paulbares/squashql-showcase:latest
 	docker run -it -p 8080:8080 -p 9090:9090 -p 3000:3000 --name squashql-showcase paulbares/squashql-showcase:latest
@@ -6,7 +6,7 @@ Run the image:
 
 docker run --rm --name squashql-showcase -it -p 8080:8080 -p 9090:9090 -v $(pwd)/data:/data -v $(pwd)/code:/code squashql-showcase:latest
 
-Build the image: 
+Build the image:
 	In the root directory:
 	Build the project to create the server jar squashql-showcase-1.0.0.jar
 	docker build -t paulbares/squashql-showcase:latest -f docker/Dockerfile .
