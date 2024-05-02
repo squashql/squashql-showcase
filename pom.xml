@@ -147,7 +147,6 @@
             <configuration>
               <target>
                 <delete dir="${basedir}/src/main/resources/static/"/>
-<!--                <mkdir dir="${basedir}/json"/>-->
               </target>
             </configuration>
             <goals>
