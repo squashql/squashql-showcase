@@ -59,7 +59,7 @@ docker run -it -p 8080:8080 -p 9090:9090 -p 3000:3000 --name squashql-showcase p
 
 Next time, simply run:
 ```
-docker start -a paulbares/squashql-showcase
+docker start -a squashql-showcase
 ```
 
 The image contains:
@@ -68,7 +68,7 @@ The image contains:
   directly in the container
 - The code source of this repository
 
-Open this url: `http://localhost:8080` to start the pre-built webapp. If you want to change start the ui in dev mode, 
+Open this url: `http://localhost:8080` to start the pre-built webapp. If you want to modify the ui in dev mode, 
 refer to _Start Next.js pivot table web app_ section below.  
 
 Visual Studio is available at `http://localhost:9090`. Default password is `123456`.
