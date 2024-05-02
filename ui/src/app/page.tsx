@@ -1,3 +1,5 @@
+import React from "react";
+
 interface CardProps {
   tables: string[],
   features: string[],
@@ -6,17 +8,20 @@ interface CardProps {
 
 function Card(props: CardProps) {
   return (
-          <div className="card mb-1" style={{width: "30rem"}}>
+          <div className="card">
             <div className="card-body">
               <h5 className="card-title text-muted">Features</h5>
               <p className="card-text">
                 {props.features.join(", ")}<br/>
               </p>
+              <a href={props.link} className="card-link">Play</a>
+            </div>
+            <div className="card-footer text-body-secondary">
               <p className="card-text">
                 Table(s): {props.tables.join(", ")}
               </p>
-              <a href={props.link} className="card-link">Play</a>
             </div>
+
           </div>
   )
 }
@@ -24,18 +29,44 @@ function Card(props: CardProps) {
 export default function Page() {
 
   return (
-          <div className="ms-1 mt-1">
-            <Card link={"tutorial"} tables={["budget"]}
-                  features={["Time-series comparison", "Multiple bucketing", "conditional aggregation"]}/>
-            <Card link={"spending"} tables={["spending"]}
-                  features={["Time-series comparison", "group comparison", "hierarchical measures"]}/>
-            <Card link={"portfolio"} tables={["portfolio"]}
-                  features={["VaR 95", "Incremental VaR 95"]}/>
-            <Card link={"spendingandpopulation"} tables={["spending", "population"]}
-                  features={["Drilling across", "basic measures"]}/>
-            <Card link={"financialplanning"} tables={["forecast"]}
-                  features={["Time-series comparison", "conditional aggregation", "hierarchical measures"]}/>
-            <Card link={"blank"} tables={["blank"]} features={["Load your own csv file and create your own calculations"]}/>
-          </div>
+          <>
+            <div className="row m-1">
+              <h2>
+                <a className="link-dark me-1" href={"https://github.com/squashql/squashql-showcase"}>
+                  <i className="bi bi-github"></i>
+                </a>
+                SquashQL
+                <small className="text-body-secondary">&nbsp;showcase</small>
+              </h2>
+            </div>
+            <div className="row m-1">
+              <div className="col">
+                <Card link={"tutorial"} tables={["budget"]}
+                      features={["Time-series comparison", "Multiple bucketing", "conditional aggregation"]}/>
+              </div>
+              <div className="col">
+                <Card link={"spending"} tables={["spending"]}
+                      features={["Time-series comparison", "group comparison", "hierarchical measures"]}/>
+              </div>
+              <div className="col">
+                <Card link={"financialplanning"} tables={["forecast"]}
+                      features={["Time-series comparison", "conditional aggregation", "hierarchical measures"]}/>
+              </div>
+            </div>
+            <div className="row m-1">
+              <div className="col">
+                <Card link={"spendingandpopulation"} tables={["spending", "population"]}
+                      features={["Drilling across", "basic measures"]}/>
+              </div>
+              <div className="col">
+                <Card link={"portfolio"} tables={["portfolio"]}
+                      features={["VaR 95", "Incremental VaR 95"]}/>
+              </div>
+              <div className="col">
+                <Card link={"blank"} tables={["blank"]}
+                      features={["Load your own csv file and create your calculations"]}/>
+              </div>
+            </div>
+          </>
   )
 }
