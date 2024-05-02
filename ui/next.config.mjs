@@ -1,9 +1,17 @@
-const isProd = process.env.NODE_ENV === 'production'
+const getAssetPrefix = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://squashql.github.io/squashql-showcase'
+  } else if (process.env.NODE_ENV === 'server') {
+    return 'http://localhost:8080'
+  }
+  return undefined
+}
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  assetPrefix: isProd ? 'https://squashql.github.io/squashql-showcase' : undefined,
+  assetPrefix: getAssetPrefix(),
+  trailingSlash: true,
 }
 
 export default nextConfig

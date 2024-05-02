@@ -15,6 +15,8 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+    <maven-exec-plugin.version>3.2.0</maven-exec-plugin.version>
+    <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <squashql.version>1.17.2</squashql.version>
     <spring-boot.version>3.0.11</spring-boot.version>
     <junit.version>5.9.1</junit.version>
@@ -90,7 +92,8 @@
         <configuration>
           <!-- See here https://www.jacoco.org/jacoco/trunk/doc/prepare-agent-mojo.html to understand why `@{argLine}` is needed-->
           <!-- https://stackoverflow.com/questions/73465937/apache-spark-3-3-0-breaks-on-java-17-with-cannot-access-class-sun-nio-ch-direct-->
-          <argLine>--add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED</argLine>
+          <argLine>--add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED
+          </argLine>
         </configuration>
       </plugin>
       <plugin>
@@ -113,6 +116,55 @@
           <execution>
             <goals>
               <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>exec-maven-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <version>${maven-exec-plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${basedir}/build-ui.sh</executable>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${maven-antrun-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>clean old files</id>
+            <phase>clean</phase>
+            <configuration>
+              <target>
+                <delete dir="${basedir}/src/main/resources/static/"/>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>copy ui files</id>
+            <phase>package</phase>
+            <configuration>
+              <target>
+                <copy todir="${basedir}/src/main/resources/static/">
+                  <fileset dir="${basedir}/ui/out"/>
+                </copy>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
             </goals>
           </execution>
         </executions>
