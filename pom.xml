@@ -17,8 +17,8 @@
     <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
     <maven-exec-plugin.version>3.2.0</maven-exec-plugin.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
-    <squashql.version>1.17.2</squashql.version>
-    <spring-boot.version>3.0.11</spring-boot.version>
+    <squashql.version>1.18.2</squashql.version>
+    <spring-boot.version>3.0.13</spring-boot.version>
     <junit.version>5.9.1</junit.version>
     <junit-platform.version>1.9.1</junit-platform.version>
   </properties>
@@ -126,7 +126,8 @@
         <version>${maven-exec-plugin.version}</version>
         <executions>
           <execution>
-            <phase>package</phase>
+            <!-- compile phase to execute before test phase (see below) -->
+            <phase>compile</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -155,7 +156,8 @@
           </execution>
           <execution>
             <id>copy ui files</id>
-            <phase>package</phase>
+            <!-- test phase to copy the files before the jar is built (in package phase) -->
+            <phase>test</phase>
             <configuration>
               <target>
                 <copy todir="${basedir}/src/main/resources/static/">

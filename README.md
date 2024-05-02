@@ -59,7 +59,7 @@ docker run -it -p 8080:8080 -p 9090:9090 -p 3000:3000 --name squashql-showcase p
 
 Next time, simply run:
 ```
-docker start -a squashql-showcase
+docker start -a paulbares/squashql-showcase
 ```
 
 The image contains:
