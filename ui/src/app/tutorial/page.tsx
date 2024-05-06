@@ -1,9 +1,10 @@
 'use client'
-import {BudgetProvider, initialRecords} from "@/app/tutorial/budgetProvider"
+import {BudgetProvider} from "@/app/tutorial/budgetProvider"
 import {ChangeEvent} from "react"
 import dynamic from "next/dynamic"
+import {satisfactionLevelsRecords} from "@/app/tutorial/virtualTables"
 
-const records = initialRecords
+const records = satisfactionLevelsRecords
 
 interface SatisfactionLevelComponentProps {
   key: string
@@ -23,9 +24,9 @@ function SatisfactionLevelComponent(props: SatisfactionLevelComponentProps) {
                         <div className="input-group input-group-sm" key={level}>
                           <span className="input-group-text" style={{width: "6rem"}}>{level}</span>
                           <input type="number" aria-label="lower" className="form-control"
-                                 defaultValue={initialRecords[index][1]} onChange={e => props.onChange(e, index, 1)}/>
+                                 defaultValue={satisfactionLevelsRecords[index][1]} onChange={e => props.onChange(e, index, 1)}/>
                           <input type="number" aria-label="upper" className="form-control"
-                                 defaultValue={initialRecords[index][2]} onChange={e => props.onChange(e, index, 2)}/>
+                                 defaultValue={satisfactionLevelsRecords[index][2]} onChange={e => props.onChange(e, index, 2)}/>
                         </div>
                 ))}
               </div>
