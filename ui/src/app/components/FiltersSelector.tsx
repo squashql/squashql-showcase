@@ -3,6 +3,8 @@ import {Field, from, QueryResult} from "@squashql/squashql-js"
 import {SquashQLTable} from "@/app/lib/tables"
 import {queryExecutor, toCriteria} from "@/app/lib/queries"
 import React, {useEffect, useState} from "react"
+import {expenseLevels, satisfactionLevels} from "@/app/tutorial/virtualTables"
+import {getElementString} from "@/app/components/AxisSelector"
 
 interface FiltersSelectorProps {
   table: SquashQLTable
@@ -17,25 +19,41 @@ interface Option {
   label: string
 }
 
+function option(value: string): Option {
+  return {
+    value,
+    label: value
+  }
+}
+
 export default function FiltersSelector(props: FiltersSelectorProps) {
   const [options, setOptions] = useState<Option[]>()
 
   useEffect(() => {
     const copy = new Map(props.filters)
     copy.delete(props.field)
-    const query = from(props.table._name)
-            .where(toCriteria(copy)) // smart filtering
-            .select([props.field], [], [])
-            .build()
+    const table = props.table
+    let promise: Promise<Option[]>
+    // FIXME ideally this should not be hardcoded.
+    if (getElementString(props.field) === getElementString(satisfactionLevels.satisfactionLevel)) {
+      promise = Promise.resolve(satisfactionLevels.getColumnValues().map(s => option(s)))
+    } else if (getElementString(props.field) === getElementString(expenseLevels.expenseLevel)) {
+      promise = Promise.resolve(expenseLevels.getColumnValues().map(s => option(s)))
+    } else {
+      const query = from(table._name)
+              .where(toCriteria(copy)) // smart filtering
+              .select([props.field], [], [])
+              .build()
 
-    queryExecutor.querier.executeQuery(query)
-            .then(result => {
-              return (result as QueryResult).cells.map(c => ({
-                value: Object.values(c)[0],
-                label: Object.values(c)[0]
-              }))
-            })
-            .then(options => setOptions(options))
+      promise = queryExecutor.querier.executeQuery(query)
+              .then(result => {
+                return (result as QueryResult).cells.map(c => ({
+                  value: Object.values(c)[0],
+                  label: Object.values(c)[0]
+                }))
+              })
+    }
+    promise.then(options => setOptions(options))
   }, [props.table._name, props.filters, props.field])
 
   function onChange(values: readonly Option[], action: ActionMeta<Option>) {

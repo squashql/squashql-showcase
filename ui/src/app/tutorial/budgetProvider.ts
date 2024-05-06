@@ -26,12 +26,6 @@ import {QueryProvider} from "@/app/lib/queryProvider"
 import {expenseLevels, expenseLevelsVT, satisfactionLevels} from "@/app/tutorial/virtualTables"
 import {toCriteria} from "@/app/lib/queries"
 
-export const initialRecords = [
-  ["neutral", 0, 2],
-  ["happy", 2, 4],
-  ["very happy", 4, 5],
-]
-
 function createNewVirtualTable(records: (string | number)[][]): VirtualTable {
   return new VirtualTable(
           satisfactionLevels._name,
