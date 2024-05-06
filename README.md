@@ -88,7 +88,7 @@ Here's what the application looks like
 
 <img width="800" src="documentation/assets/application.png">
 
-### Load tables from a csv file
+### Load csv files
 
 <img width="300" src="documentation/assets/blank.png">
 
