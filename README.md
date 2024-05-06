@@ -63,30 +63,39 @@ docker start -a squashql-showcase
 ```
 
 The image contains:
-- A pre-configured SquashQL server started when launching the container
+- A pre-configured SquashQL server started when launching the container with the UI available at 
+[http://localhost:8080](http://localhost:8080)
 - An instance of [Visual Studio Code Server](https://code.visualstudio.com/docs/remote/vscode-server) to edit the code
   directly in the container
-- The code source of this repository
+- The source code of this repository
 
 Open this url: [http://localhost:8080](http://localhost:8080) to start the pre-built webapp.
 
 <img width="800" src="documentation/assets/features.png">
 
-If you want to modify the ui in dev mode, refer to _Start Next.js pivot table web app_ section below.  
-
-Visual Studio is available at `http://localhost:9090`. Default password is `123456`.
+If you want to edit the code of the UI in dev mode, refer to _Start Next.js pivot table web app_ section below. Visual
+Studio is available at `http://localhost:9090`. Default password is `123456`.
 
 You can start the [TUTORIAL.md](./TUTORIAL.md) from there.
 
 ## UI - Next.js application
 
 The application show you how to build a web application to interactively generate different pivot tables. You can either 
-run it locally on your computer if you have installed all prerequisites or use the built-in docker image containing everything 
-needed. 
+run it locally on your computer if you have installed all prerequisites or use the built-in docker image containing 
+everything needed. 
 
 Here's what the application looks like
 
 <img width="800" src="documentation/assets/application.png">
+
+### Load tables from a csv file
+
+<img width="300" src="documentation/assets/blank.png">
+
+Navigate to [http://localhost:3000/blank/](http://localhost:3000/blank/) and upload your own csv file. It will be loaded
+into a duckdb table. You can then start creating your own measures and build pivot tables.
+
+<img width="200" src="documentation/assets/blank-data.png">
 
 ### Load tables from Google Sheets
 
