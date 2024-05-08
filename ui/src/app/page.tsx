@@ -67,6 +67,14 @@ export default function Page() {
                       features={["Load your own csv file and create your calculations"]}/>
               </div>
             </div>
+            <div className="row m-1">
+              <div className="col">
+                <Card link={"duckdb"} tables={["continents", "countries", "cities"]}
+                      features={["partial rollup", "grouping sets"]}/>
+              </div>
+              <div className="col"></div>
+              <div className="col"></div>
+            </div>
           </>
   )
 }
