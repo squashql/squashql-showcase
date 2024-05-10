@@ -18,7 +18,9 @@ function Card(props: CardProps) {
             </div>
             <div className="card-footer text-body-secondary">
               <p className="card-text">
-                Table(s): {props.tables.join(", ")}
+                Table(s): {props.tables.map(name => (
+                      <a key={name} href={`table?name=${name}`} className="link-secondary m-1">{name}</a>)
+              )}
               </p>
             </div>
 

@@ -1,10 +1,13 @@
 package io.squashql.spring;
 
 import io.squashql.ShowcaseApplication;
+import io.squashql.query.Header;
 import io.squashql.query.database.QueryEngine;
+import io.squashql.query.dto.QueryResultDto;
 import io.squashql.store.Datastore;
 import io.squashql.store.Store;
 import io.squashql.table.Table;
+import io.squashql.table.TableUtils;
 import io.squashql.type.TableTypedField;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 public class DBController {
@@ -39,6 +43,17 @@ public class DBController {
   public ResponseEntity<String> showTables() {
     Table table = ShowcaseApplication.showTables(this.engine);
     return ResponseEntity.ok(table.toString());
+  }
+
+  @PostMapping("show-table")
+  public ResponseEntity<QueryResultDto> showTable(@RequestParam(name = "tablename") String tableName) {
+    Table table = this.engine.executeRawSql("select * from " + tableName);
+    List<String> fields = table.headers().stream().map(Header::name).collect(Collectors.toList());
+    QueryResultDto result = QueryResultDto.builder()
+            .columns(fields)
+            .cells(TableUtils.generateCells(table, false))
+            .build();
+    return ResponseEntity.ok(result);
   }
 
   @PostMapping("drop")
