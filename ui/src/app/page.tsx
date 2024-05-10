@@ -60,7 +60,7 @@ export default function Page() {
               </div>
               <div className="col">
                 <Card link={"portfolio"} tables={["portfolio"]}
-                      features={["VaR 95", "Incremental VaR 95"]}/>
+                      features={["VaR 95", "Incremental VaR 95", "Overall incremental VaR 95"]}/>
               </div>
               <div className="col">
                 <Card link={"blank"} tables={["blank"]}

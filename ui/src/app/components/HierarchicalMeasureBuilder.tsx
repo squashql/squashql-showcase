@@ -60,16 +60,16 @@ export default function HierarchicalMeasureBuilder(props: HierarchicalMeasureBui
           measure = multiply(state.alias, comparisonMeasureWithGrandTotal("__" + state.alias + "__", ComparisonMethod.DIVIDE, state.underlyingMeasure), integer(100))
           break
         case HierarchicalType.ParentOnRows:
-          measure = new PartialHierarchicalComparisonMeasure(state.alias, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.ROW, false)
+          measure = new PartialHierarchicalComparisonMeasure(state.alias, true, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.ROW, false)
           break
         case HierarchicalType.TotalOnRows:
-          measure = new PartialHierarchicalComparisonMeasure(state.alias, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.ROW, true)
+          measure = new PartialHierarchicalComparisonMeasure(state.alias, true, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.ROW, true)
           break
         case HierarchicalType.ParentOnColumns:
-          measure = new PartialHierarchicalComparisonMeasure(state.alias, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.COLUMN, false)
+          measure = new PartialHierarchicalComparisonMeasure(state.alias, true, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.COLUMN, false)
           break
         case HierarchicalType.TotalOnColumns:
-          measure = new PartialHierarchicalComparisonMeasure(state.alias, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.COLUMN, true)
+          measure = new PartialHierarchicalComparisonMeasure(state.alias, true, ComparisonMethod.DIVIDE, state.underlyingMeasure, Axis.COLUMN, true)
           break
       }
 

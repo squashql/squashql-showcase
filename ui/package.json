@@ -12,7 +12,7 @@
   "dependencies": {
     "@antv/s2-react": "^1.46.1",
     "@duckdb/duckdb-wasm": "^1.28.1-dev106.0",
-    "@squashql/squashql-js": "1.17.2",
+    "@squashql/squashql-js": "1.19.0",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",
     "next": "14.1.0",

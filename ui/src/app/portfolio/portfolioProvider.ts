@@ -37,12 +37,19 @@ const incVar95 = new ParametrizedMeasure("Incr. VaR 95", "INCREMENTAL_VAR", {
   "axis": Axis.COLUMN
 })
 
+const overallIncVar95 = new ParametrizedMeasure("Overall Incr. VaR 95", "OVERALL_INCREMENTAL_VAR", {
+  "value": portfolio.scenarioValue,
+  "date": portfolio.dateScenario,
+  "quantile": 0.95,
+  "axis": Axis.COLUMN
+})
+
 const pnl = sum("PnL", portfolio.scenarioValue)
 
 export class PortfolioProvider implements QueryProvider {
 
   readonly selectableFields = portfolio._fields
-  readonly measures = [countRows, pnl, var95, var95Date, incVar95]
+  readonly measures = [countRows, pnl, var95, var95Date, incVar95, overallIncVar95]
   readonly formatters = [new PivotTableCellFormatter(var95Date.alias, var95fDateOnly)]
   readonly table = [portfolio]
 
